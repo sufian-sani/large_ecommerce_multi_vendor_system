@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<style>
+.parent {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.image1 {
+  position: relative;
+  top: 0;
+  left: 0;
+  border: 5px SlateBlue solid;
+}
+.image2 {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  border: 5px SlateBlue solid;
+}
+
+
+</style>
+
+<section class="content">
+    <div class="row">
+			  <div class="col-12">
+				<div class="box">
+				  <div class="box-body">
+
+                     <img class="image1" src="{{row_value_of_vendor.vendor_shop_banner}}" width="100%">
+                    <img class="image2" src="{{row_value_of_vendor.vendor_shop_logo}}" width="25%">
+
+
+
+
+
+                  </div>
+                </div>
+              </div>
+    </div>
+    <div class="row">
+			  <div class="col-12">
+				<div class="box">
+				  <div class="box-body">
+
+                      <div class="row p-5 m-5">
+                          <div class="col-2" style="text-align:right">Vendor Full Name :</div>
+                          <div class="col-10">{{row_value_of_vendor.vendor_name}}</div>
+
+                      </div>
+
+                      <div class="row p-5 m-5">
+                          <div class="col-2" style="text-align:right">Shop Name :</div>
+                          <div class="col-10">{{row_value_of_vendor.vendor_shop_name}}</div>
+
+                      </div>
+
+                      <div class="row p-5 m-5">
+                          <div class="col-2" style="text-align:right">Shop URL :</div>
+                          <div class="col-10">{{row_value_of_vendor.vendor_shop_url}}</div>
+
+                      </div>
+                      <div class="row p-5 m-5">
+                          <div class="col-2" style="text-align:right">Address :</div>
+                          <div class="col-10">{{row_value_of_vendor.vendor_address}}</div>
+
+                      </div>
+
+
+                      <div class="row p-5 m-5">
+                          <div class="col-2" style="text-align:right">Phone Number :</div>
+                          <div class="col-10">{{row_value_of_vendor.vendor_phone_no}}</div>
+
+                      </div>
+
+                      <div class="row p-5 m-5">
+                          <div class="col-2" style="text-align:right">Email :</div>
+                          <div class="col-10">{{row_value_of_vendor.vendor_email}}</div>
+
+                      </div>
+
+                      <div class="row p-5 m-5">
+                          <div class="col-2" style="text-align:right">Joining Times:</div>
+                          <div class="col-10">{{row_value_of_vendor.join_date}}</div>
+
+                      </div>
+                      
+                      <div class="row p-5 m-5">
+                          <div class="col-2" style="text-align:right">Featured:</div>
+                          <div class="col-10">{{row_value_of_vendor.featured_vendor}}</div>
+
+                      </div>
+
+                      <div class="row p-5 m-5">
+
+                          <div class="col-2">
+                              <a class="btn btn-success" href="{% url 'upload_vendor_info_edit' row_value_of_vendor.vendor_phone_no %}">Edit Info</a>
+                          </div>
+                          <div class="col-10">
+                              <a class="btn btn-success" href="{% url 'upload_vendor_info_password_edit' row_value_of_vendor.vendor_phone_no %}">Edit Password</a>
+                          </div>
+
+
+                      </div>
+
+
+
+
+
+
+
+
+                  </div>
+                </div>
+              </div>
+    </div>
+
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,146 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+
+<div class="col-md-1"></div>
+
+<div class="col-md-11">
+        <div class="sign-in-page">
+			<div class="row">
+                    <form action="{% url 'third_stap_to_save_vendor_registration' %}" method="POST">{% csrf_token %}
+                        <input type="hidden" name="Vendor_registration_Full_Name" value="{{Vendor_registration_Full_Name}}">
+                        <input type="hidden" name="vendor_registration_Address" value="{{vendor_registration_Address}}">
+                        <input type="hidden" name="vendor_registration_Shop_Name" value="{{vendor_registration_Shop_Name}}">
+                        <input type="hidden" name="vendor_registration_Shop_URL" value="{{vendor_registration_Shop_URL}}">
+                        <input type="hidden" name="vendor_registration_Phone_No" value="{{vendor_registration_Phone_No}}">
+                        <input type="hidden" name="vendor_otp" value="{{vendor_otp}}">
+                        <input type="hidden" name="generated_otp_num_str" value="{{generated_otp_num_str}}">
+
+
+
+
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon13333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shop Logo</span>
+                                <label for="v_b" style="padding-left:20px;"><small>Preferred Size = Width: 300px & Height: 300px</small></label>
+                                <input type="file" class="upload" name="vendor_shop_logo" style="padding-left:20px;" required>
+                        </div>
+
+                        <div class="input-group" style="padding-top:10px;">
+                            <span class="input-group-addon" id="basic-addon133323" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shop Banner</span>
+
+                            <label for="v_b" style="padding-left:20px;"><small>Preferred Size = Width: 950px & Height: 350px</small></label>
+                            <input type="file" class="upload" style="padding-left:20px;" name="vendor_shop_Banner" placeholder="ssss" id="v_b">
+                        </div>
+
+
+                        {% if erorr_message == "email is already exist !" %}
+                            <div class="alert alert-danger" role="alert">
+                              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                              <span class="sr-only">Error:</span>
+                              {{erorr_message}}
+                            </div>
+                        {% endif %}
+
+
+
+
+
+                        <div class="input-group" style="padding-top:10px;">
+                            <span class="input-group-addon" id="">&nbsp;&nbsp;&nbsp;Payment Method</span>
+
+                            <select class="form-control" name="choos_get_paymnt_way" id="get_pay_option_selected" onchange="choose_payment()" required>
+                                <option value="" selected>Choose...</option>
+                                <option value="SSLCommerz">SSLCommerz</option>
+                                <option value="Bank Deposite">Bank Deposite</option>
+                              </select>
+                        </div>
+
+                        <div id="next_step_pay_option">
+
+                        </div>
+
+                        <div class="input-group" style="padding-top:10px;">
+                            <span class="input-group-addon" id="basic-addon13533253">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email</span>
+                            <input type="email" name="vendor_registration_Email" value="{{vendor_registration_Email}}" class="form-control pl-15 bg-transparent plc-black" placeholder="Email" required>
+                        </div>
+
+                        <div class="input-group" style="padding-top:10px;">
+                            <span class="input-group-addon" id="basic-addon135633253">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password</span>
+                                <input type="password" name="vendor_registration_Password" class="form-control pl-15 bg-transparent plc-black" placeholder="Password" required>
+                        </div>
+
+                       {% if erorr_message == "Password dosn't match !" %}
+                            <div class="alert alert-danger" role="alert">
+                              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                              <span class="sr-only">Error:</span>
+                              {{erorr_message}}
+                            </div>
+                        {% endif %}
+
+                        <div class="input-group" style="padding-top:10px; padding-bottom:10px;">
+                             <span class="input-group-addon" id="basic-addon1357633253">Confirm Password</span>
+                            <input type="password" name="vendor_registration_Retype_Password" class="form-control pl-15 bg-transparent plc-black" placeholder="Retype Password" required>
+                        </div>
+
+
+                        <button type="submit" style="height:40px; width:811px; align-items: center; background-color:#00B8AC; font-size:160%; text-align:center; color:#E9FF0C;">submit</button>
+
+                    </form>
+
+
+
+               </div>
+		</div>
+	</div>
+
+<script>
+    function choose_payment(){
+        var vget_pay_option_selected = document.getElementById('get_pay_option_selected').value;
+        console.log(vget_pay_option_selected)
+        if(vget_pay_option_selected == 'SSLCommerz'){
+
+            document.getElementById('next_step_pay_option').innerHTML = `<div class="input-group" style="padding-top:10px;">
+                            <span class="input-group-addon" id="">&nbsp;&nbsp;&nbsp;Operator</span>
+                            <select name="ssl_operator_name" class="form-control" id="get_pay_option_selected" required>
+                                <option value="" selected>Choose...</option>
+                                <option value="Bkash">Bkash</option>
+                                <option value="Nogod">Nogod</option>
+                              </select>
+                        </div>
+
+                        <div class="input-group" style="padding-top:10px;">
+                            <span class="input-group-addon" id="basic-addon135633253">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+88</span>
+                                <input type="number" name="ssl_number" class="form-control pl-15 bg-transparent plc-black" placeholder="number" required>
+                        </div>`
+        }
+
+        else if(vget_pay_option_selected == 'Bank Deposite'){
+            document.getElementById('next_step_pay_option').innerHTML = `<div class="input-group" style="padding-top:10px;">
+                            <span class="input-group-addon" id="basic-addon135633253">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bank Name</span>
+                                <input type="text" name="bank_nam" class="form-control pl-15 bg-transparent plc-black" placeholder="Bank Name" required>
+                        </div>
+                        <div class="input-group" style="padding-top:10px;">
+                            <span class="input-group-addon" id="basic-addon135633253">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Account Name</span>
+                                <input type="text" name="bnk_account_nam" class="form-control pl-15 bg-transparent plc-black" placeholder="Account Name" required>
+                        </div>
+                        <div class="input-group" style="padding-top:10px;">
+                            <span class="input-group-addon" id="basic-addon135633253">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Account Number</span>
+                                <input type="number" name="bnk_account_number" class="form-control pl-15 bg-transparent plc-black" placeholder="Account Number" required>
+                        </div>
+                        <div class="input-group" style="padding-top:10px;">
+                            <span class="input-group-addon" id="basic-addon135633253">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Branch</span>
+                                <input type="text" name="bnk_brnch" class="form-control pl-15 bg-transparent plc-black" placeholder="Branch" required>
+                        </div>
+                        <div class="input-group" style="padding-top:10px;">
+                            <span class="input-group-addon" id="basic-addon135633253">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Routing Number</span>
+                                <input type="number" name="bnk_rout_num" class="form-control pl-15 bg-transparent plc-black" placeholder="Routing Number" required>
+                        </div>`
+
+        }
+    }
+</script>
+
+{% endblock %}

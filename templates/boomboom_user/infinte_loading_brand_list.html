@@ -1,0 +1,26 @@
+{% load static %}
+{% load el_pagination_tags %}
+{% lazy_paginate 8 brand_list_get %}
+        {# your code to show the entry #}
+            <div class="all-vendors">
+            {% if brand_list_get %}
+                <div class="row book-list">
+                    {% for brand in brand_list_get %}
+
+                      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 card">
+                        <div class="list-vendor-border">
+                            <a href="{% url 'showing_product_by_brands' brand.slug %}">
+                              <div class="list-img">
+                                <img src="/media/{{brand.Brand_logo}}" alt="{{brand.Brand_Name}}">
+                              </div>
+                              <h4>{{brand.Brand_Name}}</h4>
+                            </a>
+                        </div>
+                      </div>
+
+                    {% endfor %}
+                </div>
+            {% endif %}
+            </div>
+{% show_more "More results" %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

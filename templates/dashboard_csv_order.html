@@ -1,0 +1,856 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+
+<section class="content">
+  <div class="content-header">
+      <h3>Order Report Generator</h3>
+  </div>
+  <div id="accordion">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          All Orders
+        </button>
+      </h5>
+    </div>
+
+
+
+    <form action="{% url 'all_product_order_for_csv' %}" method="POST">{% csrf_token %}
+
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="csv-box">
+                <h4>Filter Orders By</h4>
+
+                <div class="csv-radios">
+
+                  <div class="csv-radio">
+                    <input type="radio" id="all_product_order_Order_Date_age1" name="all_product_order_Order_Date" value="Order Date">
+                    <label for="all_product_order_Order_Date_age1">Order Date</label><br>
+                  </div>
+
+                  <div class="csv-radio">
+                    <input type="radio" id="all_product_order_Order_Date_age2" name="all_product_order_Order_Date" value="Paid Date">
+                    <label for="all_product_order_Order_Date_age2">Paid Date</label><br>
+                  </div>
+
+
+
+                </div>
+
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="csv-box">
+                <h4>Select Date <sup>*</sup></h4>
+                <div class="csv-radios">
+                  <div class="csv-radio">
+                    <label for="from_date">From:</label>
+                    <input type="date" id="from_date" name="all_Product_start_from_date">
+                  </div>
+                  <div class="csv-radio">
+                    <label for="to_date">To:</label>
+                    <input type="date" id="to_date" name="all_Product_start_to_date">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Select Order Statuses</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="Select_Order_Statuses_all" multiple>
+                    <option value="Processing">Processing</option>
+                    <option value="Pending payment">Pending payment</option>
+                    <option value="Partially Paid">Partially Paid</option>
+                    <option value="Ready To Ship">Ready To Ship</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                    <option value="Refunded">Refunded</option>
+                    <option value="Picked">Picked</option>
+                    <option value="On hold">On hold</option>
+                    <option value="Failed">Failed</option>
+                  </select>
+                </div>
+              </div>
+
+
+            </div>
+
+
+
+
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Product Categories</h4>
+                <div class="search-mu">
+                  <select style="display:none"  id="" name="all_product_Category_multiple" multiple>
+                    {% for i in all_product_Category %}
+                    <option value="{{i.Category_Name}}">{{i.Category_Name}}</option>
+                    {% endfor %}
+                  </select>
+
+
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Products</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_Products_multiple" multiple>
+                    {% for i in all_product_Products %}
+                    <option value="{{i.Product_Name}}">{{i.Product_Name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Brands</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_Brand_Name_multiple" multiple>
+                    {% for i in all_product_Brand %}
+                    <option value="{{i.Brand_Name}}">{{i.Brand_Name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Customers Phone number</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_User_multiple" multiple>
+                    {% for i in all_product_User %}
+                    <option value="{{i.username}}">{{i.username}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Vendors</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_vendor_registration_table_multiple" multiple>
+                    {% for i in all_product_vendor_registration_table %}
+                    <option value="{{i.vendor_shop_name}}">{{i.vendor_shop_name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter Payment Methods</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_vendor_Order_Table_multiple" multiple>
+
+                    <option value="Pay Online With SSLCommerz(Credit/Debit Card/MobileBanking/NetBanking/bKash)">Pay Online With SSLCommerz(Credit/Debit Card/MobileBanking/NetBanking/bKash)</option>
+                    <option value="Pay With Nagad">Pay With Nagad</option>
+                    <option value="Pay With Bkash">Pay With Bkash</option>
+                    <option value="Bank Deposit">Bank Deposit</option>
+
+
+<!--                    {% for i in all_product_Order_Table %}-->
+<!--                    <option value="{{i.Payment_method}}">{{i.Payment_method}}</option>-->
+<!--                    {% endfor %}-->
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter Shipping Methods</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_vendor_Order_Table_Shopping_multiple" multiple>
+
+                    <option value="Pickup From BoomBoom Office">Pickup From BoomBoom Office</option>
+                    <option value="Delivery">Delivery</option>
+
+<!--                    {% for i in all_product_Order_Table %}-->
+<!--                    <option value="{{i.Shopping}}">{{i.Shopping}}</option>-->
+<!--                    {% endfor %}-->
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+           <div class="row">
+            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+              <div class="csv-box">
+                <h4>Select Fields to Export</h4>
+                <input type="checkbox" id="order_id_for_all_order" name="" value="order_id" disabled>
+                <label for="order_id_for_all_order">Order ID</label>
+                <input type="checkbox" id="order_status_for_all_order" name="" value="order_status" disabled>
+                <label for="order_status_for_all_order">Order Status</label>
+                <input type="checkbox" id="order_date_for_all_order" name="" value="order_date" disabled>
+                <label for="order_date_for_all_order">Order Date</label>
+                <input type="checkbox" id="paid_date_for_all_order" name="" value="paid_date" disabled>
+                <label for="paid_date_for_all_order">Paid Date</label>
+                <input type="checkbox" id="address_for_all_order" name="" value="address" disabled>
+                <label for="address_for_all_order">Address</label>
+
+                <input type="checkbox" id="p_method_for_all_order" name="" value="p_method" disabled>
+                <label for="p_method_for_all_order">Payment Method</label>
+                <input type="checkbox" id="item_for_all_order" name="" value="item" disabled>
+                <label for="item_for_all_order">Item number</label>
+                <input type="checkbox" id="cname_for_all_order" name="" value="cname" disabled>
+                <label for="cname_for_all_order">Item Name</label>
+                <input type="checkbox" id="quantitycname_for_all_order" name="" value="cname" disabled>
+                <label for="quantitycname_for_all_order">Item quantity</label>
+
+
+                <input type="checkbox" id="cart_total_for_all_order" name="" value="cart_total" disabled>
+                <label for="cart_total_for_all_order">Order Total</label>
+
+                <input type="checkbox" id="Total_Discount_cart_total_for_all_order" name="" value="cart_total" disabled>
+                <label for="Total_Discount_cart_total_for_all_order">Total Discount</label>
+
+                <input type="checkbox" id="Tranjection_Id_for_all_order" name="" value="cart_total" disabled>
+                <label for="Tranjection_Id_for_all_order">Transaction Id</label>
+
+                <input type="checkbox" id="Customer_Email_total_for_all_order" name="" value="cart_total" disabled>
+                <label for="Customer_Email_total_for_all_order">Customer Email</label>
+
+                <input type="checkbox" id="Custmer_User_Id_cart_total_for_all_order" name="" value="cart_total" disabled>
+                <label for="Custmer_User_Id_cart_total_for_all_order">Custmer User Id</label>
+
+                <input type="checkbox" id="shipping_method_cart_total_for_all_order" name="" value="cart_total" disabled>
+                <label for="shipping_method_cart_total_for_all_order">shipping method</label>
+
+                <input type="checkbox" id="order_notescart_total_for_all_order" name="" value="cart_total" disabled>
+                <label for="order_notescart_total_for_all_order">Order Notes</label>
+
+
+
+
+              </div>
+            </div>
+
+          </div>
+
+
+
+        <input type="hidden" value="value_dashboard_csv_order" name="name_dashboard_csv_order">
+
+        <div class="row">
+            <div class="col-lg-12 col-sm-12">
+              <button type="submit" class="btn btn-primary"> Generate CSV</button>
+            </div>
+          </div>
+
+
+
+
+      </div>
+    </div>
+
+    </form>
+
+
+
+
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Regular Orders
+        </button>
+      </h5>
+    </div>
+
+    <form action="{% url 'all_product_order_for_csv' %}" method="POST">{% csrf_token %}
+
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="csv-box">
+                <h4>Filter Orders By</h4>
+
+                <div class="csv-radios">
+
+                  <div class="csv-radio">
+                    <input type="radio" id="requler_all_product_order_Order_Date_age1" name="all_product_order_Order_Date" value="Order Date">
+                    <label for="requler_all_product_order_Order_Date_age1">Order Date</label><br>
+                  </div>
+
+                  <div class="csv-radio">
+                    <input type="radio" id="requler_all_product_order_Order_Date_age2" name="all_product_order_Order_Date" value="Paid Date">
+                    <label for="requler_all_product_order_Order_Date_age2">Paid Date</label><br>
+                  </div>
+
+
+
+                </div>
+
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="csv-box">
+                <h4>Select Date <sup>*</sup></h4>
+                <div class="csv-radios">
+                  <div class="csv-radio">
+                    <label for="from_date">From:</label>
+                    <input type="date" id="requler_from_date" name="all_Product_start_from_date">
+                  </div>
+                  <div class="csv-radio">
+                    <label for="to_date">To:</label>
+                    <input type="date" id="requler_to_date" name="all_Product_start_to_date">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Select Order Statuses</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="Select_Order_Statuses_all" multiple>
+                    <option value="Processing">Processing</option>
+                    <option value="Pending payment">Pending payment</option>
+                    <option value="Partially Paid">Partially Paid</option>
+                    <option value="Ready To Ship">Ready To Ship</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                    <option value="Refunded">Refunded</option>
+                    <option value="Picked">Picked</option>
+                    <option value="On hold">On hold</option>
+                    <option value="Failed">Failed</option>
+                  </select>
+                </div>
+              </div>
+
+
+            </div>
+
+
+
+
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Product Categories</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_Category_multiple" multiple>
+                    {% for i in all_product_Category %}
+                    <option value="{{i.Category_Name}}">{{i.Category_Name}}</option>
+                    {% endfor %}
+                  </select>
+
+
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Products</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_Products_multiple" multiple>
+                    {% for i in all_product_Products %}
+                    <option value="{{i.Product_Name}}">{{i.Product_Name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Brands</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_Brand_Name_multiple" multiple>
+                    {% for i in all_product_Brand %}
+                    <option value="{{i.Brand_Name}}">{{i.Brand_Name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Customers Phone number</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_User_multiple" multiple>
+                    {% for i in all_product_User %}
+                    <option value="{{i.username}}">{{i.username}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Vendors</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_vendor_registration_table_multiple" multiple>
+                    {% for i in all_product_vendor_registration_table %}
+                    <option value="{{i.vendor_shop_name}}">{{i.vendor_shop_name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter Payment Methods</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_vendor_Order_Table_multiple" multiple>
+
+                    <option value="Pay Online With SSLCommerz(Credit/Debit Card/MobileBanking/NetBanking/bKash)">Pay Online With SSLCommerz(Credit/Debit Card/MobileBanking/NetBanking/bKash)</option>
+                    <option value="Pay With Nagad">Pay With Nagad</option>
+                    <option value="Pay With Bkash">Pay With Bkash</option>
+                    <option value="Bank Deposit">Bank Deposit</option>
+
+
+<!--                    {% for i in all_product_Order_Table %}-->
+<!--                    <option value="{{i.Payment_method}}">{{i.Payment_method}}</option>-->
+<!--                    {% endfor %}-->
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter Shipping Methods</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_vendor_Order_Table_Shopping_multiple" multiple>
+
+                    <option value="Pickup From BoomBoom Office">Pickup From BoomBoom Office</option>
+                    <option value="Delivery">Delivery</option>
+
+<!--                    {% for i in all_product_Order_Table %}-->
+<!--                    <option value="{{i.Shopping}}">{{i.Shopping}}</option>-->
+<!--                    {% endfor %}-->
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+              <div class="csv-box">
+                <h4>Select Fields to Export</h4>
+                <input type="checkbox" id="requler_order_id_for_all_order" name="" value="order_id" disabled>
+                <label for="requler_order_id_for_all_order">Order ID</label>
+                <input type="checkbox" id="requler_order_status_for_all_order" name="" value="order_status" disabled>
+                <label for="requler_order_status_for_all_order">Order Status</label>
+                <input type="checkbox" id="requler_order_date_for_all_order" name="" value="order_date" disabled>
+                <label for="requler_order_date_for_all_order">Order Date</label>
+                <input type="checkbox" id="requler_paid_date_for_all_order" name="" value="paid_date" disabled>
+                <label for="requler_paid_date_for_all_order">Paid Date</label>
+                <input type="checkbox" id="requler_address_for_all_order" name="" value="address" disabled>
+                <label for="requler_address_for_all_order">Address</label>
+
+                <input type="checkbox" id="requler_p_method_for_all_order" name="" value="p_method" disabled>
+                <label for="requler_p_method_for_all_order">Payment Method</label>
+                <input type="checkbox" id="requler_item_for_all_order" name="" value="item" disabled>
+                <label for="requler_item_for_all_order">Item number</label>
+                <input type="checkbox" id="requler_cname_for_all_order" name="" value="cname" disabled>
+                <label for="requler_cname_for_all_order">Item Name</label>
+                <input type="checkbox" id="requler_quantitycname_for_all_order" name="" value="cname" disabled>
+                <label for="requler_quantitycname_for_all_order">Item quantity</label>
+
+
+                <input type="checkbox" id="requler_cart_total_for_all_order" name="" value="cart_total" disabled>
+                <label for="requler_cart_total_for_all_order">Order Total</label>
+
+                <input type="checkbox" id="requler_Total_Discount_cart_total_for_all_order" name="" value="cart_total" disabled>
+                <label for="requler_Total_Discount_cart_total_for_all_order">Total Discount</label>
+
+                <input type="checkbox" id="requler_Tranjection_Id_for_all_order" name="" value="cart_total" disabled>
+                <label for="requler_Tranjection_Id_for_all_order">Transaction Id</label>
+
+                <input type="checkbox" id="requler_Customer_Email_total_for_all_order" name="" value="cart_total" disabled>
+                <label for="requler_Customer_Email_total_for_all_order">Customer Email</label>
+
+                <input type="checkbox" id="requler_Custmer_User_Id_cart_total_for_all_order" name="" value="cart_total" disabled>
+                <label for="requler_Custmer_User_Id_cart_total_for_all_order">Custmer User Id</label>
+
+                <input type="checkbox" id="requler_shipping_method_cart_total_for_all_order" name="" value="cart_total" disabled>
+                <label for="requler_shipping_method_cart_total_for_all_order">shipping method</label>
+
+                <input type="checkbox" id="requler_order_notescart_total_for_all_order" name="" value="cart_total" disabled>
+                <label for="requler_order_notescart_total_for_all_order">Order Notes</label>
+
+
+
+              </div>
+            </div>
+
+          </div>
+
+        <input type="hidden" value="value_dashboard_csv_order" name="name_dashboard_csv_order">
+        <input type="hidden" value="reguler_value_dashboard_csv_product" name="name_reguler_value_dashboard_csv_product">
+
+          <div class="row text-center">
+            <div class="col-lg-6 col-sm-6">
+              <button type="submit" class="btn btn-primary"> Generate CSV</button>
+            </div>
+
+          </div>
+
+
+      </div>
+    </div>
+
+
+
+   </form>
+
+
+  </div>
+
+
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Campaign Orders
+        </button>
+      </h5>
+    </div>
+
+    <form action="{% url 'all_product_order_for_csv' %}" method="POST">{% csrf_token %}
+
+      <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="csv-box">
+                <h4>Filter Orders By</h4>
+
+                <div class="csv-radios">
+
+                  <div class="csv-radio">
+                    <input type="radio" id="campaign_all_product_order_Order_Date_age1" name="all_product_order_Order_Date" value="Order Date">
+                    <label for="campaign_all_product_order_Order_Date_age1">Order Date</label><br>
+                  </div>
+
+                  <div class="csv-radio">
+                    <input type="radio" id="campaign_all_product_order_Order_Date_age2" name="all_product_order_Order_Date" value="Paid Date">
+                    <label for="campaign_all_product_order_Order_Date_age2">Paid Date</label><br>
+                  </div>
+
+
+
+                </div>
+
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="csv-box">
+                <h4>Select Campaign</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="report_product_campaign" multiple>
+                    <{% for i in all_campaign_table %}
+                    <option value="{{i.campaign_name}}">{{i.campaign_name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Select Order Statuses</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="Select_Order_Statuses_all" multiple>
+                    <option value="Processing">Processing</option>
+                    <option value="Pending payment">Pending payment</option>
+                    <option value="Partially Paid">Partially Paid</option>
+                    <option value="Ready To Ship">Ready To Ship</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                    <option value="Refunded">Refunded</option>
+                    <option value="Picked">Picked</option>
+                    <option value="On hold">On hold</option>
+                    <option value="Failed">Failed</option>
+                  </select>
+                </div>
+              </div>
+
+
+            </div>
+
+
+
+
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Product Categories</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_Category_multiple" multiple>
+                    {% for i in all_product_Category %}
+                    <option value="{{i.Category_Name}}">{{i.Category_Name}}</option>
+                    {% endfor %}
+                  </select>
+
+
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Products</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_Products_multiple" multiple>
+                    {% for i in all_product_Products %}
+                    <option value="{{i.Product_Name}}">{{i.Product_Name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Brands</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_Brand_Name_multiple" multiple>
+                    {% for i in all_product_Brand %}
+                    <option value="{{i.Brand_Name}}">{{i.Brand_Name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Customers Phone number</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_User_multiple" multiple>
+                    {% for i in all_product_User %}
+                    <option value="{{i.username}}">{{i.username}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Vendors</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_vendor_registration_table_multiple" multiple>
+                    {% for i in all_product_vendor_registration_table %}
+                    <option value="{{i.vendor_shop_name}}">{{i.vendor_shop_name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter Payment Methods</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_vendor_Order_Table_multiple" multiple>
+
+                    <option value="Pay Online With SSLCommerz(Credit/Debit Card/MobileBanking/NetBanking/bKash)">Pay Online With SSLCommerz(Credit/Debit Card/MobileBanking/NetBanking/bKash)</option>
+                    <option value="Pay With Nagad">Pay With Nagad</option>
+                    <option value="Pay With Bkash">Pay With Bkash</option>
+                    <option value="Bank Deposit">Bank Deposit</option>
+
+
+<!--                    {% for i in all_product_Order_Table %}-->
+<!--                    <option value="{{i.Payment_method}}">{{i.Payment_method}}</option>-->
+<!--                    {% endfor %}-->
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter Shipping Methods</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_vendor_Order_Table_Shopping_multiple" multiple>
+
+                    <option value="Pickup From BoomBoom Office">Pickup From BoomBoom Office</option>
+                    <option value="Delivery">Delivery</option>
+
+<!--                    {% for i in all_product_Order_Table %}-->
+<!--                    <option value="{{i.Shopping}}">{{i.Shopping}}</option>-->
+<!--                    {% endfor %}-->
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+              <div class="csv-box">
+                <h4>Select Fields to Export</h4>
+                <input type="checkbox" id="campaign_order_id_for_all_order" name="" value="order_id" disabled>
+                <label for="campaign_order_id_for_all_order">Order ID</label>
+                <input type="checkbox" id="campaign_order_status_for_all_order" name="" value="order_status" disabled>
+                <label for="campaign_order_status_for_all_order">Order Status</label>
+                <input type="checkbox" id="campaign_order_date_for_all_order" name="" value="order_date" disabled>
+                <label for="campaign_order_date_for_all_order">Order Date</label>
+                <input type="checkbox" id="campaign_paid_date_for_all_order" name="" value="paid_date" disabled>
+                <label for="campaign_paid_date_for_all_order">Paid Date</label>
+                <input type="checkbox" id="campaign_address_for_all_order" name="" value="address" disabled>
+                <label for="campaign_address_for_all_order">Address</label>
+
+                <input type="checkbox" id="campaign_p_method_for_all_order" name="" value="p_method" disabled>
+                <label for="campaign_p_method_for_all_order">Payment Method</label>
+                <input type="checkbox" id="campaign_item_for_all_order" name="" value="item" disabled>
+                <label for="campaign_item_for_all_order">Item number</label>
+                <input type="checkbox" id="campaign_cname_for_all_order" name="" value="cname" disabled>
+                <label for="campaign_cname_for_all_order">Item Name</label>
+                <input type="checkbox" id="campaign_quantitycname_for_all_order" name="" value="cname" disabled>
+                <label for="campaign_quantitycname_for_all_order">Item quantity</label>
+
+
+                <input type="checkbox" id="campaign_cart_total_for_all_order" name="" value="cart_total" disabled>
+                <label for="campaign_cart_total_for_all_order">Order Total</label>
+
+                <input type="checkbox" id="campaign_Total_Discount_cart_total_for_all_order" name="" value="cart_total" disabled>
+                <label for="campaign_Total_Discount_cart_total_for_all_order">Total Discount</label>
+
+                <input type="checkbox" id="campaign_Tranjection_Id_for_all_order" name="" value="cart_total" disabled>
+                <label for="campaign_Tranjection_Id_for_all_order">Transaction Id</label>
+
+                <input type="checkbox" id="campaign_Customer_Email_total_for_all_order" name="" value="cart_total" disabled>
+                <label for="campaign_Customer_Email_total_for_all_order">Customer Email</label>
+
+                <input type="checkbox" id="campaign_Custmer_User_Id_cart_total_for_all_order" name="" value="cart_total" disabled>
+                <label for="campaign_Custmer_User_Id_cart_total_for_all_order">Custmer User Id</label>
+
+                <input type="checkbox" id="campaign_shipping_method_cart_total_for_all_order" name="" value="cart_total" disabled>
+                <label for="campaign_shipping_method_cart_total_for_all_order">shipping method</label>
+
+                <input type="checkbox" id="campaign_order_notescart_total_for_all_order" name="" value="cart_total" disabled>
+                <label for="campaign_order_notescart_total_for_all_order">Order Notes</label>
+
+
+
+              </div>
+            </div>
+
+          </div>
+
+        <input type="hidden" value="value_dashboard_csv_order" name="name_dashboard_csv_order">
+        <input type="hidden" value="campaign_value_dashboard_csv_product" name="name_campaign_value_dashboard_csv_product">
+
+          <div class="row text-center">
+            <div class="col-lg-6 col-sm-6">
+              <button type="submit" class="btn btn-primary"> Generate CSV</button>
+            </div>
+
+          </div>
+
+
+      </div>
+    </div>
+
+
+
+   </form>
+
+
+  </div>
+</div>
+
+</section>
+
+
+
+{% endblock %}

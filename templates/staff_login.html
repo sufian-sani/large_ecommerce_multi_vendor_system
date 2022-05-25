@@ -1,0 +1,103 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static '' %}admin_deshboard_static/images/favicon.ico">
+    <title>boomboom Admin - Log in </title>
+	<!-- Bootstrap 4.0-->
+	<link rel="stylesheet" href="{% static 'admin_deshboard_static/assets/vendor_components/bootstrap/dist/css/bootstrap.min.css' %}">
+	<!-- theme style -->
+	<link rel="stylesheet" href="{% static 'admin_deshboard_static/css/style.css' %}">
+	<!-- Admin skins -->
+	<link rel="stylesheet" href="{% static 'admin_deshboard_static/css/skin_color.css' %}">
+
+</head>
+<body class="hold-transition theme-blueindigo bg-img" style="background-image: url({% static '' %}admin_deshboard_static/images/auth-bg/bg-1.jpg);">
+	
+	<div class="h-p100">
+		<div class="row align-items-center justify-content-md-center h-p100">
+			<div class="col-lg-4 col-12 h-lg-p100 h-auto bg-dark-opacity-80 depth-4">
+				<div class="row l-block p-xl-100 p-lg-50 p-30 h-lg-p100 h-auto">
+					<div class="col-12 logo align-self-start">
+						<a href="#" class="aut-logo">
+							<img src="{% static '' %}images/logo-main.png" alt="">
+						</a>
+					</div>
+					<div class="col-12 align-self-center">
+						<h1 class="title text-white">Welcome to boomboom</h1>
+						<h3 class="subtitle text-white-50">The ultimate Bootstrap &amp; admin theme framework for next generation web apps.</h3>
+					</div>
+					<div class="col-12 align-self-end">
+						<h6 class="text-white-50">
+							© 2019 DashboardX Admin
+						</h6>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-8 col-12">
+				<div class="row justify-content-center no-gutters">
+					<div class="col-xl-6 col-lg-7 col-md-6 col-12">
+						<div class="bg-opacity-80 depth-4 rounded">
+							<div class="content-top-agile p-30 pb-0">
+								<h2 class="text-primary text-left">Sign In</h2>							
+							</div>
+							<div class="p-30">
+								{% if messages %}
+								{% for i in messages %}
+								<div class="alert alert-primary d-flex align-items-center" role="alert">
+								  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+									<path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+								  </svg>
+								  <div>
+									&nbsp;&nbsp;{{i}}
+								  </div>
+								</div>
+								{% endfor %}
+								{% endif %}
+
+								<form action="{% url 'deshboard_login'%}" method="POST"> {% csrf_token %}
+									<div class="form-group">
+										<div class="input-group mb-3">
+											<input type="text" class="form-control pl-15 bg-transparent plc-black" name="deshboard_user_name" placeholder="Username">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="input-group mb-3">
+											<input type="password" class="form-control pl-15 bg-transparent plc-black"  name="deshboard_password" placeholder="Password">
+										</div>
+									</div>
+									<div class="form-group">
+										<button type="submit" class="btn btn-info btn-block">SIGN IN</button>
+									</div>
+								</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- jQuery 3 -->
+	<script src="{% static 'admin_deshboard_static/assets/vendor_components/jquery-3.3.1/jquery-3.3.1.js' %}"></script>
+	
+	<!-- fullscreen -->
+	<script src="{% static 'admin_deshboard_static/assets/vendor_components/screenfull/screenfull.js' %}"></script>
+	
+	<!-- popper -->
+	<script src="{% static 'admin_deshboard_static/assets/vendor_components/popper/dist/popper.min.js' %}"></script>
+	
+	<!-- Bootstrap 4.0-->
+	<script src="{% static 'admin_deshboard_static/assets/vendor_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+
+</body>
+</html>

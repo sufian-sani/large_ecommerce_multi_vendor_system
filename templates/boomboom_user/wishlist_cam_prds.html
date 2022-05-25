@@ -1,0 +1,311 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+    <div class="breadcrumb">
+	<div>
+		<div class="breadcrumb-inner">
+			<ul class="list-inline list-unstyled">
+				<li><a href="home.html">Home</a></li>
+				<li class="active">Wishlist</li>
+			</ul>
+		</div><!-- /.breadcrumb-inner -->
+	</div><!-- /.container -->
+</div><!-- /.breadcrumb -->
+<div class="my-wishlist-page">
+			<div class="row">
+				<div class="col-md-12 my-wishlist">
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th colspan="2" class="heading-title">My Campaign Wishlist</th>
+					
+					<th colspan="2" class="heading-title">
+					    <div class="btn-group" data-toggle="buttons">
+                          
+                          <label class="btn btn-primary">
+                            <input type="radio" name="options" id="option2" onchange="reguler_wishlist()"> Reguler
+                          </label>
+                          <label class="btn btn-primary active">
+                            <input type="radio" name="options" id="option3" onchange="campaign_wishlist()"> Campaign
+                          </label>
+                        </div>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+			    {% if wishlist_cam_prds %}
+    			    {% for i in wishlist_cam_prds %}
+    			    
+    			    <tr>
+    					<td class="col-md-2 col-sm-6 col-xs-6"><a href="{% url 'campaign_product_details' i.slug %}"><img src="{{i.product.Product_Image}}" alt="{{i.product.Product_Name}}"></a></td>
+    					<td class="col-md-7 col-sm-6 col-xs-6">
+    						<div class="product-name"><a href="{% url 'campaign_product_details' i.slug %}">{{i.product.Product_Name}}</a></div>
+    						
+    						{% if i.product.count_rattings == 0 %}
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            {% endif %}
+                
+                            {% if i.product.count_rattings == 0.5 %}
+                            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            {% endif %}
+                
+                            {% if i.product.count_rattings == 1 %}
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            {% endif %}
+                
+                            {% if i.product.count_rattings == 1.5 %}
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            {% endif %}
+                
+                            {% if i.product.count_rattings == 2 %}
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            {% endif %}
+                
+                            {% if i.product.count_rattings == 2.5 %}
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            {% endif %}
+                
+                            {% if i.product.count_rattings == 3 %}
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            {% endif %}
+                
+                            {% if i.product.count_rattings == 3.5 %}
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            {% endif %}
+                
+                            {% if i.product.count_rattings == 4 %}
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            {% endif %}
+                
+                            {% if i.product.count_rattings == 4.5 %}
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                            {% endif %}
+                
+                            {% if i.product.count_rattings == 5 %}
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                            {% endif %}
+    						<div class="rating">
+    							
+    							<span class="review">( {{i.product.count_rattings_qty}} Reviews )</span>
+    						</div>
+    						<div class="price">
+    						    {% if i.product.TYPE_OF_PRODUCTS == 'Simple Product' %}
+                        
+                                 ৳{{i.campaign_price}} 
+                                  <span class="price-before-discount">৳ {{i.product.MRP_Price}}</span> 
+                                {% else %}
+                                
+                                {% for jk in i.first_attr_low_cost_campaign_prod %}
+                                
+                                 ৳{{jk.Discount_Price}}
+                                <span class="price-before-discount">৳ {{jk.MRP_Price}}</span> 
+                                
+                                {% endfor %}
+                                {% endif %}
+    						</div>
+    						
+    						
+    						{% if i.campaign.finish_campaign %}
+    						<a class="btn-upper btn btn-danger btn-sm">Campaign Not Available</a>
+    						{% else %}
+    						<a class="btn-upper btn btn-success btn-sm">Available</a>
+    						{% endif %}
+    						
+    					</td>
+    					<td class="col-md-2" id="replace_remv_btn">
+    						<a onclick="remove_wishlist_product('{{i.slug}}')" class="btn-upper btn btn-danger">Remove</a>
+    					</td>
+    					
+    					<!--<td class="col-md-1 close-btn">-->
+    					<!--	<a href="#" class=""><i class="fa fa-times"></i></a>-->
+    					<!--</td>-->
+    				</tr>
+    			    {% endfor %}
+			    
+			    
+			    {% else %}
+    			<tr>
+					<td colspan="4">No Wishlist</td>
+				</tr>
+    			
+    			
+    			{% endif %}
+			    
+			    
+				<!--<tr>-->
+				<!--	<td class="col-md-2 col-sm-6 col-xs-6"><img src="assets/images/products/p1.jpg" alt="imga"></td>-->
+				<!--	<td class="col-md-7 col-sm-6 col-xs-6">-->
+				<!--		<div class="product-name"><a href="#">Floral Print Buttoned</a></div>-->
+				<!--		<div class="rating">-->
+				<!--			<i class="fa fa-star rate"></i>-->
+				<!--			<i class="fa fa-star rate"></i>-->
+				<!--			<i class="fa fa-star rate"></i>-->
+				<!--			<i class="fa fa-star rate"></i>-->
+				<!--			<i class="fa fa-star non-rate"></i>-->
+				<!--			<span class="review">( 06 Reviews )</span>-->
+				<!--		</div>-->
+				<!--		<div class="price">-->
+				<!--			$400.00-->
+				<!--			<span>$900.00</span>-->
+				<!--		</div>-->
+				<!--	</td>-->
+				<!--	<td class="col-md-2 ">-->
+				<!--		<a href="#" class="btn-upper btn btn-primary">Add to cart</a>-->
+				<!--	</td>-->
+				<!--	<td class="col-md-1 close-btn">-->
+				<!--		<a href="#" class=""><i class="fa fa-times"></i></a>-->
+				<!--	</td>-->
+				<!--</tr>-->
+				<!--<tr>-->
+				<!--	<td class="col-md-2"><img src="assets/images/products/p2.jpg" alt="phoro"></td>-->
+				<!--	<td class="col-md-7">-->
+				<!--		<div class="product-name"><a href="#">Floral Print Buttoned</a></div>-->
+				<!--		<div class="rating">-->
+				<!--			<i class="fa fa-star rate"></i>-->
+				<!--			<i class="fa fa-star rate"></i>-->
+				<!--			<i class="fa fa-star rate"></i>-->
+				<!--			<i class="fa fa-star rate"></i>-->
+				<!--			<i class="fa fa-star non-rate"></i>-->
+				<!--			<span class="review">( 06 Reviews )</span>-->
+				<!--		</div>-->
+				<!--		<div class="price">-->
+				<!--			$450.00-->
+				<!--			<span>$900.00</span>-->
+				<!--		</div>-->
+				<!--	</td>-->
+				<!--	<td class="col-md-2">-->
+				<!--		<a href="#" class="btn-upper btn btn-default">Add to cart</a>-->
+				<!--	</td>-->
+				<!--	<td class="col-md-1 close-btn">-->
+				<!--		<a href="#" class=""><i class="fa fa-times"></i></a>-->
+				<!--	</td>-->
+				<!--</tr>-->
+			</tbody>
+		</table>
+	</div>
+</div>			</div><!-- /.row -->
+		</div>
+<div id="brands-carousel" class="logo-slider wow fadeInUp">
+      <div class="logo-slider-inner">
+        <div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
+          <div class="item m-t-15"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand1.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+          
+          <div class="item m-t-10"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand2.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+          
+          <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand3.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+          
+          <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand4.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+          
+          <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand5.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+          
+          <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand6.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+          
+          <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand2.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+          
+          <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand4.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+          
+          <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand1.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+          
+          <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand5.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item--> 
+        </div>
+        <!-- /.owl-carousel #logo-slider --> 
+      </div>
+      <!-- /.logo-slider-inner --> 
+      
+    </div>
+    
+    
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  
+    
+<script>
+    function reguler_wishlist(){
+        location.href="{% url 'wishlist' %}"
+    }
+    
+    
+    function campaign_wishlist(){
+        location.href="{% url 'campaign_wishlist' %}"
+    }
+    
+    
+    function remove_wishlist_product(product_id){
+        document.getElementById('replace_remv_btn').innerHTML = `<a class="btn-upper btn btn-warning">Removing...</a>`;
+        
+        
+        console.log(product_id)
+        
+        $.ajax({
+            url : '{% url 'remove_campaign_product_wishlist' %}',
+            type : 'POST',
+            data : {product_id:product_id}
+        })
+        .done(function(response){})
+        
+        document.getElementById('replace_remv_btn').innerHTML = `<a class="btn-upper btn btn-danger" disabled>Removed</a>`;
+    }
+    
+</script>
+
+{% endblock %}

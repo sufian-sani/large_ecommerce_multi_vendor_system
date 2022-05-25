@@ -1,0 +1,1032 @@
+{% load static %}
+
+{% load app_1_custom_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Meta -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="We Deliver Quality">
+<meta name="author" content="Nadim">
+<meta name="keywords" content="Quality, Multivendor, eCommerce">
+<meta name="robots" content="all">
+<title>Ecomhat Shopping - We Deliver Quality</title>
+<link rel="shortcut icon" type="image/png" href="{%static 'images/favicon.png' %}"/>
+<!-- Bootstrap Core CSS -->
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+
+<!--font awesome-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<!-- Customizable CSS -->
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/blue.css' %}">
+<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+<link rel="stylesheet" href="{% static 'css/owl.transitions.css' %}">
+<link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/rateit.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css' %}">
+
+<!-- Icons/Glyphs -->
+<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Barlow:200,300,300i,400,400i,500,500i,600,700,800" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+
+<style>
+    .block11 {
+  display: block;
+  width: 100%;
+  border: none;
+  background-color: #FEC52C;
+  padding: 12px;
+  margin top: 10;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.block12 {
+  display: block;
+  width: 100%;
+  border: none;
+  padding: 14px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+
+
+</style>
+
+
+
+<style>
+    .divcartScroll {
+    overflow-y:scroll;
+    height:250px;
+    }
+</style>
+
+
+
+
+</head>
+<body class="cnt-home">
+<!-- ============================================== HEADER ============================================== -->
+<header class="header-style-1">
+
+  <!-- ============================================== TOP MENU ============================================== -->
+  <div class="top-bar animate-dropdown">
+    <div class="container">
+      <div class="header-top-inner">
+
+        <!-- /.cnt-account -->
+
+
+        <!-- /.cnt-cart -->
+        <div class="clearfix"></div>
+      </div>
+      <!-- /.header-top-inner -->
+    </div>
+    <!-- /.container -->
+  </div>
+  <!-- /.header-top -->
+  <!-- ============================================== TOP MENU : END ============================================== -->
+  <div class="main-header">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-2 logo-holder">
+          <!-- ============================================================= LOGO ============================================================= -->
+          <div class="logo"> <a href="{% url 'home' %}"> <img src="{% static 'images/logo-main.png' %}" alt="logo"> </a> </div>
+          <!-- /.logo -->
+          <!-- ============================================================= LOGO : END ============================================================= --> </div>
+        <!-- /.logo-holder -->
+
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 top-search-holder">
+          <!-- /.contact-row -->
+          <!-- ============================================================= SEARCH AREA ============================================================= -->
+          <div class="search-area">
+            <form method="GET" action="{% url 'submit_search_word' %}" id="form_searching_box">
+              <div class="control-group">
+
+                <ul class="categories-filter animate-dropdown hidden-xs">
+                  <li class="dropdown"> <a class="dropdown-toggle" id="search-value" data-toggle="dropdown" href="#">{% if name_type_search %}{{name_type_search}}{% else %}Products{% endif %}</a><b style="margin-left:-10px; margin-right:10px;" class="caret"></b>
+                    <ul class="dropdown-menu" role="menu" id="category_list_search">
+                      <li role="presentation"><a role="menuitem" onclick="searchValueP()"  tabindex="-1" href="#">Products</a></li>
+                      <!--<li role="presentation"><a role="menuitem" onclick="searchValueC()" tabindex="-1" href="#">Categories</a></li>-->
+                      <li role="presentation"><a role="menuitem" onclick="searchValueS()" tabindex="-1" href="#">Stores</a></li>
+                      <li role="presentation"><a role="menuitem" onclick="searchValueB()" tabindex="-1" href="#">Brands</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <input class="search-field" placeholder="Search here..." id="main_search_box" onkeyup="func_main_search_box()" name="search_key" value="{{search_key}}"/>
+                <input type="hidden" id="type_search" name="name_type_search">
+
+                <a class="search-button" onclick="submit_the_word()"></a>
+
+
+
+              </div>
+            </form>
+          </div>
+          <div id="show_search_result">
+
+          </div>
+
+
+          <!-- /.search-area -->
+          <!-- ============================================================= SEARCH AREA : END ============================================================= --> </div>
+        <!-- /.top-search-holder -->
+
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 animate-dropdown top-cart-row">
+          <!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
+          <div class="cnt-block">
+          <ul class="list-unstyled list-inline">
+            <li class="dropdown dropdown-small"> <a href="{% url 'brand_list' %}"><span class="value">Brands </span></a>
+
+            </li>
+            <li class="dropdown dropdown-small lang"> <a href="{% url 'stores' %}"><span class="value">shops</span></a>
+            </li>
+
+
+
+
+          </ul>
+          <!-- /.list-unstyled -->
+        </div>
+
+            <div class="fl-links">
+              <div class="no-js">
+              <span style="color: #FEC52C;" class="block12">
+                <i class="fa fa-shopping-bag" style="font-size:22px"><sub style="margin-left:-5px; background-color:red; font-family:'Barlow'; font-weight:500;p" class="badge" id="product_cart">0</sub></i>
+              </span>
+
+
+                <div class="fl-nav-links-cart" id="sideshow">
+
+                    Your Cart Is Empty
+                </div>
+              </div>
+            </div>
+
+
+            <div class="fl-links">
+              <div class="no-js"> <a title="Company" class="clicker"></a>
+                <div class="fl-nav-links">
+
+                  <ul class="links">
+
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'customer-dashboard' %}" title="My Account">My Account</a></li>
+                    <li><a href="{% url 'wishlist' %}" title="Wishlist">Wishlist</a></li>
+                    {% endif %}
+
+
+
+                    {% if user.is_authenticated %}
+                    <li><a href="checkout.html" title="Checkout">Checkout</a></li>
+
+
+                    <li>
+                      <a href="{% url 'logout_func' %}" title="Blog"><span>Logout ({{request.user}})</span></a>
+                    </li>
+                    {% else %}
+                    <li>
+                      <a href="{% url 'login_register' %}" title="Blog"><span>Login/Register</span></a>
+                    </li>
+                    {% endif %}
+                    <li class="first"><a title="Your Account" href="{% url 'vendor_registration' %}">Become a Vendor(registration)</a></li>
+                    <li><a title="Information" href="{% url 'vendor_login' %}">Vendor login</a></li>
+                    <!--<li><a title="Information" href="{% url 'send_sms' %}">send sms</a></li>-->
+
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!--mini-cart-->
+
+            <!--links-->
+          </div>
+
+        </div>
+
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+  </div>
+  <!-- /.main-header -->
+
+
+
+</header>
+
+<!-- ============================================== MOBILE BOTTOM NAVIGATION ============================================== -->
+<nav class="mobile-bottom-nav">
+  <div class="">
+
+    <div class="col-option">
+    <a href="{% url 'home' %}">
+      <i class="fa fa-home"></i>
+      <h6>Home</h6>
+    </a>
+    </div>
+
+    <div class="col-option">
+    <a href="{% url 'cart_page' %}">
+      <i class="fa fa-shopping-bag"><sub style="margin-left:-5px; background-color:red; font-family:'Barlow'; font-weight:500;position:absolute; width:22px; height:22px; margin-top:10px;" class="badge" id="product_cart2">0</sub></i>
+      <h6>Cart</h6>
+    </a>
+    </div>
+    <div class="col-mid">
+      <img src="{% static 'images/favicon-wm.png' %}" alt="">
+    </div>
+    <div class="col-option">
+    <a href="{% url 'customer-dashboard' %}">
+      <i class="fa fa-sort"></i>
+      <h6>Orders</h6>
+    </a>
+    </div>
+    <a href="{% if user.is_authenticated %}{% url 'customer-dashboard' %}{% else %}{% url 'login_register' %}{% endif %}">
+    <div class="col-option">
+      <i class="fa fa-user"></i>
+      <h6>Account</h6>
+    </div>
+    </a>
+  </div>
+</nav>
+
+
+
+<div class="body-content outer-top-ts" id="top-banner-and-menu">
+  <div class="container">
+    <div class="row">
+
+
+<!-- ============================================== SIDEBAR ============================================== -->
+<div class="col-xs-12 col-sm-3 col-md-3 sidebar">
+
+  <!-- ================================== TOP NAVIGATION ================================== -->
+  <div class="side-menu animate-dropdown outer-bottom-xs">
+
+<div class="yamm navbar navbar-default" role="navigation">
+  <div class="navbar-header">
+    <button data-target="#mc-horizontal-menu-collapse" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+    <span class="nav-heading">Categories</span>
+  </div>
+  <div class="top-menu hidden-xs">
+    <ul>
+      <li><a href="{% url 'campaign_page' %}">Campaign Offer <span>{% count_active_campaign_product %}+</span></a></li>
+    </ul>
+  </div>
+
+
+
+
+    <div class="nav-bg-class">
+      <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
+      <div class="nav-outer">
+
+          <ul class="nav navbar-nav" id="show_index_cats"></ul>
+
+
+      </div>
+      </div>
+  </div>
+    <!-- /.megamenu-horizontal -->
+
+</div>
+           <!-- ============================================== INFO BOXES ============================================== -->
+  <div class="our-features-box hidden-xs">
+    <ul>
+    <li>
+      <div class="feature-box">
+      <div class="icon-truck"></div>
+      <div class="content-blocks">We ship countrywide</div>
+      </div>
+    </li>
+    <li>
+      <div class="feature-box">
+      <div class="icon-return"></div>
+      <div class="content-blocks">7 days refund</div>
+      </div>
+    </li>
+
+    </ul>
+  </div>
+  <!-- /.info-boxes -->
+  <!-- ============================================== INFO BOXES : END ============================================== -->
+
+</div>
+
+  <!-- /.side-menu -->
+  <!-- ================================== TOP NAVIGATION : END ================================== -->
+ </div>
+
+<!-- /.sidemenu-holder -->
+<!-- ============================================== SIDEBAR : END ============================================== -->
+<div class="col-xs-12 col-sm-9 col-md-9 page-content-sec">
+{% block content %}
+{% endblock %}
+
+
+
+    <!-- ============================================================= FOOTER ============================================================= -->
+    <footer id="footer" class="footer color-bg">
+    <div class="footer-bottom">
+    <div class="container">
+      <div class="row">
+     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
+          <div class="module-heading">
+            <h4 class="module-title">About</h4>
+          </div>
+          <!-- /.module-heading -->
+
+          <div class="module-body">
+            <ul class='list-unstyled'>
+              <li class="first"><a href="#" title="Contact us">About Us</a></li>
+              <li><a href="#" title="About us">Our Team</a></li>
+              <li><a href="#" title="faq">Other Concerns</a></li>
+              <li><a href="#" title="Popular Searches">Contact Us</a></li>
+              <li class="last"><a href="#" title="Where is my order?">Support</a></li>
+            </ul>
+          </div>
+          <!-- /.module-body -->
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
+          <div class="module-heading">
+            <h4 class="module-title">Customer</h4>
+          </div>
+          <!-- /.module-heading -->
+
+          <div class="module-body">
+            <ul class='list-unstyled'>
+              <li class="first"><a href="#" title="Contact us">My Account</a></li>
+              <li><a href="#" title="About us">Order History</a></li>
+              <li><a href="#" title="faq">FAQs</a></li>
+              <li><a href="#" title="Popular Searches">Offers</a></li>
+              <li class="last"><a href="#" title="Where is my order?">Help Center</a></li>
+            </ul>
+          </div>
+          <!-- /.module-body -->
+        </div>
+        <!-- /.col -->
+
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
+          <div class="module-heading">
+            <h4 class="module-title">Policies</h4>
+          </div>
+          <!-- /.module-heading -->
+
+          <div class="module-body">
+            <ul class='list-unstyled'>
+              <li class="first"><a href="#" title="About us">Return Policy</a></li>
+              <li><a href="#" title="Blog">Refund Policy</a></li>
+              <li><a href="#" title="Company">Privacy Policy</a></li>
+              <li><a href="#" title="Investor Relations">Terms & Conditions</a></li>
+            </ul>
+          </div>
+          <!-- /.module-body -->
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
+          <div class="module-heading">
+            <h4 class="module-title">Vendor</h4>
+          </div>
+          <!-- /.module-heading -->
+
+          <div class="module-body">
+            <ul class='list-unstyled'>
+              <li class="first"><a title="Your Account" href="{% url 'vendor_registration' %}">Become a Vendor</a></li>
+              <li><a title="Information" href="{% url 'vendor_login' %}">Vendor Login</a></li>
+
+            </ul>
+          </div>
+          <!-- /.module-body -->
+        </div>
+        <!-- /.col -->
+
+
+      </div>
+    </div>
+    </div>
+    <div class="copyright-bar">
+    <div class="container">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 del-info">
+        We Are Using Safe Payment Methods
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <img src="{% static 'images/payment.png' %}" style="width:100%;" alt="">
+      </div>
+
+    </div>
+    </div>
+    <div class="copyright-bar">
+    <div class="container">
+      <div class="col-xs-12 col-sm-12 no-padding social">
+        <ul class="link">
+          <li class="fb"><a target="_blank" rel="nofollow" href="#" title="Facebook"></a></li>
+          <li class="tw"><a target="_blank" rel="nofollow" href="#" title="Twitter"></a></li>
+          <li class="googleplus"><a target="_blank" rel="nofollow" href="#" title="GooglePlus"></a></li>
+          <li class="rss"><a target="_blank" rel="nofollow" href="#" title="RSS"></a></li>
+          <li class="pintrest"><a target="_blank" rel="nofollow" href="#" title="PInterest"></a></li>
+          <li class="linkedin"><a target="_blank" rel="nofollow" href="#" title="Linkedin"></a></li>
+          <li class="youtube"><a target="_blank" rel="nofollow" href="#" title="Youtube"></a></li>
+        </ul>
+      </div>
+      <div class="col-xs-12 col-sm-12 no-padding copyright">&copy; 2021 Ecomhat Shopping. All Rights Reserved. </div>
+
+    </div>
+    </div>
+    </footer>
+</div>
+  </div>
+</div>
+</div>
+    <!-- ============================================================= FOOTER : END============================================================= -->
+
+
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+
+
+    <!-- For demo purposes – can be removed on production -->
+
+    <!-- For demo purposes – can be removed on production : End -->
+
+    <!-- JavaScripts placed at the end of the document so the pages load faster -->
+    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-hover-dropdown.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/echo.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easing-1.3.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-slider.min.js' %}"></script>
+    <script src="{% static 'js/jquery.rateit.min.js' %}"></script>
+    <script src="{% static 'js/lightbox.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-select.min.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+
+
+
+
+<script>
+
+
+function submit_the_word(){
+    var var_main_search_box = document.getElementById("main_search_box").value;
+    console.log(var_main_search_box)
+
+    var search_value_choose = document.getElementById('search-value').innerHTML;
+    console.log(search_value_choose)
+
+    if (var_main_search_box==""){}
+
+    else{
+        $('#type_search').val(JSON.stringify(search_value_choose));
+
+        var form_searching_box2 = document.getElementById("form_searching_box");
+        form_searching_box2.submit();
+    }
+}
+
+
+
+function func_main_search_box(){
+    console.log('jiji')
+
+    var var_main_search_box = document.getElementById("main_search_box").value;
+    console.log(var_main_search_box)
+
+    var search_value_choose = document.getElementById('search-value').innerHTML;
+    console.log(search_value_choose)
+
+    if (var_main_search_box==""){
+        document.getElementById('show_search_result').innerHTML = ``;
+    }
+    else{
+        $.ajax({
+            url : '{% url 'search_main_box' %}',
+            type : 'POST',
+            data : {var_main_search_box:var_main_search_box, search_value_choose:search_value_choose}
+        })
+        .done(function(response){
+            console.log(response);
+            var prod = JSON.parse(response);
+            console.log(prod)
+            console.log('prod')
+
+            var len = prod.length;
+            console.log('len')
+            console.log(len)
+
+            let product_list = [];
+
+            search_result = ``
+
+
+            if(search_value_choose=="Categories"){
+                for(var i=0;i<len;i++){
+                    var Category_Name = JSON.stringify(prod[i].fields.Category_Name);
+                    var Category_Name2 = Category_Name.slice(0, -1)
+                    var Category_Name3 = Category_Name2.slice(1);
+
+                    var cat_pk = JSON.stringify(prod[i].pk);
+
+                    search_result = search_result + `
+                                                  <div class="search_product col-lg-6 col-md-6">
+                                                    <div class="row">
+                                                        <a href="/category_products/${cat_pk}"><div class="col-md-10  col-sm-10 col-xs-10 col-lg-10"><h5>${Category_Name3}</h5><br></div></a>
+                                                      </div>
+                                            	    </div>`
+
+
+
+                }
+            }
+
+            else if(search_value_choose=="Stores"){
+                for(var i=0;i<len;i++){
+                    var vendor_name = JSON.stringify(prod[i].fields.vendor_shop_name);
+                    var vendor_name2 = vendor_name.slice(0, -1)
+                    var vendor_name3 = vendor_name2.slice(1);
+
+                    var vendor_shop_logo = JSON.stringify(prod[i].fields.vendor_shop_logo);
+                    var vendor_shop_logo2 = vendor_shop_logo.slice(0, -1)
+                    var vendor_shop_logo3 = vendor_shop_logo2.slice(1);
+
+
+
+                    var vendor_pk = JSON.stringify(prod[i].fields.vendor_phone_no);
+                    var vendor_pk2 = vendor_pk.slice(0, -1)
+                    var vendor_pk3 = vendor_pk2.slice(1);
+
+
+                    search_result = search_result + `
+                                                  <div class="search_product col-lg-6 col-md-6">
+                                                    <div class="row">
+
+                                                        <div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
+                                                        <a href="/single_vendor/${vendor_pk3}">
+                                                          <div class="header-cart-item-img">
+                                                               <img src="${vendor_shop_logo3}" alt="IMG" width="80" height="70">
+                                                           </div>
+                                                        </a>
+                                                        </div>
+                                                      <a href="/single_vendor/${vendor_pk3}">
+                                                        <div class="col-md-5  col-sm-5 col-xs-5 col-lg-5"><h5>${vendor_name3}</h5><br></div>
+                                                      </a>
+                                                      </div>
+                                            	    </div>`
+
+
+
+                }
+                if(len==0){
+                        search_result = search_result + `<div class="search_product col-lg-6 col-md-6">
+                                                    <h4>No Result "${var_main_search_box}"</h4>
+                                            	    </div>`
+                }
+
+                search_result = search_result + `<div class="search_product col-lg-12 col-md-12" style="text-align:center;">
+                                                    <button class="btn-primary" onclick="submit_the_word()">view more</button>
+                                            	    </div>`
+            }
+
+            else if(search_value_choose=="Brands"){
+                for(var i=0;i<len;i++){
+                    var Brand_Name = JSON.stringify(prod[i].fields.Brand_Name);
+                    var Brand_Name2 = Brand_Name.slice(0, -1)
+                    var Brand_Name3 = Brand_Name2.slice(1);
+
+
+
+                    var brand_pk = JSON.stringify(prod[i].pk);
+                    var brand_pk2 = brand_pk.slice(0, -1)
+                    var brand_pk3 = brand_pk2.slice(1);
+
+
+                    search_result = search_result + `<div class="search_product col-lg-6 col-md-6">
+                                                    <div class="row">
+                                                        <a href="/showing_product_by_brands/${brand_pk3}"><div class="col-md-10  col-sm-10 col-xs-10 col-lg-10"><h5>${Brand_Name3}</h5><br></div></a>
+                                                      </div>
+                                            	    </div>`
+
+
+
+                }
+                if(len==0){
+                        search_result = search_result + `<div class="search_product col-lg-6 col-md-6">
+                                                    <h4>No Result "${var_main_search_box}"</h4>
+                                            	    </div>`
+                }
+
+                search_result = search_result + `<div class="search_product col-lg-12 col-md-12" style="text-align:center;">
+                                                    <button class="btn-primary" onclick="submit_the_word()">view more</button>
+                                            	    </div>`
+            }
+
+            else if(search_value_choose=="Products"){
+                for(var i=0;i<len;i++){
+
+                    var prod_name = JSON.stringify(prod[i].fields.Product_Name);
+                    var prod_name2 = prod_name.slice(0, -1)
+                    var product_name = prod_name2.slice(1);
+
+                    var prod_img = JSON.stringify(prod[i].fields.Product_Image);
+                    var prod_img2 = prod_img.slice(0, -1)
+                    var product_img = prod_img2.slice(1);
+
+                    var product_discount_price = JSON.stringify(prod[i].fields.Discount_Price);
+                    var product_Mrp_price = JSON.stringify(prod[i].fields.MRP_Price);
+
+                    var prod_pk = JSON.stringify(prod[i].pk);
+                    var prod_pk2 = prod_pk.slice(0, -1)
+                    var product_pk = prod_pk2.slice(1);
+
+
+
+                    if(product_discount_price == 'null'){
+
+                    show_price = product_Mrp_price;
+                    }
+                    else{
+                    show_price = product_discount_price;
+                    }
+
+
+                    product_list.push([product_name, product_img, product_discount_price, product_Mrp_price, product_pk])
+
+                    search_result = search_result + `
+                                                  <div class="search_product col-lg-6 col-md-6">
+                                                    <div class="row">
+                                                    <a href="/product_details/${product_pk}">
+                                                        <div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
+                                                          <div class="header-cart-item-img">
+                                                               <img src="${product_img}" alt="IMG" width="80" height="70">
+                                                           </div>
+                                                        </div>
+                                                    </a>
+                                                        <a href="/product_details/${product_pk}"><div class="col-md-5  col-sm-5 col-xs-5 col-lg-5"><h5>${product_name}</h5><h6> ৳${show_price}</h6></a><br></div>
+                                                      </div>
+                                            	    </div>`
+
+
+
+                }
+
+                if(len==0){
+                        search_result = search_result + `<div class="search_product col-lg-6 col-md-6">
+                                                    <h4>No Result "${var_main_search_box}"</h4>
+                                            	    </div>`
+                }
+
+                search_result = search_result + `<div class="search_product col-lg-12 col-md-12" style="text-align:center;">
+                                                    <button class="btn-primary" onclick="submit_the_word()">view more</button>
+                                            	    </div>`
+            }
+
+
+
+            document.getElementById('show_search_result').innerHTML = search_result;
+        })
+
+        .fail(function(){
+            console.log("Failed");
+        })
+    }
+
+}
+
+
+
+
+$.ajax({
+        url : '{% url 'get_all_cats' %}',
+        type : 'POST',
+    })
+    .done(function(response){
+        console.log(response);
+        var prod = JSON.parse(response);
+        console.log(prod)
+        console.log('prod')
+
+        var len = prod.length;
+        var strs22 = "";
+
+        for(var i=0;i<len;i++){
+            var cat_name3 = JSON.stringify(prod[i].fields.Category_Name);
+
+            var cat_name2 = cat_name3.slice(0, -1)
+            var cat_name = cat_name2.slice(1);
+
+
+            var cat_pk = JSON.stringify(prod[i].pk);
+
+            console.log(cat_pk)
+
+
+            strs22=strs22+`<li class="dropdown menu-item"> <a href="/category_products/${cat_pk}">${cat_name}</a></li>`
+        }
+        console.log(strs22)
+        document.getElementById('show_index_cats').innerHTML=strs22;
+
+    })
+
+    .fail(function(){
+        console.log("Failed");
+    })
+
+    $(document).ready(function(){
+      $('[data-toggle="popover"]').popover();
+    });
+
+
+	// find out the cart Item from localStorage
+	console.log('working');
+	if (localStorage.getItem('product_cart')==null){
+      var product_cart={};
+      console.log('none')
+	}
+	else{
+      product_cart = JSON.parse(localStorage.getItem('product_cart'));
+      console.log(product_cart)
+      updateCart(product_cart)
+	}
+
+
+
+//update the cart
+function updateCart(product_cart){
+	var sum = 0;
+	for (var item in product_cart){
+		sum = sum + product_cart[item][0]
+
+	}
+	localStorage.setItem('product_cart', JSON.stringify(product_cart))
+	document.getElementById('product_cart').innerHTML = sum;
+	document.getElementById('product_cart2').innerHTML = sum;
+	updatesideshow(product_cart);
+
+}
+
+
+
+// auto cart add without loading
+cart_without_loading()
+
+function cart_without_loading(){
+    product_cart = JSON.parse(localStorage.getItem('product_cart'));
+
+    var sum = 0;
+	for (var item in product_cart){
+		sum = sum + product_cart[item][0]
+	}
+	document.getElementById('product_cart').innerHTML = sum;
+	document.getElementById('product_cart2').innerHTML = sum;
+
+
+    var popStr = "";
+	popStr = popStr + "<div class='mx-2 my-2 divcartScroll'>";
+
+	var i =1;
+	var single_price_qty = 0;
+	var total_price = 0;
+
+	for (var item in product_cart){
+		if(product_cart[item][0] == 0){}
+		else{
+            popStr = popStr + `<div class="row"><div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
+                              <div class="header-cart-item-img">
+                                                  <img src="${product_cart[item][3]}" alt="IMG" width="80" height="70">
+                                              </div></div><div class="col-md-5  col-sm-5 col-xs-5 col-lg-5">`;
+
+            single_price_qty = product_cart[item][0]*product_cart[item][2];
+    		total_price = total_price + single_price_qty;
+
+    		if(product_cart[item][10]==undefined){
+    		    var attr_show=""
+    		}
+    		else{
+    		    var attr_show = "<br>" + product_cart[item][10];
+    		}
+
+    		popStr = popStr + product_cart[item][1] +  attr_show + "<br>" + product_cart[item][0] + " x ৳" + product_cart[item][2] + " = ৳" + single_price_qty  + "</br>";
+
+
+    	    popStr = popStr +
+    	    `</div>
+            <div class="col-md-4  col-sm-4 col-xs-4 col-lg-4">
+            <a style="padding:2px 8px;" class="btn btn-primary btn-sm btm-mob" onclick="increase_items('${product_cart[item][8]}')">+</a>
+                <a class="btn outline-btn-primary btn-sm" id="show_number_cart${product_cart[item][8]}">${product_cart[item][0]}</a>
+                <input type="hidden" value="${product_cart[item][8]}" id="get_product">
+            <a style="padding:2px 8px;" class="btn btn-primary btn-sm" onclick="decrease_items('${product_cart[item][8]}')">-</a>
+
+
+            <a style="vertical-align:bottom; margin-left:3px;" onclick="remove_cart_item('${product_cart[item][8]}')">
+            <i class="fa fa-trash-o" style="font-size:20px;color:red"></i>
+            </a>
+            </div>
+        	</div>
+        	<br><br>`
+
+        		i = i+1;
+        	}
+
+
+        }
+
+        if(popStr=="<div class='mx-2 my-2 divcartScroll'>"){
+            popStr = popStr + "Your Cart Is Empty</div>"
+        }
+        else{
+            popStr = popStr + "</div><hr><b>Sub Total: ৳"+ total_price +"</b><br><br><div class='row'><div class='col-md-12'><a href='{% url 'cart_page' %}'><button class='btn btn-upper btn-primary btn-block m-t-20' id='checkout'>View Cart</button></a></div><div class='col-md-12'><a href={% url 'home' %}><button class='btn btn-upper btn-primary btn-block m-t-20' id='clearCart' onclick='clearCart()'>Clear Cart</button></a></div></div>"
+        }
+
+
+        document.getElementById('sideshow').innerHTML = popStr;
+
+
+    setTimeout(
+      function()
+      {
+        cart_without_loading()
+      }, 2000);
+}
+
+
+
+
+//add sideshow to cart
+
+updatesideshow(product_cart);
+function updatesideshow(product_cart){
+	console.log('we are in updatesideshow');
+
+	var popStr = "";
+	popStr = popStr + "<div class='mx-2 my-2 divcartScroll'>";
+
+	var i =1;
+	var single_price_qty = 0;
+	var total_price = 0;
+
+	for (var item in product_cart){
+		if(product_cart[item][0] == 0){}
+		else{
+            popStr = popStr + `<div class="row"><div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
+                              <div class="header-cart-item-img">
+                                                  <img src="${product_cart[item][3]}" alt="IMG" width="80" height="70">
+                                              </div></div><div class="col-md-5  col-sm-5 col-xs-5 col-lg-5">`;
+
+            single_price_qty = product_cart[item][0]*product_cart[item][2];
+    		total_price = total_price + single_price_qty;
+
+    		if(product_cart[item][10]==undefined){
+    		    var attr_show=""
+    		}
+    		else{
+    		    var attr_show = "<br>" + product_cart[item][10];
+    		}
+
+    		popStr = popStr + product_cart[item][1] +  attr_show + "<br>" + product_cart[item][0] + " x ৳" + product_cart[item][2] + " = ৳" + single_price_qty  + "</br>";
+
+
+    	    popStr = popStr +
+    	    `</div>
+            <div class="col-md-4  col-sm-4 col-xs-4 col-lg-4">
+            <a style="padding:2px 8px;" class="btn btn-primary btn-sm btm-mob" onclick="increase_items('${product_cart[item][8]}')">+</a>
+                <a class="btn outline-btn-primary btn-sm" id="show_number_cart${product_cart[item][8]}">${product_cart[item][0]}</a>
+                <input type="hidden" value="${product_cart[item][8]}" id="get_product">
+            <a style="padding:2px 8px;" class="btn btn-primary btn-sm" onclick="decrease_items('${product_cart[item][8]}')">-</a>
+
+
+            <a style="vertical-align:bottom; margin-left:3px;" onclick="remove_cart_item('${product_cart[item][8]}')">
+            <i class="fa fa-trash-o" style="font-size:20px;color:red"></i>
+            </a>
+            </div>
+        	</div>
+        	<br><br>`
+
+        		i = i+1;
+        	}
+
+
+        }
+
+        if(popStr=="<div class='mx-2 my-2 divcartScroll'>"){
+            popStr = popStr + "Your Cart Is Empty</div>"
+        }
+        else{
+            popStr = popStr + "</div><hr><b>Sub Total: ৳"+ total_price +"</b><br><br><div class='row'><div class='col-md-12'><a href='{% url 'cart_page' %}'><button class='btn btn-upper btn-primary btn-block m-t-20' id='checkout'>View Cart</button></a></div><div class='col-md-12'><a href={% url 'home' %}><button class='btn btn-upper btn-primary btn-block m-t-20' id='clearCart' onclick='clearCart()'>Clear Cart</button></a></div></div>"
+        }
+
+
+
+        console.log(popStr);
+        console.log('donee');
+        document.getElementById('sideshow').innerHTML = popStr;
+
+}
+
+
+//clear cart
+function clearCart(product_cart){
+	localStorage.clear();
+	product_cart={};
+	updateCart(product_cart);
+}
+
+
+// increse item
+function increase_items(get_product){
+
+    var now_number = document.getElementById("show_number_cart"+get_product).innerHTML;
+
+    console.log(get_product)
+    console.log('id')
+
+    console.log(now_number)
+
+    var b = parseInt(now_number);
+    now_number=b+1;
+    console.log(now_number);
+    document.getElementById("show_number_cart"+get_product).innerHTML = now_number;
+
+    product_cart[get_product][0] = now_number;
+    updateCart(product_cart);
+}
+
+
+
+
+// decrese item
+function decrease_items(get_product){
+    var now_number = document.getElementById("show_number_cart"+get_product).innerHTML;
+
+    console.log(get_product)
+    console.log('id')
+
+    console.log(now_number)
+
+    var b = parseInt(now_number);
+
+    if(b==1 || b<1){
+
+    }
+    else{
+    now_number=b-1;
+    console.log(now_number);
+
+    product_cart[get_product][0] = now_number;
+    document.getElementById("show_number_cart"+get_product).innerHTML = now_number;
+
+    updateCart(product_cart);
+    }
+
+}
+
+
+function remove_cart_item(get_product){
+    console.log(get_product)
+    var now_number = document.getElementById("show_number_cart"+get_product).innerHTML;
+
+    console.log(get_product)
+    console.log('id')
+
+    console.log(now_number)
+
+    var b = parseInt(now_number);
+    now_number=b+1;
+    console.log(now_number);
+
+    product_cart[get_product][0] = 0;
+
+    updateCart(product_cart);
+
+    get_cart_item();
+}
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,850 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+
+<section class="content">
+  <div class="content-header">
+      <h3>Product Sales Report & P/O Generator</h3>
+  </div>
+  <div id="accordion">
+  <div class="card">
+
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          All Product Orders
+        </button>
+      </h5>
+    </div>
+
+
+    <form action="{% url 'all_product_order_for_csv' %}" method="POST">{% csrf_token %}
+
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="csv-box">
+                <h4>Filter Orders By</h4>
+
+                <div class="csv-radios">
+
+                  <div class="csv-radio">
+                    <input type="radio" id="all_product_order_Order_Date_age1" name="all_product_order_Order_Date" value="Order Date">
+                    <label for="all_product_order_Order_Date_age1">Order Date</label><br>
+                  </div>
+
+                  <div class="csv-radio">
+                    <input type="radio" id="all_product_order_Order_Date_age2" name="all_product_order_Order_Date" value="Paid Date">
+                    <label for="all_product_order_Order_Date_age2">Paid Date</label><br>
+                  </div>
+
+
+
+                </div>
+
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="csv-box">
+                <h4>Select Date <sup>*</sup></h4>
+                <div class="csv-radios">
+                  <div class="csv-radio">
+                    <label for="from_date">From:</label>
+                    <input type="date" id="from_date" name="all_Product_start_from_date" required>
+                  </div>
+                  <div class="csv-radio">
+                    <label for="to_date">To:</label>
+                    <input type="date" id="to_date" name="all_Product_start_to_date" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Select Order Statuses</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="Select_Order_Statuses_all" multiple>
+                    <option value="Processing">Processing</option>
+                    <option value="Pending payment">Pending payment</option>
+                    <option value="Partially Paid">Partially Paid</option>
+                    <option value="Ready To Ship">Ready To Ship</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                    <option value="Refunded">Refunded</option>
+                    <option value="Picked">Picked</option>
+                    <option value="On hold">On hold</option>
+                    <option value="Failed">Failed</option>
+                  </select>
+                </div>
+              </div>
+
+
+            </div>
+
+
+
+
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Product Categories</h4>
+                <div class="search-mu">
+                  <select style="display:none"  id="" name="all_product_Category_multiple" multiple>
+                    {% for i in all_product_Category %}
+                    <option value="{{i.Category_Name}}">{{i.Category_Name}}</option>
+                    {% endfor %}
+                  </select>
+
+
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Products</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_Products_multiple" multiple>
+                    {% for i in all_product_Products %}
+                    <option value="{{i.Product_Name}}">{{i.Product_Name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Brands</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_Brand_Name_multiple" multiple>
+                    {% for i in all_product_Brand %}
+                    <option value="{{i.Brand_Name}}">{{i.Brand_Name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Customers Phone number</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_User_multiple" multiple>
+                    {% for i in all_product_User %}
+                    <option value="{{i.username}}">{{i.username}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Vendors</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_vendor_registration_table_multiple" multiple>
+                    {% for i in all_product_vendor_registration_table %}
+                    dddd {{i}}
+                    <option value="{{i.vendor_shop_name}}">{{i.vendor_shop_name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter Payment Methods</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_vendor_Order_Table_multiple" multiple>
+
+                    <option value="Pay Online With SSLCommerz(Credit/Debit Card/MobileBanking/NetBanking/bKash)">Pay Online With SSLCommerz(Credit/Debit Card/MobileBanking/NetBanking/bKash)</option>
+                    <option value="Pay With Nagad">Pay With Nagad</option>
+                    <option value="Pay With Bkash">Pay With Bkash</option>
+                    <option value="Bank Deposit">Bank Deposit</option>
+
+
+<!--                    {% for i in all_product_Order_Table %}-->
+<!--                    <option value="{{i.Payment_method}}">{{i.Payment_method}}</option>-->
+<!--                    {% endfor %}-->
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter Shipping Methods</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_vendor_Order_Table_Shopping_multiple" multiple>
+
+                    <option value="Pickup From BoomBoom Office">Pickup From BoomBoom Office</option>
+                    <option value="Delivery">Delivery</option>
+
+<!--                    {% for i in all_product_Order_Table %}-->
+<!--                    <option value="{{i.Shopping}}">{{i.Shopping}}</option>-->
+<!--                    {% endfor %}-->
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+              <div class="csv-box">
+                <h4>Select Fields to Export</h4>
+                <input type="checkbox" id="order_ido" name="Select_Fields_to_Export_Item_No" value="Item No." checked="checked" disabled>
+                <label for="order_ido">Item No.</label>
+                <input type="checkbox" id="order_statusoo" name="Select_Fields_to_Export_Item_Name" value="Item Name" checked="checked" disabled>
+                <label for="order_statusoo">Item Name</label>
+                <input type="checkbox" id="order_datoe" name="Select_Fields_to_Export_Quantity" value="Quantity" checked="checked" disabled>
+                <label for="order_datoe">Quantity</label>
+
+                <input type="checkbox" id="p_methodu" name="Select_Fields_to_Export_Total_MRP" value="Total MRP" checked="checked" disabled>
+                <label for="p_methodu">Total MRP</label>
+
+                <input type="checkbox" id="itemy" name="Select_Fields_to_Export_Total_Cost" value="Total Cost" checked="checked" disabled>
+                <label for="itemy">Total Cost</label>
+
+                <input type="checkbox" id="quantityt" name="Select_Fields_to_Export_Total_Discounted" value="Total Discounted" checked="checked" disabled>
+                <label for="quantityt">Total Discounted</label>
+
+                <input type="checkbox" id="quantitytf" name="Select_Fields_to_Export_Brands" value="Brands">
+                <label for="quantitytf">Brands</label>
+
+                <input type="checkbox" id="quantitytd" name="Select_Fields_to_Export_Category" value="Category">
+                <label for="quantitytd">Category</label>
+
+<!--                <input type="checkbox" id="quantitytdd" name="Select_Fields_to_Export_Subcategory_1" value="Subcategory 1">-->
+<!--                <label for="quantitytdd">Subcategory 1</label>-->
+
+
+                <input type="checkbox" id="quantitytee" name="Select_Fields_to_Export_Vendor" value="Vendor">
+                <label for="quantitytee">Vendor</label>
+
+                <input type="checkbox" id="quantitytr" name="Select_Fields_to_Export_product_link" value="product link">
+                <label for="quantitytr">product link</label>
+              </div>
+            </div>
+
+          </div>
+
+        <input type="hidden" value="value_dashboard_csv_product" name="name_dashboard_csv_product">
+
+          <div class="row text-center">
+            <div class="col-lg-6 col-sm-6">
+              <button type="submit" class="btn btn-primary"> Generate CSV</button>
+            </div>
+            <div class="col-lg-6 col-sm-6">
+              <button type="submit" class="btn btn-primary" value="Generate P/O" name="i_am_Generate_PO"> Generate P/O(Date and Order Status have to select)</button>
+            </div>
+          </div>
+
+
+      </div>
+    </div>
+
+    </form>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Regular Product Orders
+        </button>
+      </h5>
+    </div>
+
+
+   <form action="{% url 'all_product_order_for_csv' %}" method="POST">{% csrf_token %}
+
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="csv-box">
+                <h4>Filter Orders By</h4>
+
+                <div class="csv-radios">
+
+                  <div class="csv-radio">
+                    <input type="radio" id="requler_all_product_order_Order_Date_age1" name="all_product_order_Order_Date" value="Order Date">
+                    <label for="requler_all_product_order_Order_Date_age1">Order Date</label><br>
+                  </div>
+
+                  <div class="csv-radio">
+                    <input type="radio" id="requler_all_product_order_Order_Date_age2" name="all_product_order_Order_Date" value="Paid Date">
+                    <label for="requler_all_product_order_Order_Date_age2">Paid Date</label><br>
+                  </div>
+
+
+
+                </div>
+
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="csv-box">
+                <h4>Select Date <sup>*</sup></h4>
+                <div class="csv-radios">
+                  <div class="csv-radio">
+                    <label for="from_date">From:</label>
+                    <input type="date" id="requler_from_date" name="all_Product_start_from_date">
+                  </div>
+                  <div class="csv-radio">
+                    <label for="to_date">To:</label>
+                    <input type="date" id="requler_to_date" name="all_Product_start_to_date">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Select Order Statuses</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="Select_Order_Statuses_all" multiple>
+                    <option value="Processing">Processing</option>
+                    <option value="Pending payment">Pending payment</option>
+                    <option value="Partially Paid">Partially Paid</option>
+                    <option value="Ready To Ship">Ready To Ship</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                    <option value="Refunded">Refunded</option>
+                    <option value="Picked">Picked</option>
+                    <option value="On hold">On hold</option>
+                    <option value="Failed">Failed</option>
+                  </select>
+                </div>
+              </div>
+
+
+            </div>
+
+
+
+
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Product Categories</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_Category_multiple" multiple>
+                    {% for i in all_product_Category %}
+                    <option value="{{i.Category_Name}}">{{i.Category_Name}}</option>
+                    {% endfor %}
+                  </select>
+
+
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Products</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_Products_multiple" multiple>
+                    {% for i in all_product_Products %}
+                    <option value="{{i.Product_Name}}">{{i.Product_Name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Brands</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_Brand_Name_multiple" multiple>
+                    {% for i in all_product_Brand %}
+                    <option value="{{i.Brand_Name}}">{{i.Brand_Name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Customers Phone number</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_User_multiple" multiple>
+                    {% for i in all_product_User %}
+                    <option value="{{i.username}}">{{i.username}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Vendors</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_vendor_registration_table_multiple" multiple>
+                    {% for i in all_product_vendor_registration_table %}
+                    <option value="{{i.vendor_shop_name}}">{{i.vendor_shop_name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter Payment Methods</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_vendor_Order_Table_multiple" multiple>
+
+                    <option value="Pay Online With SSLCommerz(Credit/Debit Card/MobileBanking/NetBanking/bKash)">Pay Online With SSLCommerz(Credit/Debit Card/MobileBanking/NetBanking/bKash)</option>
+                    <option value="Pay With Nagad">Pay With Nagad</option>
+                    <option value="Pay With Bkash">Pay With Bkash</option>
+                    <option value="Bank Deposit">Bank Deposit</option>
+
+
+<!--                    {% for i in all_product_Order_Table %}-->
+<!--                    <option value="{{i.Payment_method}}">{{i.Payment_method}}</option>-->
+<!--                    {% endfor %}-->
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter Shipping Methods</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_vendor_Order_Table_Shopping_multiple" multiple>
+
+                    <option value="Pickup From BoomBoom Office">Pickup From BoomBoom Office</option>
+                    <option value="Delivery">Delivery</option>
+
+<!--                    {% for i in all_product_Order_Table %}-->
+<!--                    <option value="{{i.Shopping}}">{{i.Shopping}}</option>-->
+<!--                    {% endfor %}-->
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+              <div class="csv-box">
+                <h4>Select Fields to Export</h4>
+                <input type="checkbox" id="requler_order_ido" name="Select_Fields_to_Export_Item_No" value="Item No." checked="checked" disabled>
+                <label for="requler_order_ido">Item No.</label>
+                <input type="checkbox" id="requler_order_statusoo" name="Select_Fields_to_Export_Item_Name" value="Item Name" checked="checked" disabled>
+                <label for="requler_order_statusoo">Item Name</label>
+                <input type="checkbox" id="requler_order_datoe" name="Select_Fields_to_Export_Quantity" value="Quantity" checked="checked" disabled>
+                <label for="requler_order_datoe">Quantity</label>
+
+                <input type="checkbox" id="requler_p_methodu" name="Select_Fields_to_Export_Total_MRP" value="Total MRP" checked="checked" disabled>
+                <label for="requler_p_methodu">Total MRP</label>
+
+                <input type="checkbox" id="requler_itemy" name="Select_Fields_to_Export_Total_Cost" value="Total Cost" checked="checked" disabled>
+                <label for="requler_itemy">Total Cost</label>
+
+                <input type="checkbox" id="requler_quantityt" name="Select_Fields_to_Export_Total_Discounted" value="Total Discounted" checked="checked" disabled>
+                <label for="requler_quantityt">Total Discounted</label>
+
+                <input type="checkbox" id="requler_quantitytf" name="Select_Fields_to_Export_Brands" value="Brands">
+                <label for="requler_quantitytf">Brands</label>
+
+                <input type="checkbox" id="requler_quantitytd" name="Select_Fields_to_Export_Category" value="Category">
+                <label for="requler_quantitytd">Category</label>
+
+<!--                <input type="checkbox" id="requler_quantitytdd" name="Select_Fields_to_Export_Subcategory_1" value="Subcategory 1">-->
+<!--                <label for="requler_quantitytdd">Subcategory 1</label>-->
+
+
+                <input type="checkbox" id="requler_quantitytee" name="Select_Fields_to_Export_Vendor" value="Vendor">
+                <label for="requler_quantitytee">Vendor</label>
+
+                <input type="checkbox" id="requler_quantitytr" name="Select_Fields_to_Export_product_link" value="product link">
+                <label for="requler_quantitytr">product link</label>
+              </div>
+            </div>
+
+          </div>
+
+        <input type="hidden" value="value_dashboard_csv_product" name="name_dashboard_csv_product">
+        <input type="hidden" value="reguler_value_dashboard_csv_product" name="name_reguler_value_dashboard_csv_product">
+
+          <div class="row text-center">
+            <div class="col-lg-6 col-sm-6">
+              <button type="submit" class="btn btn-primary"> Generate CSV</button>
+            </div>
+            <div class="col-lg-6 col-sm-6">
+              <button type="submit" class="btn btn-primary" value="Generate P/O" name="i_am_Generate_PO"> Generate P/O(Date and Order Status have to select)</button>
+            </div>
+          </div>
+
+
+      </div>
+    </div>
+
+
+
+   </form>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Campaign Product Orders
+        </button>
+      </h5>
+    </div>
+
+
+    <form action="{% url 'all_product_order_for_csv' %}" method="POST">{% csrf_token %}
+
+      <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="csv-box">
+                <h4>Filter Orders By</h4>
+
+                <div class="csv-radios">
+
+                  <div class="csv-radio">
+                    <input type="radio" id="campaign_all_product_order_Order_Date_age1" name="all_product_order_Order_Date" value="Order Date">
+                    <label for="campaign_all_product_order_Order_Date_age1">Order Date</label><br>
+                  </div>
+
+                  <div class="csv-radio">
+                    <input type="radio" id="campaign_all_product_order_Order_Date_age2" name="all_product_order_Order_Date" value="Paid Date">
+                    <label for="campaign_all_product_order_Order_Date_age2">Paid Date</label><br>
+                  </div>
+
+
+
+                </div>
+
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="csv-box">
+                <h4>Select Campaign</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="report_product_campaign" multiple>
+                    <{% for i in all_campaign_table %}
+                    <option value="{{i.campaign_name}}">{{i.campaign_name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Select Order Statuses</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="Select_Order_Statuses_all" multiple>
+                    <option value="Processing">Processing</option>
+                    <option value="Pending payment">Pending payment</option>
+                    <option value="Partially Paid">Partially Paid</option>
+                    <option value="Ready To Ship">Ready To Ship</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                    <option value="Refunded">Refunded</option>
+                    <option value="Picked">Picked</option>
+                    <option value="On hold">On hold</option>
+                    <option value="Failed">Failed</option>
+                  </select>
+                </div>
+              </div>
+
+
+            </div>
+
+
+
+
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Product Categories</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_Category_multiple" multiple>
+                    {% for i in all_product_Category %}
+                    <option value="{{i.Category_Name}}">{{i.Category_Name}}</option>
+                    {% endfor %}
+                  </select>
+
+
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Products</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_Products_multiple" multiple>
+                    {% for i in all_product_Products %}
+                    <option value="{{i.Product_Name}}">{{i.Product_Name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Brands</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_Brand_Name_multiple" multiple>
+                    {% for i in all_product_Brand %}
+                    <option value="{{i.Brand_Name}}">{{i.Brand_Name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Customers Phone number</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_User_multiple" multiple>
+                    {% for i in all_product_User %}
+                    <option value="{{i.username}}">{{i.username}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter by Vendors</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_vendor_registration_table_multiple" multiple>
+                    {% for i in all_product_vendor_registration_table %}
+                    <option value="{{i.vendor_shop_name}}">{{i.vendor_shop_name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter Payment Methods</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_vendor_Order_Table_multiple" multiple>
+
+                    <option value="Pay Online With SSLCommerz(Credit/Debit Card/MobileBanking/NetBanking/bKash)">Pay Online With SSLCommerz(Credit/Debit Card/MobileBanking/NetBanking/bKash)</option>
+                    <option value="Pay With Nagad">Pay With Nagad</option>
+                    <option value="Pay With Bkash">Pay With Bkash</option>
+                    <option value="Bank Deposit">Bank Deposit</option>
+
+
+<!--                    {% for i in all_product_Order_Table %}-->
+<!--                    <option value="{{i.Payment_method}}">{{i.Payment_method}}</option>-->
+<!--                    {% endfor %}-->
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+              <div class="csv-box">
+                <h4>Filter Shipping Methods</h4>
+                <div class="search-mu">
+                  <select style="display:none"  name="all_product_vendor_Order_Table_Shopping_multiple" multiple>
+
+                    <option value="Pickup From BoomBoom Office">Pickup From BoomBoom Office</option>
+                    <option value="Delivery">Delivery</option>
+
+<!--                    {% for i in all_product_Order_Table %}-->
+<!--                    <option value="{{i.Shopping}}">{{i.Shopping}}</option>-->
+<!--                    {% endfor %}-->
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+              <div class="csv-box">
+                <h4>Select Fields to Export</h4>
+                <input type="checkbox" id="campaign_order_ido" name="Select_Fields_to_Export_Item_No" value="Item No." checked="checked" disabled>
+                <label for="campaign_order_ido">Item No.</label>
+                <input type="checkbox" id="campaign_order_statusoo" name="Select_Fields_to_Export_Item_Name" value="Item Name" checked="checked" disabled>
+                <label for="campaign_order_statusoo">Item Name</label>
+                <input type="checkbox" id="campaign_order_datoe" name="Select_Fields_to_Export_Quantity" value="Quantity" checked="checked" disabled>
+                <label for="campaign_order_datoe">Quantity</label>
+
+                <input type="checkbox" id="campaign_p_methodu" name="Select_Fields_to_Export_Total_MRP" value="Total MRP" checked="checked" disabled>
+                <label for="campaign_p_methodu">Total MRP</label>
+
+                <input type="checkbox" id="campaign_itemy" name="Select_Fields_to_Export_Total_Cost" value="Total Cost" checked="checked" disabled>
+                <label for="campaign_itemy">Total Cost</label>
+
+                <input type="checkbox" id="campaign_quantityt" name="Select_Fields_to_Export_Total_Discounted" value="Total Discounted" checked="checked" disabled>
+                <label for="campaign_quantityt">Total Discounted</label>
+
+                <input type="checkbox" id="campaign_quantitytf" name="Select_Fields_to_Export_Brands" value="Brands">
+                <label for="campaign_quantitytf">Brands</label>
+
+                <input type="checkbox" id="campaign_quantitytd" name="Select_Fields_to_Export_Category" value="Category">
+                <label for="campaign_quantitytd">Category</label>
+
+<!--                <input type="checkbox" id="campaign_quantitytdd" name="Select_Fields_to_Export_Subcategory_1" value="Subcategory 1">-->
+<!--                <label for="campaign_quantitytdd">Subcategory 1</label>-->
+
+
+                <input type="checkbox" id="campaign_quantitytee" name="Select_Fields_to_Export_Vendor" value="Vendor">
+                <label for="campaign_quantitytee">Vendor</label>
+
+                <input type="checkbox" id="campaign_quantitytr" name="Select_Fields_to_Export_product_link" value="product link">
+                <label for="campaign_quantitytr">product link</label>
+              </div>
+            </div>
+
+          </div>
+
+        <input type="hidden" value="value_dashboard_csv_product" name="name_dashboard_csv_product">
+        <input type="hidden" value="campaign_value_dashboard_csv_product" name="name_campaign_value_dashboard_csv_product">
+
+          <div class="row text-center">
+            <div class="col-lg-6 col-sm-6">
+              <button type="submit" class="btn btn-primary"> Generate CSV</button>
+            </div>
+            <div class="col-lg-6 col-sm-6">
+              <button type="submit" class="btn btn-primary" value="Generate P/O" name="i_am_Generate_PO"> Generate P/O(Date and Order Status have to select)</button>
+            </div>
+          </div>
+
+
+      </div>
+    </div>
+
+
+
+   </form>
+
+
+  </div>
+</div>
+
+</section>
+
+
+{% endblock %}

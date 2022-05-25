@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+{% block body %}
+
+
+<!-- Main content -->
+		<section class="content">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto">
+                        <h3 class="page-title">Campaign Category Percentage</h3>
+                        <div class="d-xl-inline-block align-items-center d-none">
+                            <nav>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+                                    <li class="breadcrumb-item" aria-current="page">e-Commerce</li>
+                                    <li class="breadcrumb-item active" aria-current="page">add</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="right-title">
+                        <div class="d-flex mt-10 justify-content-end">
+							<div class="d-md-flex mr-20 ml-10 d-none">
+								<div class="chart-text mr-10">
+									<h6 class="mb-0"><small>THIS MONTH</small></h6>
+									<h4 class="mt-0 text-primary">$12,125</h4>
+								</div>
+								<div class="spark-chart">
+									<div id="thismonth"><canvas width="60" height="35" style="display: inline-block; width: 60px; height: 35px; vertical-align: top;"></canvas></div>
+								</div>
+							</div>
+							<div class="d-md-flex ml-10 d-none">
+								<div class="chart-text mr-10">
+									<h6 class="mb-0"><small>LAST YEAR</small></h6>
+									<h4 class="mt-0 text-danger">$22,754</h4>
+								</div>
+								<div class="spark-chart">
+									<div id="lastyear"><canvas width="60" height="35" style="display: inline-block; width: 60px; height: 35px; vertical-align: top;"></canvas></div>
+								</div>
+							</div>
+						</div>
+                    </div>
+                </div>
+            </div>
+
+			<div class="row">
+			  <div class="col-12">
+				<div class="box">
+					<div class="box-header with-border">
+					  
+					  
+						<div class="mt-3">
+								{% if messages %}
+
+								<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+								  <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+									<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+								  </symbol>
+								  <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+									<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+								  </symbol>
+								  <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+									<path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+								  </symbol>
+								</svg>
+
+								{% for i in messages %}
+								<div class="alert alert-success d-flex align-items-center" role="alert">
+								  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+								  <div>
+									&nbsp;&nbsp;&nbsp;&nbsp;{{i}}
+								  </div>
+								</div>
+								{% endfor %}
+								{% endif %}
+							</div>
+					</div>
+					
+					<div class="box-header with-border">
+					  <h3 class="box-title">Campaign : {{the_campaign.campaign_name}}</h3>
+					  <input type="hidden" value="{{the_campaign.id}}" id="get_cam_name">
+					</div>
+					
+				  <div class="box-body">
+						<table id="productorder" class="table table-hover no-wrap product-order dataTable no-footer" data-page-size="10" role="grid" aria-describedby="productorder_info">
+
+							<thead>
+								<tr role="row">
+								    <th class="sorting_asc" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Customer: activate to sort column descending">
+										<div class="form-check">
+										  <input class="form-check-input" type="checkbox" id="select-all3">
+										  <label class="form-check-label" for="select-all3"></label>
+										</div>
+									</th>
+									<th class="sorting_asc" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Customer: activate to sort column descending">
+										Category
+									</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Order ID: activate to sort column ascending">Percentage
+
+									</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+
+
+							{% for all_cat in all_Category_list %}
+							<tr role="row" class="odd" id="row_prod{{all_product.slug}}">
+									<td class="sorting_1">
+										<div class="form-check" id="checkboxlist">
+										  <input name="cat_check" class="form-check-input" type="checkbox" id="{{all_cat.id}}" value="{{all_cat.id}}">
+
+										  <label class="form-check-label" for="{{all_cat.id}}"></label>
+										</div>
+									</td>
+									<td>{{all_cat}}</td>
+									<td>
+									    <div class="input-group">
+            								<div class="input-group-addon">&#x00025;</div>
+            								<input type="text" class="form-control" name="MRP_Price" placeholder="Type integer value" id="percentage{{all_cat.id}}"> 
+            							</div>
+									</td>	
+							</tr>
+							{% endfor %}
+
+
+							</tbody>
+						</table>
+						
+						
+
+						<div class="form-actions mt-10" id="update_save_btn">
+							<button class="btn btn-rounded btn-primary" onclick="save_cat_percentage()"> <i class="fa fa-check"></i> Next Step </button>
+						</div>
+					
+				  </div>
+			  </div>
+		  </div>
+
+		</section>
+		<!-- /.content -->
+		
+		
+		
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+<script>
+
+	//this is for checkboxes
+
+	document.getElementById('select-all3').onclick = function() {
+		var checkboxes = document.getElementsByName('cat_check');
+		console.log('checkboxes')
+		console.log(checkboxes)
+
+		for (var checkbox of checkboxes) {
+			checkbox.checked = this.checked;
+		}
+		
+	}
+
+
+
+
+function save_cat_percentage(){
+    
+    var get_cam_id = document.getElementById('get_cam_name').value;
+    console.log(get_cam_id)
+
+	document.getElementById('update_save_btn').innerHTML = `<button class="btn btn-rounded btn-warning"> <i class="fa fa-check"></i> Wait Saving......</button>`;
+
+	$.each($("input[name='cat_check']:checked"), function(){
+			console.log('check1')
+			console.log($(this).val());
+			var cat_id = $(this).val();
+			
+			console.log('cat_id')
+			console.log(cat_id)
+			
+            var get_percentage = document.getElementById('percentage'+cat_id).value;
+            console.log(get_percentage)
+			
+			$.ajax({
+				url : '{% url 'save_categories_percentages' %}',
+				type : 'POST',
+				data : {cat_id:cat_id, get_cam_id:get_cam_id, get_percentage:get_percentage}
+			})
+			console.log('check2')
+		});
+		
+		
+		
+		
+	$.each($("input[name='cat_check']:not(:checked)"), function(){
+			console.log('check1')
+			console.log($(this).val());
+			var cat_id = $(this).val();
+			
+			console.log('cat_id')
+			console.log(cat_id)
+			
+            var get_percentage = document.getElementById('percentage'+cat_id).value;
+            console.log(get_percentage)
+			
+			$.ajax({
+				url : '{% url 'save_blank_categories_percentages' %}',
+				type : 'POST',
+				data : {cat_id:cat_id, get_cam_id:get_cam_id, get_percentage:get_percentage}
+			})
+			console.log('check2')
+		});
+		
+		
+		
+	console.log(get_cam_id)
+	//location.href = "add_products_campaign/" + get_cam_id;
+	document.location = '{% url 'create_campaign' %}'
+}
+
+
+
+
+
+
+</script>
+
+{% endblock %}

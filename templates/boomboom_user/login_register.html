@@ -1,0 +1,1127 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-11">
+        <div class="sign-in-page">
+			<div class="row">
+
+
+                <!-- Sign-in start-->
+
+                <div class="col-md-6 col-sm-6 sign-in">
+                    <h4 class="">Sign in</h4>
+<!--                    <p class="">Hello, Welcome to your account.</p>-->
+
+                    <span id="login_status"></span>
+<!--                    <div class="social-sign-in outer-top-xs">-->
+<!--                        <a href="#" class="facebook-sign-in"><i class="fa fa-facebook"></i> Sign In with Facebook</a>-->
+<!--                        <a href="#" class="twitter-sign-in"><i class="fa fa-twitter"></i> Sign In with Twitter</a>-->
+<!--                    </div>-->
+
+                        <div class="form-group">
+                            <label class="info-title" for="login_email">Email Address / Phone Number<span>*</span></label>
+                            <input type="email" class="form-control unicase-form-control text-input" id="login_email" >
+                        </div>
+                        <div class="form-group">
+                            <label class="info-title" for="login_password">Password <span>*</span></label>
+                            <input type="password" class="form-control unicase-form-control text-input" id="login_password" >
+                        </div>
+                        <div class="radio outer-xs">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Remember me!
+                            </label>
+                            <!-- Button trigger modal -->
+
+                            <a href="#" data-toggle="modal" data-target="#myModal_forgot_pass" class="forgot-password pull-right">Forgot your Password?</a>
+                        </div>
+
+                        <div id="login_button">
+                            <button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Login</button>
+                        </div>
+
+                </div>
+                <!-- Sign-in end-->
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal_forgot_pass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Forgot Password</h4>
+                          </div>
+                          <div class="modal-body">
+
+                              <div class="form-group" id="change_interface_forgot_pss">
+                                <label class="info-title" for="id_sign_phone">Phone Number <span>*</span></label>
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-2 col-sm-2"><h4>+88</h4></div>
+                                    <div class="col-md-10 col-lg-10 col-sm-10">
+                                        <input type="number" class="form-control unicase-form-control text-input" id="forgot_pass_num">
+                                    </div>
+                                </div>
+                                  <span id="show_forgot_status"></span>
+                            </div>
+
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <span id="change_forgot_btn">
+                                <button type="button" onclick="check_phn_num()" class="btn btn-primary">Continue</button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                <!-- create a new account start-->
+
+                <div class="col-md-6 col-sm-6 create-new-account">
+                    <h4 class="checkout-subtitle">Create a new account</h4>
+                    <span id="status_signup"></span>
+
+                    <div id="all_signup_input">
+                        <div class="form-group">
+                            <label class="info-title" for="First_Name">First Name <span>*</span></label>
+                            <input type="text" class="form-control unicase-form-control text-input" id="First_Name" >
+                            <span id="show_info_fn"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="info-title" for="Last_Name">Last Name <span>*</span></label>
+                            <input type="text" class="form-control unicase-form-control text-input" id="Last_Name" >
+                            <span id="show_info_ln"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="info-title" for="id_sign_phone">Phone Number <span>*</span></label>
+                            <div class="row">
+                                <div class="col-md-2 col-lg-2 col-sm-2"><h4>+88</h4></div>
+                                <div class="col-md-10 col-lg-10 col-sm-10">
+                                    <input type="number" class="form-control unicase-form-control text-input" id="id_sign_phone" >
+                                </div>
+                            </div>
+                            
+                            <span id="show_info_phn"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="info-title" for="sign_email">Email Address <span></span></label>
+                            <input type="email" class="form-control unicase-form-control text-input" id="sign_email" >
+                            <span id="show_info_email"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="info-title" for="sing_Password">Password <span>*</span></label>
+                            <input type="password" class="form-control unicase-form-control text-input" id="sing_Password" >
+                        </div>
+                         <div class="form-group">
+                            <label class="info-title" for="sign_Confirm_Password">Confirm Password <span>*</span></label>
+                            <input type="password" class="form-control unicase-form-control text-input" id="sign_Confirm_Password" >
+                             <span id="show_info_password"></span>
+                        </div>
+                    </div>
+
+
+                        <span id="test1212"></span>
+                        <input type="hidden" id="email_available_status">
+                        <input type="hidden" id="phn_available_status">
+                        <input type="hidden" id="username_available_status">
+                        <input type="hidden" id="pass_match_available_status">
+
+                    <div id="show_button">
+                        <button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button>
+                    </div>
+
+
+
+
+                </div>
+                <!-- create a new account -->
+
+            </div><!-- /.row -->
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="email_active_notification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registered Successfully !</h5>
+
+      </div>
+      <div class="modal-body">
+        Thanks For Being a Member of BoomBoom. You Are Logged In Now !!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="close_modal()" data-bs-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+
+<script>
+
+//start Forgot password
+
+function check_phn_num(){
+    var varforgot_pass_num = document.getElementById('forgot_pass_num').value;
+    console.log(varforgot_pass_num)
+
+
+
+    if(varforgot_pass_num == ""){
+        document.getElementById('show_forgot_status').innerHTML = `<span style="color:red;">Phone Number is Required !</span>`
+    }
+    else if(varforgot_pass_num.length > 11){
+        document.getElementById('show_forgot_status').innerHTML = `<span style="color:red;">Phone Number is not Valid !</span>`
+    }
+    else if(varforgot_pass_num.length < 11){
+        document.getElementById('show_forgot_status').innerHTML = `<span style="color:red;">Phone Number is not Valid !</span>`
+    }
+    else{
+        document.getElementById('show_forgot_status').innerHTML = ""
+        document.getElementById("change_forgot_btn").innerHTML = `<button type="button" class="btn btn-warning">Wait..</button>`
+
+        $.ajax({
+                url : '{% url 'check_and_send_otp' %}',
+                type : 'POST',
+                data : {varforgot_pass_num:varforgot_pass_num}
+            })
+            .done(function(response){
+                console.log(response);
+                console.log(varforgot_pass_num)
+                if(response=="False"){
+                    document.getElementById('show_forgot_status').innerHTML = `<span style="color:red;">This Phone Number Is Not Registered !</span>`
+                }
+                else{
+                    document.getElementById('change_interface_forgot_pss').innerHTML =
+                        `<h5>We Sent You An OTP, Please Check !!</h5>
+                        <div class="form-group">
+                            <label class="info-title" for="First_Name">OTP <span>*</span></label>
+                            <input type="number" class="form-control unicase-form-control text-input" id="otp_forgot_pss_value">
+                            <span id="otp_status_forgot"></span>
+                        </div>
+
+                        <div class="form-group" id="id_otp_btn1">
+                            <button class="btn btn-primary" onclick="resent_otp_number_forgot_pass('${varforgot_pass_num}')">Resent the otp?</button>
+                        </div>`
+                        document.getElementById('otp_forgot_pss_value').value=`${response}`
+
+
+                    document.getElementById("change_forgot_btn").innerHTML = `<button type="button" class="btn btn-primary" onclick="submit_otp_forgot('${varforgot_pass_num}', '${response}')">Submit</button>`
+                }
+
+            })
+
+    }
+}
+
+
+function resent_otp_number_forgot_pass(varforgot_pass_num){
+    console.log('reset_phn_number')
+    console.log(varforgot_pass_num)
+
+    document.getElementById('id_otp_btn1').innerHTML = `<button class="btn btn-warning">Resending ...</button>`;
+
+    $.ajax({
+                url : '{% url 'check_and_send_otp' %}',
+                type : 'POST',
+                data : {varforgot_pass_num:varforgot_pass_num}
+            })
+            .done(function(response){
+                console.log(response);
+                console.log(varforgot_pass_num)
+                if(response=="False"){
+                    document.getElementById('show_forgot_status').innerHTML = `<span style="color:red;">This Phone Number Is Not Registered !</span>`
+                }
+                else{
+                    document.getElementById('change_interface_forgot_pss').innerHTML =
+                        `<h5>We Sent You Another OTP, Please Check !!</h5>
+                        <div class="form-group">
+                            <label class="info-title" for="First_Name">OTP <span>*</span></label>
+                            <input type="number" class="form-control unicase-form-control text-input" id="otp_forgot_pss_value">
+                            <span id="otp_status_forgot"></span>
+                        </div>
+
+                        <div class="form-group" id="id_otp_btn1">
+                            <button class="btn btn-primary" onclick="resent_otp_number_forgot_pass('${varforgot_pass_num}')">Resent the otp?</button>
+                        </div>`
+                        document.getElementById('otp_forgot_pss_value').value=`${response}`
+
+                    document.getElementById("change_forgot_btn").innerHTML = `<button type="button" class="btn btn-primary" onclick="submit_otp_forgot('${varforgot_pass_num}', '${response}')">Submit</button>`
+
+
+                }
+
+            })
+
+}
+
+
+
+function submit_otp_forgot(varforgot_pass_num, forgot_otp){
+    console.log("varforgot_pass_num, forgot_otp")
+
+    console.log(varforgot_pass_num, forgot_otp)
+
+    var typ_otp = document.getElementById('otp_forgot_pss_value').value;
+    console.log(typ_otp)
+
+
+    if(typ_otp == ""){
+        document.getElementById('otp_status_forgot').innerHTML = `<span style="color:red;">OTP Field Can Not be Empty !</span>`
+    }
+    else{
+        document.getElementById('otp_status_forgot').innerHTML = ""
+        document.getElementById("change_forgot_btn").innerHTML = `<button type="button" class="btn btn-warning">Wait..</button>`
+
+        if(forgot_otp==typ_otp){
+            document.getElementById("change_forgot_btn").innerHTML = `<button type="button" class="btn btn-primary" onclick="last_step_forgot_num('${varforgot_pass_num}')">Complete</button>`
+            document.getElementById('change_interface_forgot_pss').innerHTML =`<div class="form-group">
+                            <label class="info-title" for="sing_Password">Password <span>*</span></label>
+                            <input type="password" class="form-control unicase-form-control text-input" id="password_forgot" >
+                            <span id="show_forgot_password1"></span>
+                        </div>
+                         <div class="form-group">
+                            <label class="info-title" for="sign_Confirm_Password">Confirm Password <span>*</span></label>
+                            <input type="password" class="form-control unicase-form-control text-input" id="confirm_password_forgot" >
+                             <span id="show_forgot_password2"></span>
+                        </div>`
+        }
+        else{
+            document.getElementById('otp_status_forgot').innerHTML = `<span style="color:red;">OTP Doesn't Match!</span>`
+            document.getElementById("change_forgot_btn").innerHTML = ""
+        }
+    }
+}
+
+
+function last_step_forgot_num(phn_number){
+
+    password_forgot = document.getElementById('password_forgot').value;
+    confirm_password_forgot = document.getElementById('confirm_password_forgot').value;
+    console.log(password_forgot, confirm_password_forgot)
+
+    if(password_forgot == ""){
+        document.getElementById('show_forgot_password1').innerHTML=`<b><span style="color:red;">Password Can not Be Empty !</span></b>`
+    }
+
+    else if(confirm_password_forgot == ""){
+        document.getElementById('show_forgot_password1').innerHTML=""
+        document.getElementById('show_forgot_password2').innerHTML=`<b><span style="color:red;">Confirm Password Can not Be Empty !</span></b>`
+    }
+
+    else if(password_forgot != confirm_password_forgot){
+        document.getElementById('show_forgot_password2').innerHTML=`<b><span style="color:red;">Paswords Are Not Matched !</span></b>`
+    }
+    else{
+        document.getElementById('show_forgot_password1').innerHTML="";
+        document.getElementById('show_forgot_password2').innerHTML="";
+
+        document.getElementById("change_forgot_btn").innerHTML = `<button type="button" class="btn btn-warning">Completing..</button>`
+
+        $.ajax({
+                url : '{% url 'change_password_confirm' %}',
+                type : 'POST',
+                data : {phn_number:phn_number,password_forgot:password_forgot}
+            })
+            .done(function(response){
+                console.log(response);
+                if(response == "True"){
+                    location.reload()
+                }
+            })
+    }
+}
+
+
+// end forgot password
+
+
+
+//close_modal
+function close_modal(){
+$('#email_active_notification').modal('hide');
+}
+
+        // signup
+        $(document).ready(function(){
+
+            // keyup event will be triggered when user leaves keyboard
+
+            //email
+            $("#sign_email").keyup(function(){
+                console.log('sign_email')
+                var email = $(this).val();
+                console.log(email)
+                var check_about_at = email.includes("@");
+                console.log(check_about_at)
+
+                if(check_about_at){
+                check_at='1'
+                }
+                else{
+                check_at='0'
+                }
+
+                var get_status_username = document.getElementById("username_available_status").value;
+                var get_status_pass = document.getElementById("pass_match_available_status").value;
+                var get_status_phn =document.getElementById("phn_available_status").value;
+                
+                if (get_status_phn!='1'){
+                    
+                    document.getElementById('show_info_phn').innerHTML = "<span class='email_error' style='color: red; padding: 5px; font-weight: bold;'> &#10005; Phone Number is Already Exist ! </span>"
+                }
+                
+                var get_phon = document.getElementById("id_sign_phone").value;
+
+
+                var First_Name = document.getElementById("First_Name").value;
+                var Last_Name = document.getElementById("Last_Name").value;
+
+                console.log(First_Name)
+                console.log(Last_Name)
+                
+                // if(get_status_pass == "1" && First_Name!="" && Last_Name!="" && get_phon!=""){
+                //     document.getElementById('show_button').innerHTML =
+                //                     `<button type="submit" onclick="signup_function()" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button> `;
+                // }
+                // else{
+                //   document.getElementById('show_button').innerHTML =
+                //                     `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+
+                // }
+
+
+                if(email!=""){
+                    document.getElementById('show_info_email').innerHTML = ``;
+                    $.ajax({
+                        url : '{% url 'check_email_exist' %}',
+                        type : 'POST',
+                        data : {email:email}
+                    })
+                    .done(function(response){
+                        // console.log(response);
+
+                        if(response == "True"){
+                            $(".email_error").remove();
+                            // $("<span class='email_error' style='color: red; padding: 5px; font-weight: bold;'> Email Not Available. </span>").insertAfter("#id_email")
+                            document.getElementById('show_info_email').innerHTML = "<span class='email_error' style='color: red; padding: 5px; font-weight: bold;'> &#10005; Email is Already Exist ! </span>"
+                            document.getElementById("email_available_status").value = '0';
+
+                            document.getElementById('show_button').innerHTML =
+                                                `<input type="submit" name="submit" class="btn btn-primary" value="Sign up" disabled> `;
+
+
+                        }
+                        else{
+                            $(".email_error").remove();
+                            // $("<span class='email_error' style='color: green; padding: 5px; font-weight: bold;'> &#9986; </span>").insertAfter("#id_email")
+                            // document.getElementById('show_info_email').innerHTML = "<span class='email_error' style='color: green; padding: 5px; font-weight: bold;'>aa </span>"
+                            document.getElementById("email_available_status").value = '1';
+
+
+                            if(get_status_pass == "1" && check_at=="1" && First_Name!="" && Last_Name!="" && get_phon!="" && get_status_phn=='1'){
+                                document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" onclick="signup_function()" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button> `;
+                            }
+                            else{
+                              document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+
+                            }
+
+                        }
+                    })
+
+                    .fail(function(){
+                        console.log("Failed");
+                    })
+                }
+                else{
+                    console.log('asxsxsxs')
+                    $(".email_error").remove();
+                    document.getElementById('show_info_email').innerHTML = `<span class='username_error' style='color: red; padding: 5px; font-weight: bold;'> &#10005; Email is required !</span>`;
+                    
+                    
+                    document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+                }
+
+            })
+
+
+
+
+            $("#sing_Password").keyup(function(){
+                var re_password_match = $(this).val();
+
+                var id_password_value = document.getElementById("sing_Password").value;
+                var id_re_password_value = document.getElementById("sign_Confirm_Password").value;
+
+                var get_status_email = document.getElementById("email_available_status").value;
+                var get_status_phn =document.getElementById("phn_available_status").value;
+                
+                var get_phon = document.getElementById("id_sign_phone").value;
+
+                var First_Name = document.getElementById("First_Name").value;
+                var Last_Name = document.getElementById("Last_Name").value;
+
+
+                if(id_re_password_value==""){}
+
+                else{
+
+                        if(id_password_value == id_re_password_value){
+
+                            document.getElementById('show_info_password').innerHTML = `<span class='username_error' style='color: green; padding: 5px; font-weight: bold;'> &#10004; Passwords are Matched !</span>`;
+                            document.getElementById("pass_match_available_status").value = '1';
+
+                            if(get_status_email=='1' && First_Name!="" && Last_Name!="" && get_phon!="" && get_status_phn=='1'){
+                                document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" onclick="signup_function()" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button> `;
+                            }
+                            else{
+                               document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+
+                            }
+
+                        }
+                        else{
+                               document.getElementById('show_info_password').innerHTML = `<span class='username_error' style='color: red; padding: 5px; font-weight: bold;'> &#10005; Passwords are Not Matched !</span>`;
+                               document.getElementById("pass_match_available_status").value = '0';
+                               document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+                            }
+                    }
+
+            })
+
+
+
+            $("#sign_Confirm_Password").keyup(function(){
+                var re_password_match = $(this).val();
+
+                var id_password_value = document.getElementById("sing_Password").value;
+                var id_re_password_value = document.getElementById("sign_Confirm_Password").value;
+
+                // get email status
+                var get_status_email = document.getElementById("email_available_status").value;
+                var get_status_username = document.getElementById("username_available_status").value;
+                var get_status_phn =document.getElementById("phn_available_status").value;
+
+                var First_Name = document.getElementById("First_Name").value;
+                var Last_Name = document.getElementById("Last_Name").value;
+                
+                var get_phon = document.getElementById("id_sign_phone").value;
+
+
+                if(id_password_value==""){}
+
+                else{
+
+                        if(id_password_value == id_re_password_value){
+
+                            document.getElementById('show_info_password').innerHTML =
+                                                `<span class='username_error' style='color: green; padding: 5px; font-weight: bold;'> &#10004; Passwords are Matched !</span>`;
+
+                            document.getElementById("pass_match_available_status").value = '1';
+
+                            if(get_status_email=='1' && First_Name!="" && Last_Name!="" && get_phon!="" && get_status_phn=='1'){
+                                document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" onclick="signup_function()" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>`;
+                            }
+                            else{
+                               document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+
+                            }
+
+
+                        }
+                        else{
+                               document.getElementById('show_info_password').innerHTML = `<span class='username_error' style='color: red; padding: 5px; font-weight: bold;'> &#10005; Passwords are Not Matched !</span>`;
+                               document.getElementById("pass_match_available_status").value = '0';
+                               document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+
+                            }
+                    }
+
+                // this is for making button dynamic
+
+                // document.getElementById('test1212').innerHTML = `<span class='username_error' style='color: green; padding: 5px; font-weight: bold;'> ${get_status_email} </span>`;
+
+
+            })
+
+
+        })
+
+
+        // signup
+        $(document).ready(function(){
+
+            // keyup event will be triggered when user leaves keyboard
+
+            //First_Name
+            $("#First_Name").keyup(function(){
+            console.log('First_Name')
+            var email = document.getElementById("sign_email").value;
+
+            var check_about_at = email.includes("@");
+            console.log(check_about_at)
+
+            if(check_about_at){
+                check_at='1'
+            }
+            else{
+                check_at='0'
+            }
+            console.log(check_at)
+
+            console.log('hi')
+
+            var get_status_pass = document.getElementById("pass_match_available_status").value;
+            var get_status_email = document.getElementById("email_available_status").value;
+            var get_status_phn =document.getElementById("phn_available_status").value;
+            console.log('this is yayay')
+            console.log(get_status_phn)
+            
+            var get_phon = document.getElementById("id_sign_phone").value;
+
+
+            console.log('other')
+
+            console.log(get_status_pass)
+            console.log('get_status_pass')
+            console.log(get_status_email)
+
+
+            var First_Name = document.getElementById("First_Name").value;
+            var Last_Name = document.getElementById("Last_Name").value;
+
+            console.log(First_Name)
+            console.log(Last_Name)
+            
+            if(First_Name==""){
+                document.getElementById('show_info_fn').innerHTML = `<span class='username_error' style='color: red; padding: 5px; font-weight: bold;'> &#10005; First Name is required !</span>`;
+            }
+            else{
+                document.getElementById('show_info_fn').innerHTML = ``;
+            }
+            
+            
+            if(check_at=='1' && First_Name!="" && Last_Name!="" && get_status_pass=='1' && get_phon!="" && get_status_phn=='1'){
+                document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" onclick="signup_function()" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>`;
+            }
+            else{
+                 document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+
+                 }
+            })
+
+
+            //Last_Name
+            $("#Last_Name").keyup(function(){
+            console.log('Last_Name')
+            var email = document.getElementById("sign_email").value;
+
+            var check_about_at = email.includes("@");
+            console.log(check_about_at)
+
+            if(check_about_at){
+                check_at='1'
+            }
+            else{
+                check_at='0'
+            }
+            console.log(check_at)
+
+            console.log('hi')
+
+            var get_status_pass = document.getElementById("pass_match_available_status").value;
+            var get_status_email = document.getElementById("email_available_status").value;
+            var get_status_phn =document.getElementById("phn_available_status").value;
+
+
+            console.log('other')
+
+            console.log(get_status_pass)
+            console.log('get_status_pass')
+            console.log(get_status_email)
+
+
+            var First_Name = document.getElementById("First_Name").value;
+            var Last_Name = document.getElementById("Last_Name").value;
+            
+            var get_phon = document.getElementById("id_sign_phone").value;
+
+            console.log(First_Name)
+            console.log(Last_Name)
+            
+            if(Last_Name==""){
+                document.getElementById('show_info_ln').innerHTML = `<span class='username_error' style='color: red; padding: 5px; font-weight: bold;'> &#10005; Last Name is required !</span>`;
+            }
+            else{
+                document.getElementById('show_info_ln').innerHTML = ``;
+            }
+
+            if(check_at=='1' && First_Name!="" && Last_Name!="" && get_status_pass=='1' && get_phon!="" && get_status_phn=='1'){
+                document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" onclick="signup_function()" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>`;
+            }
+            else{
+                 document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+
+                 }
+            })
+            
+            
+            
+            //phone type
+            $("#id_sign_phone").keyup(function(){
+            console.log('id_sign_phone')
+            var email = document.getElementById("sign_email").value;
+
+            var check_about_at = email.includes("@");
+            console.log(check_about_at)
+
+            if(check_about_at){
+                check_at='1'
+            }
+            else{
+                check_at='0'
+            }
+            console.log(check_at)
+
+            console.log('hi')
+
+            var get_status_pass = document.getElementById("pass_match_available_status").value;
+            var get_status_email = document.getElementById("email_available_status").value;
+            
+            
+            var get_phon = document.getElementById("id_sign_phone").value;
+
+
+            console.log('other')
+
+            console.log(get_status_pass)
+            console.log('get_status_pass')
+            console.log(get_status_email)
+            
+            
+
+
+            var First_Name = document.getElementById("First_Name").value;
+            var Last_Name = document.getElementById("Last_Name").value;
+            
+            var get_phon = document.getElementById("id_sign_phone").value;
+
+            console.log(First_Name)
+            console.log(Last_Name)
+            
+            if(get_phon==""){
+                document.getElementById('show_info_phn').innerHTML = `<span class='username_error' style='color: red; padding: 5px; font-weight: bold;'> &#10005; Phone Number is required !</span>`;
+            }
+            else{
+                document.getElementById('show_info_phn').innerHTML = ``;
+                
+               
+                $.ajax({
+                    url : '{% url 'check_phone_exist' %}',
+                    type : 'POST',
+                    data : {get_phon:get_phon}
+                })
+                .done(function(response){
+                    console.log(response);
+
+                    if(response == "True"){
+                        
+                        document.getElementById('show_info_phn').innerHTML = "<span class='email_error' style='color: red; padding: 5px; font-weight: bold;'> &#10005; Phone Number is Already Exist ! </span>"
+                        document.getElementById("phn_available_status").value = '0';
+
+                        document.getElementById('show_button').innerHTML =
+                                            `<input type="submit" name="submit" class="btn btn-primary" value="Sign up" disabled> `;
+
+
+                    }
+                    else{
+                        
+                        document.getElementById("phn_available_status").value = '1';
+
+
+                        
+
+                    }
+                })
+            }
+            
+
+            if(First_Name!="" && Last_Name!="" && get_status_pass=='1' && get_phon!=""){
+                document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" onclick="signup_function()" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>`;
+            }
+            else{
+                 document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+
+                 }
+            })
+
+        })
+
+        // end sign up
+
+
+        // register
+        
+        
+        
+        function signup_function() {
+            
+            document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-warning checkout-page-button" disabled>Signing wait..</button> `;
+
+            //show status
+            document.getElementById('status_signup').innerHTML = `<p style="font-size:10px color: red; font-weight: bold;">
+                                                                    &#129306; Please Wait...
+                                                                    </p>`
+
+            var First_Name = document.getElementById("First_Name").value;
+            var Last_Name = document.getElementById("Last_Name").value;
+            var sign_email = document.getElementById("sign_email").value;
+            var sing_Password = document.getElementById("sing_Password").value;
+            var id_sign_phone= document.getElementById("id_sign_phone").value;
+
+
+            $.ajax({
+                    url : '{% url 'create_otp' %}',
+                    type : 'POST',
+                    data : {id_sign_phone:id_sign_phone}
+                })
+                .done(function(response){
+                    console.log(response);
+
+                    if(response != "False"){
+                        document.getElementById('status_signup').innerHTML = `OTP send To your Phone Number !! Please Check !`
+
+
+                    document.getElementById('all_signup_input').innerHTML =
+                        `<div class="form-group">
+                            <label class="info-title" for="First_Name">OTP <span>*</span></label>
+                            <input type="text" class="form-control unicase-form-control text-input" id="otp_cumtomer" >
+                            <span id="otp_status"></span>
+                        </div>
+                        
+                        <div class="form-group" id="id_otp_btn">
+                            <button class="btn btn-primary" onclick="resent_otp_number('${First_Name}', '${Last_Name}', '${sign_email}', '${sing_Password}', '${id_sign_phone}')">Resent the otp?</button>
+                        </div>`
+                        document.getElementById('otp_cumtomer').value = `${response}`
+                        
+                        document.getElementById('show_button').innerHTML =
+                                            `<input type="button" name="submit" class="btn btn-primary" value="Submit OTP" onclick="signup_function_second('${response}', '${First_Name}', '${Last_Name}', '${sign_email}', '${sing_Password}', '${id_sign_phone}')"> `;
+
+                        //$('#email_active_notification').modal('show');
+
+                    }
+                    
+                })
+
+                .fail(function(){
+                    console.log("Failed");
+                })
+
+        }
+        // end register
+        
+        
+        
+        function signup_function_second(otp, fname, lname, cemail, passrd, phne) {
+            
+            
+            
+            //show status
+            
+
+            var otp_numbr = otp;
+            var First_Name = fname;
+            var Last_Name = lname;
+            var sign_email = cemail;
+            var sing_Password = passrd;
+            var id_sign_phone= phne;
+            
+            var otp_cumtomer_input_1 = document.getElementById('otp_cumtomer').value;
+            var otp_cumtomer_input = parseInt(otp_cumtomer_input_1);
+            console.log(otp_cumtomer_input, otp_numbr, First_Name, Last_Name, sign_email, sing_Password, id_sign_phone)
+            
+            
+            if(otp_cumtomer_input==""){
+                document.getElementById('otp_status').innerHTML = `<span class='email_error' style='color: red; padding: 5px; font-weight: bold;'>OTP is Required !!</span>`
+            }
+            else{
+                document.getElementById('status_signup').innerHTML = `<p style="font-size:10px color: red; font-weight: bold;">
+                                                                    &#129306; Please Wait...
+                                                                    </p>`
+                $.ajax({
+                    url : '{% url 'submit_signup_form' %}',
+                    type : 'POST',
+                    data : {First_Name:First_Name, Last_Name:Last_Name, sign_email:sign_email, sing_Password:sing_Password, id_sign_phone:id_sign_phone, otp_numbr:otp_numbr, otp_cumtomer_input:otp_cumtomer_input}
+                })
+                .done(function(response){
+                    //console.log(response);
+
+                    if(response == "True"){
+                        document.getElementById('status_signup').innerHTML = `<p style="font-size:10px color: red; font-weight: bold;">
+                                                                    Successfully Registered &#128512; !
+                                                                    </p>`
+
+
+                    // document.getElementById('all_signup_input').innerHTML =
+                    //     `<div class="form-group">
+                    //         <label class="info-title" for="First_Name">First Name <span>*</span></label>
+                    //         <input type="text" class="form-control unicase-form-control text-input" id="First_Name" >
+                    //         <span id="show_info_fn"></span>
+                    //     </div>
+                    //     <div class="form-group">
+                    //         <label class="info-title" for="Last_Name">Last Name <span>*</span></label>
+                    //         <input type="text" class="form-control unicase-form-control text-input" id="Last_Name" >
+                    //         <span id="show_info_ln"></span>
+                    //     </div>
+                        
+                    //     <div class="form-group">
+                    //         <label class="info-title" for="id_sign_phone">Phone Number <span>*</span></label>
+                    //         <input type="number" class="form-control unicase-form-control text-input" id="id_sign_phone" >
+                    //         <span id="show_info_phn"></span>
+                    //     </div>
+
+                    //     <div class="form-group">
+                    //         <label class="info-title" for="sign_email">Email Address <span></span></label>
+                    //         <input type="email" class="form-control unicase-form-control text-input" id="sign_email" >
+                    //         <span id="show_info_email"></span>
+                    //     </div>
+
+                    //     <div class="form-group">
+                    //         <label class="info-title" for="sing_Password">Password <span>*</span></label>
+                    //         <input type="password" class="form-control unicase-form-control text-input" id="sing_Password" >
+                    //     </div>
+                    //      <div class="form-group">
+                    //         <label class="info-title" for="sign_Confirm_Password">Confirm Password <span>*</span></label>
+                    //         <input type="password" class="form-control unicase-form-control text-input" id="sign_Confirm_Password" >
+                    //          <span id="show_info_password"></span>
+                    //     </div>`
+
+                        $('#email_active_notification').modal('show');
+                        
+                        document.location='/'
+
+                    }
+                    else{
+                        document.getElementById('status_signup').innerHTML = `<p style="font-size:10px color: red; font-weight: bold;">
+                                                                    OTP Incorrect &#128556; !
+                                                                    </p>`
+                        document.getElementById('all_signup_input').innerHTML = `<div class="form-group">
+                                                                                    OTP is wrong!! Resent the otp?
+                                                                                </div>
+                                                                                
+                                                                                <div class="form-group" id="id_otp_btn">
+                                                                                    <button class="btn btn-primary" onclick="resent_otp_number('${First_Name}', '${Last_Name}', '${sign_email}', '${sing_Password}', '${id_sign_phone}')">Resent the otp?</button>
+                                                                                </div>`
+                    }
+                })
+
+                .fail(function(){
+                    console.log("Failed");
+                })
+            }
+
+            
+
+        }
+        // end register
+
+
+
+        // login
+        $(document).ready(function(){
+
+            //login_email
+            $("#login_email").keyup(function(){
+            console.log('login_email')
+
+            var login_email = document.getElementById("login_email").value;
+            var login_password = document.getElementById("login_password").value;
+
+            var valid_login_email = login_email.includes("@");
+            console.log(valid_login_email)
+
+            if(valid_login_email){
+                check_at='1'
+            }
+            else{
+                check_at='0'
+            }
+            console.log(check_at)
+
+            if(login_email != "" && login_password != ""){
+                document.getElementById('login_button').innerHTML = `<button type="submit" class="btn-upper btn btn-primary checkout-page-button">Login</button>`
+            }
+            else{
+            document.getElementById('login_button').innerHTML = `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Login</button>`
+            }
+            })
+
+
+            //login_password
+            $("#login_password").keyup(function(){
+            console.log('login_email')
+
+            var login_email = document.getElementById("login_email").value;
+            var login_password = document.getElementById("login_password").value;
+
+            var valid_login_email = login_email.includes("@");
+            console.log(valid_login_email)
+
+            if(valid_login_email){
+                check_at='1'
+            }
+            else{
+                check_at='0'
+            }
+            console.log(check_at)
+
+            if(login_email != "" && login_password != ""){
+                document.getElementById('login_button').innerHTML = `<button type="submit" onclick="login_function()" class="btn-upper btn btn-primary checkout-page-button">Login</button>`
+            }
+            else{
+            document.getElementById('login_button').innerHTML = `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Login</button>`
+            }
+
+            })
+
+        })
+
+
+
+
+
+
+
+
+
+        // login submit
+        function login_function() {
+            document.getElementById('login_status').innerHTML =`<p style="font-size:10px color: blue; font-weight: bold;">
+                                                                    &#129306; Please Wait...
+                                                                    </p>`
+
+            var login_email = document.getElementById("login_email").value;
+            var login_password = document.getElementById("login_password").value;
+
+            $.ajax({
+                url : '{% url 'submit_login_form' %}',
+                type : 'POST',
+                data : {login_email:login_email, login_password:login_password}
+            })
+            .done(function(response){
+                //console.log(response);
+
+                if(response == "True"){
+                    document.getElementById('login_status').innerHTML = `<h4 class='username_error' style='color: green; padding: 5px; font-weight: bold;'> Successfully Loged in &#128512; !! </h4>`
+
+                    // $('#username2').val(JSON.stringify(username1_value))
+                    // $('#password2').val(JSON.stringify(password1_value))
+                    // document.getElementById('username2').innerHTML = username1_value
+                    // document.getElementById('password2').innerHTML = password1_value
+
+                    // document.getElementById("username2").value = username1_value;
+                    // document.getElementById("password2").value = password1_value;
+
+                    document.location='/'
+                }
+                else{
+                    document.getElementById('login_status').innerHTML = `<h4 class='username_error' style='color: red; font-weight: bold;'> Invalid credentials &#128556; ! </h4>`
+                }
+            })
+
+            .fail(function(){
+                console.log("Failed");
+            })
+
+        }
+        
+        
+        
+        
+function resent_otp_number(First_Name, Last_Name, sign_email, sing_Password, id_sign_phone){
+    document.getElementById('id_otp_btn').innerHTML = `<button class="btn btn-warning">Resending ...</button>`;
+    
+    
+    $.ajax({
+            url : '{% url 'create_otp' %}',
+            type : 'POST',
+            data : {id_sign_phone:id_sign_phone}
+        })
+        .done(function(response){
+            console.log(response);
+
+            if(response != "False"){
+                document.getElementById('status_signup').innerHTML = `OTP send To your Phone Number !! Please Check !`
+
+
+            document.getElementById('all_signup_input').innerHTML =
+                `<h5>We Sent You Another OTP, Please Check !!</h5>
+                <div class="form-group">
+                    <label class="info-title" for="First_Name">OTP <span>*</span></label>
+                    <input type="number" class="form-control unicase-form-control text-input" id="otp_cumtomer" >
+                    <span id="otp_status"></span>
+                </div>
+                
+                <div class="form-group" id="id_otp_btn">
+                    <button class="btn btn-primary" onclick="resent_otp_number('${First_Name}', '${Last_Name}', '${sign_email}', '${sing_Password}', '${id_sign_phone}')">Resent the otp?</button>
+                </div>`
+                document.getElementById('otp_cumtomer').value = `${response}`
+                
+                document.getElementById('show_button').innerHTML =
+                                    `<input type="button" name="submit" class="btn btn-primary" value="Submit OTP" onclick="signup_function_second('${response}', '${First_Name}', '${Last_Name}', '${sign_email}', '${sing_Password}', '${id_sign_phone}')"> `;
+
+                
+
+            }
+            
+        })
+
+        
+    
+    
+
+        
+}
+
+</script>
+
+
+
+
+{% endblock %}

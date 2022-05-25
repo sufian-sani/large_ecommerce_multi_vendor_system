@@ -1,0 +1,14 @@
+{% autoescape off %}
+
+Hi {{first_name}} {{last_name}}!
+
+Welcome to BoomBoom.
+Please click on the link below to confirm your email.
+http://{{ domain }}{% url 'email_activation' activation_key=activation_key %}
+
+This is a Activation Email to confirm your Email address. Click the link to active you account.
+
+Best,
+BoomBoom Pvt. Ltd
+
+{% endautoescape %}

@@ -1,0 +1,1062 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% load el_pagination_tags %}
+{% block content %}
+
+
+<!-- ============================================== CONTENT ============================================== -->
+<div style="margin-bottom:20px;" class="product-page">
+<div class="">
+<div class="row">
+<div class="col-xs-12 col-sm-12 col-md-9">
+
+
+{% for shp_benr in all_Shop_now_page_benner %}
+<div id="category" class="category-carousel hidden-xs">
+  <div class="item">
+    <div class="image"> <img src="/media/{{shp_benr.Shop_now_page_benner}}" alt="{{shp_benr.title}}" class="img-responsive"> </div>
+    <div class="container-fluid">
+      <div class="caption vertical-top text-left">
+        <div class="big-text"> {% if shp_benr.title %}{{shp_benr.title}}{% endif %} </div>
+        <div class="excerpt hidden-sm hidden-md">{% if shp_benr.title2 %} {{shp_benr.title2}}{% endif %} </div>
+        <div class="excerpt-normal hidden-sm hidden-md"> {% if shp_benr.description %} {{shp_benr.description}}{% endif %} </div>
+      </div>
+      <!-- /.caption -->
+    </div>
+    <!-- /.container-fluid -->
+  </div>
+</div>
+{% endfor %}
+
+
+  {% if get_Category %}
+
+  <div class="wide-banners wow fadeInUp outer-bottom-bs">
+    <div class="row">
+
+      <div class="col-md-12">
+        <div class="cnt-strip">
+          <div class="image1"> <img class="img-responsive" src="/media/{{get_Category.Category_benner}}" alt="{{get_Category.Category_Name}}"> </div>
+          <div class="strip strip-text">
+            <div class="strip-inner">
+              <h2 class="text-right">{% if get_Category.Category_title %}{{ get_Category.Category_title }}{% endif %}<br>
+                <span class="shopping-needs">{% if get_Category.Category_discription %}{{get_Category.Category_discription}}{% endif %} </span></h2>
+            </div>
+          </div>
+
+          <!-- /.new-label -->
+        </div>
+        <!-- /.wide-banner -->
+      </div>
+      <!-- /.col -->
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+
+  {% endif %}
+
+
+{% if get_Category %}
+<h2>{{get_Category.Category_Name}}</h2>
+
+{% elif getsubcat %}
+<h2>{{getsubcat.Subcategory_1}}</h2>
+
+{% elif get_Flash_Sell %}
+<h2>{{get_Flash_Sell.Name}}</h2>
+
+{% elif search_result_all %}
+<h2>About {{cont_search_result_all}} Results are Found</h2>
+
+{% elif no_result %}
+<h2>No Result Where Found</h2>
+
+{% else %}
+<h2>All Products</h2>
+{% endif %}
+
+
+<div class="clearfix filters-container m-t-10">
+  <div class="row">
+    <div style="text-align:right;" class="col-sm-4 col-md-3 col-lg-3 col-xs-4">
+
+      <h4>Sort By: </h4>
+
+    </div>
+    <div class="col-xs-8 col-sm-8 col-md-3 col-lg-3">
+
+      <form id="form_sorting" class="form" action="{% url 'product_list_sort' %}" method="GET">
+        <div class="dataTables_length" id="productorder_length">
+        	<label>
+
+        	   <input type="hidden" name="sort_by_prd" value="{{sort_by_prd}}">
+
+        	   {% if get_Category %}
+        	   <input type="hidden" name="cat_name" value="{{get_Category.id}}">
+        	   {% endif %}
+
+        	   {% if getsubcat %}
+        	   <input type="hidden" name="subcat_id" value="{{getsubcat.id}}">
+        	   {% endif %}
+
+
+        	   <input type="hidden" name="search_key" value="{{search_key}}">
+
+        	   <input type="hidden" name="product_start_price" value="{{product_start_price}}">
+        	   <input type="hidden" name="product_end_price" value="{{product_end_price}}">
+
+
+
+        		<select name="name_sortby" aria-controls="productorder" class="form-control form-control-sm" onchange="sort_product_page()" id="id_sortby">
+        			<option value="{% if sort %}{{sort}}{% else %}Product Name: A to Z{% endif %}">{% if sort %}{{sort}}{% else %}Product Name: A to Z{% endif %}</option>
+        			<option value="Product Name: A to Z">Product Name: A to Z</option>
+        			<option value="Product Name: Z to A">Product Name: Z to A</option>
+        			<option value="Price: Low to High">Price: Low to High</option>
+        			<option value="Price: High to low">Price: High to low</option>
+        		</select>
+
+        	</label>
+        </div>
+        </form>
+
+    </div>
+    <!-- /.col -->
+    <div class="col col-sm-12 col-md-5 col-lg-5 hidden-sm">
+      <!--<div class="col col-sm-12 col-md-12 col-lg-12 no-padding">-->
+      <!--  <div class="lbl-cnt"> <span class="lbl">Sort by</span>-->
+
+
+
+
+
+
+
+
+          <!--<div class="fld inline">-->
+          <!--  <div class="dropdown dropdown-small dropdown-med dropdown-white inline">-->
+          <!--    <button data-toggle="dropdown" type="button" class="btn dropdown-toggle">{{sort}} <span class="caret"></span> </button>-->
+          <!--    <ul role="menu" class="dropdown-menu">-->
+          <!--      <li role="presentation"><a href="{% url 'product-list' %}"><b style="color:blue;">Product Name:</b> A to Z</a></li>-->
+          <!--      <li role="presentation"><a href="{% url 'product_list_Z_to_A' %}"><b style="color:blue;">Product Name:</b> Z to A</a></li>-->
+          <!--      <li role="presentation"><a href="{% url 'product_list_Price_Lowest_first' %}"><b style="color:blue;">Price:</b> Lowest first</a></li>-->
+          <!--      <li role="presentation"><a href="{% url 'product_list_Price_Highest_first' %}"><b style="color:blue;">Price:</b> Highest first</a></li>-->
+
+          <!--    </ul>-->
+          <!--  </div>-->
+          <!--</div>-->
+          <!-- /.fld -->
+        <!--</div>-->
+        <!-- /.lbl-cnt -->
+      <!--</div>-->
+      <!-- /.col -->
+
+      <!-- /.col -->
+    </div>
+    <!-- /.col -->
+    <div class="col col-sm-6 col-md-4 col-xs-6 col-lg-4 text-right">
+      <!--<div class="pagination-container">-->
+      <!--  <ul class="list-inline list-unstyled">-->
+      <!--    <li class="prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>-->
+      <!--    <li><a href="#">1</a></li>-->
+      <!--    <li class="active"><a href="#">2</a></li>-->
+      <!--    <li><a href="#">3</a></li>-->
+      <!--    <li><a href="#">4</a></li>-->
+      <!--    <li class="next"><a href="#"><i class="fa fa-angle-right"></i></a></li>-->
+      <!--  </ul>-->
+        <!-- /.list-inline -->
+      <!--</div>-->
+      <!-- /.pagination-container --> </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+</div>
+<div class="search-result-container ">
+  <div id="myTabContent" class="tab-content category-list">
+    <div class="tab-pane active " id="grid-container">
+      <div class="category-product">
+        <div class="row product-list">
+
+
+
+            {% include page_template %}
+
+
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.category-product -->
+
+    </div>
+    <!-- /.tab-pane -->
+
+    <div class="tab-pane "  id="list-container">
+      <div class="category-product">
+        <div class="category-product-inner wow fadeInUp">
+          <div class="products">
+            <div class="product-list product">
+              <div class="row product-list-row">
+                <div class="col col-sm-3 col-lg-3">
+                  <div class="product-image">
+                    <div class="image"> <img src="assets/images/products/p3.jpg" alt=""> </div>
+                  </div>
+                  <!-- /.product-image -->
+                </div>
+                <!-- /.col -->
+                <div class="col col-sm-9 col-lg-9">
+                  <div class="product-info">
+                    <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
+                    <div class="rating rateit-small"></div>
+                    <div class="product-price"> <span class="price"> ৳450.99 </span> <span class="price-before-discount">৳ 800</span> </div>
+                    <!-- /.product-price -->
+                    <div class="description m-t-10">Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra.</div>
+                    <div class="cart clearfix animate-effect">
+                      <div class="action">
+                        <ul class="list-unstyled">
+                          <li class="add-cart-button btn-group">
+                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                          </li>
+                          <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                          <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal"></i> </a> </li>
+                        </ul>
+                      </div>
+                      <!-- /.action -->
+                    </div>
+                    <!-- /.cart -->
+
+                  </div>
+                  <!-- /.product-info -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.product-list-row -->
+              <div class="tag new"><span>new</span></div>
+            </div>
+            <!-- /.product-list -->
+          </div>
+          <!-- /.products -->
+        </div>
+        <!-- /.category-product-inner -->
+
+        <div class="category-product-inner wow fadeInUp">
+          <div class="products">
+            <div class="product-list product">
+              <div class="row product-list-row">
+                <div class="col col-sm-3 col-lg-3">
+                  <div class="product-image">
+                    <div class="image"> <img src="assets/images/products/p4.jpg" alt=""> </div>
+                  </div>
+                  <!-- /.product-image -->
+                </div>
+                <!-- /.col -->
+                <div class="col col-sm-9 col-lg-9">
+                  <div class="product-info">
+                    <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
+                    <div class="rating rateit-small"></div>
+                    <div class="product-price"> <span class="price"> ৳450.99 </span> <span class="price-before-discount">৳ 800</span> </div>
+                    <!-- /.product-price -->
+                    <div class="description m-t-10">Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra.</div>
+                    <div class="cart clearfix animate-effect">
+                      <div class="action">
+                        <ul class="list-unstyled">
+                          <li class="add-cart-button btn-group">
+                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                          </li>
+                          <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                          <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal"></i> </a> </li>
+                        </ul>
+                      </div>
+                      <!-- /.action -->
+                    </div>
+                    <!-- /.cart -->
+
+                  </div>
+                  <!-- /.product-info -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.product-list-row -->
+              <div class="tag sale"><span>sale</span></div>
+            </div>
+            <!-- /.product-list -->
+          </div>
+          <!-- /.products -->
+        </div>
+        <!-- /.category-product-inner -->
+
+        <div class="category-product-inner wow fadeInUp">
+          <div class="products">
+            <div class="product-list product">
+              <div class="row product-list-row">
+                <div class="col col-sm-3 col-lg-3">
+                  <div class="product-image">
+                    <div class="image"> <img src="assets/images/products/p5.jpg" alt=""> </div>
+                  </div>
+                  <!-- /.product-image -->
+                </div>
+                <!-- /.col -->
+                <div class="col col-sm-9 col-lg-9">
+                  <div class="product-info">
+                    <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
+                    <div class="rating rateit-small"></div>
+                    <div class="product-price"> <span class="price"> ৳450.99 </span> <span class="price-before-discount">৳ 800</span> </div>
+                    <!-- /.product-price -->
+                    <div class="description m-t-10">Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra.</div>
+                    <div class="cart clearfix animate-effect">
+                      <div class="action">
+                        <ul class="list-unstyled">
+                          <li class="add-cart-button btn-group">
+                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                          </li>
+                          <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                          <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal"></i> </a> </li>
+                        </ul>
+                      </div>
+                      <!-- /.action -->
+                    </div>
+                    <!-- /.cart -->
+
+                  </div>
+                  <!-- /.product-info -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.product-list-row -->
+              <div class="tag hot"><span>hot</span></div>
+            </div>
+            <!-- /.product-list -->
+          </div>
+          <!-- /.products -->
+        </div>
+        <!-- /.category-product-inner -->
+
+        <div class="category-product-inner wow fadeInUp">
+          <div class="products">
+            <div class="product-list product">
+              <div class="row product-list-row">
+                <div class="col col-sm-3 col-lg-3">
+                  <div class="product-image">
+                    <div class="image"> <img src="assets/images/products/p6.jpg" alt=""> </div>
+                  </div>
+                  <!-- /.product-image -->
+                </div>
+                <!-- /.col -->
+                <div class="col col-sm-9 col-lg-9">
+                  <div class="product-info">
+                    <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
+                    <div class="rating rateit-small"></div>
+                    <div class="product-price"> <span class="price"> ৳450.99 </span> <span class="price-before-discount">৳ 800</span> </div>
+                    <!-- /.product-price -->
+                    <div class="description m-t-10">Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra.</div>
+                    <div class="cart clearfix animate-effect">
+                      <div class="action">
+                        <ul class="list-unstyled">
+                          <li class="add-cart-button btn-group">
+                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                          </li>
+                          <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                          <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal"></i> </a> </li>
+                        </ul>
+                      </div>
+                      <!-- /.action -->
+                    </div>
+                    <!-- /.cart -->
+
+                  </div>
+                  <!-- /.product-info -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.product-list-row -->
+              <div class="tag hot"><span>hot</span></div>
+            </div>
+            <!-- /.product-list -->
+          </div>
+          <!-- /.products -->
+        </div>
+        <!-- /.category-product-inner -->
+
+        <div class="category-product-inner wow fadeInUp">
+          <div class="products">
+            <div class="product-list product">
+              <div class="row product-list-row">
+                <div class="col col-sm-3 col-lg-3">
+                  <div class="product-image">
+                    <div class="image"> <img src="assets/images/products/p7.jpg" alt=""> </div>
+                  </div>
+                  <!-- /.product-image -->
+                </div>
+                <!-- /.col -->
+                <div class="col col-sm-9 col-lg-9">
+                  <div class="product-info">
+                    <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
+                    <div class="rating rateit-small"></div>
+                    <div class="product-price"> <span class="price"> ৳450.99 </span> <span class="price-before-discount">৳ 800</span> </div>
+                    <!-- /.product-price -->
+                    <div class="description m-t-10">Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra.</div>
+                    <div class="cart clearfix animate-effect">
+                      <div class="action">
+                        <ul class="list-unstyled">
+                          <li class="add-cart-button btn-group">
+                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                          </li>
+                          <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                          <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal"></i> </a> </li>
+                        </ul>
+                      </div>
+                      <!-- /.action -->
+                    </div>
+                    <!-- /.cart -->
+
+                  </div>
+                  <!-- /.product-info -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.product-list-row -->
+              <div class="tag sale"><span>sale</span></div>
+            </div>
+            <!-- /.product-list -->
+          </div>
+          <!-- /.products -->
+        </div>
+        <!-- /.category-product-inner -->
+
+        <div class="category-product-inner wow fadeInUp">
+          <div class="products">
+            <div class="product-list product">
+              <div class="row product-list-row">
+                <div class="col col-sm-3 col-lg-3">
+                  <div class="product-image">
+                    <div class="image"> <img src="assets/images/products/p8.jpg" alt=""> </div>
+                  </div>
+                  <!-- /.product-image -->
+                </div>
+                <!-- /.col -->
+                <div class="col col-sm-9 col-lg-9">
+                  <div class="product-info">
+                    <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
+                    <div class="rating rateit-small"></div>
+                    <div class="product-price"> <span class="price"> ৳450.99 </span> <span class="price-before-discount">৳ 800</span> </div>
+                    <!-- /.product-price -->
+                    <div class="description m-t-10">Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra.</div>
+                    <div class="cart clearfix animate-effect">
+                      <div class="action">
+                        <ul class="list-unstyled">
+                          <li class="add-cart-button btn-group">
+                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                          </li>
+                          <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                          <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal"></i> </a> </li>
+                        </ul>
+                      </div>
+                      <!-- /.action -->
+                    </div>
+                    <!-- /.cart -->
+
+                  </div>
+                  <!-- /.product-info -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.product-list-row -->
+              <div class="tag new"><span>new</span></div>
+            </div>
+            <!-- /.product-list -->
+          </div>
+          <!-- /.products -->
+        </div>
+        <!-- /.category-product-inner -->
+
+        <div class="category-product-inner wow fadeInUp">
+          <div class="products">
+            <div class="product-list product">
+              <div class="row product-list-row">
+                <div class="col col-sm-3 col-lg-3">
+                  <div class="product-image">
+                    <div class="image"> <img src="assets/images/products/p9.jpg" alt=""> </div>
+                  </div>
+                  <!-- /.product-image -->
+                </div>
+                <!-- /.col -->
+                <div class="col col-sm-9 col-lg-9">
+                  <div class="product-info">
+                    <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
+                    <div class="rating rateit-small"></div>
+                    <div class="product-price"> <span class="price"> ৳450.99 </span> <span class="price-before-discount">৳ 800</span> </div>
+                    <!-- /.product-price -->
+                    <div class="description m-t-10">Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra.</div>
+                    <div class="cart clearfix animate-effect">
+                      <div class="action">
+                        <ul class="list-unstyled">
+                          <li class="add-cart-button btn-group">
+                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                          </li>
+                          <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                          <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal"></i> </a> </li>
+                        </ul>
+                      </div>
+                      <!-- /.action -->
+                    </div>
+                    <!-- /.cart -->
+
+                  </div>
+                  <!-- /.product-info -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.product-list-row -->
+              <div class="tag new"><span>new</span></div>
+            </div>
+            <!-- /.product-list -->
+          </div>
+          <!-- /.products -->
+        </div>
+        <!-- /.category-product-inner -->
+
+        <div class="category-product-inner wow fadeInUp">
+          <div class="products">
+            <div class="product-list product">
+              <div class="row product-list-row">
+                <div class="col col-sm-3 col-lg-3">
+                  <div class="product-image">
+                    <div class="image"> <img src="assets/images/products/p10.jpg" alt=""> </div>
+                  </div>
+                  <!-- /.product-image -->
+                </div>
+                <!-- /.col -->
+                <div class="col col-sm-9 col-lg-9">
+                  <div class="product-info">
+                    <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
+                    <div class="rating rateit-small"></div>
+                    <div class="product-price"> <span class="price"> ৳450.99 </span> <span class="price-before-discount">৳ 800</span> </div>
+                    <!-- /.product-price -->
+                    <div class="description m-t-10">Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra.</div>
+                    <div class="cart clearfix animate-effect">
+                      <div class="action">
+                        <ul class="list-unstyled">
+                          <li class="add-cart-button btn-group">
+                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                          </li>
+                          <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                          <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal"></i> </a> </li>
+                        </ul>
+                      </div>
+                      <!-- /.action -->
+                    </div>
+                    <!-- /.cart -->
+
+                  </div>
+                  <!-- /.product-info -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.product-list-row -->
+              <div class="tag sale"><span>sale</span></div>
+            </div>
+            <!-- /.product-list -->
+          </div>
+          <!-- /.products -->
+        </div>
+        <!-- /.category-product-inner -->
+
+        <div class="category-product-inner wow fadeInUp">
+          <div class="products">
+            <div class="product-list product">
+              <div class="row product-list-row">
+                <div class="col col-sm-3 col-lg-3">
+                  <div class="product-image">
+                    <div class="image"> <img src="assets/images/products/p11.jpg" alt=""> </div>
+                  </div>
+                  <!-- /.product-image -->
+                </div>
+                <!-- /.col -->
+                <div class="col col-sm-9 col-lg-9">
+                  <div class="product-info">
+                    <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
+                    <div class="rating rateit-small"></div>
+                    <div class="product-price"> <span class="price"> ৳450.99 </span> <span class="price-before-discount">৳ 800</span> </div>
+                    <!-- /.product-price -->
+                    <div class="description m-t-10">Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra.</div>
+                    <div class="cart clearfix animate-effect">
+                      <div class="action">
+                        <ul class="list-unstyled">
+                          <li class="add-cart-button btn-group">
+                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                          </li>
+                          <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                          <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal"></i> </a> </li>
+                        </ul>
+                      </div>
+                      <!-- /.action -->
+                    </div>
+                    <!-- /.cart -->
+
+                  </div>
+                  <!-- /.product-info -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.product-list-row -->
+              <div class="tag hot"><span>hot</span></div>
+            </div>
+            <!-- /.product-list -->
+          </div>
+          <!-- /.products -->
+        </div>
+        <!-- /.category-product-inner -->
+
+        <div class="category-product-inner wow fadeInUp">
+          <div class="products">
+            <div class="product-list product">
+              <div class="row product-list-row">
+                <div class="col col-sm-3 col-lg-3">
+                  <div class="product-image">
+                    <div class="image"> <img src="assets/images/products/p12.jpg" alt=""> </div>
+                  </div>
+                  <!-- /.product-image -->
+                </div>
+                <!-- /.col -->
+                <div class="col col-sm-9 col-lg-9">
+                  <div class="product-info">
+                    <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
+                    <div class="rating rateit-small"></div>
+                    <div class="product-price"> <span class="price"> ৳450.99 </span> <span class="price-before-discount">৳ 800</span> </div>
+                    <!-- /.product-price -->
+                    <div class="description m-t-10">Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra.</div>
+                    <div class="cart clearfix animate-effect">
+                      <div class="action">
+                        <ul class="list-unstyled">
+                          <li class="add-cart-button btn-group">
+                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                          </li>
+                          <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                          <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal"></i> </a> </li>
+                        </ul>
+                      </div>
+                      <!-- /.action -->
+                    </div>
+                    <!-- /.cart -->
+
+                  </div>
+                  <!-- /.product-info -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.product-list-row -->
+              <div class="tag new"><span>new</span></div>
+            </div>
+            <!-- /.product-list -->
+          </div>
+          <!-- /.products -->
+        </div>
+        <!-- /.category-product-inner -->
+
+        <div class="category-product-inner wow fadeInUp">
+          <div class="products">
+            <div class="product-list product">
+              <div class="row product-list-row">
+                <div class="col col-sm-3 col-lg-3">
+                  <div class="product-image">
+                    <div class="image"> <img src="assets/images/products/p13.jpg" alt=""> </div>
+                  </div>
+                  <!-- /.product-image -->
+                </div>
+                <!-- /.col -->
+                <div class="col col-sm-9 col-lg-9">
+                  <div class="product-info">
+                    <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
+                    <div class="rating rateit-small"></div>
+                    <div class="product-price"> <span class="price"> ৳450.99 </span> <span class="price-before-discount">৳ 800</span> </div>
+                    <!-- /.product-price -->
+                    <div class="description m-t-10">Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra.</div>
+                    <div class="cart clearfix animate-effect">
+                      <div class="action">
+                        <ul class="list-unstyled">
+                          <li class="add-cart-button btn-group">
+                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                          </li>
+                          <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                          <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal"></i> </a> </li>
+                        </ul>
+                      </div>
+                      <!-- /.action -->
+                    </div>
+                    <!-- /.cart -->
+
+                  </div>
+                  <!-- /.product-info -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.product-list-row -->
+              <div class="tag sale"><span>sale</span></div>
+            </div>
+            <!-- /.product-list -->
+          </div>
+          <!-- /.products -->
+        </div>
+        <!-- /.category-product-inner -->
+
+        <div class="category-product-inner wow fadeInUp">
+          <div class="products">
+            <div class="product-list product">
+              <div class="row product-list-row">
+                <div class="col col-sm-3 col-lg-3">
+                  <div class="product-image">
+                    <div class="image"> <img src="assets/images/products/p14.jpg" alt=""> </div>
+                  </div>
+                  <!-- /.product-image -->
+                </div>
+                <!-- /.col -->
+                <div class="col col-sm-9 col-lg-9">
+                  <div class="product-info">
+                    <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
+                    <div class="rating rateit-small"></div>
+                    <div class="product-price"> <span class="price"> ৳450.99 </span> <span class="price-before-discount">৳ 800</span> </div>
+                    <!-- /.product-price -->
+                    <div class="description m-t-10">Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra.</div>
+                    <div class="cart clearfix animate-effect">
+                      <div class="action">
+                        <ul class="list-unstyled">
+                          <li class="add-cart-button btn-group">
+                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                          </li>
+                          <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                          <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal"></i> </a> </li>
+                        </ul>
+                      </div>
+                      <!-- /.action -->
+                    </div>
+                    <!-- /.cart -->
+
+                  </div>
+                  <!-- /.product-info -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.product-list-row -->
+              <div class="tag hot"><span>hot</span></div>
+            </div>
+            <!-- /.product-list -->
+          </div>
+          <!-- /.products -->
+        </div>
+        <!-- /.category-product-inner -->
+
+      </div>
+      <!-- /.category-product -->
+    </div>
+    <!-- /.tab-pane #list-container -->
+  </div>
+  <!-- /.tab-content -->
+  <div class="clearfix filters-container bottom-row">
+    <div class="text-right">
+      <!--<div class="pagination-container">-->
+      <!--  <ul class="list-inline list-unstyled">-->
+      <!--    <li class="prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>-->
+      <!--    <li><a href="#">1</a></li>-->
+      <!--    <li class="active"><a href="#">2</a></li>-->
+      <!--    <li><a href="#">3</a></li>-->
+      <!--    <li><a href="#">4</a></li>-->
+      <!--    <li class="next"><a href="#"><i class="fa fa-angle-right"></i></a></li>-->
+      <!--  </ul>-->
+        <!-- /.list-inline -->
+      <!--</div>-->
+      <!-- /.pagination-container --> </div>
+    <!-- /.text-right -->
+
+  </div>
+  <!-- /.filters-container -->
+
+</div>
+<!-- /.search-result-container -->
+</div>
+
+<div class="col-sm-12 col-xs-12 col-md-3 sidebar right-sidebar hidden-xs hidden-sm">
+  <div style="margin-bottom:20px;" class="sidebar-widget">
+    <div class="wrapper">
+      <h3 class="section-title">FILTER BY PRICE</h3>
+
+      <form class="form-horizontal" action="{% url 'price_filter' %}" method="GET">
+
+
+          <input type="hidden" name="sort_by_prd" value="{{sort_by_prd}}">
+
+    	   {% if get_Category %}
+    	   <input type="hidden" name="cat_name" value="{{get_Category.id}}">
+    	   {% endif %}
+
+    	   {% if getsubcat %}
+    	   <input type="hidden" name="subcat_id" value="{{getsubcat.id}}">
+    	   {% endif %}
+
+
+    	   <input type="hidden" name="search_key" value="{{search_key}}">
+
+
+
+      <div class="form-group">
+        <label for="inputEmail3" class="col-sm-4 control-label">From ৳</label>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" id="inputEmail3" placeholder="Start Price" name="product_start_price" value="{% if product_start_price %}{{product_start_price}}{% else %}10{% endif %}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-4 control-label">To ৳</label>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" id="inputPassword3" placeholder="End Price" name="product_end_price" value="{% if product_end_price %}{{product_end_price}}{% else %}10000{% endif %}">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-warning">Search</button>
+        </div>
+      </div>
+    </form>
+
+      <!--<fieldset style="text-align:center;" class="filter-price">-->
+
+      <!--  <div class="price-field">-->
+      <!--    <input type="range"  min="100" max="10000" value="100" id="lower">-->
+      <!--    <input type="range" min="100" max="10000" value="5000" id="upper" oninput="vendor_prod_price_filter(this.value)">-->
+      <!--  </div>-->
+      <!--  <div class="price-wrap">-->
+      <!--    <div class="price-wrap-1">-->
+      <!--      <input value="2000" id="one">-->
+      <!--      <label for="one">৳</label>-->
+      <!--    </div>-->
+      <!--    <div class="price-wrap_line">-</div>-->
+      <!--    <div class="price-wrap-2">-->
+      <!--      <input value="5000" id="two">-->
+      <!--      <label for="two">৳</label>-->
+      <!--    </div>-->
+      <!--  </div>-->
+      <!--</fieldset>-->
+
+
+    </div>
+  </div>
+</div>
+
+
+{% if subcats %}
+
+<div class="col-sm-12 col-xs-12 col-md-3 sidebar right-sidebar hidden-xs hidden-sm">
+  <div class="sidebar-module-container">
+  <div class="sidebar-widget outer-bottom-xs">
+  	<h3 class="section-title">Subcategory</h3>
+  	<div class="sidebar-widget-body m-t-10">
+  		<div class="accordion">
+
+
+
+  		    {% for sct in subcats %}
+
+
+  		    <a href="{% url 'subcategory_products' sct.id %}">{{sct.Subcategory_1}}</a><br>
+
+  	        {% endfor %}
+
+
+
+  	    </div><!-- /.accordion -->
+  	</div><!-- /.sidebar-widget-body -->
+  </div><!-- /.sidebar-widget -->
+  </div>
+</div>
+{% endif %}
+
+
+
+
+{% if cats_lst %}
+<div class="col-sm-12 col-xs-12 col-md-3 sidebar right-sidebar hidden-xs hidden-sm">
+  <div class="sidebar-module-container">
+  <div class="sidebar-widget outer-bottom-xs">
+  	<h3 class="section-title">Category</h3>
+  	<div class="sidebar-widget-body m-t-10">
+  		<div class="accordion">
+
+
+
+  		    {% for ct in cats_lst %}
+
+
+  		    <a href="{% url 'category_products' ct.id %}">{{ct.Category_Name}}</a><br>
+
+  	        {% endfor %}
+
+
+
+
+
+
+
+  	        <!--<div class="accordion-group">-->
+  	        <!--    <div class="accordion-heading">-->
+  	        <!--        <a href="#collapseTwo" data-toggle="collapse" class="accordion-toggle collapsed">-->
+  	        <!--          Desktops-->
+  	        <!--        </a>-->
+  	        <!--    </div><!-- /.accordion-heading -->
+  	        <!--    <div class="accordion-body collapse" id="collapseTwo" style="height: 0px;">-->
+  	        <!--        <div class="accordion-inner">-->
+  	        <!--            <ul>-->
+  	        <!--                <li><a href="#">gaming</a></li>-->
+  	        <!--                <li><a href="#">office</a></li>-->
+  	        <!--                <li><a href="#">kids</a></li>-->
+  	        <!--                <li><a href="#">for women</a></li>-->
+  	        <!--            </ul>-->
+  	        <!--        </div><!-- /.accordion-inner -->
+  	        <!--    </div><!-- /.accordion-body -->
+  	        <!--</div><!-- /.accordion-group -->
+
+  	        <!--<div class="accordion-group">-->
+  	        <!--    <div class="accordion-heading">-->
+  	        <!--        <a href="#collapseThree" data-toggle="collapse" class="accordion-toggle collapsed">-->
+  	        <!--           Pants-->
+  	        <!--        </a>-->
+  	        <!--    </div><!-- /.accordion-heading -->
+  	        <!--    <div class="accordion-body collapse" id="collapseThree" style="height: 0px;">-->
+  	        <!--        <div class="accordion-inner">-->
+  	        <!--            <ul>-->
+  	        <!--                <li><a href="#">gaming</a></li>-->
+  	        <!--                <li><a href="#">office</a></li>-->
+  	        <!--                <li><a href="#">kids</a></li>-->
+  	        <!--                <li><a href="#">for women</a></li>-->
+  	        <!--            </ul>-->
+  	        <!--        </div><!-- /.accordion-inner -->
+  	        <!--    </div><!-- /.accordion-body -->
+  	        <!--</div><!-- /.accordion-group -->
+
+  	        <!--<div class="accordion-group">-->
+  	        <!--    <div class="accordion-heading">-->
+  	        <!--        <a href="#collapseFour" data-toggle="collapse" class="accordion-toggle collapsed">-->
+  	        <!--           Bags-->
+  	        <!--        </a>-->
+  	        <!--    </div><!-- /.accordion-heading -->
+  	        <!--    <div class="accordion-body collapse" id="collapseFour" style="height: 0px;">-->
+  	        <!--        <div class="accordion-inner">-->
+  	        <!--            <ul>-->
+  	        <!--                <li><a href="#">gaming</a></li>-->
+  	        <!--                <li><a href="#">office</a></li>-->
+  	        <!--                <li><a href="#">kids</a></li>-->
+  	        <!--                <li><a href="#">for women</a></li>-->
+  	        <!--            </ul>-->
+  	        <!--        </div><!-- /.accordion-inner -->
+  	        <!--    </div><!-- /.accordion-body -->
+  	        <!--</div><!-- /.accordion-group -->
+
+  	        <!--<div class="accordion-group">-->
+  	        <!--    <div class="accordion-heading">-->
+  	        <!--        <a href="#collapseFive" data-toggle="collapse" class="accordion-toggle collapsed">-->
+  	        <!--          Hats-->
+  	        <!--        </a>-->
+  	        <!--    </div><!-- /.accordion-heading -->
+  	        <!--    <div class="accordion-body collapse" id="collapseFive" style="height: 0px;">-->
+  	        <!--        <div class="accordion-inner">-->
+  	        <!--            <ul>-->
+  	        <!--                <li><a href="#">gaming</a></li>-->
+  	        <!--                <li><a href="#">office</a></li>-->
+  	        <!--                <li><a href="#">kids</a></li>-->
+  	        <!--                <li><a href="#">for women</a></li>-->
+  	        <!--            </ul>-->
+  	        <!--        </div><!-- /.accordion-inner -->
+  	        <!--    </div><!-- /.accordion-body -->
+  	        <!--</div><!-- /.accordion-group -->
+  	        <!--<div class="accordion-group">-->
+  	        <!--    <div class="accordion-heading">-->
+  	        <!--        <a href="#collapseSix" data-toggle="collapse" class="accordion-toggle collapsed">-->
+  	        <!--         Accessories-->
+  	        <!--        </a>-->
+  	        <!--    </div><!-- /.accordion-heading -->
+  	        <!--    <div class="accordion-body collapse" id="collapseSix" style="height: 0px;">-->
+  	        <!--        <div class="accordion-inner">-->
+  	        <!--            <ul>-->
+  	        <!--                <li><a href="#">gaming</a></li>-->
+  	        <!--                <li><a href="#">office</a></li>-->
+  	        <!--                <li><a href="#">kids</a></li>-->
+  	        <!--                <li><a href="#">for women</a></li>-->
+  	        <!--            </ul>-->
+  	        <!--        </div><!-- /.accordion-inner -->
+  	        <!--    </div><!-- /.accordion-body -->
+  	        <!--</div><!-- /.accordion-group -->
+
+  	    </div><!-- /.accordion -->
+  	</div><!-- /.sidebar-widget-body -->
+  </div><!-- /.sidebar-widget -->
+  </div>
+</div>
+{% endif %}
+
+
+
+<div class="col-sm-12 col-xs-12 col-md-3 sidebar right-sidebar hidden-xs hidden-sm">
+  <div class="sidebar-module-container">
+  <div class="sidebar-widget outer-bottom-xs">
+  	<h3 class="section-title">Brands</h3>
+  	<div class="sidebar-widget-body m-t-10">
+
+  	    {% for brd in brand_list %}
+  	    <div class="sidebar-brand">
+            <a href="{% url 'showing_product_by_brands' brd.slug %}">{{brd.Brand_Name}}</a>
+          </div><!-- /.accordion-group -->
+  	    {% endfor %}
+
+
+
+  	    </div><!-- /.accordion -->
+  	</div><!-- /.sidebar-widget-body -->
+  </div><!-- /.sidebar-widget -->
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ============================================== CONTENT : END ============================================== -->
+
+
+
+
+
+
+
+<!-- jQuery CDN hosted by Google -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<!--infinite pagination-->
+{{ block.super }}
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{% static 'el-pagination.js' %}"></script>
+    <script>
+        $.endlessPaginate({
+            paginateOnScroll: true,
+            paginateOnScrollMargin: 1000
+
+        });
+    </script>
+
+<script>
+    function sort_product_page(){
+        var form_sorting_form = document.getElementById("form_sorting");
+        form_sorting_form.submit();
+    }
+
+</script>
+
+{% endblock %}

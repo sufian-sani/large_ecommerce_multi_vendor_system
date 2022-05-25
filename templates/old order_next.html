@@ -1,0 +1,46 @@
+{% load static %}
+
+{% load el_pagination_tags %}
+
+{% lazy_paginate 40 get_Order_Table_3 %}
+<table id="productorder" class="table table-hover no-wrap product-order dataTable no-footer" data-page-size="10" role="grid" aria-describedby="productorder_info">
+
+							<thead>
+
+							</thead>
+							<tbody>
+
+{% for i in get_Order_Table_3 %}
+        <tr role="row" class="odd">
+
+                <td class="sorting_1">
+                    <div class="form-check" id="checkboxlist">
+                      <input name="products_check2" class="form-check-input" type="checkbox" id="order3_id{{i.id}}" onclick="the_item_checkbox2()" value="{{i.id}}">
+                      <label class="form-check-label" for="order3_id{{i.id}}"></label>
+                    </div>
+                </td>
+
+                <td class="sorting_1">{{i.old_customer_first_name}}</td>
+                <td>{{i.old_order_id}}</td>
+                <td>{{i.old_greand_total}}</td>
+
+
+                <td>{{i.old_order_date}}</td>
+                <td><span class="badge badge-pill badge-success">{{i.old_order_status}}</span></td>
+                <td>{{i.old_Payment_method}}</td>
+
+
+                <td><a href="{% url 'old_dashboard_customer_order_edit' i.id %}" class="text-info mr-10" data-toggle="tooltip" data-original-title="Edit">
+                        <i class="ti-marker-alt"></i>
+                    </a>
+
+                </td>
+            </tr>
+        {% endfor %}
+
+							</tbody>
+						</table>
+
+
+
+{% show_more "More results" %}

@@ -1,0 +1,314 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<section class="content">
+    <form id="form_analitics_overview" class="form" action="{% url 'Analytics_orders' %}" method="GET">
+    <div class="dataTables_length" id="productorder_length">
+    	<label><span class="text-bold">Choose </span>
+    		<select name="name_analitics_ordr" aria-controls="productorder" class="form-control form-control-sm" onchange="analitics_overview()" id="id_anics_ovrview">
+    			<option value="{% if name_analitics_ordr %}{{name_analitics_ordr}}{% else %}All{% endif %}">{% if name_analitics_ordr %}{{name_analitics_ordr}}{% else %}All{% endif %}</option>
+    			<option value="All">All</option>
+    			<option value="Reguler">Reguler</option>
+    			<option value="Campaign">Campaign</option>
+    		</select>
+    		
+    	</label>
+    </div>
+    </form>
+    
+    
+    
+    
+    {% if campaign %}
+    <form id="form_analitics_overview2" class="form" action="{% url 'Analytics_orders' %}" method="GET">
+    <div class="dataTables_length" id="productorder_length">
+        <input type="hidden" value="Campaign" name="name_analitics_ordr">
+    	<label><span class="text-bold">Choose Campaign</span>
+    		<select name="name_analitics_overview_cam_name" aria-controls="productorder" class="form-control form-control-sm" onchange="analitics_overview2()" id="id_anics_ovrview">
+    			<option value="{{last_campaign_list}}">{{last_campaign_list}}</option>
+    			{% for cam in all_campaign_list %}
+    			<option value="{{cam.id}}">{{cam}}</option>
+    			{% endfor %}
+    			
+    		</select>
+    		
+    	</label>
+    </div>
+    </form>
+    {% endif %}
+
+    
+
+<div class="row m-5">
+
+
+</div>
+
+  <div class="row">
+			  <div class="col-12">
+				<div class="box">
+				  <div class="box-body">
+					  <label><span class="text-bold text-primary">Showing By Date</span>
+					<div class="table-responsive">
+						<div id="productorder_wsrappere" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+
+							<form method="GET" action="{% url 'Analytics_orders' %}">
+								<input type="hidden" value="{% if name_analitics_ordr %}{{name_analitics_ordr}}{% else %}All{% endif %}" name="name_analitics_ordr">
+								<input type="hidden" value="{{last_campaign_list}}" name="name_analitics_overview_cam_name">
+								<input type="hidden" value="{% if name_analitics_ordr_status %}{{name_analitics_ordr_status}}{% else %}All{% endif %}" name="name_analitics_ordr_status">
+								
+								
+
+								Start Date : <input name="order_Start_Date_filter" type="date" value="{{order_Start_Date_filter}}">
+								End Date : <input name="order_End_Date_filter" type="date" value="{{order_End_Date_filter}}">
+								<button type="submit" class="btn btn-primary">submit</button>
+							</form>
+
+						</div>
+
+					</div>
+				  </label></div>
+				</div>
+			  </div>
+
+	     </div>
+
+
+    <form id="formid_analitics_ordr_status" class="form" action="{% url 'Analytics_orders' %}" method="GET">
+        
+    <input type="hidden" value="{% if name_analitics_ordr %}{{name_analitics_ordr}}{% else %}All{% endif %}" name="name_analitics_ordr">
+	<input type="hidden" value="{{last_campaign_list.id}}" name="name_analitics_overview_cam_name">
+	
+    <div class="dataTables_length" id="productorder_length">
+    	<label><span class="text-bold">Choose Status</span>
+    		<select name="name_analitics_ordr_status" aria-controls="productorder" class="form-control form-control-sm" onchange="analitics_ordr_status()" id="id_analitics_ordr_status">
+    			<option value="{% if name_analitics_ordr_status %}{{name_analitics_ordr_status}}{% else %}All{% endif %}">{% if name_analitics_ordr_status %}{{name_analitics_ordr_status}}{% else %}All{% endif %}</option>
+                <option value="Pending payment">Pending payment</option>
+                <option value="Partially Paid">Partially Paid</option>
+                <option value="Ready To Ship">Ready To Ship</option>
+                <option value="Processing">Processing</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+                <option value="Refunded">Refunded</option>
+                <option value="Picked">Picked</option>
+                <option value="On hold">On hold</option>
+                <option value="Failed">Failed</option>
+                
+    		</select>
+    		
+    	</label>
+    </div>
+    </form>
+
+
+
+  <div class="row">
+      
+    
+
+    <div class="box col-md-4">
+		<div class="box-body">
+          Orders
+          <br>
+          {{total_order_count}}
+        </div>
+    </div>
+    <div class="box col-md-4">
+		<div class="box-body">
+          Net Sales
+          <br>
+          {{net_sell_count_addition}}
+        </div>
+    </div>
+    <div class="box col-md-4">
+		<div class="box-body">
+          Average Order Value
+          <br>
+          {{average_odr_value}}
+        </div>
+    </div>
+  <!--  <div class="box col-md-3">-->
+		<!--<div class="box-body">-->
+  <!--        Average Item Per Order-->
+  <!--        <br>-->
+  <!--        {{Average_Item_Per_Order}}-->
+  <!--      </div>-->
+  <!--  </div>-->
+
+  </div>
+
+
+
+  <div class="row">
+			  <div class="col-12">
+				<div class="box">
+				    
+				  <div class="box-body">
+				      <h1>Orders</h1>
+				      <hr>
+					<div class="table-responsive">
+						<div id="productorder_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+							<div class="row">
+
+								<div class="col-sm-4 col-md-4">
+
+									<form id="order_entries" class="form" action="/deshboard/dashbord_order/" method="post"><input type="hidden" name="csrfmiddlewaretoken" value="JDOyZOOIjZ8jQMSj8Zde5c2cnx6potQiCZWWIx9PmozTKbBDg4y0eltIidjtBkPd">
+									<div class="dataTables_length" id="productorder_length">
+										<label><span class="text-bold">Show</span>
+											<select name="order_entries" aria-controls="productorder" class="form-control form-control-sm" onchange="show_entries()" id="id_show_entries">
+												<option value="20">20</option>
+												<option value="2">2</option>
+												<option value="10">10</option>
+												<option value="25">25</option>
+												<option value="50">50</option>
+												<option value="100">100</option>
+											</select>
+											entries
+										</label>
+									</div>
+									</form>
+
+
+								</div>
+
+								<div class="col-sm-12 col-md-4">
+									<h5 class="text-success text-center">
+										Total Product item
+										<br>
+										<span id="show_select_item_qty2">{{total_order_count}}</span>
+
+									</h5>
+								</div>
+
+
+
+
+
+
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12">
+
+									<table id="productorder" class="table table-hover no-wrap product-order dataTable no-footer" data-page-size="10" role="grid" aria-describedby="productorder_info">
+
+							<thead>
+								<tr role="row">
+
+									<th class="sorting_asc" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Customer: activate to sort column descending">
+										<div class="form-check">
+										  <input class="form-check-input" type="checkbox" id="select-all2">
+										  <label class="form-check-label" for="select-all2"></label>
+										</div>
+									</th>
+
+									<th class="sorting_asc" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Customer: activate to sort column descending">
+										Date
+									</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Order ID: activate to sort column ascending">Order
+
+									</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Product: activate to sort column ascending">Status</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Quantity: activate to sort column ascending">Customer</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Quantity: activate to sort column ascending">Products</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Quantity: activate to sort column ascending">Net Sales</th>
+
+								</tr>
+							</thead>
+							<tbody>
+							    
+							    
+							
+							
+							{% for i in cam_highst_qty_prd %}
+							
+							
+							<tr role="row" class="odd">
+
+									 <td class="sorting_1">
+										<div class="form-check" id="checkboxlist">
+										  <input name="products_check2" class="form-check-input" type="checkbox" id="product_id2b499c19-4a89-43d8-a319-83a0b922fb77" onclick="the_item_checkbox2()" value="2b499c19-4a89-43d8-a319-83a0b922fb77">
+
+										  <label class="form-check-label" for="product_id2b499c19-4a89-43d8-a319-83a0b922fb77" style=""></label>
+										</div>
+									</td>
+
+									<td class="sorting_1">{{i.product.Product_Name}}</td>
+									<td>{{i.total_quantity_of_sell_campaign_product}}</td>
+
+									<td>৳{{i.total_money_of_sell_campaign_product}}</td>
+									<td>{{i.product.Product_Name}}</td>
+									<td>{{i.product.Category.Category_Name}}</td>
+									<td>{{i.product.Category.Category_Name}}</td>
+									
+								</tr>
+							
+                            {% endfor %}
+
+
+							</tbody>
+						</table>
+								</div>
+							</div>
+
+
+
+
+
+							<div class="row">
+								<div class="col-sm-12 col-md-5">
+									<div class="dataTables_info" id="productorder_info" role="status" aria-live="polite">Showing 1 to 10 of 1 entries</div>
+								</div>
+								<div class="col-sm-12 col-md-7">
+								    <div class="dataTables_paginate paging_simple_numbers" id="productorder_paginate">
+        								<ul class="pagination">
+        									    <li class="paginate_button page-item active"><a href="/deshboard/dashbord_order/?page=1" aria-controls="productorder" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+        								</ul>
+							        </div>
+							    </div>
+							</div>
+
+
+
+						</div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+		  </div>
+
+
+</section>
+
+
+
+<script>
+    function analitics_overview(){
+        var form_analitics_overview_form = document.getElementById("form_analitics_overview");
+        form_analitics_overview_form.submit();
+    }
+    
+    
+    
+    
+    function analitics_overview2(){
+        var form_analitics_overview_form2 = document.getElementById("form_analitics_overview2");
+        form_analitics_overview_form2.submit();
+    }
+
+
+    function analitics_ordr_status(){
+        console.log('status')
+        var form_id_analitics_ordr_status_form = document.getElementById("formid_analitics_ordr_status");
+        form_id_analitics_ordr_status_form.submit();
+    }
+
+
+</script>
+
+
+
+
+{% endblock %}

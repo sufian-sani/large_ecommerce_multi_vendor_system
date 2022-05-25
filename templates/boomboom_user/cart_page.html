@@ -1,0 +1,283 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="shopping-cart">
+				<div class="shopping-cart-table ">
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="cart-romove item">Remove</th>
+					<th class="cart-romove item">Campaign Name</th>
+					<th class="cart-description item">Image</th>
+					<th class="cart-product-name item">Product Name</th>
+					<th class="cart-qty item">Quantity</th>
+					<th class="cart-sub-total item">Price</th>
+					<th class="cart-total last-item">Subtotal</th>
+				</tr>
+			</thead><!-- /thead -->
+
+			<tbody id="side_items_cart">
+				<tr>
+					<td class="romove-item"><a href="#" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a></td>
+					<td class="cart-image">
+						<a class="entry-thumbnail" href="detail.html">
+						    <img src="assets/images/products/p1.jpg" alt="">
+						</a>
+					</td>
+					<td class="cart-product-name-info">
+						<h4 class="cart-product-description"><a href="detail.html">Floral Print Buttoned</a></h4>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="rating rateit-small rateit"><button id="rateit-reset-2" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-2" style="display: none;"></button><div id="rateit-range-2" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-2" aria-valuemin="0" aria-valuemax="5" aria-valuenow="4" aria-readonly="true" style="width: 70px; height: 14px;"><div class="rateit-selected" style="height: 14px; width: 56px;"></div><div class="rateit-hover" style="height:14px"></div></div></div>
+							</div>
+							<div class="col-sm-12">
+								<div class="reviews">
+									(06 Reviews)
+								</div>
+							</div>
+						</div><!-- /.row -->
+						<div class="cart-product-info">
+											<span class="product-color">COLOR:<span>Blue</span></span>
+						</div>
+					</td>
+					<td class="cart-product-edit"><a href="#" class="product-edit">Edit</a></td>
+					<td class="cart-product-quantity">
+						<div class="quant-input">
+				                <div class="arrows">
+				                  <div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
+				                  <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
+				                </div>
+				                <input type="text" value="1">
+			              </div>
+		            </td>
+					<td class="cart-product-sub-total"><span class="cart-sub-total-price">$300.00</span></td>
+					<td class="cart-product-grand-total"><span class="cart-grand-total-price">$300.00</span></td>
+				</tr>
+				<tr>
+					<td class="romove-item"><a href="#" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a></td>
+					<td class="cart-image">
+						<a class="entry-thumbnail" href="detail.html">
+						    <img src="assets/images/products/p2.jpg" alt="">
+						</a>
+					</td>
+					<td class="cart-product-name-info">
+						<h4 class="cart-product-description"><a href="detail.html">Floral Print Buttoned</a></h4>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="rating rateit-small rateit"><button id="rateit-reset-3" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-3" style="display: none;"></button><div id="rateit-range-3" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-3" aria-valuemin="0" aria-valuemax="5" aria-valuenow="4" aria-readonly="true" style="width: 70px; height: 14px;"><div class="rateit-selected" style="height: 14px; width: 56px;"></div><div class="rateit-hover" style="height:14px"></div></div></div>
+							</div>
+							<div class="col-sm-12">
+								<div class="reviews">
+									(06 Reviews)
+								</div>
+							</div>
+						</div><!-- /.row -->
+						<div class="cart-product-info">
+						<span class="product-color">COLOR:<span>Pink</span></span>
+						</div>
+					</td>
+					<td class="cart-product-edit"><a href="#" class="product-edit">Edit</a></td>
+					<td class="cart-product-quantity">
+						<div class="cart-quantity">
+							<div class="quant-input">
+				                <div class="arrows">
+				                  <div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
+				                  <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
+				                </div>
+				                <input type="text" value="1">
+			              </div>
+			            </div>
+		            </td>
+					<td class="cart-product-sub-total"><span class="cart-sub-total-price">$300.00</span></td>
+					<td class="cart-product-grand-total"><span class="cart-grand-total-price">$300.00</span></td>
+				</tr>
+			</tbody><!-- /tbody -->
+
+            <tfoot>
+				<tr>
+					<td colspan="7">
+						<div class="shopping-cart-btn">
+							<span class="">
+								<a href="{% url 'product-list' %}" class="btn btn-upper btn-primary outer-left-xs">Continue Shopping</a>
+<!--								<a href="#" class="btn btn-upper btn-primary pull-right outer-right-xs">Update shopping cart</a>-->
+							</span>
+						</div><!-- /.shopping-cart-btn -->
+					</td>
+				</tr>
+			</tfoot>
+		</table><!-- /table -->
+	</div>
+</div><!-- /.shopping-cart-table -->				<div class="col-md-4 col-sm-12 estimate-ship-tax">
+
+</div><!-- /.estimate-ship-tax -->
+
+<div class="col-md-4 col-sm-12 estimate-ship-tax">
+	<!-- /table -->
+</div><!-- /.estimate-ship-tax -->
+
+<div class="col-md-4 col-sm-12 cart-shopping-total">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+<!--					<div class="cart-sub-total">-->
+<!--						Subtotal<span class="inner-left-md">$600.00</span>-->
+<!--					</div>-->
+					<div class="cart-grand-total">
+						Subtotal<span class="inner-left-md">&#2547;<span id="show_subtotal_cart">0</span></span>
+					</div>
+				</th>
+			</tr>
+		</thead><!-- /thead -->
+		<tbody>
+				<tr>
+					<td>
+						<div class="cart-checkout-btn">
+							<a type="submit" href="{% url 'checkout_func' %}" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</a>
+							<span class="">Checkout with multiples address!</span>
+						</div>
+					</td>
+				</tr>
+		</tbody><!-- /tbody -->
+	</table><!-- /table -->
+</div><!-- /.cart-shopping-total -->
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script>
+
+get_cart_item()
+function get_cart_item(){
+	product_cart = JSON.parse(localStorage.getItem('product_cart'));
+	show_cart_page = "";
+
+	products_Subtotal=0;
+
+	for (var item in product_cart){
+	    if(product_cart[item][0] == 0){}
+		else{
+    		product_qty = product_cart[item][0]
+    		single_price = product_cart[item][2]
+
+    		sub_single_price = product_qty*single_price;
+
+    		products_Subtotal = products_Subtotal + sub_single_price;
+
+    		if(product_cart[item][10]==undefined){
+    		    var cart_show_attr = ""
+    		}
+    		else{
+    		    var cart_show_attr = product_cart[item][10]
+    		}
+
+    		var check_cam = product_cart[item][5]
+    		if(check_cam == 'Reguler Product'){
+    			link_var = 'product_details'
+    		}
+    		else{
+    			link_var = 'campaign_product_details'
+    		}
+
+    		show_cart_page = show_cart_page + `<tr>
+    						<td class="romove-item" onclick="remove_cart_item('${product_cart[item][8]}')"><a href="#" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a></td>
+    						<td class="romove-item">${product_cart[item][5]}</td>
+    						<td class="cart-image">
+    							<a class="entry-thumbnail" href="/${link_var}/${product_cart[item][4]}">
+    								<img src="${product_cart[item][3]}" alt="${product_cart[item][1]}">
+    							</a>
+    						</td>
+    						<td class="cart-product-name-info">
+    							<h4 class="cart-product-description"><a href="/${link_var}/${product_cart[item][4]}">${product_cart[item][1]}<br>${cart_show_attr}</a></h4>
+
+
+    						</td>
+
+    						<td class="cart-product-quantity">
+    							<div class="quant-input">
+    									<div class="arrows">
+    									  <div class="arrow plus gradient increase_qty_cart_page" id="${product_cart[item][8]}"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
+
+    									  <div class="arrow minus gradient decrease_qty_cart_page" id="${product_cart[item][8]}"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
+    									</div>
+
+    									<input type="text" value="${product_cart[item][0]}" id="show_number11${product_cart[item][8]}">
+    							  </div>
+    						</td>
+    						<td class="cart-product-sub-total"><span class="cart-sub-total-price">&#2547;${product_cart[item][2]}</span></td>
+    						<td class="cart-product-grand-total"><span class="cart-grand-total-price">&#2547;${sub_single_price}</span></td>
+    					</tr>`
+
+    	}
+	}
+	document.getElementById('side_items_cart').innerHTML = show_cart_page;
+	document.getElementById('show_subtotal_cart').innerHTML = products_Subtotal;
+
+}
+
+
+$(document).ready(function(){
+  $(".increase_qty_cart_page").click(function(){
+  console.log('pagla')
+    var get_product = this.id.toString();
+    console.log(get_product);
+
+	var now_number = document.getElementById("show_number11"+get_product).value;
+
+    console.log(now_number)
+    var b = parseInt(now_number);
+    now_number=b+1;
+    console.log(now_number)
+    document.getElementById("show_number11"+get_product).value = now_number;
+    console.log('now_number')
+    product_cart[get_product][0] = now_number;
+    updateCart(product_cart);
+    get_cart_item(product_cart)
+
+    location.reload();
+
+  });
+
+
+});
+
+
+$(document).ready(function(){
+  $(".decrease_qty_cart_page").click(function(){
+  	console.log('pagla2')
+    var get_product = this.id.toString();
+    console.log(get_product);
+
+	var now_number = document.getElementById("show_number11"+get_product).value;
+
+    console.log(now_number)
+    var b = parseInt(now_number);
+    if(b==1 || b<1){
+    }
+    else{
+		now_number=b-1;
+		console.log(now_number)
+		document.getElementById("show_number11"+get_product).value = now_number;
+		console.log('now_number')
+		product_cart[get_product][0] = now_number;
+		updateCart(product_cart);
+		get_cart_item(product_cart)
+		location.reload();
+    }
+
+  });
+
+
+});
+
+
+
+
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,208 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% load el_pagination_tags %}
+{% block content %}
+
+
+<div class="wide-banners wow fadeInUp outer-bottom-bs">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="cnt-strip">
+          <div class="cam-banner"> <img class="img-responsive" src="/media/{{get_current_campaign.campaign_benner}}" alt="{{get_current_campaign.campaign_name}}"> </div>
+          <!-- /.new-label -->
+        </div>
+        <!-- /.wide-banner -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+
+  <br>
+
+
+<div class="campaign-container">
+  <!-- <div class="campaign-header">
+    <h1 style="font-size:40px;" >{{get_current_campaign}}</h1>
+    <div class="live-now">
+      <h5 style="color:#333;" >এখন</h5> <h5 style="color:red;"> Live</h5>
+    </div>
+    <h3 style="color:red;">Delivery to be made in 26 working days, GUARANTEED!</h3>
+  </div> -->
+
+    {% include page_template %}
+
+
+
+
+  <div class="campaign-footer">
+    <img src="/media/{{get_current_campaign.campaign_logo}}" alt="{{get_current_campaign.campaign_name}}">
+    <div class="">
+  <h1 id="headline">Campaign Ends In: <span id="get_campaign_last_time">{{dates_end_strptime}}</span></h1>
+
+  <div id="countdown">
+    <ul>
+      <li><span id="days_show">90</span>days</li>
+      <li><span id="hours_show">23</span>Hours</li>
+      <li><span id="minutes_show">44</span>Minutes</li>
+      <li><span id="seconds_show">21</span>Seconds</li>
+    </ul>
+  </div>
+</div>
+  </div>
+
+</div>
+
+
+
+
+
+    <!-- jQuery CDN hosted by Google -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+
+
+
+
+{{ block.super }}
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{% static 'el-pagination.js' %}"></script>
+    <script>
+        $.endlessPaginate({
+            paginateOnScroll: true,
+            paginateOnScrollMargin: 1000
+
+        });
+    </script>
+<!-- Display the countdown timer in an element -->
+
+
+<script>
+
+var get_campaign_last_ti = document.getElementById('get_campaign_last_time').innerHTML;
+console.log(get_campaign_last_ti)
+
+var campaign_end_t = `${get_campaign_last_ti} 24:00:00`
+console.log(campaign_end_t)
+
+
+// Set the date we're counting down to
+// var countDownDate = new Date("Jan 5, 2022 15:37:25").getTime();
+var countDownDate = new Date(campaign_end_t).getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  //document.getElementById("demo").innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
+
+  document.getElementById('days_show').innerHTML = days;
+  document.getElementById('hours_show').innerHTML = hours;
+  document.getElementById('minutes_show').innerHTML = minutes;
+  document.getElementById('seconds_show').innerHTML = seconds;
+
+  $('.prod_days_show').html(days)
+  $('.prod_hours_show').html(hours)
+  $('.prod_mins_show').html(minutes)
+  $('.prod_secs_show').html(seconds)
+
+
+//   element.getElementsByClassName('prod_days_show') = days;
+//   element.getElementsByClassName('prod_hours_show') = hours;
+//   element.getElementsByClassName('prod_mins_show') = minutes;
+//   element.getElementsByClassName('prod_secs_show') = seconds;
+
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+
+
+
+function campaign_add_to_cart(product_id){
+    console.log('cam added')
+    console.log(product_id);
+
+    var varcampaign_id  = document.getElementById('campaign_slug'+product_id).value;
+    console.log(varcampaign_id)
+
+
+
+
+    if (product_cart[product_id] != undefined){
+        console.log('old')
+		product_cart[product_id][0] = product_cart[product_id][0] + 1;
+
+		updateCart(product_cart);
+
+
+
+	}
+
+	else{
+        console.log('new')
+// 		var qty = document.getElementById("show_number").value;
+        var qty = 1;
+        console.log(qty);
+
+		name = document.getElementById("product_name"+product_id).innerHTML;
+		console.log(name)
+		price = document.getElementById("product_price"+product_id).innerHTML;
+		console.log(price)
+
+		picture_product = document.getElementById("campaign_prod_img"+product_id).value;
+		console.log(picture_product)
+
+		var_cam_vendor = document.getElementById("cam_vendor_product"+product_id).value;
+
+		varcam_free_delivery = document.getElementById("cam_free_delivery"+product_id).value;
+		console.log(varcam_free_delivery)
+
+		product_cart[product_id] = [parseInt(qty), name, parseInt(price), picture_product, product_id, varcampaign_id, var_cam_vendor, varcam_free_delivery];
+		console.log(product_cart[product_id]);
+
+		updateCart(product_cart,product_id);
+
+
+		document.getElementById("btn_cart_chng"+product_id).innerHTML = '<button class="btn btn-wanrning" style="background-color:yellow" type="button" name="button">ADDED</button>'
+	}
+
+}
+
+// show_added_status()
+// function show_added_status() {
+//     product_cart = JSON.parse(localStorage.getItem('product_cart'));
+//     console.log(product_cart)
+//     console.log('jinga')
+//     for (var item in product_cart) {
+//         console.log(product_cart[item][4])
+//         var prodt_slg = product_cart[item][4];
+//         document.getElementById('btn_cart_chng' + item).innerHTML = '<button class="btn btn-wanrning" style="background-color:yellow" type="button" name="button">ADDED</button>'
+//     }
+
+// }
+
+
+
+</script>
+
+
+
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+
+<div class="col-md-1"></div>
+
+<div class="col-md-11">
+        <div class="sign-in-page">
+			<div class="row">
+
+
+                <!-- create a new account start-->
+
+                <div class="col-md-12 col-sm-12 create-new-account">
+                    <h4 class="checkout-subtitle text-center">Create a new account</h4>
+                    <span id="status_signup">
+                        
+                        {% if success_message %}
+                        <div class="alert alert-success" role="alert">
+                        
+                            {{success_message}}
+                            <a type="button" href="{% url 'home' %}">Click to go main page</a>
+                        </div>
+                        {% endif %}
+                        
+                    </span>
+
+
+
+
+                        <form action="{% url 'cheake_otp_for_vendor_registration' %}" method="POST" enctype="multipart/form-data">   {% csrf_token %}
+                            <div class="input-group">
+
+
+                                <span class="input-group-addon" id="basic-addon13">&nbsp;Vendor Full Name</span>
+                                    <input type="text" size="100" name="Vendor_registration_Full_Name" value="{{Vendor_registration_Full_Name}}" class="form-control pl-15 bg-transparent plc-black" placeholder="Vendor Full Name" required>
+
+                            </div>
+
+                            <div class="input-group">
+
+
+
+                                <span class="input-group-addon" id="basic-addon133">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shop Name</span>
+                                    <input type="text" name="vendor_registration_Shop_Name" value="{{vendor_registration_Shop_Name}}" class="form-control pl-15 bg-transparent plc-black" placeholder="Shop Name" required>
+
+                            </div>
+
+                            <div class="input-group">
+
+
+                                <span class="input-group-addon" id="basic-addon1333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shop URL</span>
+                                    <input type="text" name="vendor_registration_Shop_URL" value="{{vendor_registration_Shop_URL}}" class="form-control pl-15 bg-transparent plc-black" placeholder="Shop URL" required>
+
+                            </div>
+
+                            <div class="input-group">
+
+
+                                <span class="input-group-addon" id="basic-addon1ss333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Address</span>
+                                    <input type="text" name="vendor_registration_Address" value="{{vendor_registration_Address}}" class="form-control pl-15 bg-transparent plc-black" placeholder="Address" required>
+
+                            </div>
+
+
+
+                                   {% if erorr_message == "Phone number is already exist !" %}
+                                    <div class="alert alert-danger" role="alert">
+                                      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                      <span class="sr-only">Error:</span>
+                                      {{erorr_message}}
+                                    </div>
+                                    {% endif %}
+
+                            <div class="input-group">
+
+
+                                <span class="input-group-addon" id="basic-addon1333253">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone Number</span>
+                                <span class="input-group-addon" id="basic-addoRn13332533">+88</span>
+                                    <input type="number" name="vendor_registration_Phone_No" value="{{vendor_registration_Phone_No}}" class="form-control pl-15 bg-transparent plc-black" placeholder="Phone No." maxlength="11" minlength="11" min="1111111111" max="1999999999" required>
+
+                            </div>
+
+
+
+
+<!--                            <div class="form-group">-->
+<!--                                <div class="checkbox" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--                                    <input type="checkbox" id="basic_checkbox_1">-->
+<!--                                    <label for="basic_checkbox_1">I agree to the <a href="#" class="text-warning"><b>Terms</b></a></label>-->
+<!--                                 </div>-->
+<!--                            </div>-->
+
+
+                            <input type="hidden" name="vendor_otp">
+                            <input type="hidden" name="otp_num_str">
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-info btn-block" style="font-size:130%;">SIGN UP</button>
+                            </div>
+                            <div class="row align-items-center my-10">
+                                <div class="col">
+                                  <p class="text-left mb-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Already have an account? <a href="/vendor_dashboard/vendor_login/">Login</a></p>
+                                </div>
+                            </div>
+                        </form>
+
+
+
+
+                </div>
+                <!-- create a new account -->
+
+            </div><!-- /.row -->
+		</div>
+	</div>
+
+
+
+				{% endblock %}

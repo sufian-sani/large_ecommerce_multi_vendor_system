@@ -1,0 +1,67 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+
+{% load el_pagination_tags %}
+
+
+{% block content %}
+
+<div class="vendor-container">
+  <div style="background-image: url({% static 'media/vendor/marketplace.jpeg' %});" class="vendor-banner">
+    <div class="vendor-banner-content">
+      <h1>Open A Marketplace Shop</h1>
+      <div class="button-holder fadeInDown-3"> <a href="{% url 'vendor_registration' %}" class="btn-lg btn btn-uppercase btn-primary shop-now-button">Register As A Vendor</a> </div>
+    </div>
+  </div>
+
+  <div class="search-section">
+    <h1 style="margin-bottom:15px;">{% if vendor_first_page %} BoomBoom Vendors {% elif search_result_none %} No Result Found {% elif search_vendor %} About {{count_stores_e_r_t}} Result Found  {% elif stores_e_r_t %} About {{cont_stores_e_r_t}} results Found {% elif no_result %} No Result Found {% else %} Ecomhat Vendors {% endif %}</h1>
+    <form action="{% url 'search_store_user_page' %}" method="POST">{% csrf_token %}
+      <input class="vendor-search" type="text" placeholder="Search for vendors.." name="name_search_store_user_page" value="{{name_search_store_user_page}}">
+      <button style="margin-left:-20px;" class="btn-primary btn" type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+
+
+<div class="">
+{% include page_template %}
+  </div>
+  <div class="all-vendors">
+
+
+
+
+
+
+
+
+  </div>
+
+</div>
+
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{% static 'el-pagination.js' %}"></script>
+    <script>
+        $.endlessPaginate({
+            paginateOnScroll: true,
+            paginateOnScrollMargin: 1000
+
+        });
+    </script>
+
+
+<!-- jQuery CDN hosted by Google -->
+
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- jScroll plug-in CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+
+
+{% endblock %}

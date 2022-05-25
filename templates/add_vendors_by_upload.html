@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block body %}
+<div class="container">
+
+       <div class="row p-5 m-5">
+
+			  <div class="col-12">
+				<div class="box">
+				  <div class="box-body">
+					<div class="table-responsive">
+						<div id="productorder_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+							<div class="row">
+
+                               <div class="sign-in-page">
+
+
+
+                <!-- create a new account start-->
+
+                <div class="col-md-12 col-sm-12 create-new-account">
+                    <h4 class="checkout-subtitle text-center">Create a vendor account</h4>
+
+                        <form action="{% url 'add_vendors_by_upload' %}" method="POST" enctype="multipart/form-data">   {% csrf_token %}
+                            <div class="input-group">
+
+                                <span class="input-group-addon" id="basic-addon13">&nbsp;Vendor Full Name</span>
+                                <input type="text" size="100" name="Vendor_registration_Full_Name" value="{{Vendor_registration_Full_Name}}" class="form-control pl-15 bg-transparent plc-black" placeholder="Vendor Full Name">
+
+                            </div>
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon" id="basic-addon133">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shop Name</span>
+                                    <input type="text" name="vendor_registration_Shop_Name" value="{{vendor_registration_Shop_Name}}" class="form-control pl-15 bg-transparent plc-black" placeholder="Shop Name">
+
+                            </div>
+                            <div class="input-group">
+
+                                <span class="input-group-addon" id="basic-addon1336">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Address</span>
+                                    <input type="text" name="vendor_registration_address" value="{{vendor_registration_address}}" class="form-control pl-15 bg-transparent plc-black" placeholder="Address">
+
+                            </div>
+
+                            <div class="input-group">
+
+
+                                <span class="input-group-addon" id="basic-addon1333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shop URL</span>
+                                    <input type="text" name="vendor_registration_Shop_URL" value="{{vendor_registration_Shop_URL}}" class="form-control pl-15 bg-transparent plc-black" placeholder="Shop URL">
+
+                            </div>
+
+
+                            <div class="input-group">
+
+
+                                <span class="input-group-addon" id="basic-addon13333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shop Logo</span>
+                                    <input type="file" class="upload" name="vendor_shop_logo" >
+
+                            </div>
+
+                            <div class="input-group">
+
+
+                                <span class="input-group-addon" id="basic-addon133323">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shop Banner</span>
+                                    <input type="file" class="upload" name="vendor_shop_Banner">
+
+                            </div>
+                                   {% if erorr_message == "Phone number is already exist !" %}
+                                    <div class="alert alert-danger" role="alert">
+                                      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                      <span class="sr-only">Error:</span>
+                                      {{erorr_message}}
+                                    </div>
+                                    {% endif %}
+
+                            <div class="input-group">
+
+
+                                <span class="input-group-addon" id="basic-addon1333253">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone Number</span>
+                                    <input type="text" name="vendor_registration_Phone_No" value="{{vendor_registration_Phone_No}}" class="form-control pl-15 bg-transparent plc-black" placeholder="Phone No.">
+
+                            </div>
+                                 {% if erorr_message == "email is already exist !" %}
+                                    <div class="alert alert-danger" role="alert">
+                                      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                      <span class="sr-only">Error:</span>
+                                      {{erorr_message}}
+                                    </div>
+                                {% endif %}
+                            <div class="input-group">
+
+                                <span class="input-group-addon" id="basic-addon13533253">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email</span>
+
+
+                                <input type="email" name="vendor_registration_Email" value="{{vendor_registration_Email}}" class="form-control pl-15 bg-transparent plc-black" placeholder="Email">
+                            </div>
+
+                            <div class="input-group">
+
+
+                                <span class="input-group-addon" id="basic-addon135633253">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password</span>
+                                    <input type="password" name="vendor_registration_Password" class="form-control pl-15 bg-transparent plc-black" placeholder="Password">
+
+                            </div>
+
+                                   {% if erorr_message == "Password dosn't match !" %}
+                                        <div class="alert alert-danger" role="alert">
+                                          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                          <span class="sr-only">Error:</span>
+                                          {{erorr_message}}
+                                        </div>
+                                    {% endif %}
+
+                                <div class="input-group">
+
+                                     <span class="input-group-addon" id="basic-addon1357633253">Confirm Password</span>
+                                    <input type="password" name="vendor_registration_Retype_Password" class="form-control pl-15 bg-transparent plc-black" placeholder="Retype Password">
+                                </div>
+
+                            <div class="form-group">
+                                <div class="checkbox" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="checkbox" id="basic_checkbox_1" name="vendor_cheack_upload">
+                                    <label for="basic_checkbox_1">To activate cheaked it </label>
+                                 </div>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-info btn-block">Click to save</button>
+                            </div>
+
+                        </form>
+
+
+
+
+
+                <!-- create a new account -->
+
+            </div><!-- /.row -->
+		</div>
+
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+             </div>
+       </div>
+
+</div>
+
+
+
+{% endblock %}

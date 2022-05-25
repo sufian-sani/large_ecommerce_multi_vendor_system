@@ -1,0 +1,27 @@
+
+{% load static %}
+
+{% load el_pagination_tags %}
+{% lazy_paginate 8 stores_e_r_t %}
+
+    {# your code to show the entry #}
+
+<div class="row">
+{% for i in stores_e_r_t %}
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+        <div class="list-vendor-border">
+          <a href="{% url 'single_vendor' i.vendor_phone_no %}">
+            <div class="list-img">
+              <img src="{{i.vendor_shop_logo}}" alt="{{i.vendor_shop_name}}">
+            </div>
+          <h4>{{i.vendor_shop_name}}</h4>
+          <h6>{{i.vendor_name}}</h6>
+        </a>
+        </div>
+      </div>
+ {% endfor %}
+
+</div>
+
+{% show_more "More results" %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+
+<section class="content">
+        <div class="content-header">
+            <h3>Edit Customer</h3>
+        </div>
+    <div class="row">
+
+        <div class="col-12 ">
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-11">
+        <div class="sign-in-page">
+			<div class="row">
+
+
+
+
+                <!-- create a new account start-->
+
+                <div class="col-md-6 col-sm-6 create-new-account">
+                    <h4 class="checkout-subtitle">Create a new account</h4>
+
+
+
+                <form action="{% url 'resave_user_info_dashboard_customer_profile_edit' %}" method="POST">{% csrf_token %}
+                    <div id="all_signup_input">
+                        <div class="form-group">
+                            <label class="info-title" for="First_Name">First Name <span>*</span></label>
+                            <input type="text" value="{{get_dashboard_customer_profile_edit_from_user.first_name}}" class="form-control unicase-form-control text-input" name="First_Name" id="First_Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="info-title" for="Last_Name">Last Name <span>*</span></label>
+                            <input type="text" class="form-control unicase-form-control text-input" value="{{get_dashboard_customer_profile_edit_from_user.last_name}}" name="Last_Name" id="Last_Name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="info-title" for="Last_Name">Phone number <span>*</span></label>
+                            <input type="text" class="form-control unicase-form-control text-input" value="{{get_dashboard_customer_profile_edit_from_user.username}}" name="Phone_number" id="Phone_number" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="info-title" for="sign_email">Email Address <span>*</span></label>
+                            <input type="email" class="form-control unicase-form-control text-input" value="{{get_dashboard_customer_profile_edit_from_user.email}}" name="sign_email" id="sign_email" required>
+                            <span id="show_info_email"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="info-title" for="sing_Password"><span class="text-danger">( If you want to changed password then write the new password,<br> else leave it empty. )</span><br>  <span>Password</span></label>
+                            <input type="password" class="form-control unicase-form-control text-input" value="" name="sing_Password" id="sing_Password" >
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <input type="hidden" value="{{pk}}" name="pk">
+                        </div>
+
+                    </div>
+
+
+
+
+
+                        <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>
+
+
+                </form>
+
+
+                </div>
+                <!-- create a new account -->
+
+            </div><!-- /.row -->
+		</div>
+	</div>
+</div>
+
+
+
+
+</div>
+
+
+
+
+        </div>
+
+
+
+</section>
+
+
+
+{% endblock %}

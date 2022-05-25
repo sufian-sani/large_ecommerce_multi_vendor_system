@@ -1,0 +1,104 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="camcat-container">
+  <h1 style="font-size:30px; margin: 35px 0 30px 0;" >{{get_campgn_catgries_prcntag.Category.Category_Name}} (Upto {{get_campgn_catgries_prcntag.calculate_max_percent}}% Off)</h1>
+
+  <section class="section wow fadeInUp new-arriavls">
+          <img style="height:60px; position:relative; margin-bottom: -70px; left:30%;" src="{{subcat1_brand.Brand_logo}}" alt="{{subcat1_brand.Brand_Name}}">
+          <h3 class="section-title">Suzuki</h3>
+
+
+
+          <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
+
+
+          {% include page_template %}
+
+
+
+          </div>
+
+
+          <!-- /.home-owl-carousel -->
+
+        </section>
+
+
+
+
+
+
+</div>
+<!-- jQuery CDN hosted by Google -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+
+<script>
+    function campaign_add_to_cart(product_id){
+        console.log('cam added')
+        console.log(product_id);
+
+        var varcampaign_id  = document.getElementById('campaign_slug'+product_id).value;
+        console.log(varcampaign_id)
+
+
+
+
+        if (product_cart[product_id] != undefined){
+            console.log('old')
+    		product_cart[product_id][0] = product_cart[product_id][0] + 1;
+
+    		updateCart(product_cart);
+
+
+
+    	}
+
+    	else{
+            console.log('new')
+            // 	var qty = document.getElementById("show_number").value;
+            var qty = 1;
+            console.log(qty);
+
+    		name = document.getElementById("product_name"+product_id).innerHTML;
+    		console.log(name)
+    		price = document.getElementById("product_price"+product_id).innerHTML;
+    		console.log(price)
+
+    		picture_product = document.getElementById("campaign_prod_img"+product_id).value;
+    		console.log(picture_product)
+
+    		var_cam_vendor = document.getElementById("cam_vendor_product"+product_id).value;
+
+    		varcam_free_delivery = document.getElementById("cam_free_delivery"+product_id).value;
+	    	console.log(varcam_free_delivery)
+
+
+    		product_cart[product_id] = [parseInt(qty), name, parseInt(price), picture_product, product_id, varcampaign_id, var_cam_vendor, varcam_free_delivery];
+    		console.log(product_cart[product_id]);
+
+    		updateCart(product_cart,product_id);
+
+    	}
+
+    }
+
+</script>
+
+
+{{ block.super }}
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{% static 'el-pagination.js' %}"></script>
+    <script>
+        $.endlessPaginate({
+            paginateOnScroll: true,
+            paginateOnScrollMargin: 1000
+
+        });
+    </script>
+
+{% endblock %}

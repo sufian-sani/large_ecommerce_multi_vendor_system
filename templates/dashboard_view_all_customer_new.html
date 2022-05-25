@@ -1,0 +1,76 @@
+{% load static %}
+
+{% load el_pagination_tags %}
+
+{% lazy_paginate 30 var_all_users_show %}
+
+
+<table id="productorder" class="table table-hover no-wrap product-order dataTable no-footer" data-page-size="10" role="grid" aria-describedby="productorder_info">
+
+    <thead>
+
+    </thead>
+    <tbody>
+
+
+{% if var_all_users_show %}
+{% for i in var_all_users_show %}
+
+<tr role="row" class="odd" id="row_prod397e5db6-947e-40fc-8abd-39487ca46272">
+            <!--<td class="sorting_1">-->
+            <!--	<div class="form-check" id="checkboxlist">-->
+            <!--	  <input name="products_check" class="form-check-input" type="checkbox" id="product_id397e5db6-947e-40fc-8abd-39487ca46272" onclick="the_item_checkbox()" value="397e5db6-947e-40fc-8abd-39487ca46272">-->
+
+            <!--	  <label class="form-check-label" for="product_id397e5db6-947e-40fc-8abd-39487ca46272" style=""></label>-->
+            <!--	</div>-->
+            <!--</td>-->
+             <td>{{i.first_name}}</td>
+             <td>{{i.last_name}}</td>
+             <td>{{i.username}}</td>
+             <td>{{i.email}}</td>
+             <td>{{i.date_joined}}</td>
+            <td>{{i.last_login}}</td>
+            <td>{% if i.is_active %}Active{% else %}Deactive{% endif %}</td>
+            {% if request.session.deshboard_customer_support_username %}
+            <td><button class="btn btn-success" disabled><i class="ti-marker-alt"></i></button></td>
+            {% else %}
+             <td><a href="{% url 'dashboard_customer_profile_edit' i.username %}" class="btn btn-success"><i class="ti-marker-alt"></i></a></td>
+            {% endif %}
+
+    </tr>
+
+{% endfor %}
+
+
+
+
+{% else %}
+<tr>
+<td  style="color:red" colspan="6">
+<h3>NO MATCH FOUND</h3>
+
+</td>
+
+</tr>
+
+{% endif %}
+
+    </tbody>
+</table>
+
+
+
+{% show_more "More results" %}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,82 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+
+<div class="col-md-1"></div>
+
+<div class="col-md-11">
+        <div class="sign-in-page">
+			<div class="row">
+
+
+                <!-- create a new account start-->
+
+                <div class="col-md-12 col-sm-12 create-new-account">
+
+                    <form method="POST" action="{% url 'save_vendor_registration' %}" enctype="multipart/form-data">{% csrf_token %}
+
+                            {% if error_massage %}
+                                <div class="alert alert-danger" role="alert">
+                                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                  <span class="sr-only">Error:</span>
+                                  <label>OTP is dosn't match</label>
+                                </div>
+                            {% endif %}
+
+                        <span><h3>We sent an OTP to your mobile number. Please write that below</h3></span><div class="alert alert-success" role="alert">
+  YOUR OTP: {{generated_otp_num_str}}
+</div>
+
+
+                        <div class="input-group p-5 m-5">
+                            <span class="input-group-addon" id="basic-addoeen1333253">OTP</span>
+                                <input type="text" style="height:50px; width:400px; font-size:20pt;" name="vendor_otp"  class="form-control pl-15 bg-transparent plc-black" placeholder="OTP" maxlength="5" minlength="5" required>
+                        </div>
+
+<!--                        <input type="text" name="vendor_otp" style="height:50px; width:400px; font-size:20pt;"><br>-->
+
+                        <input type="hidden" name="Vendor_registration_Full_Name" value="{{Vendor_registration_Full_Name}}">
+                        <input type="hidden" name="vendor_registration_Shop_Name" value="{{vendor_registration_Shop_Name}}">
+                        <input type="hidden" name="vendor_registration_Shop_URL" value="{{vendor_registration_Shop_URL}}">
+                        <input type="hidden" name="vendor_registration_Phone_No" value="{{vendor_registration_Phone_No}}">
+                        <input type="hidden" name="vendor_registration_Address" value="{{vendor_registration_Address}}">
+                        <input type="hidden" name="generated_otp_num_str" value="{{generated_otp_num_str}}">
+
+
+                        <button type="submit" style="height:50px; width:455px; margin-top: 10px;  align-items: center;  font-size:130%; color:#E9FF0C; background-color:#00B8AC;">Submit</button>
+
+                    </form>
+                    <br>
+
+                    <form method="POST" action="{% url 'cheake_otp_for_vendor_registration' %}" enctype="multipart/form-data">{% csrf_token %}
+                        <div class="m-5 p-5">
+
+                        <input type="hidden" name="Vendor_registration_Full_Name" value="{{Vendor_registration_Full_Name}}">
+                        <input type="hidden" name="vendor_registration_Shop_Name" value="{{vendor_registration_Shop_Name}}">
+                        <input type="hidden" name="vendor_registration_Address" value="{{vendor_registration_Address}}">
+                        <input type="hidden" name="vendor_registration_Shop_URL" value="{{vendor_registration_Shop_URL}}">
+                        <input type="hidden" name="vendor_registration_Phone_No" value="{{vendor_registration_Phone_No}}">
+                        <input type="hidden" name="generated_otp_num_str" value="{{generated_otp_num_str}}">
+
+                        <button type="submit" style="height:50px; width:455px; align-items: center; font-size:130%; color:#E9FF0C; background-color:#00B8AC;">resent otp</button>
+                        </div>
+                    </form>
+
+
+
+
+
+
+                </div>
+                <!-- create a new account -->
+
+            </div><!-- /.row -->
+		</div>
+	</div>
+
+
+
+				{% endblock %}

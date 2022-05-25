@@ -1,0 +1,172 @@
+{% extends 'vendor_templates/vendor_base.html' %}
+{% load static %}
+
+{% block body %}
+<style>
+.parent {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.image1 {
+  position: relative;
+  top: 0;
+  left: 0;
+  border: 5px SlateBlue solid;
+}
+.image2 {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  border: 5px SlateBlue solid;
+}
+
+.image2_edit {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  border: 5px SlateBlue solid;
+}
+
+.image1_edit {
+  position: absolute;
+  top: 180px;
+  left: 30px;
+  border: 5px SlateBlue solid;
+}
+
+.image-upload>input {
+  display: none;
+}
+
+</style>
+
+
+<section class="content">
+
+        <div class="row">
+			  <div class="col-12">
+				<div class="box">
+				  <div class="box-body">
+
+                      <div class="container">
+
+                           <div class="row p-5 m-5">
+
+                                  <div class="col-12">
+                                    <div class="box">
+                                      <div class="box-body">
+                                        <div class="table-responsive">
+                                            <div id="productorder_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                                                <div class="row">
+
+                                                   <div class="sign-in-page">
+
+
+
+                                    <!-- create a new account start-->
+
+                                    <div class="col-md-12 col-sm-12 create-new-account">
+                                        <h4 class="checkout-subtitle text-center">Edit vendor account</h4>
+
+                                            <form action="{% url 'save_vendor_info_edit' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+
+                                                 <div class="row">
+                                                        <div class="col-12">
+
+                                                              <img class="image1" src="{{vendor_shope_info1.vendor_shop_banner}}" width="100%">
+                                                              <img class="image2" src="{{vendor_shope_info1.vendor_shop_logo}}" width="25%">
+
+
+                                                              <div class="image-upload">
+                                                                  <label for="file-inpute">
+                                                                    <i class="fa fa-edit image2_edit btn btn-success bg-warning" style="font-size:8px">logo</i>
+                                                                  </label>
+                                                                  <input id="file-inpute" name="edited_vendor_logo" type="file" />
+                                                              </div>
+
+                                                              <div class="image-upload" >
+                                                                  <label for="file-input">
+                                                                    <i class="fa fa-edit image1_edit btn btn-success bg-warning upload" style="font-size:8px">banner</i>
+                                                                  </label>
+                                                                  <input id="file-input" name="edited_vendor_banner" type="file" />
+                                                              </div>
+
+                                                        </div>
+                                                  </div>
+
+
+                                                <div class="input-group">
+
+                                                    <span class="input-group-addon" id="basic-addon13">&nbsp;Vendor Full Name</span>
+                                                    <input type="text" size="100" name="edited_Vendor_registration_Full_Name" value="{{vendor_shope_info1.vendor_name}}" class="form-control pl-15 bg-transparent plc-black" placeholder="Vendor Full Name">
+
+                                                </div>
+
+                                                <div class="input-group">
+
+                                                    <span class="input-group-addon" id="basic-addon133">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shop Name</span>
+                                                        <input type="text" name="edited_vendor_registration_Shop_Name" value="{{vendor_shope_info1.vendor_shop_name}}" class="form-control pl-15 bg-transparent plc-black" placeholder="Shop Name">
+
+                                                </div>
+
+                                                <div class="input-group">
+
+
+                                                    <span class="input-group-addon" id="basic-addon1333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shop URL</span>
+                                                        <input type="text" name="edited_vendor_registration_Shop_URL" value="{{vendor_shope_info1.vendor_shop_url}}" class="form-control pl-15 bg-transparent plc-black" placeholder="Shop URL">
+
+                                                </div>
+
+
+                                                <div class="input-group">
+
+
+                                                    <span class="input-group-addon" id="basic-addon1333253">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone Number</span>
+                                                        <input type="text" name="edited_vendor_registration_Phone_No" value="{{vendor_shope_info1.vendor_phone_no}}" class="form-control pl-15 bg-transparent plc-black" placeholder="Phone No.">
+
+                                                </div>
+
+                                                <div class="input-group">
+
+                                                    <span class="input-group-addon" id="basic-addon13533253">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email</span>
+
+
+                                                    <input type="email" name="edited_vendor_registration_Email" value="{{vendor_shope_info1.vendor_email}}" class="form-control pl-15 bg-transparent plc-black" placeholder="Email">
+                                                </div>
+
+
+
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-info btn-block">Click to save</button>
+                                                </div>
+
+                                            </form>
+
+
+
+
+
+                                    <!-- create a new account -->
+
+                                </div><!-- /.row -->
+                            </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                 </div>
+                           </div>
+
+                    </div>
+
+
+
+                  </div>
+                </div>
+              </div>
+    </div>
+</section>
+{% endblock %}

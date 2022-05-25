@@ -1,0 +1,473 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+
+{% block body %}
+
+
+<!-- Main content -->
+		<section class="content">
+
+			<!-- Content Header (Page header) -->
+
+
+         
+
+
+
+		<div class="row">
+			  <div class="col-8">
+				<div class="box">
+				  <div class="box-body">
+					  <label><span class="text-bold text-primary">Showing By Date</span>
+					<div class="table-responsive">
+						<div id="productorder_wsrappere" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+
+							<form method="GET" action="{% url 'filter_vendor_date_deactive' %}">
+								
+								Start Date : <input name="vendor_Start_Date_filter" type="date" value="{{vendor_Start_Date_filter}}">
+								End Date : <input name="vendor_End_Date_filter" type="date" value="{{vendor_End_Date_filter}}">
+								<button type="submit" class="btn btn-primary" >submit</button>
+							</form>
+
+						</div>
+						{% if filter_date_vendor_qty %}
+							
+							<div class="alert alert-warning d-flex align-items-center mt-2" role="alert">
+								  
+								  <div>
+									&#128512; About {{filter_date_vendor_qty}} Results Found &#128512;
+								  </div>
+								</div>
+							{% endif %}
+					</div>
+				  </div>
+				</div>
+			  </div>
+			  
+			  <div class="col-md-4">
+			      <div class="box">
+				  <div class="box-body">
+    					<div class="table-responsive">
+    						<div id="productorder_wsrappere" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+    						    <form method="GET" action="{% url 'search_vendor_other_deactive' %}">
+    						        
+    						        <select name="search_status" aria-controls="productorder" class="form-control form-control-sm my-2" id="id_show_entries">
+        								<option value="0" {% if search_status == '0' %}selected{% endif %}>New To Older</option>
+        								<option value="1" {% if search_status == '1' %}selected{% endif %}>Older To New</option>
+        							</select>
+        							
+        							<input type="search" class="form-control form-control-sm" name="search_input_vendor" value="{{search_input_vendor}}" placeholder="Search vendor" aria-controls="productorder">
+        							
+                    				<button class="btn btn-primary btn-sm mt-2" style="width: 100%;">search</button>
+                				</form>
+                				
+                				{% if other_search_qty %}
+                    				
+                    				<div class="alert alert-warning d-flex align-items-center mt-2" role="alert">
+    								  
+    								  <div>
+    									&#128512; About {{other_search_qty}} Results Found &#128512;
+    								  </div>
+    								</div>
+                    				
+                    				{% endif %}
+                				
+    						</div>
+    					</div>
+    					
+    				  </div>
+    				</div>
+    				
+    			</div>
+	     </div>
+
+
+
+
+
+
+			<div class="row">
+			  <div class="col-12">
+				<div class="box">
+				  <div class="box-body">
+					<div class="table-responsive">
+						<div id="productorder_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+							<div class="row">
+
+								<div class="col-sm-4 col-md-4">
+								    {% if entries_filter_vendor_date %}
+								    <form id="vendor_entries" class="form" action="{% url 'filter_vendor_date_deactive' %}" method="GET">
+								        
+    								<input name="vendor_Start_Date_filter" type="hidden" value="{{vendor_Start_Date_filter}}">
+    								<input name="vendor_End_Date_filter" type="hidden" value="{{vendor_End_Date_filter}}">
+								        
+									<div class="dataTables_length" id="productorder_length">
+										<label><span class="text-bold">Date Filter Show</span>
+											<select name="vendor_entries_num" aria-controls="productorder" class="form-control form-control-sm" onchange="show_entries_vendor()" id="id_show_entries_vendor">
+												<option value="{% if vendor_entries_num %}{{vendor_entries_num}}{% else %}10{% endif %}">{% if vendor_entries_num %}{{vendor_entries_num}}{% else %}10{% endif %}</option>
+												<option value="1">1</option>
+												<option value="10">10</option>
+												<option value="25">25</option>
+												<option value="50">50</option>
+												<option value="100">100</option>
+											</select>
+											entries
+										</label>
+									</div>
+									</form>
+									
+									
+									{% elif entries_filter_vendor_other %}
+								    <form id="vendor_entries" class="form" action="{% url 'search_vendor_other_deactive' %}" method="GET">
+								        
+    								
+        							
+        							<input type="hidden" name="search_status" value="{{search_status}}">
+        							<input type="hidden" class="form-control form-control-sm" name="search_input_vendor" value="{{search_input_vendor}}">
+								        
+									<div class="dataTables_length" id="productorder_length">
+										<label><span class="text-bold">Search Filter Show</span>
+											<select name="vendor_entries_num" aria-controls="productorder" class="form-control form-control-sm" onchange="show_entries_vendor()" id="id_show_entries_vendor">
+												<option value="{% if vendor_entries_num %}{{vendor_entries_num}}{% else %}10{% endif %}">{% if vendor_entries_num %}{{vendor_entries_num}}{% else %}10{% endif %}</option>
+												<option value="1">1</option>
+												<option value="10">10</option>
+												<option value="25">25</option>
+												<option value="50">50</option>
+												<option value="100">100</option>
+											</select>
+											entries
+										</label>
+									</div>
+									</form>
+									
+									
+								    {% else %}
+								    
+								    
+								    
+								    <form id="vendor_entries" class="form" action="{% url 'pending_vendors' %}" method="GET">
+								        
+									<div class="dataTables_length" id="productorder_length">
+										<label><span class="text-bold">All Result Show</span>
+											<select name="vendor_entries_num" aria-controls="productorder" class="form-control form-control-sm" onchange="show_entries_vendor()" id="id_show_entries_vendor">
+												<option value="{% if vendor_entries_num %}{{vendor_entries_num}}{% else %}15{% endif %}">{% if vendor_entries_num %}{{vendor_entries_num}}{% else %}15{% endif %}</option>
+												<option value="1">1</option>
+												<option value="10">10</option>
+												<option value="25">25</option>
+												<option value="50">50</option>
+												<option value="100">100</option>
+											</select>
+											entries
+										</label>
+									</div>
+									</form>
+									
+									{% endif %}
+
+								</div>
+
+								<div class="col-sm-12 col-md-4">
+									<h5 class="text-success text-center">
+										Total select item
+										<br>
+										<span id="show_select_item_qty2">0</span>
+
+									</h5>
+								</div>
+
+								{% if request.session.deshboard_customer_support_username or request.session.deshboard_upload_team_username %}
+    							{% else %}
+								<div class="col-sm-12 col-md-2">
+									<div class="dataTables_length" id="Payment_Status">
+										<label><span class="text-bold text-primary">Activated</span>
+											<select name="productorder_length" aria-controls="productorder" class="form-control form-control-sm" id="bulk_action_id3">
+												<option value="">.....</option>
+												<option value="Active">Active</option>
+												
+											</select>
+
+										</label>
+									</div>
+								</div>
+
+								<div class="dataTables_length p-5 m-5" id="show_bulk_action_status3">
+									<button type="submit" class="btn btn-primary" onclick="bulk_action_btn3()">Action</button>
+								</div>
+
+								{% endif %}
+
+								
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12">
+
+									<table id="productorder" class="table table-hover no-wrap product-order dataTable no-footer" data-page-size="10" role="grid" aria-describedby="productorder_info">
+
+							<thead>
+								<tr role="row">
+
+									<th class="sorting_asc" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Customer: activate to sort column descending">
+										<div class="form-check">
+										  <input class="form-check-input" type="checkbox" id="select-all2">
+										  <label class="form-check-label" for="select-all2"></label>
+										</div>
+									</th>
+
+									<th class="sorting_asc" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Customer: activate to sort column descending">
+										Vendor shop logo
+									</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Order ID: activate to sort column ascending">Vendor Name
+
+									</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Product: activate to sort column ascending">Vendor Shop Name</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Quantity: activate to sort column ascending">Vendor Shop Url</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">Vendor Phone No</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">Vendor Email</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">Vendor Activation</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">Join Date</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">Edit</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+							{% for i in vendor_list %}
+							<tr role="row" class="odd">
+
+									<td class="sorting_1">
+										<div class="form-check" id="checkboxlist">
+										  <input name="vendor_check2" class="form-check-input" type="checkbox" id="vendor_id{{i.id}}" onclick="the_item_checkbox2()" value="{{i.id}}">
+
+										  <label class="form-check-label" for="vendor_id{{i.id}}"></label>
+										</div>
+									</td>
+
+									<td class="sorting_1">{% if i.vendor_shop_logo %}<img src="{{i.vendor_shop_logo}}" alt="slip" width="60">{% else %}None{% endif %}</td>
+									<td>{{i.vendor_name}}</td>
+
+									<td>{{i.vendor_shop_name}}</td>
+									<td>{{i.vendor_shop_url}}</td>
+									<td>{{i.vendor_phone_no}}</td>
+									<td>{{i.vendor_email}}</td>
+									<td>
+									    {% if i.vendor_activation %}
+									    <span class="badge badge-pill badge-success">
+									    Active
+									    </span>
+									    {% else %}
+									    <span class="badge badge-pill badge-warning">
+									    deactive
+									    </span>
+									    {% endif %}
+									</td>
+									<td>{{i.join_date}}</td>
+									<td>
+										{% if request.session.deshboard_customer_support_username %}
+										<button class="btn btn-warning" type="button" style="border-radius: 50%;" disabled>
+    										<i class="ti-marker-alt"></i>
+    									</button>
+    									{% else %}
+										<a href="{% url 'upload_vendor_Store_details' i.vendor_phone_no %}" class="btn btn-warning" type="button" style="border-radius: 50%;">
+    										<i class="ti-marker-alt"></i>
+    									</a>
+										{% endif %}
+									</td>
+									
+									
+								</tr>
+							{% endfor %}
+
+							</tbody>
+						</table>
+								</div>
+							</div>
+							
+							
+
+
+
+							<div class="row">
+								<div class="col-sm-12 col-md-5">
+									<div class="dataTables_info" id="productorder_info" role="status" aria-live="polite">Showing 1 to {% if order_entries %}{{order_entries}}{% else %}10{% endif %} of  entries</div>
+								</div>
+								<div class="col-sm-12 col-md-7">
+								    <div class="dataTables_paginate paging_simple_numbers" id="productorder_paginate">
+								        {% if list_vendor %}
+        								<ul class="pagination">
+        								    {% if vendor_list.has_previous %}
+        									    <li class="paginate_button page-item previous" id="productorder_previous"><a href="{% url 'pending_vendors' %}?page={{vendor_list.previous_page_number}}&vendor_entries_num={{ request.GET.vendor_entries_num }}" aria-controls="productorder" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+        									</li>
+        									{% endif %}
+        									
+        									{% for i in list_vendor %}
+        									    <li class="paginate_button page-item {% if page_num == i %}active{% endif %}"><a href="{% url 'pending_vendors' %}?page={{i}}&vendor_entries_num={{ request.GET.vendor_entries_num }}" aria-controls="productorder" data-dt-idx="1" tabindex="0" class="page-link">{{i}}</a></li>
+        									{% endfor %}
+        									
+        									{% if vendor_list.has_next %}
+        									    <li class="paginate_button page-item next" id="productorder_next"><a href="{% url 'pending_vendors' %}?page={{vendor_list.next_page_number}}&vendor_entries_num={{ request.GET.vendor_entries_num }}" aria-controls="productorder" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li>
+        									{% endif %}
+        								</ul>
+        								{% endif %}
+        								
+        								
+        								
+        								{% if list_vendor_date %}
+        								<ul class="pagination">
+        								    {% if vendor_list.has_previous %}
+        									    <li class="paginate_button page-item previous" id="productorder_previous"><a href="?page={{vendor_list.previous_page_number}}&vendor_Start_Date_filter={{ request.GET.vendor_Start_Date_filter }}&vendor_End_Date_filter={{ request.GET.vendor_End_Date_filter }}&vendor_entries_num={{ request.GET.vendor_entries_num }}" aria-controls="productorder" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+        									</li>
+        									{% endif %}
+        									
+        									{% for i in list_vendor_date %}
+        									    <li class="paginate_button page-item {% if page_num2 == i %}active{% endif %}"><a href="?page={{i}}&vendor_Start_Date_filter={{ request.GET.vendor_Start_Date_filter }}&vendor_End_Date_filter={{ request.GET.vendor_End_Date_filter }}&vendor_entries_num={{ request.GET.vendor_entries_num }}" aria-controls="productorder" data-dt-idx="1" tabindex="0" class="page-link">{{i}}</a></li>
+        									{% endfor %}
+        									
+        									{% if vendor_list.has_next %}
+        									    <li class="paginate_button page-item next" id="productorder_next"><a href="?page={{vendor_list.next_page_number}}&vendor_Start_Date_filter={{ request.GET.vendor_Start_Date_filter }}&vendor_End_Date_filter={{ request.GET.vendor_End_Date_filter }}&vendor_entries_num={{ request.GET.vendor_entries_num }}" aria-controls="productorder" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li>
+        									{% endif %}
+        								</ul>
+        								{% endif %}
+        								
+        								
+        								
+        								
+        								{% if list_vendor_other %}
+        								<ul class="pagination">
+        								    {% if vendor_list.has_previous %}
+        									    <li class="paginate_button page-item previous" id="productorder_previous"><a href="?page={{vendor_list.previous_page_number}}&search_status={{ request.GET.search_status }}&search_input_vendor={{ request.GET.search_input_vendor }}&vendor_entries_num={{ request.GET.vendor_entries_num }}" aria-controls="productorder" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+        									</li>
+        									{% endif %}
+        									
+        									{% for i in list_vendor_other %}
+        									    <li class="paginate_button page-item {% if page_num3 == i %}active{% endif %}"><a href="?page={{i}}&search_status={{ request.GET.search_status }}&search_input_vendor={{ request.GET.search_input_vendor }}&vendor_entries_num={{ request.GET.vendor_entries_num }}" aria-controls="productorder" data-dt-idx="1" tabindex="0" class="page-link">{{i}}</a></li>
+        									{% endfor %}
+        									
+        									{% if vendor_list.has_next %}
+        									    <li class="paginate_button page-item next" id="productorder_next"><a href="?page={{vendor_list.next_page_number}}&search_status={{ request.GET.search_status }}&search_input_vendor={{ request.GET.search_input_vendor }}&vendor_entries_num={{ request.GET.vendor_entries_num }}" aria-controls="productorder" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li>
+        									{% endif %}
+        								</ul>
+        								{% endif %}
+        								
+							        </div>
+							    </div>
+							</div>
+							
+							
+							
+						</div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+		  </div>
+		</section>
+		<!-- /.content -->
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+
+	//this is for checkboxes
+
+	document.getElementById('select-all2').onclick = function() {
+		var checkboxes = document.getElementsByName('vendor_check2');
+		console.log('checkboxes')
+		console.log(checkboxes)
+
+		for (var checkbox of checkboxes) {
+			checkbox.checked = this.checked;
+		}
+		console.log(checkbox.checked)
+		status_check_box_main = checkbox.checked
+
+		count_checkbox_selected(checkboxes, status_check_box_main)
+	}
+
+
+	function count_checkbox_selected(checkboxes, status_check_box_main){
+		console.log('status_check_box_main')
+		console.log(status_check_box_main)
+		if (status_check_box_main){
+			all_check_qty = checkboxes.length;
+			document.getElementById('show_select_item_qty2').innerHTML = all_check_qty;
+		}
+		else{
+			document.getElementById('show_select_item_qty2').innerHTML = 0;
+		}
+	}
+
+
+function the_item_checkbox2(){
+	console.log('the_item_checkbox')
+
+	var favorite = [];
+	$.each($("input[name='vendor_check2']:checked"), function(){
+		console.log($(this).val())
+		favorite.push($(this).val());
+	});
+
+	console.log(favorite.length)
+	document.getElementById('show_select_item_qty2').innerHTML = favorite.length;
+
+}
+
+
+
+function bulk_action_btn3(){
+	console.log('bulk action')
+	var bulk_action_id = document.getElementById('bulk_action_id3').value;
+	console.log('bulk_action_id')
+	console.log(bulk_action_id)
+	
+	
+	if(bulk_action_id=="Active"){
+	    document.getElementById('show_bulk_action_status3').innerHTML = `<button type="submit" class="btn btn-warning">Wait...</button>`;
+
+    	$.each($("input[name='vendor_check2']:checked"), function(){
+    			console.log('check1')
+    			console.log($(this).val());
+    			var vendor_id = $(this).val();
+    			$.ajax({
+    				url : '{% url 'vendor_activate' %}',
+    				type : 'POST',
+    				data : {vendor_id:vendor_id}
+    			})
+    			console.log('check2')
+    		});
+    
+    	//document.getElementById('show_bulk_action_status2').innerHTML = `<button type="submit" class="btn btn-primary" onclick="bulk_action_btn2()">Action</button>`;
+    	reload_func();
+	}
+
+}
+
+
+function reload_func(){
+	//location.reload()
+	setTimeout("location.reload(true);", 1000);
+}
+
+
+
+function show_entries_vendor(){
+    
+    var vendor_entries_form = document.getElementById("vendor_entries");
+    vendor_entries_form.submit();
+    
+}
+
+
+
+</script>
+
+
+
+{% endblock %}

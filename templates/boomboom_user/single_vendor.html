@@ -1,0 +1,303 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% load el_pagination_tags %}
+{% block content %}
+
+<style>
+.parent {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.image1 {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.image2 {
+  top: 280px;
+  left: 30px;
+  border: 2px SlateBlue solid;
+}
+</style>
+
+<!-- ============================================== CONTENT ============================================== -->
+
+
+
+
+
+<div class="single-vendor-container">
+	<div class="col-12">
+				<div class="box">
+				  <div class="box-body">
+            <div class="vendor-banner">
+              <img  class="image1" src="{{s_v_stores_e_r_t.vendor_shop_banner}}" alt="{{s_v_stores_e_r_t.vendor_shop_name}}">
+            </div>
+            <div class="vendor-logo">
+              <img class="image2" src="{{s_v_stores_e_r_t.vendor_shop_logo}}" alt="{{s_v_stores_e_r_t.vendor_shop_name}}">
+            </div>
+          </div>
+        </div>
+              </div>
+
+<div class="sv-info">
+  <div class="row">
+
+   <div class="col-lg-4 col-md-4 col-sm-4 sol-xs-4">
+      <h3>{{s_v_stores_e_r_t.vendor_shop_name}}</h3>
+
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 sol-xs-4">
+      <h3>Products: {{ppppp_count}}</h3>
+
+    </div>
+  </div>
+
+</div>
+
+
+<b>{% if result_qty %} About {{result_qty}} Result Found :{% endif %}</b>
+<b>{% if cate_result_qty %}<h3> {{Category_get.Category_Name}}</h3>Product Qty : {{cate_result_qty}} {% endif %}</b>
+
+<h3>{% if no_result %} No Result Found &#128517; {% endif %}</h3>
+{% if ppppp_count == 0 %}No Products Found &#128517; in This Vendor !{% endif %}
+<div class="sv-products">
+
+
+
+<div class="row">
+	<div style="text-align:center;" class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+<div class="row">
+
+	{% include page_template %}
+
+</div>
+</div>
+
+    <div class="col-sm-12 col-xs-12 col-md-3 col-lg-3 hidden-xs hidden-sm sidebar right-sidebar">
+
+
+              <div style="margin-bottom:20px;" class="sidebar-widget">
+                <div class="wrapper">
+                  <h3 class="section-title">FILTER BY PRICE</h3>
+
+<!--                  <fieldset style="text-align:center;" class="filter-price">-->
+<!--                    <div class="price-field">-->
+<!--                      <input type="range"  min="100" max="500" value="100" id="lower">-->
+<!--                      <input type="range" min="100" max="500" value="500" id="upper" oninput="vendor_prod_price_filter(this.value)">-->
+<!--                    </div>-->
+<!--                    <div class="price-wrap">-->
+<!--                      <div class="price-wrap-1">-->
+<!--                        <input value="2000" id="one">-->
+<!--                        <label for="one">৳</label>-->
+<!--                      </div>-->
+<!--                      <div class="price-wrap_line">-</div>-->
+<!--                      <div class="price-wrap-2">-->
+<!--                        <input value="5000" id="two">-->
+<!--                        <label for="two">৳</label>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </fieldset>-->
+
+
+					<form class="form-horizontal" action="{% url 'vendor_price_filter' %}" method="GET">
+
+
+					  <input type="hidden" name="vendor_sort_by" value="{{vendor_sort_by}}">
+					  <input type="hidden" name="vendor_phn_no" value="{{s_v_stores_e_r_t.vendor_phone_no}}">
+
+					   {% if Category_get %}
+					   <input type="hidden" name="cat_id" value="{{Category_get.id}}">
+					   {% endif %}
+
+
+
+				  <div class="form-group">
+					<label for="inputEmail3" class="col-sm-4 control-label">From ৳</label>
+					<div class="col-sm-8">
+					  <input type="number" class="form-control" id="inputEmail3" placeholder="Start Price" name="product_start_price" value="{% if product_start_price %}{{product_start_price}}{% else %}10{% endif %}">
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label for="inputPassword3" class="col-sm-4 control-label">To ৳</label>
+					<div class="col-sm-8">
+					  <input type="number" class="form-control" id="inputPassword3" placeholder="End Price" name="product_end_price" value="{% if product_end_price %}{{product_end_price}}{% else %}10000{% endif %}">
+					</div>
+				  </div>
+
+				  <div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+					  <button type="submit" class="btn btn-warning">Search</button>
+					</div>
+				  </div>
+				</form>
+
+                </div>
+              </div>
+
+
+		{% if lst_cat %}
+      <div class="sidebar-module-container">
+      <div class="sidebar-widget outer-bottom-xs">
+      	<h3 class="section-title">Category</h3>
+      	<div class="sidebar-widget-body m-t-10">
+      		<div class="accordion">
+				{% for ct in lst_cat %}
+					<a href="{% url 'vendor_category' %}?category_id={{ct.id}}&vendor_number={{s_v_stores_e_r_t.vendor_phone_no}}">{{ct.Category_Name}}</a><br>
+				{% endfor %}
+<!--      	    	<div class="accordion-group">-->
+<!--					-->
+<!--					-->
+
+
+<!--      	            <div class="accordion-heading">-->
+<!--      	                <a href="#collapseOne" data-toggle="collapse" class="accordion-toggle collapsed">-->
+<!--      	                   Camera-->
+<!--      	                </a>-->
+<!--      	            </div>&lt;!&ndash; /.accordion-heading &ndash;&gt;-->
+<!--      	            <div class="accordion-body collapse" id="collapseOne" style="height: 0px;">-->
+<!--      	                <div class="accordion-inner">-->
+<!--      	                    <ul>-->
+<!--      	                        <li><a href="#">gaming</a></li>-->
+<!--      	                        <li><a href="#">office</a></li>-->
+<!--      	                        <li><a href="#">kids</a></li>-->
+<!--      	                        <li><a href="#">for women</a></li>-->
+<!--      	                    </ul>-->
+<!--      	                </div>&lt;!&ndash; /.accordion-inner &ndash;&gt;-->
+<!--      	            </div>&lt;!&ndash; /.accordion-body &ndash;&gt;-->
+<!--      	        </div>&lt;!&ndash; /.accordion-group &ndash;&gt;-->
+
+<!--      	        <div class="accordion-group">-->
+<!--      	            <div class="accordion-heading">-->
+<!--      	                <a href="#collapseTwo" data-toggle="collapse" class="accordion-toggle collapsed">-->
+<!--      	                  Desktops-->
+<!--      	                </a>-->
+<!--      	            </div>&lt;!&ndash; /.accordion-heading &ndash;&gt;-->
+<!--      	            <div class="accordion-body collapse" id="collapseTwo" style="height: 0px;">-->
+<!--      	                <div class="accordion-inner">-->
+<!--      	                    <ul>-->
+<!--      	                        <li><a href="#">gaming</a></li>-->
+<!--      	                        <li><a href="#">office</a></li>-->
+<!--      	                        <li><a href="#">kids</a></li>-->
+<!--      	                        <li><a href="#">for women</a></li>-->
+<!--      	                    </ul>-->
+<!--      	                </div>&lt;!&ndash; /.accordion-inner &ndash;&gt;-->
+<!--      	            </div>&lt;!&ndash; /.accordion-body &ndash;&gt;-->
+<!--      	        </div>&lt;!&ndash; /.accordion-group &ndash;&gt;-->
+
+<!--      	        <div class="accordion-group">-->
+<!--      	            <div class="accordion-heading">-->
+<!--      	                <a href="#collapseThree" data-toggle="collapse" class="accordion-toggle collapsed">-->
+<!--      	                   Pants-->
+<!--      	                </a>-->
+<!--      	            </div>&lt;!&ndash; /.accordion-heading &ndash;&gt;-->
+<!--      	            <div class="accordion-body collapse" id="collapseThree" style="height: 0px;">-->
+<!--      	                <div class="accordion-inner">-->
+<!--      	                    <ul>-->
+<!--      	                        <li><a href="#">gaming</a></li>-->
+<!--      	                        <li><a href="#">office</a></li>-->
+<!--      	                        <li><a href="#">kids</a></li>-->
+<!--      	                        <li><a href="#">for women</a></li>-->
+<!--      	                    </ul>-->
+<!--      	                </div>&lt;!&ndash; /.accordion-inner &ndash;&gt;-->
+<!--      	            </div>&lt;!&ndash; /.accordion-body &ndash;&gt;-->
+<!--      	        </div>&lt;!&ndash; /.accordion-group &ndash;&gt;-->
+
+<!--      	        <div class="accordion-group">-->
+<!--      	            <div class="accordion-heading">-->
+<!--      	                <a href="#collapseFour" data-toggle="collapse" class="accordion-toggle collapsed">-->
+<!--      	                   Bags-->
+<!--      	                </a>-->
+<!--      	            </div>&lt;!&ndash; /.accordion-heading &ndash;&gt;-->
+<!--      	            <div class="accordion-body collapse" id="collapseFour" style="height: 0px;">-->
+<!--      	                <div class="accordion-inner">-->
+<!--      	                    <ul>-->
+<!--      	                        <li><a href="#">gaming</a></li>-->
+<!--      	                        <li><a href="#">office</a></li>-->
+<!--      	                        <li><a href="#">kids</a></li>-->
+<!--      	                        <li><a href="#">for women</a></li>-->
+<!--      	                    </ul>-->
+<!--      	                </div>&lt;!&ndash; /.accordion-inner &ndash;&gt;-->
+<!--      	            </div>&lt;!&ndash; /.accordion-body &ndash;&gt;-->
+<!--      	        </div>&lt;!&ndash; /.accordion-group &ndash;&gt;-->
+
+<!--      	        <div class="accordion-group">-->
+<!--      	            <div class="accordion-heading">-->
+<!--      	                <a href="#collapseFive" data-toggle="collapse" class="accordion-toggle collapsed">-->
+<!--      	                  Hats-->
+<!--      	                </a>-->
+<!--      	            </div>&lt;!&ndash; /.accordion-heading &ndash;&gt;-->
+<!--      	            <div class="accordion-body collapse" id="collapseFive" style="height: 0px;">-->
+<!--      	                <div class="accordion-inner">-->
+<!--      	                    <ul>-->
+<!--      	                        <li><a href="#">gaming</a></li>-->
+<!--      	                        <li><a href="#">office</a></li>-->
+<!--      	                        <li><a href="#">kids</a></li>-->
+<!--      	                        <li><a href="#">for women</a></li>-->
+<!--      	                    </ul>-->
+<!--      	                </div>&lt;!&ndash; /.accordion-inner &ndash;&gt;-->
+<!--      	            </div>&lt;!&ndash; /.accordion-body &ndash;&gt;-->
+<!--      	        </div>&lt;!&ndash; /.accordion-group &ndash;&gt;-->
+
+<!--      	        <div class="accordion-group">-->
+<!--      	            <div class="accordion-heading">-->
+<!--      	                <a href="#collapseSix" data-toggle="collapse" class="accordion-toggle collapsed">-->
+<!--      	                 Accessories-->
+<!--      	                </a>-->
+<!--      	            </div>&lt;!&ndash; /.accordion-heading &ndash;&gt;-->
+<!--      	            <div class="accordion-body collapse" id="collapseSix" style="height: 0px;">-->
+<!--      	                <div class="accordion-inner">-->
+<!--      	                    <ul>-->
+<!--      	                        <li><a href="#">gaming</a></li>-->
+<!--      	                        <li><a href="#">office</a></li>-->
+<!--      	                        <li><a href="#">kids</a></li>-->
+<!--      	                        <li><a href="#">for women</a></li>-->
+<!--      	                    </ul>-->
+<!--      	                </div>&lt;!&ndash; /.accordion-inner &ndash;&gt;-->
+<!--      	            </div>&lt;!&ndash; /.accordion-body &ndash;&gt;-->
+<!--      	        </div>&lt;!&ndash; /.accordion-group &ndash;&gt;-->
+
+      	    </div><!-- /.accordion -->
+      	</div><!-- /.sidebar-widget-body -->
+      </div><!-- /.sidebar-widget -->
+      </div>
+
+		{% endif %}
+
+    </div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<script>
+    function vendor_prod_price_filter(val){
+        console.log(val)
+        console.log('val')
+    }
+
+
+</script>
+   <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{% static 'el-pagination.js' %}"></script>
+    <script>
+        $.endlessPaginate({
+            paginateOnScroll: true,
+            paginateOnScrollMargin: 1000
+
+        });
+    </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- jScroll plug-in CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+<!-- ============================================== CONTENT : END ============================================== -->
+{% endblock %}

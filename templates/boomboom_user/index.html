@@ -1,0 +1,4087 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% block content %}
+<!-- ============================================== CONTENT ============================================== -->
+
+
+
+<div class="">
+<div class="row">
+<div class="col-xs-12 col-sm-12 col-md-8 homebanner-holder">
+  <!-- ========================================== SECTION – HERO ========================================= -->
+  <div id="hero">
+    <div id="owl-main" class="owl-carousel owl-inner-nav owl-ui-sm">
+        {% for benner in all_benners %}
+
+        <div class="item" style="background-image: url({{benner.benner.url}});">
+        <div class="container-fluid">
+          <div class="caption bg-color vertical-center text-left">
+            <!--<div class="slider-header fadeInDown-1">{{benner.title}}</div>-->
+            <!--<div class="big-text fadeInDown-1"> {{benner.header}} </div>-->
+            <!--<div class="excerpt fadeInDown-2 hidden-xs"> <span>{{benner.header}}</span> </div>-->
+            <div class="button-holder fadeInDown-3" style="margin-top:170px;"> <a href="{% if benner.button_link %}{{benner.button_link}}{% else %}{% url 'product-list' %}{% endif %}" class="btn-lg btn btn-uppercase btn-primary shop-now-button">Shop Now</a> </div>
+          </div>
+          <!-- /.caption -->
+        </div>
+        <!-- /.container-fluid -->
+      </div>
+        {% endfor %}
+
+
+      <!--<div class="item" style="background-image: url({% static 'media/sliders/01.jpg' %});">-->
+      <!--  <div class="container-fluid">-->
+      <!--    <div class="caption bg-color vertical-center text-left">-->
+      <!--      <div class="slider-header fadeInDown-1">Top Brands</div>-->
+      <!--      <div class="big-text fadeInDown-1"> New Collections </div>-->
+      <!--      <div class="excerpt fadeInDown-2 hidden-xs"> <span>Lorem ipsum dolor sit amet, consectetur adipisicing.</span> </div>-->
+      <!--      <div class="button-holder fadeInDown-3"> <a href="{% url 'product-list' %}" class="btn-lg btn btn-uppercase btn-primary shop-now-button">Shop Now</a> </div>-->
+      <!--    </div>-->
+          <!-- /.caption -->
+      <!--  </div>-->
+        <!-- /.container-fluid -->
+      <!--</div>-->
+      <!-- /.item -->
+
+      <!--<div class="item" style="background-image: url({% static 'media/sliders/02.jpg' %});">-->
+      <!--  <div class="container-fluid">-->
+      <!--    <div class="caption bg-color vertical-center text-left">-->
+      <!--      <div class="slider-header fadeInDown-1">Spring 2018</div>-->
+      <!--      <div class="big-text fadeInDown-1"> Women Fashion </div>-->
+      <!--      <div class="excerpt fadeInDown-2 hidden-xs"> <span>Nemo enim ipsam voluptatem quia voluptas sit aspernatur.</span> </div>-->
+      <!--      <div class="button-holder fadeInDown-3"> <a href="index.php?page=single-product" class="btn-lg btn btn-uppercase btn-primary shop-now-button">Shop Now</a> </div>-->
+      <!--    </div>-->
+          <!-- /.caption -->
+      <!--  </div>-->
+        <!-- /.container-fluid -->
+      <!--</div>-->
+      <!-- /.item -->
+
+    </div>
+    <!-- /.owl-carousel -->
+  </div>
+
+  <!-- ========================================= SECTION – HERO : END ========================================= -->
+
+  <!-- ============================================== FEATURED PRODUCTS ============================================== -->
+
+
+
+
+  {% if Featured_Products %}
+  <section class="section wow fadeInUp new-arriavls">
+    <h3 class="section-title">Featured Products</h3>
+    <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
+
+      {% for Featured_Prod in Featured_Products %}
+      <div class="item item-carousel">
+        <div class="products">
+          <div class="product">
+            <div class="product-image">
+              <div class="image">
+                    <a href="{% url 'product_details' Featured_Prod.slug %}">
+                       <img src="{{Featured_Prod.Product_Image}}" alt="{{Featured_Prod.Product_Name}}">
+                        <img src="{{Featured_Prod.Product_Image}}" alt="{{Featured_Prod.Product_Name}}" class="hover-image">
+                    </a>
+
+                    </div>
+              <!-- /.image -->
+            {% if Featured_Prod.Discount_Percentage %}
+              <div class="tag new"><span>{{Featured_Prod.Discount_Percentage}}%</span></div>
+            {% endif %}
+            </div>
+            <!-- /.product-image -->
+
+            <div class="product-info text-left">
+              <h3 class="name"><a href="{% url 'product_details' Featured_Prod.slug %}"><span id="reg_product_name{{Featured_Prod.slug}}">{{Featured_Prod.Product_Name}}</span></a></h3>
+
+              {% if Featured_Prod.count_rattings == 0 %}
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if Featured_Prod.count_rattings == 0.5 %}
+                <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if Featured_Prod.count_rattings == 1 %}
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if Featured_Prod.count_rattings == 1.5 %}
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if Featured_Prod.count_rattings == 2 %}
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if Featured_Prod.count_rattings == 2.5 %}
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if Featured_Prod.count_rattings == 3 %}
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if Featured_Prod.count_rattings == 3.5 %}
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if Featured_Prod.count_rattings == 4 %}
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if Featured_Prod.count_rattings == 4.5 %}
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if Featured_Prod.count_rattings == 5 %}
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+              <div class="description"></div>
+              <div class="product-price">
+
+                    {% if Featured_Prod.TYPE_OF_PRODUCTS == 'Simple Product' %}
+
+                    <span class="price">
+                      ৳<span id="reg_product_price{{Featured_Prod.slug}}">
+                      {% if Featured_Prod.Discount_Price %}{{ Featured_Prod.Discount_Price }}{% else %} {{Featured_Prod.MRP_Price}}{% endif %}
+                      </span>
+                    </span>
+
+
+                    <span class="price-before-discount">
+                      {% if Featured_Prod.Discount_Price %}৳ {{Featured_Prod.MRP_Price}}{% endif %}
+                    </span>
+                    {% else %}
+
+                    {% for i in Featured_Prod.first_attr_low_cost_prod %}
+
+                    <span class="price">
+                      ৳<span id="reg_product_price{{Featured_Prod.slug}}">{% if i.Discount_Price %}{{i.Discount_Price}}{% else %}{{i.MRP_Price}}{% endif %}</span>
+                    </span>
+
+                    <span class="price-before-discount">{% if i.Discount_Price %}৳ {{i.MRP_Price}}{% endif %}</span>
+
+                    {% endfor %}
+                    {% endif %}
+
+
+
+
+
+              </div>
+              <!-- /.product-price -->
+
+            </div>
+            <input type="hidden" value="{{Featured_Prod.Product_Image}}" id="reg_picture_product{{Featured_Prod.slug}}">
+            <input type="hidden" value="{{Featured_Prod.Vendors.id}}" id="reg_vendor_product{{Featured_Prod.slug}}">
+
+            <!-- /.product-info -->
+            <div class="cart clearfix animate-effect">
+              <div class="action">
+                <!--<ul class="list-unstyled">-->
+                <!--  <li class="add-cart-button btn-group"  onclick="index_add_to_cart('{{Featured_Prod.slug}}')">-->
+                <!--    <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+                <!--    <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+                <!--  </li>-->
+                <!--  <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+
+                <!--</ul>-->
+              </div>
+              <!-- /.action -->
+            </div>
+            <!-- /.cart -->
+          </div>
+          <!-- /.product -->
+
+        </div>
+        <!-- /.products -->
+      </div>
+      <!-- /.item -->
+      {% endfor %}
+
+
+
+
+
+
+      <!-- /.item -->
+    </div>
+    <!-- /.home-owl-carousel -->
+  </section>
+
+{% endif %}
+
+  <!-- /.section -->
+  <!-- ============================================== FEATURED PRODUCTS : END ============================================== -->
+
+
+<section>
+
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-xs-8 col-sm-8">
+      <h3>Featured Brands</h3>
+  </div>
+  <div class="col-lg-6 col-md-6 col-xs-4 col-sm-4">
+      <a class="btn btn-primary cart-btn" style="float:right; margin-top:10px;" href="{% url 'brand_list' %}">VIEW ALL</a>
+  </div>
+
+</div>
+<div class="featured-margin row">
+
+     {% for featured_brnd in featured_brands %}
+  <a href="{% url 'showing_product_by_brands' featured_brnd.slug %}">
+  <div class="featured-padding col-lg-2 col-md-2 col-sm-4 col-xs-4">
+    <div class="home_featured ">
+
+
+    <div class="home_featured_image">
+      <img src="media/{{featured_brnd.Brand_logo}}" alt="{{featured_brnd.Brand_Name}}">
+    </div>
+    <div class="home_featured_title">
+      <h5>{{featured_brnd.Brand_Name}}</h5>
+    </div>
+    </div>
+  </div>
+  </a>
+  {% endfor %}
+
+  <!--<a href="#">-->
+  <!--<div class="featured-padding col-lg-2 col-md-2 col-sm-4 col-xs-4">-->
+  <!--  <div class="home_featured ">-->
+
+
+  <!--  <div class="home_featured_image">-->
+  <!--    <img src="{% static 'media/vendor/armandy.jpg' %}" alt="">-->
+  <!--  </div>-->
+  <!--  <div class="home_featured_title">-->
+  <!--    <h5>Armandy</h5>-->
+  <!--  </div>-->
+  <!--  </div>-->
+  <!--</div>-->
+  <!--</a>-->
+  <!--<a href="#">-->
+  <!--<div class="featured-padding col-lg-2 col-md-2 col-sm-4 col-xs-4">-->
+  <!--  <div class="home_featured">-->
+
+
+  <!--  <div class="home_featured_image">-->
+  <!--    <img src="{% static 'media/vendor/gc.jpeg' %}" alt="">-->
+  <!--  </div>-->
+  <!--  <div class="home_featured_title">-->
+  <!--    <h5>Good Choice</h5>-->
+  <!--  </div>-->
+  <!--  </div>-->
+  <!--</div>-->
+  <!--</a>-->
+  <!--<a href="#">-->
+  <!--<div class="featured-padding col-lg-2 col-md-2 col-sm-4 col-xs-4">-->
+  <!--  <div class="home_featured">-->
+
+
+  <!--  <div class="home_featured_image">-->
+  <!--    <img src="{% static 'media/vendor/jomjom.png' %}" alt="">-->
+  <!--  </div>-->
+  <!--  <div class="home_featured_title">-->
+  <!--    <h5>Jomjom</h5>-->
+  <!--  </div>-->
+  <!--  </div>-->
+  <!--</div>-->
+  <!--</a>-->
+  <!--<a href="#">-->
+  <!--<div class="featured-padding col-lg-2 col-md-2 col-sm-4 col-xs-4">-->
+  <!--  <div class="home_featured">-->
+  <!--  <div class="home_featured_image">-->
+  <!--    <img src="{% static 'media/vendor/shok.jpg' %}" alt="">-->
+  <!--  </div>-->
+  <!--  <div class="home_featured_title">-->
+  <!--    <h5>Shok</h5>-->
+  <!--  </div>-->
+  <!--  </div>-->
+  <!--</div>-->
+  <!--</a>-->
+  <!--<a href="#">-->
+  <!--<div class="featured-padding col-lg-2 col-md-2 col-sm-4 col-xs-4">-->
+  <!--  <div class="home_featured">-->
+  <!--  <div class="home_featured_image">-->
+  <!--    <img src="{% static 'media/vendor/leela.png' %}" alt="">-->
+  <!--  </div>-->
+  <!--  <div class="home_featured_title">-->
+  <!--    <h5>Leela</h5>-->
+  <!--  </div>-->
+  <!--  </div>-->
+  <!--</div>-->
+  <!--</a>-->
+  <!--<a href="#">-->
+  <!--<div class="featured-padding col-lg-2 col-md-2 col-sm-4 col-xs-4">-->
+  <!--  <div class="home_featured">-->
+  <!--  <div class="home_featured_image">-->
+  <!--    <img src="{% static 'media/vendor/gtss.png' %}" alt="">-->
+  <!--  </div>-->
+  <!--  <div class="home_featured_title">-->
+  <!--    <h5>GTSS</h5>-->
+  <!--  </div>-->
+  <!--  </div>-->
+  <!--</div>-->
+  <!--</a>-->
+  </div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<section>
+
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-xs-8 col-sm-8">
+      <h3>Featured Shops</h3>
+  </div>
+  <div class="col-lg-6 col-md-6 col-xs-4 col-sm-4">
+      <a class="btn btn-primary cart-btn" style="float:right; margin-top:10px;" href="{% url 'stores' %}">VIEW ALL</a>
+  </div>
+
+</div>
+<div class="featured-margin row">
+
+
+  {% for featrd_shop in featured_vendor %}
+  <a href="{% url 'single_vendor' featrd_shop.vendor_phone_no %}">
+  <div class="featured-padding col-lg-2 col-md-2 col-sm-4 col-xs-4">
+    <div class="home_featured">
+
+
+    <div class="home_featured_image">
+      <img src="{{featrd_shop.vendor_shop_logo}}" alt="{{featrd_shop.vendor_shop_name}}">
+    </div>
+    <div class="home_featured_title">
+      <h5>{{featrd_shop.vendor_shop_name}}</h5>
+    </div>
+    </div>
+  </div>
+  </a>
+  {% endfor %}
+
+
+  <!--<a href="#">-->
+  <!--<div class="featured-padding col-lg-2 col-md-2 col-sm-4 col-xs-4">-->
+  <!--  <div class="home_featured">-->
+
+
+  <!--  <div class="home_featured_image">-->
+  <!--    <img src="{% static 'media/vendor/jomjom.png' %}" alt="">-->
+  <!--  </div>-->
+  <!--  <div class="home_featured_title">-->
+  <!--    <h5>Jomjom</h5>-->
+  <!--  </div>-->
+  <!--  </div>-->
+  <!--</div>-->
+  <!--</a>-->
+  <!--<a href="#">-->
+  <!--<div class="featured-padding col-lg-2 col-md-2 col-sm-4 col-xs-4">-->
+  <!--  <div class="home_featured">-->
+  <!--  <div class="home_featured_image">-->
+  <!--    <img src="{% static 'media/vendor/shok.jpg' %}" alt="">-->
+  <!--  </div>-->
+  <!--  <div class="home_featured_title">-->
+  <!--    <h5>Shok</h5>-->
+  <!--  </div>-->
+  <!--  </div>-->
+  <!--</div>-->
+  <!--</a>-->
+  <!--<a href="#">-->
+  <!--<div class="featured-padding col-lg-2 col-md-2 col-sm-4 col-xs-4">-->
+  <!--  <div class="home_featured">-->
+  <!--  <div class="home_featured_image">-->
+  <!--    <img src="{% static 'media/vendor/leela.png' %}" alt="">-->
+  <!--  </div>-->
+  <!--  <div class="home_featured_title">-->
+  <!--    <h5>Leela</h5>-->
+  <!--  </div>-->
+  <!--  </div>-->
+  <!--</div>-->
+  <!--</a>-->
+  <!--<a href="#">-->
+  <!--<div class="featured-padding col-lg-2 col-md-2 col-sm-4 col-xs-4">-->
+  <!--  <div class="home_featured">-->
+  <!--  <div class="home_featured_image">-->
+  <!--    <img src="{% static 'media/vendor/gtss.png' %}" alt="">-->
+  <!--  </div>-->
+  <!--  <div class="home_featured_title">-->
+  <!--    <h5>GTSS</h5>-->
+  <!--  </div>-->
+  <!--  </div>-->
+  <!--</div>-->
+  <!--</a>-->
+  </div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+   <!-- ============================================== WIDE PRODUCTS ============================================== -->
+  <div class="wide-banners wow fadeInUp outer-bottom-bs">
+    <div class="row">
+
+
+    <!--{% if get_campign_tbl %}-->
+
+
+    <!--  <div class="col-md-6 col-sm-6">-->
+    <!--    <div class="wide-banner cnt-strip">-->
+    <!--      <div class="image"> <a href="{% url 'campaign_landing' get_campign_tbl.campaign_slug %}"><img class="img-responsive" src="media/{{get_campign_tbl.campaign_benner}}" alt=""></a> </div>-->
+    <!--    </div>-->
+        <!-- /.wide-banner -->
+    <!--  </div>-->
+
+    <!--{% endif %}   -->
+
+
+
+
+    {% if allcampign_tbl %}
+    {% for i in allcampign_tbl %}
+
+      <div class="col-md-6 col-sm-6">
+        <div class="wide-banner cnt-strip">
+          <div class="image"> <a href="{% url 'campaign_landing' i.campaign_slug %}"><img class="img-responsive" src="media/{{i.campaign_benner}}" alt="{{i.campaign_name}}"></a> </div>
+        </div>
+        <!-- /.wide-banner -->
+      </div>
+    {% endfor %}
+    {% endif %}
+
+
+
+    {% for l_b in all_home_little_benner %}
+
+      <div class="col-md-6 col-sm-6">
+        <div class="wide-banner cnt-strip">
+          <div class="image"> <img class="img-responsive" src="media/{{l_b.benner}}" alt="{{l_b.title}}"> </div>
+        </div>
+        <!-- /.wide-banner -->
+      </div>
+    {% endfor %}
+
+      <!--<div class="col-md-6 col-sm-6">-->
+      <!--  <div class="wide-banner cnt-strip">-->
+      <!--    <div class="image"> <img class="img-responsive" src="{% static 'media/home/women.jpg' %}" alt=""> </div>-->
+      <!--  </div>-->
+        <!-- /.wide-banner -->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class="row">-->
+      <!-- /.col -->
+      <!--<div class="col-md-6 col-sm-6">-->
+      <!--  <div class="wide-banner cnt-strip">-->
+      <!--    <div class="image"> <img class="img-responsive" src="{% static 'media/home/mobile.png' %}" alt=""> </div>-->
+      <!--  </div>-->
+        <!-- /.wide-banner -->
+      <!--</div>-->
+      <!-- /.col -->
+      <!--<div class="col-md-6 col-sm-6">-->
+      <!--  <div class="wide-banner cnt-strip">-->
+      <!--    <div class="image"> <img class="img-responsive" src="{% static 'media/home/bike.png' %}" alt=""> </div>-->
+      <!--  </div>-->
+        <!-- /.wide-banner -->
+      <!--</div>-->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.wide-banners -->
+
+  <!-- ============================================== WIDE PRODUCTS : END ============================================== -->
+
+
+  <!-- ============================================== SCROLL TABS ============================================== -->
+
+
+
+
+
+
+
+
+  {% if get_campign_tbl %}
+
+
+      <div id="product-tabs-slider" class="scroll-tabs wow fadeInUp">
+    <div class="more-info-tab clearfix ">
+      <h3 class="new-product-title pull-left">{{get_campign_tbl.campaign_name}}</h3>
+    </div>
+    <div class="tab-content outer-top-xs">
+      <div class="tab-pane in active" id="all">
+        <div class="product-slider">
+          <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
+            {% for i in get_campign_tbl.campaign_home_featured_product %}
+
+
+            <div class="item item-carousel">
+              <div class="products">
+                <div class="product">
+                  <div class="product-image">
+                    <div class="image">
+                    <a href="{% url 'campaign_product_details' i.slug %}">
+                       <img src="{{i.product.Product_Image}}" alt="{{i.product.Product_Name}}">
+                    </a>
+                 </div>
+                    <!-- /.image -->
+
+                    <div class="tag new"><span>{{i.campaign_percentage}}%</span></div>
+                  </div>
+                  <!-- /.product-image -->
+
+                  <div class="product-info text-left">
+                    <h3 class="name"><a href="{% url 'campaign_product_details' i.slug %}"><span id="product_name{{i.slug}}">{{i.product.Product_Name}}</span></a></h3>
+                    <h4 class="name"><a href="">{{i.category_percentage.campaign.campaign_name}}</a></h4>
+
+
+                    {% if i.product.count_rattings == 0 %}
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    {% endif %}
+
+                    {% if i.product.count_rattings == 0.5 %}
+                    <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    {% endif %}
+
+                    {% if i.product.count_rattings == 1 %}
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    {% endif %}
+
+                    {% if i.product.count_rattings == 1.5 %}
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    {% endif %}
+
+                    {% if i.product.count_rattings == 2 %}
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    {% endif %}
+
+                    {% if i.product.count_rattings == 2.5 %}
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    {% endif %}
+
+                    {% if i.product.count_rattings == 3 %}
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    {% endif %}
+
+                    {% if i.product.count_rattings == 3.5 %}
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    {% endif %}
+
+                    {% if i.product.count_rattings == 4 %}
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    {% endif %}
+
+                    {% if i.product.count_rattings == 4.5 %}
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    {% endif %}
+
+                    {% if i.product.count_rattings == 5 %}
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    {% endif %}
+                    <div class="description"></div>
+
+
+
+
+                    <div class="product-price">
+                        {% if i.product.TYPE_OF_PRODUCTS == 'Simple Product' %}
+
+                        <span class="price"> &#2547;<span id="product_price{{i.slug}}">{{i.campaign_price}}</span> </span>
+                        <span class="price-before-discount">&#2547;{{i.product.MRP_Price}}</span>
+
+                        {% else %}
+
+
+                        {% for cam_p in i.first_attr_low_cost_campaign_prod %}
+
+                        <span class="price"> &#2547;<span id="product_price{{i.slug}}">{{cam_p.Discount_Price}} </span> </span>
+                        <span class="price-before-discount">&#2547;{{cam_p.MRP_Price}}</span>
+
+                        {% endfor %}
+                        {% endif %}
+
+
+
+                    </div>
+
+                    <input type="hidden" value="{{i.product.Product_Image}}" id="picture_product{{i.slug}}">
+                    <input type="hidden" id="campaign_name{{i.slug}}" value="{{i.category_percentage.campaign.campaign_name}}">
+                    <input type="hidden" value="{{i.product.Vendors}}" id="cam_vendor_product{{i.slug}}">
+                    <input type="hidden" value="{{i.campaign.free_delivery}}" id="cam_free_delivery{{i.slug}}">
+                    <!-- /.product-price -->
+
+                  </div>
+                  <!-- /.product-info -->
+                  <div class="cart clearfix animate-effect">
+                    <div class="action">
+                      <!--<ul class="list-unstyled">-->
+                      <!--  <li class="add-cart-button btn-group need_the_prod_id" id="{{i.slug}}">-->
+                      <!--    <button data-toggle="tooltip" class="btn btn-primary icon" type="button" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>-->
+                      <!--    <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+                      <!--  </li>-->
+                      <!--  <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+
+                      <!--</ul>-->
+                    </div>
+                    <!-- /.action -->
+                  </div>
+                  <!-- /.cart -->
+                </div>
+                <!-- /.product -->
+
+              </div>
+              <!-- /.products -->
+            </div>
+            {% endfor %}
+            <!-- /.item -->
+
+          </div>
+          <!-- /.home-owl-carousel -->
+        </div>
+        <!-- /.product-slider -->
+      </div>
+      <!-- /.tab-pane -->
+    </div>
+    <!-- /.tab-content -->
+  </div>
+
+    {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--<div id="product-tabs-slider" class="scroll-tabs wow fadeInUp">-->
+  <!--  <div class="more-info-tab clearfix ">-->
+  <!--    <h3 class="new-product-title pull-left">Campaign Products</h3>-->
+      <!--<ul class="nav nav-tabs nav-tab-line pull-right" id="new-products-1">-->
+      <!--  <li class="active"><a data-transition-type="backSlide" href="#all" data-toggle="tab">All</a></li>-->
+      <!--  <li><a data-transition-type="backSlide" href="#smartphone" data-toggle="tab">Clothing</a></li>-->
+      <!--  <li><a data-transition-type="backSlide" href="#laptop" data-toggle="tab">Electronics</a></li>-->
+      <!--  <li><a data-transition-type="backSlide" href="#apple" data-toggle="tab">Shoes</a></li>-->
+      <!--</ul>-->
+      <!-- /.nav-tabs -->
+  <!--  </div>-->
+  <!--  <div class="tab-content outer-top-xs">-->
+  <!--    <div class="tab-pane in active" id="all">-->
+  <!--      <div class="product-slider">-->
+  <!--        <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">-->
+  <!--          {% for i in campaign_home_star %}-->
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="product-image">-->
+  <!--                  <div class="image">-->
+  <!--                  <a href="{% url 'product_details' i.product.slug %}">-->
+  <!--                     <img src="{{i.product.Product_Image}}" alt="">-->
+  <!--                  </a>-->
+  <!--               </div>-->
+                    <!-- /.image -->
+
+  <!--                  <div class="tag new"><span>{{i.campaign_percentage}}%</span></div>-->
+  <!--                </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="{% url 'product_details' i.product.slug %}"><span id="product_name{{i.product.slug}}">{{i.product.Product_Name}}</span></a></h3>-->
+  <!--                  <h4 class="name"><a href="{% url 'product_details' i.product.slug %}">{{i.category_percentage.campaign.campaign_name}}</a></h4>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price">-->
+  <!--                    <span class="price"> &#2547;<span id="product_price{{i.product.slug}}">{{i.campaign_price}}</span> </span> <span class="price-before-discount">&#2547;{{i.product.MRP_Price}}</span>-->
+  <!--                  </div>-->
+
+  <!--                  <input type="hidden" value="{{i.product.Product_Image}}" id="picture_product{{i.product.slug}}">-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group need_the_prod_id" id="{{i.product.slug}}">-->
+  <!--                        <button data-toggle="tooltip" class="btn btn-primary icon" type="button" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+  <!--          {% endfor %}-->
+            <!-- /.item -->
+
+
+
+
+  <!--        </div>-->
+          <!-- /.home-owl-carousel -->
+  <!--      </div>-->
+        <!-- /.product-slider -->
+  <!--    </div>-->
+      <!-- /.tab-pane -->
+
+  <!--    <div class="tab-pane" id="smartphone">-->
+  <!--      <div class="product-slider">-->
+  <!--        <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">-->
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="product-image">-->
+  <!--                  <div class="image">-->
+  <!--                  <a href="detail.html">-->
+  <!--                     <img src="assets/images/products/p7.jpg" alt="">-->
+  <!--                      <img src="assets/images/products/p7_hover.jpg" alt="" class="hover-image">-->
+  <!--                  </a>-->
+
+  <!--                  </div>-->
+                    <!-- /.image -->
+
+  <!--                  <div class="tag sale"><span>sale</span></div>-->
+  <!--                </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group">-->
+  <!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+  <!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+            <!-- /.item -->
+
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="product-image">-->
+  <!--                  <div class="image">-->
+  <!--                  <a href="detail.html">-->
+  <!--                     <img src="assets/images/products/p8.jpg" alt="">-->
+  <!--                      <img src="assets/images/products/p8_hover.jpg" alt="" class="hover-image">-->
+  <!--                  </a>-->
+
+  <!--                  </div>-->
+                    <!-- /.image -->
+
+  <!--                  <div class="tag new"><span>new</span></div>-->
+  <!--                </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group">-->
+  <!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+  <!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+            <!-- /.item -->
+
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="product-image">-->
+  <!--                  <div class="image">-->
+  <!--                  <a href="detail.html">-->
+  <!--                     <img src="assets/images/products/p9.jpg" alt="">-->
+  <!--                      <img src="assets/images/products/p9_hover.jpg" alt="" class="hover-image">-->
+  <!--                  </a>-->
+
+  <!--                  </div>-->
+                    <!-- /.image -->
+
+  <!--                  <div class="tag sale"><span>sale</span></div>-->
+  <!--                </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group">-->
+  <!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+  <!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+            <!-- /.item -->
+
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="product-image">-->
+  <!--                  <div class="image">-->
+  <!--                  <a href="detail.html">-->
+  <!--                     <img src="assets/images/products/p10.jpg" alt="">-->
+  <!--                      <img src="assets/images/products/p10_hover.jpg" alt="" class="hover-image">-->
+  <!--                  </a>-->
+
+  <!--                  </div>-->
+                    <!-- /.image -->
+
+  <!--                  <div class="tag new"><span>new</span></div>-->
+  <!--                </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group">-->
+  <!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+  <!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+            <!-- /.item -->
+
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="product-image">-->
+  <!--                  <div class="image">-->
+  <!--                  <a href="detail.html">-->
+  <!--                     <img src="assets/images/products/p11.jpg" alt="">-->
+  <!--                      <img src="assets/images/products/p11_hover.jpg" alt="" class="hover-image">-->
+  <!--                  </a>-->
+
+  <!--                  </div>-->
+                    <!-- /.image -->
+
+  <!--                  <div class="tag hot"><span>hot</span></div>-->
+  <!--                </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group">-->
+  <!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+  <!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+            <!-- /.item -->
+
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="product-image">-->
+  <!--                  <div class="image">-->
+  <!--                  <a href="detail.html">-->
+  <!--                     <img src="assets/images/products/p12.jpg" alt="">-->
+  <!--                      <img src="assets/images/products/p12_hover.jpg" alt="" class="hover-image">-->
+  <!--                  </a>-->
+
+  <!--                  </div>-->
+                    <!-- /.image -->
+
+  <!--                  <div class="tag hot"><span>hot</span></div>-->
+  <!--                </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group">-->
+  <!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+  <!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+            <!-- /.item -->
+  <!--        </div>-->
+          <!-- /.home-owl-carousel -->
+  <!--      </div>-->
+        <!-- /.product-slider -->
+  <!--    </div>-->
+      <!-- /.tab-pane -->
+
+  <!--    <div class="tab-pane" id="laptop">-->
+  <!--      <div class="product-slider">-->
+  <!--        <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">-->
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="product-image">-->
+  <!--                  <div class="image">-->
+  <!--                  <a href="detail.html">-->
+  <!--                     <img src="assets/images/products/p15.jpg" alt="">-->
+  <!--                      <img src="assets/images/products/p15_hover.jpg" alt="" class="hover-image">-->
+  <!--                  </a>-->
+
+  <!--                  </div>-->
+                    <!-- /.image -->
+
+  <!--                  <div class="tag new"><span>new</span></div>-->
+  <!--                </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group">-->
+  <!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+  <!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+            <!-- /.item -->
+
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="product-image">-->
+  <!--                  <div class="image">-->
+  <!--                  <a href="detail.html">-->
+  <!--                     <img src="assets/images/products/p2.jpg" alt="">-->
+  <!--                      <img src="assets/images/products/p2_hover.jpg" alt="" class="hover-image">-->
+  <!--                  </a>-->
+
+  <!--                  </div>-->
+                    <!-- /.image -->
+
+  <!--                  <div class="tag new"><span>new</span></div>-->
+  <!--                </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group">-->
+  <!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+  <!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+            <!-- /.item -->
+
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="product-image">-->
+  <!--                  <div class="image">-->
+  <!--                  <a href="detail.html">-->
+  <!--                     <img src="assets/images/products/p8.jpg" alt="">-->
+  <!--                      <img src="assets/images/products/p8_hover.jpg" alt="" class="hover-image">-->
+  <!--                  </a>-->
+
+  <!--                  </div>-->
+                    <!-- /.image -->
+
+  <!--                  <div class="tag sale"><span>sale</span></div>-->
+  <!--                </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group">-->
+  <!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+  <!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+            <!-- /.item -->
+
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="image">-->
+  <!--                  <a href="detail.html">-->
+  <!--                     <img src="assets/images/products/p14.jpg" alt="">-->
+  <!--                      <img src="assets/images/products/p14_hover.jpg" alt="" class="hover-image">-->
+  <!--                  </a>-->
+
+  <!--                  </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group">-->
+  <!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+  <!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+            <!-- /.item -->
+
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="product-image">-->
+  <!--                  <div class="image">-->
+  <!--                  <a href="detail.html">-->
+  <!--                     <img src="assets/images/products/p12.jpg" alt="">-->
+  <!--                      <img src="assets/images/products/p12_hover.jpg" alt="" class="hover-image">-->
+  <!--                  </a>-->
+
+  <!--                  </div>-->
+                    <!-- /.image -->
+
+  <!--                  <div class="tag hot"><span>hot</span></div>-->
+  <!--                </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group">-->
+  <!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+  <!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+            <!-- /.item -->
+
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="product-image">-->
+  <!--                  <div class="image">-->
+  <!--                  <a href="detail.html">-->
+  <!--                     <img src="assets/images/products/p9.jpg" alt="">-->
+  <!--                      <img src="assets/images/products/p9_hover.jpg" alt="" class="hover-image">-->
+  <!--                  </a>-->
+
+  <!--                  </div>-->
+                    <!-- /.image -->
+
+  <!--                  <div class="tag sale"><span>sale</span></div>-->
+  <!--                </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="detail.html">Apple Iphone 5s 32GB</a></h3>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group">-->
+  <!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+  <!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+            <!-- /.item -->
+  <!--        </div>-->
+          <!-- /.home-owl-carousel -->
+  <!--      </div>-->
+        <!-- /.product-slider -->
+  <!--    </div>-->
+      <!-- /.tab-pane -->
+
+  <!--    <div class="tab-pane" id="apple">-->
+  <!--      <div class="product-slider">-->
+  <!--        <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">-->
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="product-image">-->
+  <!--                  <div class="image">-->
+  <!--                  <a href="detail.html">-->
+  <!--                     <img src="assets/images/products/p13.jpg" alt="">-->
+  <!--                      <img src="assets/images/products/p13_hover.jpg" alt="" class="hover-image">-->
+  <!--                  </a>-->
+
+  <!--                  </div>-->
+                    <!-- /.image -->
+
+  <!--                  <div class="tag sale"><span>sale</span></div>-->
+  <!--                </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group">-->
+  <!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+  <!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+            <!-- /.item -->
+
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="product-image">-->
+  <!--                  <div class="image">-->
+  <!--                  <a href="detail.html">-->
+  <!--                     <img src="assets/images/products/p11.jpg" alt="">-->
+  <!--                      <img src="assets/images/products/p11_hover.jpg" alt="" class="hover-image">-->
+  <!--                  </a>-->
+
+  <!--                  </div>-->
+                    <!-- /.image -->
+
+  <!--                  <div class="tag hot"><span>hot</span></div>-->
+  <!--                </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group">-->
+  <!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+  <!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+            <!-- /.item -->
+
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="product-image">-->
+  <!--                  <div class="image">-->
+  <!--                  <a href="detail.html">-->
+  <!--                     <img src="assets/images/products/p4.jpg" alt="">-->
+  <!--                      <img src="assets/images/products/p4_hover.jpg" alt="" class="hover-image">-->
+  <!--                  </a>-->
+
+  <!--                  </div>-->
+                    <!-- /.image -->
+
+  <!--                  <div class="tag sale"><span>sale</span></div>-->
+  <!--                </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group">-->
+  <!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+  <!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+            <!-- /.item -->
+
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="product-image">-->
+  <!--                  <div class="image">-->
+  <!--                  <a href="detail.html">-->
+  <!--                     <img src="assets/images/products/p1.jpg" alt="">-->
+  <!--                      <img src="assets/images/products/p1_hover.jpg" alt="" class="hover-image">-->
+  <!--                  </a>-->
+
+  <!--                  </div>-->
+                    <!-- /.image -->
+
+  <!--                  <div class="tag new"><span>new</span></div>-->
+  <!--                </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group">-->
+  <!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+  <!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+            <!-- /.item -->
+
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="product-image">-->
+  <!--                  <div class="image">-->
+  <!--                  <a href="detail.html">-->
+  <!--                     <img src="assets/images/products/p10.jpg" alt="">-->
+  <!--                      <img src="assets/images/products/p10_hover.jpg" alt="" class="hover-image">-->
+  <!--                  </a>-->
+
+  <!--                  </div>-->
+                    <!-- /.image -->
+
+  <!--                  <div class="tag new"><span>new</span></div>-->
+  <!--                </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group">-->
+  <!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+  <!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+            <!-- /.item -->
+
+  <!--          <div class="item item-carousel">-->
+  <!--            <div class="products">-->
+  <!--              <div class="product">-->
+  <!--                <div class="product-image">-->
+  <!--                  <div class="image">-->
+  <!--                  <a href="detail.html">-->
+  <!--                     <img src="assets/images/products/p6.jpg" alt="">-->
+  <!--                      <img src="assets/images/products/p6_hover.jpg" alt="" class="hover-image">-->
+  <!--                  </a>-->
+
+  <!--                  </div>-->
+                    <!-- /.image -->
+
+  <!--                  <div class="tag hot"><span>hot</span></div>-->
+  <!--                </div>-->
+                  <!-- /.product-image -->
+
+  <!--                <div class="product-info text-left">-->
+  <!--                  <h3 class="name"><a href="detail.html">Samsung Galaxy S4</a></h3>-->
+  <!--                  <div class="rating rateit-small"></div>-->
+  <!--                  <div class="description"></div>-->
+  <!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                    <!-- /.product-price -->
+
+  <!--                </div>-->
+                  <!-- /.product-info -->
+  <!--                <div class="cart clearfix animate-effect">-->
+  <!--                  <div class="action">-->
+  <!--                    <ul class="list-unstyled">-->
+  <!--                      <li class="add-cart-button btn-group">-->
+  <!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+  <!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+  <!--                      </li>-->
+  <!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+  <!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+  <!--                    </ul>-->
+  <!--                  </div>-->
+                    <!-- /.action -->
+  <!--                </div>-->
+                  <!-- /.cart -->
+  <!--              </div>-->
+                <!-- /.product -->
+
+  <!--            </div>-->
+              <!-- /.products -->
+  <!--          </div>-->
+            <!-- /.item -->
+  <!--        </div>-->
+          <!-- /.home-owl-carousel -->
+  <!--      </div>-->
+        <!-- /.product-slider -->
+  <!--    </div>-->
+      <!-- /.tab-pane -->
+
+  <!--  </div>-->
+    <!-- /.tab-content -->
+  <!--</div>-->
+  <!-- /.scroll-tabs -->
+  <!-- ============================================== SCROLL TABS : END ============================================== -->
+
+
+
+
+
+
+
+<!--<div class="categories-list">-->
+<!--  {% for i in all_cat %}-->
+  <!-- ============================================== FEATURED PRODUCTS ============================================== -->
+<!--    <div class="card">-->
+<!--      <section class="section featured-product wow fadeInUp">-->
+<!--      <div class="row">-->
+<!--      <div class="col-lg-3">-->
+<!--        <h3 class="section-title">{{i.Category_Name}}</h3>-->
+<!--        <ul class="sub-cat">-->
+
+<!--            {% for lst_subcat1 in i.filter_the_subcat1_by_mainCat %}-->
+<!--            <li><a href="#">{{lst_subcat1.Subcategory_1}}</a></li>-->
+<!--            {% endfor %}-->
+
+<!--        </ul>-->
+<!--        </div>-->
+<!--        <div class="col-lg-9">-->
+<!--        <div class="owl-carousel homepage-owl-carousel custom-carousel owl-theme outer-top-xs">-->
+<!--          <div class="item item-carousel">-->
+<!--            <div class="products">-->
+<!--              <div class="product">-->
+<!--                <div class="product-image">-->
+<!--                  <div class="image">-->
+<!--                        <a href="detail.html">-->
+<!--                           <img src="assets/images/products/p15.jpg" alt="">-->
+<!--                            <img src="assets/images/products/p15_hover.jpg" alt="" class="hover-image">-->
+<!--                        </a>-->
+
+<!--                        </div>-->
+                  <!-- /.image -->
+
+<!--                  <div class="tag new"><span>new</span></div>-->
+<!--                </div>-->
+                <!-- /.product-image -->
+
+<!--                <div class="product-info text-left">-->
+<!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+<!--                  <div class="rating rateit-small"></div>-->
+<!--                  <div class="description"></div>-->
+<!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                  <!-- /.product-price -->
+
+<!--                </div>-->
+                <!-- /.product-info -->
+<!--                <div class="cart clearfix animate-effect">-->
+<!--                  <div class="action">-->
+<!--                    <ul class="list-unstyled">-->
+<!--                      <li class="add-cart-button btn-group">-->
+<!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+<!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+<!--                      </li>-->
+<!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+<!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+<!--                    </ul>-->
+<!--                  </div>-->
+                  <!-- /.action -->
+<!--                </div>-->
+                <!-- /.cart -->
+<!--              </div>-->
+              <!-- /.product -->
+
+<!--            </div>-->
+            <!-- /.products -->
+<!--          </div>-->
+          <!-- /.item -->
+
+<!--          <div class="item item-carousel">-->
+<!--            <div class="products">-->
+<!--              <div class="product">-->
+<!--                <div class="product-image">-->
+<!--                  <div class="image">-->
+<!--                        <a href="detail.html">-->
+<!--                           <img src="assets/images/products/p10.jpg" alt="">-->
+<!--                            <img src="assets/images/products/p10_hover.jpg" alt="" class="hover-image">-->
+<!--                        </a>-->
+
+<!--                        </div>-->
+                  <!-- /.image -->
+
+<!--                  <div class="tag sale"><span>sale</span></div>-->
+<!--                </div>-->
+                <!-- /.product-image -->
+
+<!--                <div class="product-info text-left">-->
+<!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+<!--                  <div class="rating rateit-small"></div>-->
+<!--                  <div class="description"></div>-->
+<!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                  <!-- /.product-price -->
+
+<!--                </div>-->
+                <!-- /.product-info -->
+<!--                <div class="cart clearfix animate-effect">-->
+<!--                  <div class="action">-->
+<!--                    <ul class="list-unstyled">-->
+<!--                      <li class="add-cart-button btn-group">-->
+<!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+<!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+<!--                      </li>-->
+<!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+<!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+<!--                    </ul>-->
+<!--                  </div>-->
+                  <!-- /.action -->
+<!--                </div>-->
+                <!-- /.cart -->
+<!--              </div>-->
+              <!-- /.product -->
+
+<!--            </div>-->
+            <!-- /.products -->
+<!--          </div>-->
+          <!-- /.item -->
+
+<!--          <div class="item item-carousel">-->
+<!--            <div class="products">-->
+<!--              <div class="product">-->
+<!--                <div class="product-image">-->
+<!--                  <div class="image">-->
+<!--                        <a href="detail.html">-->
+<!--                           <img src="assets/images/products/p11.jpg" alt="">-->
+<!--                            <img src="assets/images/products/p11_hover.jpg" alt="" class="hover-image">-->
+<!--                        </a>-->
+
+<!--                        </div>-->
+                  <!-- /.image -->
+
+<!--                  <div class="tag hot"><span>hot</span></div>-->
+<!--                </div>-->
+                <!-- /.product-image -->
+
+<!--                <div class="product-info text-left">-->
+<!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+<!--                  <div class="rating rateit-small"></div>-->
+<!--                  <div class="description"></div>-->
+<!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                  <!-- /.product-price -->
+
+<!--                </div>-->
+                <!-- /.product-info -->
+<!--                <div class="cart clearfix animate-effect">-->
+<!--                  <div class="action">-->
+<!--                    <ul class="list-unstyled">-->
+<!--                      <li class="add-cart-button btn-group">-->
+<!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+<!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+<!--                      </li>-->
+<!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+<!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+<!--                    </ul>-->
+<!--                  </div>-->
+                  <!-- /.action -->
+<!--                </div>-->
+                <!-- /.cart -->
+<!--              </div>-->
+              <!-- /.product -->
+
+<!--            </div>-->
+            <!-- /.products -->
+<!--          </div>-->
+          <!-- /.item -->
+
+<!--          <div class="item item-carousel">-->
+<!--            <div class="products">-->
+<!--              <div class="product">-->
+<!--                <div class="product-image">-->
+<!--                  <div class="image">-->
+<!--                        <a href="detail.html">-->
+<!--                           <img src="assets/images/products/p8.jpg" alt="">-->
+<!--                            <img src="assets/images/products/p8_hover.jpg" alt="" class="hover-image">-->
+<!--                        </a>-->
+
+<!--                        </div>-->
+                  <!-- /.image -->
+
+<!--                  <div class="tag new"><span>new</span></div>-->
+<!--                </div>-->
+                <!-- /.product-image -->
+
+<!--                <div class="product-info text-left">-->
+<!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+<!--                  <div class="rating rateit-small"></div>-->
+<!--                  <div class="description"></div>-->
+<!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                  <!-- /.product-price -->
+
+<!--                </div>-->
+                <!-- /.product-info -->
+<!--                <div class="cart clearfix animate-effect">-->
+<!--                  <div class="action">-->
+<!--                    <ul class="list-unstyled">-->
+<!--                      <li class="add-cart-button btn-group">-->
+<!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+<!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+<!--                      </li>-->
+<!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+<!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+<!--                    </ul>-->
+<!--                  </div>-->
+                  <!-- /.action -->
+<!--                </div>-->
+                <!-- /.cart -->
+<!--              </div>-->
+              <!-- /.product -->
+
+<!--            </div>-->
+            <!-- /.products -->
+<!--          </div>-->
+          <!-- /.item -->
+
+<!--          <div class="item item-carousel">-->
+<!--            <div class="products">-->
+<!--              <div class="product">-->
+<!--                <div class="product-image">-->
+<!--                  <div class="image">-->
+<!--                        <a href="detail.html">-->
+<!--                           <img src="assets/images/products/p7.jpg" alt="">-->
+<!--                            <img src="assets/images/products/p7_hover.jpg" alt="" class="hover-image">-->
+<!--                        </a>-->
+
+<!--                        </div>-->
+                  <!-- /.image -->
+
+<!--                  <div class="tag sale"><span>sale</span></div>-->
+<!--                </div>-->
+                <!-- /.product-image -->
+
+<!--                <div class="product-info text-left">-->
+<!--                  <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+<!--                  <div class="rating rateit-small"></div>-->
+<!--                  <div class="description"></div>-->
+<!--                  <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+                  <!-- /.product-price -->
+
+<!--                </div>-->
+                <!-- /.product-info -->
+<!--                <div class="cart clearfix animate-effect">-->
+<!--                  <div class="action">-->
+<!--                    <ul class="list-unstyled">-->
+<!--                      <li class="add-cart-button btn-group">-->
+<!--                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+<!--                        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+<!--                      </li>-->
+<!--                      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+<!--                      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+<!--                    </ul>-->
+<!--                  </div>-->
+                  <!-- /.action -->
+<!--                </div>-->
+                <!-- /.cart -->
+<!--              </div>-->
+              <!-- /.product -->
+
+<!--            </div>-->
+            <!-- /.products -->
+<!--          </div>-->
+          <!-- /.item -->
+<!--        </div>-->
+<!--        </div>-->
+<!--        </div>-->
+        <!-- /.home-owl-carousel -->
+<!--      </section>-->
+      <!-- /.section -->
+<!--    </div>-->
+  <!-- ============================================== FEATURED PRODUCTS : END ============================================== -->
+
+<!--  {% endfor %}-->
+
+
+<!--            {% if page_obj.has_next %}-->
+<!--                <p class="pagination">-->
+<!--                    <a class="next-page" href="?page={{ page_obj.next_page_number }}">More...</a>-->
+<!--                </p>-->
+<!--            {% endif %}-->
+
+<!--  </div>-->
+
+
+
+
+
+
+
+
+
+
+  <!-- ============================================== FEATURED PRODUCTS ============================================== -->
+<!--  <section class="section featured-product wow fadeInUp">-->
+<!--  <div class="row">-->
+<!--  <div class="col-lg-3">-->
+<!--    <h3 class="section-title" style="background-color:#293965;">Grocery</h3>-->
+<!--    <ul class="sub-cat">-->
+<!--    <li><a href="#">Computers</a></li>-->
+<!--    <li><a href="#">Air Condtion</a></li>-->
+<!--    <li><a href="#">Mobile Phones</a></li>-->
+<!--    <li><a href="#">Camera</a></li>-->
+<!--    <li><a href="#">Television</a></li>-->
+<!--    <li><a href="#">Sound & Speakers</a></li>-->
+<!--    <li><a href="#">Games & Audio Music</a></li>-->
+<!--    <li><a href="#">Digital Watches</a></li>-->
+
+<!--    </ul>-->
+<!--    </div>-->
+<!--    <div class="col-lg-9">-->
+<!--    <div class="owl-carousel homepage-owl-carousel custom-carousel owl-theme outer-top-xs">-->
+<!--      <div class="item item-carousel">-->
+<!--        <div class="products">-->
+<!--          <div class="product">-->
+<!--            <div class="product-image">-->
+<!--              <div class="image">-->
+<!--                    <a href="detail.html">-->
+<!--                       <img src="assets/images/products/p13.jpg" alt="">-->
+<!--                        <img src="assets/images/products/p13_hover.jpg" alt="" class="hover-image">-->
+<!--                    </a>-->
+
+<!--                    </div>-->
+              <!-- /.image -->
+
+<!--              <div class="tag hot"><span>hot</span></div>-->
+<!--            </div>-->
+            <!-- /.product-image -->
+
+<!--            <div class="product-info text-left">-->
+<!--              <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+<!--              <div class="rating rateit-small"></div>-->
+<!--              <div class="description"></div>-->
+<!--              <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+              <!-- /.product-price -->
+
+<!--            </div>-->
+            <!-- /.product-info -->
+<!--            <div class="cart clearfix animate-effect">-->
+<!--              <div class="action">-->
+<!--                <ul class="list-unstyled">-->
+<!--                  <li class="add-cart-button btn-group">-->
+<!--                    <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+<!--                    <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+<!--                  </li>-->
+<!--                  <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+<!--                  <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+              <!-- /.action -->
+<!--            </div>-->
+            <!-- /.cart -->
+<!--          </div>-->
+          <!-- /.product -->
+
+<!--        </div>-->
+        <!-- /.products -->
+<!--      </div>-->
+      <!-- /.item -->
+
+<!--      <div class="item item-carousel">-->
+<!--        <div class="products">-->
+<!--          <div class="product">-->
+<!--            <div class="product-image">-->
+<!--              <div class="image">-->
+<!--                    <a href="detail.html">-->
+<!--                       <img src="assets/images/products/p15.jpg" alt="">-->
+<!--                        <img src="assets/images/products/p15_hover.jpg" alt="" class="hover-image">-->
+<!--                    </a>-->
+
+<!--                    </div>-->
+              <!-- /.image -->
+
+<!--              <div class="tag new"><span>new</span></div>-->
+<!--            </div>-->
+            <!-- /.product-image -->
+
+<!--            <div class="product-info text-left">-->
+<!--              <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+<!--              <div class="rating rateit-small"></div>-->
+<!--              <div class="description"></div>-->
+<!--              <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+              <!-- /.product-price -->
+
+<!--            </div>-->
+            <!-- /.product-info -->
+<!--            <div class="cart clearfix animate-effect">-->
+<!--              <div class="action">-->
+<!--                <ul class="list-unstyled">-->
+<!--                  <li class="add-cart-button btn-group">-->
+<!--                    <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+<!--                    <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+<!--                  </li>-->
+<!--                  <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+<!--                  <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+              <!-- /.action -->
+<!--            </div>-->
+            <!-- /.cart -->
+<!--          </div>-->
+          <!-- /.product -->
+
+<!--        </div>-->
+        <!-- /.products -->
+<!--      </div>-->
+      <!-- /.item -->
+
+<!--      <div class="item item-carousel">-->
+<!--        <div class="products">-->
+<!--          <div class="product">-->
+<!--            <div class="product-image">-->
+<!--              <div class="image">-->
+<!--                    <a href="detail.html">-->
+<!--                       <img src="assets/images/products/p10.jpg" alt="">-->
+<!--                        <img src="assets/images/products/p10_hover.jpg" alt="" class="hover-image">-->
+<!--                    </a>-->
+
+<!--                    </div>-->
+              <!-- /.image -->
+
+<!--              <div class="tag sale"><span>sale</span></div>-->
+<!--            </div>-->
+            <!-- /.product-image -->
+
+<!--            <div class="product-info text-left">-->
+<!--              <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+<!--              <div class="rating rateit-small"></div>-->
+<!--              <div class="description"></div>-->
+<!--              <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+              <!-- /.product-price -->
+
+<!--            </div>-->
+            <!-- /.product-info -->
+<!--            <div class="cart clearfix animate-effect">-->
+<!--              <div class="action">-->
+<!--                <ul class="list-unstyled">-->
+<!--                  <li class="add-cart-button btn-group">-->
+<!--                    <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+<!--                    <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+<!--                  </li>-->
+<!--                  <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+<!--                  <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+              <!-- /.action -->
+<!--            </div>-->
+            <!-- /.cart -->
+<!--          </div>-->
+          <!-- /.product -->
+
+<!--        </div>-->
+        <!-- /.products -->
+<!--      </div>-->
+      <!-- /.item -->
+
+<!--      <div class="item item-carousel">-->
+<!--        <div class="products">-->
+<!--          <div class="product">-->
+<!--            <div class="product-image">-->
+<!--              <div class="image">-->
+<!--                    <a href="detail.html">-->
+<!--                       <img src="assets/images/products/p11.jpg" alt="">-->
+<!--                        <img src="assets/images/products/p11_hover.jpg" alt="" class="hover-image">-->
+<!--                    </a>-->
+
+<!--                    </div>-->
+              <!-- /.image -->
+
+<!--              <div class="tag hot"><span>hot</span></div>-->
+<!--            </div>-->
+            <!-- /.product-image -->
+
+<!--            <div class="product-info text-left">-->
+<!--              <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+<!--              <div class="rating rateit-small"></div>-->
+<!--              <div class="description"></div>-->
+<!--              <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+              <!-- /.product-price -->
+
+<!--            </div>-->
+            <!-- /.product-info -->
+<!--            <div class="cart clearfix animate-effect">-->
+<!--              <div class="action">-->
+<!--                <ul class="list-unstyled">-->
+<!--                  <li class="add-cart-button btn-group">-->
+<!--                    <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+<!--                    <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+<!--                  </li>-->
+<!--                  <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+<!--                  <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+              <!-- /.action -->
+<!--            </div>-->
+            <!-- /.cart -->
+<!--          </div>-->
+          <!-- /.product -->
+
+<!--        </div>-->
+        <!-- /.products -->
+<!--      </div>-->
+      <!-- /.item -->
+
+<!--      <div class="item item-carousel">-->
+<!--        <div class="products">-->
+<!--          <div class="product">-->
+<!--            <div class="product-image">-->
+<!--              <div class="image">-->
+<!--                    <a href="detail.html">-->
+<!--                       <img src="assets/images/products/p8.jpg" alt="">-->
+<!--                        <img src="assets/images/products/p8_hover.jpg" alt="" class="hover-image">-->
+<!--                    </a>-->
+
+<!--                    </div>-->
+              <!-- /.image -->
+
+<!--              <div class="tag new"><span>new</span></div>-->
+<!--            </div>-->
+            <!-- /.product-image -->
+
+<!--            <div class="product-info text-left">-->
+<!--              <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+<!--              <div class="rating rateit-small"></div>-->
+<!--              <div class="description"></div>-->
+<!--              <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+              <!-- /.product-price -->
+
+<!--            </div>-->
+            <!-- /.product-info -->
+<!--            <div class="cart clearfix animate-effect">-->
+<!--              <div class="action">-->
+<!--                <ul class="list-unstyled">-->
+<!--                  <li class="add-cart-button btn-group">-->
+<!--                    <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+<!--                    <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+<!--                  </li>-->
+<!--                  <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+<!--                  <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+              <!-- /.action -->
+<!--            </div>-->
+            <!-- /.cart -->
+<!--          </div>-->
+          <!-- /.product -->
+
+<!--        </div>-->
+        <!-- /.products -->
+<!--      </div>-->
+      <!-- /.item -->
+
+<!--      <div class="item item-carousel">-->
+<!--        <div class="products">-->
+<!--          <div class="product">-->
+<!--            <div class="product-image">-->
+<!--              <div class="image">-->
+<!--                    <a href="detail.html">-->
+<!--                       <img src="assets/images/products/p7.jpg" alt="">-->
+<!--                        <img src="assets/images/products/p7_hover.jpg" alt="" class="hover-image">-->
+<!--                    </a>-->
+
+<!--                    </div>-->
+              <!-- /.image -->
+
+<!--              <div class="tag sale"><span>sale</span></div>-->
+<!--            </div>-->
+            <!-- /.product-image -->
+
+<!--            <div class="product-info text-left">-->
+<!--              <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>-->
+<!--              <div class="rating rateit-small"></div>-->
+<!--              <div class="description"></div>-->
+<!--              <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>-->
+              <!-- /.product-price -->
+
+<!--            </div>-->
+            <!-- /.product-info -->
+<!--            <div class="cart clearfix animate-effect">-->
+<!--              <div class="action">-->
+<!--                <ul class="list-unstyled">-->
+<!--                  <li class="add-cart-button btn-group">-->
+<!--                    <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+<!--                    <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+<!--                  </li>-->
+<!--                  <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+<!--                  <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+              <!-- /.action -->
+<!--            </div>-->
+            <!-- /.cart -->
+<!--          </div>-->
+          <!-- /.product -->
+
+<!--        </div>-->
+        <!-- /.products -->
+<!--      </div>-->
+      <!-- /.item -->
+<!--    </div>-->
+<!--    </div>-->
+<!--    </div>-->
+    <!-- /.home-owl-carousel -->
+<!--  </section>-->
+  <!-- /.section -->
+  <!-- ============================================== FEATURED PRODUCTS : END ============================================== -->
+
+
+
+
+
+
+
+  <!-- ============================================== WIDE PRODUCTS ============================================== -->
+  <div class="wide-banners wow fadeInUp outer-bottom-bs">
+    <div class="row">
+        {% for b_b in all_home_bottom_benner %}
+      <div class="col-md-12">
+        <div class="cnt-strip">
+          <div class="image1">
+            
+              <img class="img-responsive" src="media/{{b_b.home_bottom_benner}}" alt="{{b_b.title1}}">
+            
+          </div>
+          <div class="strip strip-text">
+            <div class="strip-inner">
+              <h2 class="text-right">{{b_b.title1}}<br>
+                <span class="shopping-needs">{{b_b.title2}}</span></h2>
+            </div>
+          </div>
+          <div class="new-label">
+            <div class="text">{{b_b.up_text}}</div>
+          </div>
+          <!-- /.new-label -->
+        </div>
+        <!-- /.wide-banner -->
+      </div>
+      <!-- /.col -->
+        {% endfor %}
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.wide-banners -->
+  <!-- ============================================== WIDE PRODUCTS : END ============================================== -->
+
+
+
+  {% if filter_all_cats %}
+
+  {% include page_template %}
+
+  {% endif %}
+
+
+
+  <!-- /.sidebar-widget -->
+  <!-- ============================================== BEST SELLER : END ============================================== -->
+
+
+
+   <!-- ============================================== BRANDS CAROUSEL ============================================== -->
+<div id="brands-carousel" class="logo-slider wow fadeInUp">
+<div class="logo-slider-inner">
+  <div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
+    <div class="item m-t-15"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand1.png" src="assets/images/blank.gif" alt=""> </a> </div>
+    <!--/.item-->
+
+    <div class="item m-t-10"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand2.png" src="assets/images/blank.gif" alt=""> </a> </div>
+    <!--/.item-->
+
+    <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand3.png" src="assets/images/blank.gif" alt=""> </a> </div>
+    <!--/.item-->
+
+    <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand4.png" src="assets/images/blank.gif" alt=""> </a> </div>
+    <!--/.item-->
+
+    <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand5.png" src="assets/images/blank.gif" alt=""> </a> </div>
+    <!--/.item-->
+
+    <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand6.png" src="assets/images/blank.gif" alt=""> </a> </div>
+    <!--/.item-->
+
+    <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand2.png" src="assets/images/blank.gif" alt=""> </a> </div>
+    <!--/.item-->
+
+    <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand4.png" src="assets/images/blank.gif" alt=""> </a> </div>
+    <!--/.item-->
+
+    <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand1.png" src="assets/images/blank.gif" alt=""> </a> </div>
+    <!--/.item-->
+
+    <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand5.png" src="assets/images/blank.gif" alt=""> </a> </div>
+    <!--/.item-->
+  </div>
+  <!-- /.owl-carousel #logo-slider -->
+</div>
+<!-- /.logo-slider-inner -->
+
+</div>
+<!-- /.logo-slider -->
+<!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
+</div>
+<!-- /.homebanner-holder -->
+
+<div class="col-xs-12 col-sm-12 col-md-4 hidden-sm right-sidebar">
+<!-- ============================================== HOT DEALS ============================================== -->
+
+
+
+
+{% if last_Flash_Sell %}
+<input type="hidden" value="{{last_Flash_Sell.flash_sell_end_time}}" id="flash_sell_last_date">
+{% if flash_sell %}
+  <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
+    <h3 class="section-title"> <img src="assets/images/hot-img.png" alt="" style="vertical-align:middle; margin-right:3px">{{last_Flash_Sell.Name}}
+    <br>
+      <span id="flash_sell_days" class="label label-info"></span>
+      <span id="flash_sell_hrs" class="label label-info"></span>
+      <span id="flash_sell_min" class="label label-info"></span>
+      <span id="flash_sell_sec" class="label label-info"></span>
+
+      <br>
+    </h3>
+
+
+
+
+    <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
+
+      {% for i in flash_sell %}
+      <div class="item">
+        <div class="products">
+          <div class="hot-deal-wrapper">
+            <div class="image">
+            <a href="{% url 'product_details' i.slug %}">
+            <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}">
+            <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}" class="hover-image">
+            </a>
+            </div>
+            {% if i.Discount_Percentage %}
+            <div class="sale-offer-tag"><span>{{i.Discount_Percentage}} %<br>
+              off</span></div>
+             {% endif %}
+            <!--<div class="timing-wrapper">-->
+            <!--  <div class="box-wrapper">-->
+            <!--    <div class="date box"> <span class="key" id="flash_sell_days"></span> <span class="value">DAYS</span> </div>-->
+            <!--  </div>-->
+            <!--  <div class="box-wrapper">-->
+            <!--    <div class="hour box"> <span class="key" id="flash_sell_hrs"></span> <span class="value">HRS</span> </div>-->
+            <!--  </div>-->
+            <!--  <div class="box-wrapper">-->
+            <!--    <div class="minutes box"> <span class="key" id="flash_sell_min"></span> <span class="value">MINS</span> </div>-->
+            <!--  </div>-->
+            <!--  <div class="box-wrapper">-->
+            <!--    <div class="seconds box"> <span class="key" id="flash_sell_sec"></span> <span class="value">SEC</span> </div>-->
+            <!--  </div>-->
+            <!--</div>-->
+          </div>
+          <!-- /.hot-deal-wrapper -->
+
+          <div class="product-info text-left m-t-20">
+            <h3 class="name"><a href="{% url 'product_details' i.slug %}">{{i.Product_Name}}</a></h3>
+
+            {% if i.count_rattings == 0 %}
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 0.5 %}
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            <div class="product-price">
+
+            {% if i.TYPE_OF_PRODUCTS == 'Simple Product' %}
+            <span class="price"> ৳{% if i.Discount_Price %}{{ i.Discount_Price }}{% else %}{{i.MRP_Price}}{% endif %}</span>
+            <span class="price-before-discount">{% if i.Discount_Price %}৳{{i.MRP_Price}}{% endif %}</span>
+            {% else %}
+
+            {% for low_flash in i.first_attr_low_cost_prod %}
+            <span class="price"> ৳<span id="reg_product_price{{i.slug}}">{% if low_flash.Discount_Price %}{{low_flash.Discount_Price}}{% else %}{{low_flash.MRP_Price}}{% endif %}</span> </span>
+            <span class="price-before-discount">{% if low_flash.Discount_Price %}৳ {{low_flash.MRP_Price}}{% endif %}</span>
+
+            {% endfor %}
+            {% endif %}
+
+
+
+          </div>
+            <a class="btn btn-primary cart-btn" href="{% url 'flash_details_product' last_Flash_Sell.id %}">View All</a>
+            <!-- /.product-price -->
+
+          </div>
+          <!-- /.product-info -->
+
+          <!--<div class="cart clearfix animate-effect">-->
+          <!--  <div class="action">-->
+          <!--    <div class="add-cart-button btn-group">-->
+          <!--      <button style="font-size:12px; padding:5px 10px" class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+          <!--      <button style="font-size:12px; padding:5px 10px" class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+          <!--    </div>-->
+          <!--  </div>-->
+          <!--</div>-->
+        </div>
+      </div>
+      {% endfor %}
+
+
+
+
+    </div>
+    <!-- /.sidebar-widget -->
+  </div>
+  {% endif %}
+  {% endif %}
+  <!-- ============================================== HOT DEALS: END ============================================== -->
+
+
+{% for sd_b in all_home_side_benner %}
+<div class="home-banner outer-top-n outer-bottom-xs">
+<img src="media/{{sd_b.home_side_benner}}" alt="{{sd_b.title}}">
+</div>
+{% endfor %}
+
+
+<!-- ============================================== MOTORBIKES ============================================== -->
+{% if Top_Product %}
+  <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
+    <h4 class="section-title"> <img src="assets/images/hot-img.png" alt="" style="vertical-align:middle; margin-right:3px">Top Products</h4>
+    <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
+
+
+      {% for i in Top_Product %}
+      <div class="item">
+        <div class="products">
+          <div class="hot-deal-wrapper">
+            <div class="image">
+            <a href="{% url 'product_details' i.slug %}">
+            <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}">
+            <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}" class="hover-image">
+            </a>
+            </div>
+            <div class="sale-offer-tag"><span>{{i.Discount_Percentage}}%<br>
+              off</span></div>
+          </div>
+          <!-- /.hot-deal-wrapper -->
+
+          <div class="product-info text-left m-t-20">
+            <h3 class="name"><a href="detail.html">{{i.Product_Name}}</a></h3>
+
+
+            {% if i.count_rattings == 0 %}
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 0.5 %}
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+
+            <div class="product-price">
+            {% if i.TYPE_OF_PRODUCTS == 'Simple Product' %}
+            <span class="price"> ৳ {% if i.Discount_Price %}{{i.Discount_Price}}{% else %}{{i.MRP_Price}}{% endif %} </span>
+            <span class="price-before-discount">{% if i.Discount_Price %}{{i.MRP_Price}}{% endif %}</span>
+            {% else %}
+
+            {% for side_cat in i.first_attr_low_cost_prod %}
+            <span class="price"> ৳<span id="reg_product_price{{i.slug}}">{% if side_cat.Discount_Price %}{{side_cat.Discount_Price}}{% else %}{{side_cat.MRP_Price}}{% endif %}</span> </span>
+            <span class="price-before-discount">{% if side_cat.Discount_Price %}৳ {{side_cat.MRP_Price}}{% endif %}</span>
+
+            {% endfor %}
+            {% endif %}
+
+
+            </div>
+            <!-- /.product-price -->
+
+          </div>
+          <!-- /.product-info -->
+
+          <!--<div class="cart clearfix animate-effect">-->
+          <!--  <div class="action">-->
+          <!--    <div class="add-cart-button btn-group">-->
+          <!--      <button style="font-size:12px; padding:5px 10px" class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+          <!--      <button style="font-size:12px; padding:5px 10px" class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+          <!--    </div>-->
+          <!--  </div>-->
+
+          <!--</div>-->
+          <!-- /.cart -->
+        </div>
+      </div>
+
+      {% endfor %}
+
+
+    </div>
+    <!-- /.sidebar-widget -->
+  </div>
+  {% endif %}
+
+
+
+
+  {% if subcats_home_side %}
+  {% for sbcats in subcats_home_side %}
+
+  <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
+    <h4 class="section-title"> <img src="assets/images/hot-img.png" alt="" style="vertical-align:middle; margin-right:3px">{{sbcats.Subcategory_1}}</h4>
+    <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
+
+
+      {% for i in sbcats.home_side_featured_products %}
+      <div class="item">
+        <div class="products">
+          <div class="hot-deal-wrapper">
+            <div class="image">
+            <a href="{% url 'product_details' i.slug %}">
+            <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}">
+            <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}" class="hover-image">
+            </a>
+            </div>
+            <div class="sale-offer-tag"><span>{{i.Discount_Percentage}}%<br>
+              off</span></div>
+          </div>
+          <!-- /.hot-deal-wrapper -->
+
+          <div class="product-info text-left m-t-20">
+            <h3 class="name"><a href="detail.html">{{i.Product_Name}}</a></h3>
+
+
+            {% if i.count_rattings == 0 %}
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 0.5 %}
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+
+            <div class="product-price">
+            {% if i.TYPE_OF_PRODUCTS == 'Simple Product' %}
+            <span class="price"> {% if i.Discount_Price %}{{i.Discount_Price}}{% else %}{{i.MRP_Price}}{% endif %} </span>
+            <span class="price-before-discount">{% if i.Discount_Price %}{{i.MRP_Price}}{% endif %}</span>
+            {% else %}
+
+            {% for side_cat in i.first_attr_low_cost_prod %}
+            <span class="price"> ৳<span id="reg_product_price{{i.slug}}">{% if side_cat.Discount_Price %}{{side_cat.Discount_Price}}{% else %}{{side_cat.MRP_Price}}{% endif %}</span> </span>
+            <span class="price-before-discount">{% if side_cat.Discount_Price %}৳ {{side_cat.MRP_Price}}{% endif %}</span>
+
+            {% endfor %}
+            {% endif %}
+
+
+            </div>
+            <!-- /.product-price -->
+
+          </div>
+          <!-- /.product-info -->
+
+          <!--<div class="cart clearfix animate-effect">-->
+          <!--  <div class="action">-->
+          <!--    <div class="add-cart-button btn-group">-->
+          <!--      <button style="font-size:12px; padding:5px 10px" class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+          <!--      <button style="font-size:12px; padding:5px 10px" class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+          <!--    </div>-->
+          <!--  </div>-->
+
+          <!--</div>-->
+          <!-- /.cart -->
+        </div>
+      </div>
+
+      {% endfor %}
+
+
+    </div>
+    <!-- /.sidebar-widget -->
+  </div>
+  {% endfor %}
+  {% endif %}
+
+
+
+
+
+
+
+  {% if category_home_side_product_1 %}
+  <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
+    <h4 class="section-title"> <img src="assets/images/hot-img.png" alt="" style="vertical-align:middle; margin-right:3px">{% for k in category_home_side_product_1|slice:":1" %}{{k.Subcategory_1.Subcategory_1}}{% endfor %}</h4>
+    <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
+
+
+      {% for i in category_home_side_product_1 %}
+      <div class="item">
+        <div class="products">
+          <div class="hot-deal-wrapper">
+            <div class="image">
+            <a href="{% url 'product_details' i.slug %}">
+            <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}">
+            <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}" class="hover-image">
+            </a>
+            </div>
+            <div class="sale-offer-tag"><span>{{i.Discount_Percentage}}%<br>
+              off</span></div>
+          </div>
+          <!-- /.hot-deal-wrapper -->
+
+          <div class="product-info text-left m-t-20">
+            <h3 class="name"><a href="detail.html">{{i.Product_Name}}</a></h3>
+
+
+            {% if i.count_rattings == 0 %}
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 0.5 %}
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+
+            <div class="product-price">
+            {% if i.TYPE_OF_PRODUCTS == 'Simple Product' %}
+            <span class="price"> {{i.Discount_Price}} </span>
+            <span class="price-before-discount">{{i.MRP_Price}}</span>
+            {% else %}
+
+            {% for side_cat in i.first_attr_low_cost_prod %}
+            <span class="price"> ৳<span id="reg_product_price{{i.slug}}">{{side_cat.Discount_Price}}</span> </span>
+            <span class="price-before-discount">৳ {{side_cat.MRP_Price}}</span>
+
+            {% endfor %}
+            {% endif %}
+
+
+            </div>
+            <!-- /.product-price -->
+
+          </div>
+          <!-- /.product-info -->
+
+          <!--<div class="cart clearfix animate-effect">-->
+          <!--  <div class="action">-->
+          <!--    <div class="add-cart-button btn-group">-->
+          <!--      <button style="font-size:12px; padding:5px 10px" class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+          <!--      <button style="font-size:12px; padding:5px 10px" class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+          <!--    </div>-->
+          <!--  </div>-->
+
+          <!--</div>-->
+          <!-- /.cart -->
+        </div>
+      </div>
+
+      {% endfor %}
+
+
+    </div>
+    <!-- /.sidebar-widget -->
+  </div>
+  {% endif %}
+  <!-- ============================================== MOTORBIKES: END ============================================== -->
+
+  <!-- ============================================== MOBILES ============================================== -->
+  {% if category_home_side_product_2 %}
+    <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
+      <h4 class="section-title"> <img src="assets/images/hot-img.png" alt="" style="vertical-align:middle; margin-right:3px">{% for k in category_home_side_product_2|slice:":1" %}{{k.Subcategory_1.Subcategory_1}}{% endfor %}</h4>
+      <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
+        {% for i in category_home_side_product_2 %}
+        <div class="item">
+          <div class="products">
+            <div class="hot-deal-wrapper">
+              <div class="image">
+              <a href="{% url 'product_details' i.slug %}">
+              <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}">
+              <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}" class="hover-image">
+              </a>
+              </div>
+              <div class="sale-offer-tag"><span>{{i.Discount_Percentage}}%<br>
+                off</span></div>
+            </div>
+            <!-- /.hot-deal-wrapper -->
+
+            <div class="product-info text-left m-t-20">
+              <h3 class="name"><a href="detail.html">{{i.Product_Name}}</a></h3>
+              {% if i.count_rattings == 0 %}
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 0.5 %}
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+              <div class="product-price">
+              {% if i.TYPE_OF_PRODUCTS == 'Simple Product' %}
+
+                <span class="price"> {{i.Discount_Price}} </span>
+                <span class="price-before-discount">{{i.MRP_Price}}</span>
+                {% else %}
+
+                {% for sid_ct2 in i.first_attr_low_cost_prod %}
+                <span class="price"> ৳<span id="reg_product_price{{i.slug}}">{{sid_ct2.Discount_Price}}</span> </span>
+                <span class="price-before-discount">৳ {{sid_ct2.MRP_Price}}</span>
+
+                {% endfor %}
+                {% endif %}
+
+              </div>
+              <!-- /.product-price -->
+
+            </div>
+            <!-- /.product-info -->
+
+            <!--<div class="cart clearfix animate-effect">-->
+            <!--  <div class="action">-->
+            <!--    <div class="add-cart-button btn-group">-->
+            <!--      <button style="font-size:12px; padding:5px 10px" class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+            <!--      <button style="font-size:12px; padding:5px 10px" class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+            <!--    </div>-->
+            <!--  </div>-->
+              <!-- /.action -->
+            <!--</div>-->
+            <!-- /.cart -->
+          </div>
+        </div>
+        {% endfor %}
+
+
+      </div>
+      <!-- /.sidebar-widget -->
+    </div>
+    {% endif %}
+
+
+
+
+
+    {% if category_home_side_product_3 %}
+    <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
+      <h4 class="section-title"> <img src="assets/images/hot-img.png" alt="" style="vertical-align:middle; margin-right:3px">{% for k in category_home_side_product_3|slice:":1" %}{{k.Subcategory_1.Subcategory_1}}{% endfor %}</h4>
+      <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
+        {% for i in category_home_side_product_3 %}
+        <div class="item">
+          <div class="products">
+            <div class="hot-deal-wrapper">
+              <div class="image">
+              <a href="{% url 'product_details' i.slug %}">
+              <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}">
+              <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}" class="hover-image">
+              </a>
+              </div>
+              <div class="sale-offer-tag"><span>{{i.Discount_Percentage}}%<br>
+                off</span></div>
+            </div>
+            <!-- /.hot-deal-wrapper -->
+
+            <div class="product-info text-left m-t-20">
+              <h3 class="name"><a href="detail.html">{{i.Product_Name}}</a></h3>
+
+              {% if i.count_rattings == 0 %}
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 0.5 %}
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+              <div class="product-price">
+              {% if i.TYPE_OF_PRODUCTS == 'Simple Product' %}
+
+                <span class="price"> {{i.Discount_Price}} </span>
+                <span class="price-before-discount">{{i.MRP_Price}}</span>
+                {% else %}
+
+                {% for sid_ct2 in i.first_attr_low_cost_prod %}
+                <span class="price"> ৳<span id="reg_product_price{{i.slug}}">{{sid_ct2.Discount_Price}}</span> </span>
+                <span class="price-before-discount">৳ {{sid_ct2.MRP_Price}}</span>
+
+                {% endfor %}
+                {% endif %}
+
+              </div>
+              <!-- /.product-price -->
+
+            </div>
+            <!-- /.product-info -->
+
+            <!--<div class="cart clearfix animate-effect">-->
+            <!--  <div class="action">-->
+            <!--    <div class="add-cart-button btn-group">-->
+            <!--      <button style="font-size:12px; padding:5px 10px" class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+            <!--      <button style="font-size:12px; padding:5px 10px" class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+            <!--    </div>-->
+            <!--  </div>-->
+              <!-- /.action -->
+            <!--</div>-->
+            <!-- /.cart -->
+          </div>
+        </div>
+        {% endfor %}
+
+
+      </div>
+      <!-- /.sidebar-widget -->
+    </div>
+    {% endif %}
+
+
+
+
+    {% if category_home_side_product_4 %}
+    <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
+      <h4 class="section-title"> <img src="assets/images/hot-img.png" alt="" style="vertical-align:middle; margin-right:3px">{% for k in category_home_side_product_4|slice:":1" %}{{k.Subcategory_1.Subcategory_1}}{% endfor %}</h4>
+      <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
+        {% for i in category_home_side_product_4 %}
+        <div class="item">
+          <div class="products">
+            <div class="hot-deal-wrapper">
+              <div class="image">
+              <a href="{% url 'product_details' i.slug %}">
+              <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}">
+              <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}" class="hover-image">
+              </a>
+              </div>
+              <div class="sale-offer-tag"><span>{{i.Discount_Percentage}}%<br>
+                off</span></div>
+            </div>
+            <!-- /.hot-deal-wrapper -->
+
+            <div class="product-info text-left m-t-20">
+              <h3 class="name"><a href="detail.html">{{i.Product_Name}}</a></h3>
+
+              {% if i.count_rattings == 0 %}
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 0.5 %}
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+              <div class="product-price">
+              {% if i.TYPE_OF_PRODUCTS == 'Simple Product' %}
+
+                <span class="price"> {{i.Discount_Price}} </span>
+                <span class="price-before-discount">{{i.MRP_Price}}</span>
+                {% else %}
+
+                {% for sid_ct2 in i.first_attr_low_cost_prod %}
+                <span class="price"> ৳<span id="reg_product_price{{i.slug}}">{{sid_ct2.Discount_Price}}</span> </span>
+                <span class="price-before-discount">৳ {{sid_ct2.MRP_Price}}</span>
+
+                {% endfor %}
+                {% endif %}
+
+              </div>
+              <!-- /.product-price -->
+
+            </div>
+            <!-- /.product-info -->
+
+            <!--<div class="cart clearfix animate-effect">-->
+            <!--  <div class="action">-->
+            <!--    <div class="add-cart-button btn-group">-->
+            <!--      <button style="font-size:12px; padding:5px 10px" class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+            <!--      <button style="font-size:12px; padding:5px 10px" class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+            <!--    </div>-->
+            <!--  </div>-->
+              <!-- /.action -->
+            <!--</div>-->
+            <!-- /.cart -->
+          </div>
+        </div>
+        {% endfor %}
+
+
+      </div>
+      <!-- /.sidebar-widget -->
+    </div>
+    {% endif %}
+
+
+
+    {% if category_home_side_product_5 %}
+    <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
+      <h4 class="section-title"> <img src="assets/images/hot-img.png" alt="" style="vertical-align:middle; margin-right:3px">{% for k in category_home_side_product_5|slice:":1" %}{{k.Subcategory_1.Subcategory_1}}{% endfor %}</h4>
+      <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
+        {% for i in category_home_side_product_5 %}
+        <div class="item">
+          <div class="products">
+            <div class="hot-deal-wrapper">
+              <div class="image">
+              <a href="{% url 'product_details' i.slug %}">
+              <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}">
+              <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}" class="hover-image">
+              </a>
+              </div>
+              <div class="sale-offer-tag"><span>{{i.Discount_Percentage}}%<br>
+                off</span></div>
+            </div>
+            <!-- /.hot-deal-wrapper -->
+
+            <div class="product-info text-left m-t-20">
+              <h3 class="name"><a href="detail.html">{{i.Product_Name}}</a></h3>
+
+
+              {% if i.count_rattings == 0 %}
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 0.5 %}
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+              <div class="product-price">
+              {% if i.TYPE_OF_PRODUCTS == 'Simple Product' %}
+
+                <span class="price"> {{i.Discount_Price}} </span>
+                <span class="price-before-discount">{{i.MRP_Price}}</span>
+                {% else %}
+
+                {% for sid_ct2 in i.first_attr_low_cost_prod %}
+                <span class="price"> ৳<span id="reg_product_price{{i.slug}}">{{sid_ct2.Discount_Price}}</span> </span>
+                <span class="price-before-discount">৳ {{sid_ct2.MRP_Price}}</span>
+
+                {% endfor %}
+                {% endif %}
+
+              </div>
+              <!-- /.product-price -->
+
+            </div>
+            <!-- /.product-info -->
+
+            <!--<div class="cart clearfix animate-effect">-->
+            <!--  <div class="action">-->
+            <!--    <div class="add-cart-button btn-group">-->
+            <!--      <button style="font-size:12px; padding:5px 10px" class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+            <!--      <button style="font-size:12px; padding:5px 10px" class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+            <!--    </div>-->
+            <!--  </div>-->
+              <!-- /.action -->
+            <!--</div>-->
+            <!-- /.cart -->
+          </div>
+        </div>
+        {% endfor %}
+
+
+      </div>
+      <!-- /.sidebar-widget -->
+    </div>
+    {% endif %}
+
+
+
+
+
+  {% if category_home_side_product_6 %}
+    <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
+      <h4 class="section-title"> <img src="assets/images/hot-img.png" alt="" style="vertical-align:middle; margin-right:3px">{% for k in category_home_side_product_6|slice:":1" %}{{k.Subcategory_1.Subcategory_1}}{% endfor %}</h4>
+      <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
+        {% for i in category_home_side_product_6 %}
+        <div class="item">
+          <div class="products">
+            <div class="hot-deal-wrapper">
+              <div class="image">
+              <a href="{% url 'product_details' i.slug %}">
+              <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}">
+              <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}" class="hover-image">
+              </a>
+              </div>
+              <div class="sale-offer-tag"><span>{{i.Discount_Percentage}}%<br>
+                off</span></div>
+            </div>
+            <!-- /.hot-deal-wrapper -->
+
+            <div class="product-info text-left m-t-20">
+              <h3 class="name"><a href="detail.html">{{i.Product_Name}}</a></h3>
+
+
+              {% if i.count_rattings == 0 %}
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 0.5 %}
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+              <div class="product-price">
+              {% if i.TYPE_OF_PRODUCTS == 'Simple Product' %}
+
+                <span class="price"> {{i.Discount_Price}} </span>
+                <span class="price-before-discount">{{i.MRP_Price}}</span>
+                {% else %}
+
+                {% for sid_ct2 in i.first_attr_low_cost_prod %}
+                <span class="price"> ৳<span id="reg_product_price{{i.slug}}">{{sid_ct2.Discount_Price}}</span> </span>
+                <span class="price-before-discount">৳ {{sid_ct2.MRP_Price}}</span>
+
+                {% endfor %}
+                {% endif %}
+
+              </div>
+              <!-- /.product-price -->
+
+            </div>
+            <!-- /.product-info -->
+
+            <!--<div class="cart clearfix animate-effect">-->
+            <!--  <div class="action">-->
+            <!--    <div class="add-cart-button btn-group">-->
+            <!--      <button style="font-size:12px; padding:5px 10px" class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+            <!--      <button style="font-size:12px; padding:5px 10px" class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+            <!--    </div>-->
+            <!--  </div>-->
+              <!-- /.action -->
+            <!--</div>-->
+            <!-- /.cart -->
+          </div>
+        </div>
+        {% endfor %}
+
+
+      </div>
+      <!-- /.sidebar-widget -->
+    </div>
+    {% endif %}
+
+
+    <!-- ============================================== MOBILES: END ============================================== -->
+
+
+</div>
+</div>
+</div>
+<!-- ============================================== CONTENT : END ============================================== -->
+
+
+    <!-- jQuery CDN hosted by Google -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+{{ block.super }}
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{% static 'el-pagination.js' %}"></script>
+    <script>
+        $.endlessPaginate({
+            paginateOnScroll: true,
+            paginateOnScrollMargin: 1000
+
+        });
+    </script>
+<!-- Display the countdown timer in an element -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script>
+
+
+$(document).ready(function(){
+  $(".need_the_prod_id").click(function(){
+    console.log('upor')
+    var product_id = this.id.toString();
+    console.log(product_id);
+
+    var picture_product = document.getElementById("picture_product"+product_id).value;
+    console.log(picture_product);
+
+    if (product_cart[product_id] != undefined){
+		console.log('old')
+		// var qty = document.getElementById("show_number").value;
+		var qty = 1;
+		product_cart[product_id][0] = product_cart[product_id][0] + parseInt(qty);
+		updateCart(product_cart);
+	}
+
+	else{
+
+		var qty = 1;
+        console.log(qty);
+
+		name = document.getElementById("product_name"+product_id).innerHTML;
+		console.log(name)
+		price = document.getElementById("product_price"+product_id).innerHTML;
+		console.log(price)
+
+		var_campaign_name = document.getElementById("campaign_name"+product_id).value;
+		console.log(var_campaign_name)
+
+		var_cam_vendor = document.getElementById("cam_vendor_product"+product_id).value;
+
+		varcam_free_delivery = document.getElementById("cam_free_delivery"+product_id).value;
+		console.log(varcam_free_delivery)
+
+
+		product_cart[product_id] = [parseInt(qty), name, parseInt(price), picture_product, product_id, var_campaign_name, var_cam_vendor, varcam_free_delivery];
+		console.log(product_cart[product_id]);
+		console.log('new')
+
+		updateCart(product_cart,product_id);
+
+	}
+
+  })
+
+
+});
+
+
+
+
+
+  function index_add_to_cart(prod_slug){
+      console.log('prod_slug')
+      console.log(prod_slug)
+
+        var product_id = prod_slug
+        var picture_product = document.getElementById("reg_picture_product"+prod_slug).value;
+        console.log(product_id);
+        console.log(picture_product);
+
+        if (product_cart[product_id] != undefined){
+    		console.log('old')
+    		// var qty = document.getElementById("show_number").value;
+    		var qty = 1;
+    		product_cart[product_id][0] = product_cart[product_id][0] + parseInt(qty);
+    		updateCart(product_cart);
+    	}
+
+    	else{
+
+    		var qty = 1;
+            console.log(qty);
+
+    		name = document.getElementById("reg_product_name"+prod_slug).innerHTML;
+    		console.log(name)
+    		price = document.getElementById("reg_product_price"+prod_slug).innerHTML;
+    		console.log(price)
+
+    		var_vendor =document.getElementById("reg_vendor_product"+prod_slug).value;
+    		console.log(var_vendor)
+
+    		var_campaign = 'Reguler Product'
+
+    		varcam_free_delivery = "False"
+
+    		product_cart[product_id] = [parseInt(qty), name, parseInt(price), picture_product, product_id, var_campaign, var_vendor, varcam_free_delivery];
+    		console.log(product_cart[product_id]);
+    		console.log('new')
+
+    		updateCart(product_cart,product_id);
+
+    	}
+      }
+
+
+
+
+var get_campaign_last_ti = document.getElementById('flash_sell_last_date').value;
+console.log(get_campaign_last_ti)
+
+var campaign_end_t = `${get_campaign_last_ti} 24:00:00`
+console.log(campaign_end_t)
+
+
+// Set the date we're counting down to
+// var countDownDate = new Date("Jan 5, 2022 15:37:25").getTime();
+var countDownDate = new Date(campaign_end_t).getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  //document.getElementById("demo").innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
+
+  document.getElementById('flash_sell_days').innerHTML = days;
+  document.getElementById('flash_sell_hrs').innerHTML = hours;
+  document.getElementById('flash_sell_min').innerHTML = minutes;
+  document.getElementById('flash_sell_sec').innerHTML = seconds;
+
+  $('.prod_days_show').html(days)
+  $('.prod_hours_show').html(hours)
+  $('.prod_mins_show').html(minutes)
+  $('.prod_secs_show').html(seconds)
+
+
+//   element.getElementsByClassName('prod_days_show') = days;
+//   element.getElementsByClassName('prod_hours_show') = hours;
+//   element.getElementsByClassName('prod_mins_show') = minutes;
+//   element.getElementsByClassName('prod_secs_show') = seconds;
+
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+
+
+
+
+
+</script>
+
+<!-- jQuery CDN hosted by Google -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- jScroll plug-in CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+
+
+
+
+{% endblock %}

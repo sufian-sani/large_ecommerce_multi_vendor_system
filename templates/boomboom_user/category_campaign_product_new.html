@@ -1,0 +1,45 @@
+{% load static %}
+{% load el_pagination_tags %}
+{% lazy_paginate 8 filtr_cgin_prod_tbl %}
+        {# your code to show the entry #}
+            <div class="all-vendors">
+            {% if filtr_cgin_prod_tbl %}
+                <div class="row">
+
+                    {% for i in filtr_cgin_prod_tbl %}
+
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+
+                          <div class="sv-list-vendor-border">
+                              <div style="position:absolute; top:25px; right:35px;" class="tag new"><span>{{i.campaign_percentage}}%</span></div>
+                            <a href="{% url 'campaign_product_details' i.slug %}">
+                              <div class="list-img">
+                                <img src="{{i.product.Product_Image}}" alt="{{i.product.title}}">
+                              </div>
+                            <h5>{{i.product.Product_Name}}</h5>
+                                <h6>
+                                    {% if i.product.TYPE_OF_PRODUCTS == 'Simple Product' %}
+                                    <strike>৳{{i.product.MRP_Price}}</strike>
+                                    ৳{{i.campaign_price}}
+                                    {% else %}
+
+                                      {% for cam_det_lw in i.first_attr_low_cost_campaign_prod %}
+                                            <strike>৳{{cam_det_lw.MRP_Price}}</strike>
+                                            ৳ {{cam_det_lw.Discount_Price}}
+
+
+                                      {% endfor %}
+                                      {% endif %}
+                                </h6>
+
+                            </a>
+                          </div>
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+            {% endif %}
+            </div>
+{% show_more "More results" %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

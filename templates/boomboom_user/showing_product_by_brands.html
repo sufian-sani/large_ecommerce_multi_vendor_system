@@ -1,0 +1,38 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% load el_pagination_tags %}
+{% block content %}
+<!-- ============================================== CONTENT ============================================== -->
+
+        <div class="row">
+          <h3 class="new-product-title pull-left" style="margin-left:30px;" >{{get_brand_uniq_slug.Brand_Name}}</h3>
+        </div>
+
+
+
+{% include page_template %}
+
+
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{% static 'el-pagination.js' %}"></script>
+    <script>
+        $.endlessPaginate({
+            paginateOnScroll: true,
+            paginateOnScrollMargin: 1000
+
+        });
+    </script>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- jScroll plug-in CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+
+
+
+
+<!-- ============================================== CONTENT : END ============================================== -->
+{% endblock %}

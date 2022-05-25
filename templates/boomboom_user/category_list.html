@@ -1,0 +1,21 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% block content %}
+<!-- ============================================== CONTENT ============================================== -->
+
+
+        <div class="row">
+          <h3 class="new-product-title pull-left" style="margin-left:30px;" >All Categories</h3>
+        </div>
+        <div class="row cat-view">
+          {% if data %}
+          {% for cat in data %}
+          <div class="col-sm-6 col-xs-6 col-md-3">
+            <a href="#"><img src="/media/{{cat.image}}" alt="{{cat.title}}">{{cat.title}}</a>
+          </div>
+          {% endfor %}
+          {% endif %}
+        </div>
+
+<!-- ============================================== CONTENT : END ============================================== -->
+{% endblock %}

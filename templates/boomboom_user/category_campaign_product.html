@@ -1,0 +1,80 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% load el_pagination_tags %}
+{% block content %}
+<!-- ============================================== CONTENT ============================================== -->
+
+
+
+<section>
+
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-xs-8 col-sm-8">
+      <h3>Brands Of This Category</h3>
+  </div>
+  <div class="col-lg-6 col-md-6 col-xs-4 col-sm-4">
+      <a class="btn btn-primary cart-btn" style="float:right; margin-top:10px;" href="{% url 'camcat_land' get_campgn_catgries_prcntag.id %}">VIEW ALL BRANDS</a>
+  </div>
+
+</div>
+<div class="featured-margin row">
+
+
+
+     {% for featured_brnd in brand_list_get %}
+  <a href="{% url 'show_campaign_brands_products' %}?campaign_cat={{ get_campgn_catgries_prcntag.id }}&brand={{featured_brnd.slug}}">
+  <div class="featured-padding col-lg-2 col-md-2 col-sm-4 col-xs-4">
+    <div class="home_featured ">
+
+
+    <div class="home_featured_image">
+      <img src="/media/{{featured_brnd.Brand_logo}}" alt="{{featured_brnd.Brand_Name}}">
+    </div>
+    <div class="home_featured_title">
+      <h5>{{featured_brnd.Brand_Name}}</h5>
+    </div>
+    </div>
+  </div>
+  </a>
+  {% endfor %}
+
+  </div>
+
+
+</section>
+
+
+
+
+
+
+
+<h3 style="margin-top:50px;">{{ get_campgn_catgries_prcntag }} Products :</h3>
+
+
+{% include page_template %}
+
+
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{% static 'el-pagination.js' %}"></script>
+    <script>
+        $.endlessPaginate({
+            paginateOnScroll: true,
+            paginateOnScrollMargin: 1000
+
+        });
+    </script>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- jScroll plug-in CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+
+
+
+
+<!-- ============================================== CONTENT : END ============================================== -->
+{% endblock %}

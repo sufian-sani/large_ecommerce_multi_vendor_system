@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block body %}
+
+
+<!-- Main content -->
+		<section class="content">
+            <!-- Content Header (Page header) -->
+
+
+			<div class="row">
+			  <div class="col-12">
+				<div class="box">
+
+				  <div class="box-body">
+					<form method="POST" action="{% url 'save_value_of_attribute' one_row_of_pk_value_dashbord_Attribute.id %}">
+						{% csrf_token %}
+
+						<div class="row">
+
+								<div class="col-md-12">
+									<div class="form-group">
+									  <label class="font-weight-700 font-size-16"><b>Attribute name</b></label>
+									  <input type="text" value="{{one_row_of_pk_value_dashbord_Attribute.Attribute_name}}" class="form-control" disabled name="value_Attribute_name_1">
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="font-weight-700 font-size-16"><b>value <sup>*</sup> (unique)</b></label>
+									  <input type="text"  class="form-control" placeholder="value" name="Attribute_value_1" required>
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<div class="form-group">
+									  <label class="font-weight-700 font-size-16"><b>value slag (Empty or unique)</b></label>
+									  <input type="text"  class="form-control" placeholder="value slag" name="value_Attribute_slag_1" >
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<div class="form-group">
+									  <label class="font-weight-700 font-size-16"><b>value description</b></label>
+									  <textarea class="form-control" placeholder="value description" name="value_Attribute_description_1" ></textarea>
+									</div>
+								</div>
+
+
+</div>
+						<button type="submit" class="btn btn-rounded btn-primary"> <i class="fa fa-check"></i> Save</button>
+<!--							<button type="button" class="btn btn-rounded btn-danger">Cancel</button>-->
+
+					</form>
+				  </div>
+
+
+				</div>
+			  </div>
+
+
+            <div class="box-body p-5 divScroll">
+                <table class="table">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>
+                          <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                              <label class="form-check-label" for="flexCheckDefault">
+                              </label>
+                          </div>
+                      </th>
+                      <th scope="col">Attribute Name</th>
+                      <th scope="col">value</th>
+                      <th scope="col">value slag</th>
+                      <th scope="col">value description</th>
+                      <th scope="col">Edit</th>
+                      <th scope="col">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+{% for template_all_Attribute_value in one_row_of_pk_value_dashbord_Attribute_value %}
+                    <tr>
+                      <td scope="row">
+                          <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                              <label class="form-check-label" for="flexCheckDefault1">
+
+                              </label>
+                            </div>
+                      </td>
+
+                      <td>{{one_row_of_pk_value_dashbord_Attribute.Attribute_name}}</td>
+                      <td>{{template_all_Attribute_value.Attribute_value}}</td>
+                      <td>{{template_all_Attribute_value.Attribute_value_slag}}</td>
+                      <td>{{template_all_Attribute_value.Attribute_value_description}}</td>
+                      <td>
+
+						<form action="{% url 'dashboard_attribute_value_edit' %}" method="POST">{% csrf_token %}
+						<input type="hidden" value="{{one_row_of_pk_value_dashbord_Attribute.id}}" name="one_row_of_pk_value_dashbord_Attribute_id_for_edit">
+						<input type="hidden" value="{{template_all_Attribute_value.id}}" name="template_all_Attribute_value_id_for_edit">
+												  <button type="submit"><i class="fa fa-edit" style="font-size:24px"></i></button>
+											  </form>
+					  </td>
+                      <td>
+
+					  <form action="{% url 'dashboard_attribute_value_delete' %}" method="POST">{% csrf_token %}
+<input type="hidden" value="{{one_row_of_pk_value_dashbord_Attribute.id}}" name="one_row_of_pk_value_dashbord_Attribute_id">
+<input type="hidden" value="{{template_all_Attribute_value.id}}" name="template_all_Attribute_value_id">
+						  <button type="submit"><i class="fa fa-trash" style="font-size:24px;color:red"></i></button>
+					  </form>
+					  </td>
+
+                    </tr>
+
+{% endfor %}
+                  </tbody>
+                </table>
+
+
+
+            </div>
+		  </div>
+
+		</section>
+		<!-- /.content -->
+
+
+{% endblock %}

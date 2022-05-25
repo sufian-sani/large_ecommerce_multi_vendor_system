@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+
+<section class="content">
+        <div class="content-header">
+            <h3>Add Customer</h3>
+        </div>
+    <div class="row">
+
+        <div class="col-12 ">
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-11">
+        <div class="sign-in-page">
+			<div class="row">
+
+
+
+
+                <!-- create a new account start-->
+
+                <div class="col-md-6 col-sm-6 create-new-account">
+                    <h4 class="checkout-subtitle">Create a new account</h4>
+
+                    {% if massage %}
+                    <span id="status_signup" class="text-light bg-success">{{massage}}</span>
+                    {% endif %}
+
+                <form action="{% url 'dashboard_customer_id_making' %}" method="POST">{% csrf_token %}
+                    <div id="all_signup_input">
+                        <div class="form-group">
+                            <label class="info-title" for="First_Name">First Name <span>*</span></label>
+                            <input type="text" value="{{First_Name}}" class="form-control unicase-form-control text-input" name="First_Name" id="First_Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="info-title" for="Last_Name">Last Name <span>*</span></label>
+                            <input type="text" class="form-control unicase-form-control text-input" value="{{Last_Name}}" name="Last_Name" id="Last_Name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="info-title" for="Last_Name">Phone number <span>*</span></label>
+                            <input type="text" class="form-control unicase-form-control text-input" value="{{Phone_number}}" name="Phone_number" id="Phone_number" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="info-title" for="sign_email">Email Address <span>*</span></label>
+                            <input type="email" class="form-control unicase-form-control text-input" value="{{sign_email}}" name="sign_email" id="sign_email" required>
+                            <span id="show_info_email"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="info-title" for="sing_Password">Password <span>*</span></label>
+                            <input type="password" class="form-control unicase-form-control text-input" value="{{sing_Password}}" name="sing_Password" id="sing_Password" required>
+                        </div>
+                         <div class="form-group">
+                            <label class="info-title" for="sign_Confirm_Password">Confirm Password <span>*</span></label>
+                            <input type="password" class="form-control unicase-form-control text-input" value="{{sign_Confirm_Password}}" name="sign_Confirm_Password" id="sign_Confirm_Password" required>
+                             <span id="show_info_password"></span>
+                        </div>
+                    </div>
+
+
+                        <span id="test1212"></span>
+                        <input type="hidden" id="email_available_status">
+                        <input type="hidden" id="username_available_status">
+                        <input type="hidden" id="pass_match_available_status">
+
+
+                        <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>
+
+
+                </form>
+
+
+                </div>
+                <!-- create a new account -->
+
+            </div><!-- /.row -->
+		</div>
+	</div>
+</div>
+
+
+
+
+</div>
+
+
+
+
+        </div>
+
+
+
+</section>
+
+
+
+{% endblock %}

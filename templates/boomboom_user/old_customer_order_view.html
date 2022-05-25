@@ -1,0 +1,235 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="">
+<div class=""></div><p>
+
+Order #<mark class="order-number">{{get_Order_Table_3.old_order_id}}</mark> was placed on <mark class="order-date">{{get_Order_Table_3.old_order_date}} </mark> and is currently <mark class="order-status">{{get_Order_Table_3.old_order_status}}</mark>.</p>
+
+
+<section class="">
+<h2 class="">Order details</h2>
+
+<table class="tg" style="undefined;table-layout: fixed; width: 900px; border: 1px solid black; padding:50px;" >
+  <colgroup>
+  <col style="width: 300px">
+  <col style="width: 300px">
+  <col style="width: 300px">
+  </colgroup>
+<thead>
+<tr style="border: 1px solid black;">
+<th class=""><h3>Product</h3></th>
+<th class=""><h3>Price</h3></th>
+<th class=""><h3>Total</h3></th>
+</tr>
+</thead>
+
+<tbody>
+{% if get_Order_Table_3.old_product_1 %}
+<tr class=""  style="border: 1px solid black;">
+    <td class="">
+        <a href="">{{ get_Order_Table_3.old_product_1 }}</a> <strong class="product-quantity"> ×&nbsp; {{ get_Order_Table_3.old_product_1_quenity}}</strong>
+    </td>
+    <td class="">{{ get_Order_Table_3.old_product_1_price }}</td>
+    <td class="">
+        <span class=""><bdi><span class="">৳&nbsp;</span>{{ get_Order_Table_3.multiply_p1 }}</bdi></span>
+    </td>
+</tr>
+{% endif %}
+
+
+
+{% if get_Order_Table_3.old_product_2 %}
+<tr class=""  style="border: 1px solid black;">
+    <td class="">
+        <a href="">{{ get_Order_Table_3.old_product_2 }}</a> <strong class="product-quantity"> ×&nbsp; {{ get_Order_Table_3.old_product_2_quenity}}</strong>
+    </td>
+    <td class="">{{ get_Order_Table_3.old_product_2_price }}</td>
+    <td class="">
+        <span class=""><bdi><span class="">৳&nbsp;</span>{{ get_Order_Table_3.multiply_p2 }}</bdi></span>
+    </td>
+</tr>
+{% endif %}
+
+
+
+
+
+{% if get_Order_Table_3.old_product_3 %}
+<tr class=""  style="border: 1px solid black;">
+    <td class="">
+        <a href="">{{ get_Order_Table_3.old_product_3 }}</a> <strong class="product-quantity"> ×&nbsp; {{ get_Order_Table_3.old_product_3_quenity }}</strong>
+    </td>
+    <td class="">{{ get_Order_Table_3.old_product_3_price }}</td>
+    <td class="">
+        <span class=""><bdi><span class="">৳&nbsp;</span>{{ get_Order_Table_3.multiply_p3 }}</bdi></span>
+    </td>
+</tr>
+{% endif %}
+
+
+{% if get_Order_Table_3.old_product_4 %}
+<tr class=""  style="border: 1px solid black;">
+    <td class="">
+        <a href="">{{ get_Order_Table_3.old_product_4 }}</a> <strong class="product-quantity"> ×&nbsp; {{ get_Order_Table_3.old_product_4_quenity }}</strong>
+    </td>
+    <td class="">{{ get_Order_Table_3.old_product_4_price }}</td>
+    <td class="">
+        <span class=""><bdi><span class="">৳&nbsp;</span>{{ get_Order_Table_3.multiply_p4 }}</bdi></span>
+    </td>
+</tr>
+{% endif %}
+
+
+
+{% if get_Order_Table_3.old_product_5 %}
+<tr class=""  style="border: 1px solid black;">
+    <td class="">
+        <a href="">{{ get_Order_Table_3.old_product_5 }}</a> <strong class="product-quantity"> ×&nbsp; {{ get_Order_Table_3.old_product_5_quenity }}</strong>
+    </td>
+    <td class="">{{ get_Order_Table_3.old_product_5_price }}</td>
+    <td class="">
+        <span class=""><bdi><span class="">৳&nbsp;</span>{{ get_Order_Table_3.multiply_p5 }}</bdi></span>
+    </td>
+</tr>
+{% endif %}
+
+
+
+
+
+
+{% if get_Order_Table_3.old_product_6 %}
+<tr class=""  style="border: 1px solid black;">
+    <td class="">
+        <a href="">{{ get_Order_Table_3.old_product_6 }}</a> <strong class="product-quantity"> ×&nbsp; {{ get_Order_Table_3.old_product_6_quenity }}</strong>
+    </td>
+    <td class="">{{ get_Order_Table_3.old_product_6_price }}</td>
+    <td class="">
+        <span class=""><bdi><span class="">৳&nbsp;</span>{{ get_Order_Table_3.multiply_p6 }}</bdi></span>
+    </td>
+</tr>
+{% endif %}
+
+
+
+
+{% if get_Order_Table_3.old_product_7 %}
+<tr class=""  style="border: 1px solid black;">
+    <td class="">
+        <a href="">{{ get_Order_Table_3.old_product_7 }}</a> <strong class="product-quantity"> ×&nbsp; {{ get_Order_Table_3.old_product_7_quenity }}</strong>
+    </td>
+    <td class="">{{ get_Order_Table_3.old_product_7_price }}</td>
+    <td class="">
+        <span class=""><bdi><span class="">৳&nbsp;</span>{{ get_Order_Table_3.multiply_p7 }}</bdi></span>
+    </td>
+</tr>
+{% endif %}
+
+
+
+
+{% if get_Order_Table_3.old_product_8 %}
+<tr class=""  style="border: 1px solid black;">
+    <td class="">
+        <a href="">{{ get_Order_Table_3.old_product_8 }}</a> <strong class="product-quantity"> ×&nbsp; {{ get_Order_Table_3.old_product_8_quenity }}</strong>
+    </td>
+    <td class="">{{ get_Order_Table_3.old_product_8_price }}</td>
+    <td class="">
+        <span class=""><bdi><span class="">৳&nbsp;</span>{{ get_Order_Table_3.multiply_p8 }}</bdi></span>
+    </td>
+</tr>
+{% endif %}
+
+
+{% if get_Order_Table_3.old_product_9 %}
+<tr class=""  style="border: 1px solid black;">
+    <td class="">
+        <a href="">{{ get_Order_Table_3.old_product_9 }}</a> <strong class="product-quantity"> ×&nbsp; {{ get_Order_Table_3.old_product_9_quenity }}</strong>
+    </td>
+    <td class="">{{ get_Order_Table_3.old_product_9_price }}</td>
+    <td class="">
+        <span class=""><bdi><span class="">৳&nbsp;</span>{{ get_Order_Table_3.multiply_p9 }}</bdi></span>
+    </td>
+</tr>
+{% endif %}
+
+
+
+{% if get_Order_Table_3.old_product_10 %}
+<tr class=""  style="border: 1px solid black;">
+    <td class="">
+        <a href="">{{ get_Order_Table_3.old_product_10 }}</a> <strong class="product-quantity"> ×&nbsp; {{ get_Order_Table_3.old_product_10_quenity }}</strong>
+    </td>
+    <td class="">{{ get_Order_Table_3.old_product_10_price }}</td>
+    <td class="">
+        <span class=""><bdi><span class="">৳&nbsp;</span>{{ get_Order_Table_3.multiply_p10 }}</bdi></span>
+    </td>
+</tr>
+{% endif %}
+
+
+</tbody>
+
+<tfoot>
+<tr style="border: 1px solid black;">
+<th scope="row">Subtotal:</th>
+<td class=""></td>
+<td><span class=""><span class="">৳&nbsp;</span>{{ get_Order_Table_3.old_Subtotal_Amount }}</span></td>
+</tr>
+
+<tr style="border: 1px solid black;">
+<th scope="row">Delivery Charge:</th>
+<td class=""></td>
+<td><span class=""><span class="">৳&nbsp;</span>{{ get_Order_Table_3.old_delivery_charge }}</span></td>
+</tr>
+
+<tr style="border: 1px solid black;">
+<th scope="row">Grand total:</th>
+<td class=""></td>
+<td><span class=""><span class="">৳&nbsp;</span>{{ get_Order_Table_3.GrandTotal_Price }}</span></td>
+</tr>
+
+
+
+<tr style="border: 1px solid black;">
+<th scope="row">Shipping:</th>
+<td class=""></td>
+<td>{{ get_Order_Table_3.old_Shopping_method }}</td>
+</tr>
+
+<tr style="border: 1px solid black;">
+<th scope="row">Payment method:</th>
+<td class=""></td>
+<td>{{ get_Order_Table_3.old_Payment_method }}</td>
+</tr>
+
+
+</tfoot>
+</table>
+</section>
+
+
+<section class="">
+<h2 class="">Billing address</h2>
+<address  style="border: 1px solid black;">
+    <br>
+    
+    Customer : {{ get_Order_Table_3.old_customer_first_name }} {{ get_Order_Table_3.old_customer_last_name }}<br>
+    First Name : {{ get_Order_Table_3.old_customer_first_name }}<br>
+    Last Name : {{ get_Order_Table_3.old_customer_last_name }}<br>
+    Street_Address : {{ get_Order_Table_3.old_Customer_Address }}<br>
+    Town City : {{ get_Order_Table_3.old_Customer_City }}<br>
+    District : {{ get_Order_Table_3.Customer_delivery_information.District }}<br>
+    Post Code : {{ get_Order_Table_3old_Customer_Postcode }}<br>
+    Phone Number : {{ get_Order_Table_3.old_Customer_Phone }}<br>
+    Email Address : {{ get_Order_Table_3.old_Customer_Email }}<br>
+
+</address>
+</section>
+</div>
+
+
+{% endblock %}

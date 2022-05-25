@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<section class="content">
+
+<div class="row m-5">
+
+
+</div>
+
+  <div class="col-12">
+				<div class="box">
+				  <div class="box-body">
+					  <label><span class="text-bold text-primary">Showing By Date</span>
+					<div class="table-responsive">
+						<div id="productorder_wsrappere" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+
+							<form method="GET" action="/deshboard/dashboard_order_filter">
+
+									<input type="hidden" name="order_status" value="All Orders">
+
+
+								Start Date : <input name="order_Start_Date_filter" type="date" value="">
+								End Date : <input name="order_End_Date_filter" type="date" value="">
+								<button type="submit" class="btn btn-primary">submit</button>
+							</form>
+
+						</div>
+
+					</div>
+				  </label></div>
+				</div>
+			  </div>
+
+
+
+
+    <div class="row">
+        <div class="col-3">
+            <div class="box">
+            Gross Sales
+            <br>
+            0
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="box">
+            Returns
+            <br>
+            0
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="box">
+            Coupons
+            <br>
+            0
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="box">
+            Net Sales
+            <br>
+            {{net_sell_count_addition}}
+            </div>
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="box">
+            Taxes
+            <br>
+            0
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="box">
+            Shipping
+            <br>
+            {{total_shipping_chrg}}
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="box">
+            Total Sales
+            <br>
+            {{grand_total_count_addition}}
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+    <div class="row">
+			  <div class="col-12">
+				<div class="box">
+				  <div class="box-body">
+					<div class="table-responsive">
+						<div id="productorder_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+							<div class="row">
+
+								<div class="col-sm-4 col-md-4">
+
+									<form id="order_entries" class="form" action="/deshboard/dashbord_order/" method="post"><input type="hidden" name="csrfmiddlewaretoken" value="JDOyZOOIjZ8jQMSj8Zde5c2cnx6potQiCZWWIx9PmozTKbBDg4y0eltIidjtBkPd">
+									<div class="dataTables_length" id="productorder_length">
+										<label><span class="text-bold">Show</span>
+											<select name="order_entries" aria-controls="productorder" class="form-control form-control-sm" onchange="show_entries()" id="id_show_entries">
+												<option value="20">20</option>
+												<option value="2">2</option>
+												<option value="10">10</option>
+												<option value="25">25</option>
+												<option value="50">50</option>
+												<option value="100">100</option>
+											</select>
+											entries
+										</label>
+									</div>
+									</form>
+
+
+								</div>
+
+								<div class="col-sm-12 col-md-4">
+									<h5 class="text-success text-center">
+										Total select item
+										<br>
+										<span id="show_select_item_qty2">0</span>
+
+									</h5>
+								</div>
+
+
+
+
+
+
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12">
+
+									<table id="productorder" class="table table-hover no-wrap product-order dataTable no-footer" data-page-size="10" role="grid" aria-describedby="productorder_info">
+
+							<thead>
+								<tr role="row">
+
+
+
+									<th class="sorting_asc" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Customer: activate to sort column descending">
+										Date
+									</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Order ID: activate to sort column ascending">Order
+
+									</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Product: activate to sort column ascending">Gross Sales</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Quantity: activate to sort column ascending">Returns</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Quantity: activate to sort column ascending">Coupons</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">Net Sales</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">Taxes</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">Shipping</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">Total Sales</th>
+
+								</tr>
+							</thead>
+							<tbody>
+
+							<tr role="row" class="odd">
+
+									<td></td>
+									<td></td>
+
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+
+
+								</tr>
+
+
+							</tbody>
+						</table>
+								</div>
+							</div>
+
+
+
+
+
+							<div class="row">
+								<div class="col-sm-12 col-md-5">
+									<div class="dataTables_info" id="productorder_info" role="status" aria-live="polite">Showing 1 to 10 of 1 entries</div>
+								</div>
+								<div class="col-sm-12 col-md-7">
+								    <div class="dataTables_paginate paging_simple_numbers" id="productorder_paginate">
+
+        								<ul class="pagination">
+
+
+
+        									    <li class="paginate_button page-item active"><a href="/deshboard/dashbord_order/?page=1" aria-controls="productorder" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+
+
+
+        								</ul>
+
+
+
+
+
+
+
+
+
+							        </div>
+							    </div>
+							</div>
+
+
+
+						</div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+		  </div>
+
+</section>
+
+
+
+
+
+{% endblock %}

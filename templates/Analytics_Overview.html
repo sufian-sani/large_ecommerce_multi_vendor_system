@@ -1,0 +1,262 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+
+
+
+
+
+<section class="content">
+    
+    <form id="form_analitics_overview" class="form" action="{% url 'Analytics_Overview' %}" method="POST">{% csrf_token %}
+    <div class="dataTables_length" id="productorder_length">
+    	<label><span class="text-bold">Choose </span>
+    		<select name="name_analitics_overview" aria-controls="productorder" class="form-control form-control-sm" onchange="analitics_overview()" id="id_anics_ovrview">
+    			<option value="{% if name_analitics_overview %}{{name_analitics_overview}}{% else %}All{% endif %}">{% if name_analitics_overview %}{{name_analitics_overview}}{% else %}All{% endif %}</option>
+    			<option value="All">All</option>
+    			<option value="Reguler">Reguler</option>
+    			<option value="Campaign">Campaign</option>
+    		</select>
+    		
+    	</label>
+    </div>
+    </form>
+    
+    
+    {% if campaign %}
+    
+    <form id="form_analitics_overview2" class="form" action="{% url 'Analytics_Overview' %}" method="POST">{% csrf_token %}
+    <div class="dataTables_length" id="productorder_length">
+        <input type="hidden" value="Campaign" name="name_analitics_overview">
+    	<label><span class="text-bold">Choose Campaign</span>
+    		<select name="name_analitics_overview_cam_name" aria-controls="productorder" class="form-control form-control-sm" onchange="analitics_overview2()" id="id_anics_ovrview">
+    			<option value="{{last_campaign_list}}">{{last_campaign_list}}</option>
+    			{% for cam in all_campaign_list %}
+    			<option value="{{cam.id}}">{{cam}}</option>
+    			{% endfor %}
+    			
+    		</select>
+    		
+    	</label>
+    </div>
+    </form>
+    {% endif %}
+    
+
+
+		<div class="row">
+
+            <div class="col-12 m-5"> </div>
+			  <div class="col-2">
+				<div class="box">
+				  <div class="box-body"  style="height: 130px;  background-color: powderblue; color: green; text-align: center;">
+
+                      Total sales<br>
+                      &#2547;  {{grand_total_count_addition}}
+
+                  </div>
+                </div>
+              </div>
+
+            <div class="col-2">
+				<div class="box">
+				  <div class="box-body"  style="height: 130px;  background-color: powderblue; color: green; text-align: center;">
+
+                      Net sales<br>
+                      &#2547; {{net_sell_count_addition}}
+
+                  </div>
+                </div>
+              </div>
+
+            <div class="col-2">
+				<div class="box">
+				  <div class="box-body"  style="height: 130px;  background-color: powderblue; color: green; text-align: center;">
+
+                      Orders<br> {{total_order_count}}
+
+                  </div>
+                </div>
+              </div>
+
+
+            <div class="col-3">
+				<div class="box">
+				  <div class="box-body"  style="height: 130px;  background-color: powderblue; color: green; text-align: center;">
+
+                      Type of items Sold<br> {{item_product}}
+
+                  </div>
+                </div>
+              </div>
+
+
+            <div class="col-3">
+				<div class="box">
+				  <div class="box-body" style="height: 130px;  background-color: powderblue; color: green; text-align: center;">
+
+                      Total quentity of items   Sold<br>items X quentity<br> {{get_row_grand_total_count_Quantity}}
+
+                  </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-6">
+				<div class="box">
+				  <div class="box-body">
+
+                      Top Categories - Items Sold<br><br>
+
+                      <div class="row">
+
+                          <div class="col-4">
+                                  Category
+                          </div>
+                          <div class="col-4">
+                                  Items Sold
+                          </div>
+                          <div class="col-4">
+                                  Net Sales
+                          </div>
+                          
+                          <br>
+                          
+                          {% for i in highst_qty_cat %}
+                           <div class="col-4">
+                                  {{i.Category_Name}}
+                          </div>
+                          <div class="col-4">
+                              {% if reguler %}
+                                  {{i.total_quantity_of_sell_reguler}}
+                              {% else %}
+                                    {{i.total_quantity_of_sell}}
+                              {% endif %}
+                          </div>
+                          <div class="col-4">
+                              {% if reguler %}
+                                   ৳{{i.total_money_of_sell_reguler}}
+                              {% else %}
+                                   ৳{{i.total_money_of_sell}}
+                              {% endif %}
+                                 
+                          </div>
+                        {% endfor %}
+                        
+                        
+                        {% for i in cam_highst_qty_cat %}
+                           <div class="col-4">
+                                  {{i.Category.Category_Name}}
+                          </div>
+                          <div class="col-4">
+                                  {{i.total_quantity_of_sell_cat_campaign}}
+                          </div>
+                          <div class="col-4">
+                                   ৳{{i.total_money_of_sell_cat_campaign}}
+                          </div>
+                        {% endfor %}
+                        
+                        
+
+                      </div>
+
+
+                  </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+				<div class="box">
+				  <div class="box-body">
+
+                      Top Products - Items Sold<br><br>
+
+                      <div class="row">
+
+                          <div class="col-4">
+                                  Product
+                          </div>
+                          <div class="col-4">
+                                  Items Sold
+                          </div>
+                          <div class="col-4">
+                                  Net Sales
+                          </div>
+                          
+                          <br>
+                        
+                        {% for i in highst_qty_prd %}
+                           <div class="col-4">
+                                  {{i.Product_Name}}
+                          </div>
+                          <div class="col-4">
+                              {% if reguler %}
+                                   {{i.total_quantity_of_sell_reguler_product}}
+                              {% else %}
+                                   {{i.total_quantity_of_sell_product}}
+                              {% endif %}
+                                  
+                          </div>
+                          <div class="col-4">
+                              {% if reguler %}
+                                   ৳{{i.total_money_of_sell_reguler_product}}
+                              {% else %}
+                                   ৳{{i.total_money_of_sell_product}}
+                              {% endif %}
+                                  
+                          </div>
+                        {% endfor %}
+                        
+                        
+                        
+                        {% for i in cam_highst_qty_prd %}
+                           <div class="col-4">
+                                  {{i.product.Product_Name}}
+                          </div>
+                          <div class="col-4">
+                                   {{i.total_quantity_of_sell_campaign_product}}
+                          </div>
+                          <div class="col-4">
+                                   ৳{{i.total_money_of_sell_campaign_product}}
+                          </div>
+                        {% endfor %}
+                        
+                      </div>
+
+
+                  </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+</section>
+
+
+<script>
+    function analitics_overview(){
+        var form_analitics_overview_form = document.getElementById("form_analitics_overview");
+        form_analitics_overview_form.submit();
+    }
+    
+    
+    function analitics_overview2(){
+        var form_analitics_overview_form2 = document.getElementById("form_analitics_overview2");
+        form_analitics_overview_form2.submit();
+    }
+
+
+</script>
+
+
+{% endblock %}

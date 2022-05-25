@@ -1,0 +1,23 @@
+{% load static %}
+{% load el_pagination_tags %}
+{% lazy_paginate 8 ppppp %}
+        {# your code to show the entry #}
+            <div>
+                {% for i in ppppp %}
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                      <div class="sv-list-vendor-border">
+
+                        <a href="{% url 'product_details' i.slug %}">
+                          <div class="list-img-vendor">
+                            <img src="{{i.Product_Image}}" alt="{{i.Product_Name}}">
+                          </div>
+                        <h5>{{i.Product_Name}}</h5>
+                        <h6><strike>{% if i.Discount_Price %}৳{{i.MRP_Price}}{% endif %}</strike> ৳{% if i.Discount_Price %}{{i.Discount_Price}}{% else %}{{i.MRP_Price}}{% endif %}</h6>
+                        </a>
+                      </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+{% show_more "More results" %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

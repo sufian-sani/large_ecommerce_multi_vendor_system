@@ -1,0 +1,408 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+{% block body %}
+
+
+<section class="content" style="padding-right:30px; padding-left:30px; ">
+
+    <form action="{% url 'submit_edited_order' %}" method="POST" id="form_order_edit_page">{% csrf_token %}
+        <input type="hidden" name="ordr_tble_id_get" value="{{get_ordr_tbl.id}}">
+        
+        
+        
+        
+        
+  <div class="content-header">
+      <h3>Edit Order #{{get_ordr_tbl.Order_Id}}</h3>
+  </div>
+  <div class="row">
+    <div class="top-card">
+        {% if messages %}
+
+    	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    	  <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+    		<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+    	  </symbol>
+    	  <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+    		<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+    	  </symbol>
+    	  <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+    		<path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+    	  </symbol>
+    	</svg>
+    
+    	{% for i in messages %}
+    	<div class="alert alert-success d-flex align-items-center" role="alert">
+    	  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+    	  <div>
+    		&nbsp;&nbsp;&nbsp;&nbsp;{{i}}
+    	  </div>
+    	</div>
+    	{% endfor %}
+    	{% endif %}
+    	
+    	
+        <h5>
+            <p>Payment Via <b>{{get_ordr_tbl.Payment_method}}</b></p>
+            <p>Order on {{get_ordr_tbl.Order_Time}}</p>
+            <p>Paid on {{get_ordr_tbl.Paid_Time}}</p>
+        </h5>
+        <hr>
+        
+
+        
+        
+
+          <div class="order-edit">
+            <label for="birthday">Status: </label>
+            <select name="status_order" id="cars" class="form-control">
+              <option value="{{get_ordr_tbl.Order_Status}}" selected>{{get_ordr_tbl.Order_Status}}</option>
+                  <option value="Pending payment">Pending payment</option>
+                  <option value="Partially Paid">Partially Paid</option>
+                  <option value="Ready To Ship">Ready To Ship</option>
+                  <option value="Processing">Processing</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Cancelled">Cancelled</option>
+                  <option value="Refunded">Refunded</option>
+                  <option value="Picked">Picked</option>
+                  <option value="Refunded">Refunded</option>
+                  <option value="On hold">On hold</option>
+                  <option value="Failed">Failed</option>
+
+            </select>
+          </div>
+          <hr>
+
+          <div class="order-edit">
+            <h4 style="color:#293965;">Billing Address:</h4>
+            
+          </div>
+          
+            
+          <div class="order-edit">
+            <label for="birthday">First Name: </label>
+            <input type="text" id="" name="ordr_first_name" value="{{get_ordr_tbl.Customer_delivery_information.First_Name}}" class="form-control">
+          </div>
+          
+          <div class="order-edit">
+            <label for="birthday">Last Name: </label>
+            <input type="text" id="" name="ordr_last_name" value="{{get_ordr_tbl.Customer_delivery_information.Last_Name}}" class="form-control">
+          </div>
+            
+          <div class="order-edit">
+            <label for="birthday">Street Address: </label>
+            <input type="text" id="" name="ordr_street_address" value="{{get_ordr_tbl.Customer_delivery_information.Street_Address}}" class="form-control">
+          </div>
+          <div class="order-edit">
+            <label for="birthday">Town City: </label>
+            <input type="text" id="" name="ordr_town_city" value="{{get_ordr_tbl.Customer_delivery_information.Town_City}}" class="form-control">
+          </div>
+          <div class="order-edit">
+            <label for="birthday">Distric: </label>
+            <input type="text" id="" name="ordr_distric" value="{{get_ordr_tbl.Customer_delivery_information.District}}" class="form-control">
+          </div>
+          <div class="order-edit">
+            <label for="birthday">Zip Code: </label>
+            <input type="text" id="" name="ordr_customer_zip" value="{{get_ordr_tbl.Customer_delivery_information.Post_Code}}" class="form-control">
+          </div>
+          <div class="order-edit">
+            <label for="birthday">Email: </label>
+            <input type="text" id="" name="ordr_customer_email" value="{{get_ordr_tbl.Customer_delivery_information.Email_Address}}" class="form-control">
+          </div>
+
+          <div class="order-edit">
+            <label for="birthday">Phone: </label>
+            <input type="number" id="" name="ordr_customer_phone" value="{{get_ordr_tbl.Customer_delivery_information.Phone_Number}}" class="form-control">
+          </div>
+        
+    </div>
+    
+    
+    <div class="top-card">
+        
+      <table style="width:100%;" class="tg">
+          
+        <thead>
+          <tr>
+            <th class="sorting_asc" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Customer: activate to sort column descending">
+				<div class="form-check">
+				  <input class="form-check-input" type="checkbox" id="select-all">
+				  <label class="form-check-label" for="select-all"></label>
+				</div>
+			</th>
+			
+            <th class="tg-baqh">Order ID</th>
+            <th class="tg-baqh">Camapign</th>
+            <th class="tg-baqh">Item</th>
+            
+            <th class="tg-baqh">Name</th>
+            <th class="tg-baqh">Cost</th>
+            <th class="tg-baqh">Qty</th>
+            <th class="tg-baqh">Total</th>
+            <th class="tg-baqh">Action</th>
+            <th class="tg-baqh">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in filter_ordr_tbl_2 %}
+          <tr>
+            <td class="sorting_1">
+				<div class="form-check" id="checkboxlist">
+				  <input name="products_check" class="form-check-input" type="checkbox" id="product_id{{i.id}}" onclick="the_item_checkbox()" value="{{i.id}}">
+
+				  <label class="form-check-label" for="product_id{{i.id}}"></label>
+				</div>
+			</td>
+			
+            <td class="tg-0lax"><input type="text" value="{% if i.New_Order_Id %}{{i.New_Order_Id}}{% else %}{{get_ordr_tbl.Order_Id}}{% endif %}" id="id_order_newID{{i.id}}"></td>
+            <td class="tg-baqh">{{i.Campaign}}</td>
+            <td class="tg-0lax"><img src="{{i.Product.Product_Image}}" alt="product_image" width="54" height="62"></td>
+            <td class="tg-baqh"><a href="https://boomboom.com.bd/" target="_blank" rel="noopener noreferrer">{{i.Product.Product_Name}}</a></td>
+            <td class="tg-baqh">{{i.then_price}}</td>
+            <td class="tg-baqh">x <input type="number" name="x" value="{{i.Quantity}}" id="id_prod_qty{{i.id}}"></td>
+            <td class="tg-baqh">{{i.SubTotal_Price}}</td>
+            <td class="tg-0lax">
+                <label for="cars"></label>
+                {% if i.New_Order_Id %}
+                <select name="order_status" id="id_order_status{{i.id}}">
+                  <option value="{{i.New_Order_Status}}" selected>{{i.New_Order_Status}}</option>
+
+                  <option value="Completed">Completed</option>
+                  <option value="Cancelled">Cancelled</option>
+
+                  <option value="Refunded">Refunded</option>
+
+                </select>
+                {% else %}
+                <select name="order_status" id="id_order_status{{i.id}}">
+                  <option value="{{get_ordr_tbl.Order_Status}}" selected>{{get_ordr_tbl.Order_Status}}</option>
+
+                  <option value="Completed">Completed</option>
+                  <option value="Cancelled">Cancelled</option>
+
+                  <option value="Refunded">Refunded</option>
+
+                </select>
+                {% endif %}
+                
+            </td>
+            <td class="tg-0lax">
+                <button type="button" class="btn btn-danger" style="border-radius: 50%;" data-toggle="modal" data-target="#exampleModal{{i.id}}"><i class="ti-trash"></i></button>
+                
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal{{i.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Are You Sure To Delete {{i.Product.Product_Name}} Item From Order ID {% if i.New_Order_Id %}{{i.New_Order_Id}}{% else %}{{get_ordr_tbl.Order_Id}}{% endif %}?<br><br>
+                        <hr>
+                        
+                        
+                        <style type="text/css">
+                        .tg1  {border-collapse:collapse;border-spacing:0;text-align:center;}
+                        .tg1 td{text-align:center;border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+                          overflow:hidden;padding:10px 5px;word-break:normal;}
+                        .tg1 th{text-align:center;border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+                          font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+                        .tg1 .tg-0lax1{text-align:center;vertical-align:top}
+                        </style>
+                        <table class="tg1">
+                            <colgroup>
+                            <col style="width: 94px">
+                            <col style="width: 94px">
+                            <col style="width: 92px">
+                            <col style="width: 90px">
+                            <col style="width: 92px">
+                            </colgroup>
+                        <thead>
+                          <tr>
+                            <th class="tg-0lax1" colspan="5"><b>Item Details:</b></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="tg-0lax1"><b>Img</b></td>
+                            <td class="tg-0lax1"><b>Name</b></td>
+                            <td class="tg-0lax1"><b>Price</b></td>
+                            <td class="tg-0lax1"><b>Qty</b></td>
+                            <td class="tg-0lax1"><b>Total</b></td>
+                          </tr>
+                          <tr>
+                            <td class="tg-0lax1"><img src="{{i.Product.Product_Image}}" alt="product_image" width="54" height="62"></td>
+                            <td class="tg-0lax1"><a href="https://boomboom.com.bd/" target="_blank" rel="noopener noreferrer">{{i.Product.Product_Name}}</a></td>
+                            <td class="tg-0lax1">{{i.then_price}}</td>
+                            <td class="tg-0lax1">x {{i.Quantity}}</td>
+                            <td class="tg-0lax1">{{i.SubTotal_Price}}</td>
+                          </tr>
+                        </tbody>
+                        </table>
+                        
+                        
+                      </div>
+                      
+                      <div class="modal-footer">
+                        
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a href="{% url 'delete_item_from_order' i.id %}" class="btn btn-danger">Delete</a>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </td>
+          </tr>
+            {% endfor %}    
+            
+            
+          
+          <tr>
+            <td class="tg-0lax">Delivery:</td>
+            
+            <td class="tg-baqh">
+                <select name="delivery_optin" id="cars">
+                  <option value="Pickup From BoomBoom Office" {% if get_ordr_tbl.Shopping == 'Pickup From BoomBoom Office' %}selected{% endif %}>Pickup Ecomhat Office</option>
+                  <option value="Delivery" {% if get_ordr_tbl.Shopping == 'Delivery' %}selected{% endif %}>Delivery</option>
+                </select>
+            </td>
+            
+          </tr>
+          
+          <tr>
+            <td class="tg-baqh">Shipping Note:</td>
+            <td class="tg-0lax"><input type="text" name="ordr_shipping_note" value="{% if get_ordr_tbl.shipping_note %}{{get_ordr_tbl.shipping_note}}{% else %}{% endif %}"></td>
+          </tr>
+          <tr>
+            <td class="tg-baqh">Charge:</td>
+            <td class="tg-0lax"><input type="number" name="charge_odr" value="{{get_ordr_tbl.Delivery_Charge}}"> ৳</td>
+          </tr>
+          
+        </tbody>
+        </table>
+        
+        <hr>
+        
+        
+        
+    <hr>
+    <div class="card-total">
+      <div class="one-line">
+        <h4>SubTotal: </h4><h3>৳ {{get_ordr_tbl.SubTotal_Price}}</h3>
+      </div>
+      <div class="one-line">
+        <h4>Delivery: </h4><h3>৳ {{get_ordr_tbl.Delivery_Charge}}</h3>
+      </div>
+      <div class="one-line">
+        <h4>Grand total: </h4><h3>৳ {{get_ordr_tbl.GrandTotal_Price}}</h3>
+      </div>
+    
+    </div>
+    </div>
+    <span id="change_update_btn"><button style="margin:15px 15px;" type="button" class="btn btn-primary" onclick="Update_Order()">Update</button></span>
+
+      {% if request.session.deshboard_customer_support_username %}
+    {% else %}
+    <a href="{% url 'dashboard_customer_order_edit_Generate_Invoice' invoice_var %}" target="_blank" style="margin:15px 15px; color:yellow;" type="submit" class="btn btn-primary">Generate Invoice</a>
+
+
+
+      {% endif %}
+
+
+
+    
+    
+  </div>
+  </form>
+    <form action="{% url 'dashboard_customer_order_edit_Generate_Refunded_Invoice' %}" method="POST" target="_blank">{% csrf_token %}
+        <input type="hidden" value="{{get_ordr_tbl.Order_Id}}" name="Generate_Refunded_Invoice_order_id">
+        <input type="hidden" value="Refunded" name="hidden_Refunded">
+        <button type="submit" class="p-3 mb-2 bg-primary text-white">Generate Refunded Invoice</button>
+    </form>
+
+    <form action="{% url 'dashboard_customer_order_edit_Generate_Refunded_Invoice' %}" method="POST" target="_blank">{% csrf_token %}
+        <input type="hidden" value="{{get_ordr_tbl.Order_Id}}" name="Generate_Refunded_Invoice_order_id">
+        <input type="hidden" value="Compleated" name="hidden_Refunded">
+        <button type="submit" class="p-3 mb-2 bg-primary text-white">Generate Compleated Invoice</button>
+    </form>
+
+    <div class=top-card>
+        <h4>Logs</h4>
+        <hr>
+        {% for i in filter_logs %}
+        {{i.logs_status}}<br>
+        {{i.staff_role.Username}} <small>({{i.logs_time}})</small><br>
+        <hr>
+        {% endfor %}
+
+    </div>
+
+</section>
+
+<script>
+
+
+function Update_Order(){
+    document.getElementById('change_update_btn').innerHTML = `<button style="margin:15px 15px;" type="button" class="btn btn-warning">Updating Wait...</button>`;
+    
+    $.each($("input[name='products_check']:checked"), function(){
+            var prod_order_uid = $(this).val();
+        
+            var vid_order_status = document.getElementById('id_order_status'+prod_order_uid).value;
+            console.log(vid_order_status)
+            
+            var vid_prod_qty  = document.getElementById('id_prod_qty'+prod_order_uid).value; 
+            console.log(vid_prod_qty)
+        
+            var vid_order_newID = document.getElementById('id_order_newID'+prod_order_uid).value; 
+			console.log(vid_order_newID)
+			
+			$.ajax({
+				url : '{% url 'update_ordr_prdtble2' %}',
+				type : 'POST',
+				data : {prod_order_uid:prod_order_uid, vid_order_status:vid_order_status, vid_prod_qty:vid_prod_qty, vid_order_newID:vid_order_newID}
+			})
+			.done(function(response){
+                console.log(response);
+                if(response == "True"){
+                }
+                
+            })
+
+            
+		});
+	var form_order_edit_page_form = document.getElementById("form_order_edit_page");
+    form_order_edit_page_form.submit();
+}
+    
+
+
+
+//this is for checkboxes
+
+document.getElementById('select-all').onclick = function() {
+	var checkboxes = document.getElementsByName('products_check');
+	
+	for (var checkbox of checkboxes) {
+		checkbox.checked = this.checked;
+	}
+	
+}
+
+
+
+
+
+</script>
+
+{% endblock %}

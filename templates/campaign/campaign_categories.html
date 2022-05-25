@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+{% block body %}
+
+
+<!-- Main content -->
+		<section class="content">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto">
+                        <h3 class="page-title">Campaign Category Percentage</h3>
+                        <div class="d-xl-inline-block align-items-center d-none">
+                            <nav>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+                                    <li class="breadcrumb-item" aria-current="page">e-Commerce</li>
+                                    <li class="breadcrumb-item active" aria-current="page">add</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="right-title">
+                        <div class="d-flex mt-10 justify-content-end">
+							<div class="d-md-flex mr-20 ml-10 d-none">
+								<div class="chart-text mr-10">
+									<h6 class="mb-0"><small>THIS MONTH</small></h6>
+									<h4 class="mt-0 text-primary">$12,125</h4>
+								</div>
+								<div class="spark-chart">
+									<div id="thismonth"><canvas width="60" height="35" style="display: inline-block; width: 60px; height: 35px; vertical-align: top;"></canvas></div>
+								</div>
+							</div>
+							<div class="d-md-flex ml-10 d-none">
+								<div class="chart-text mr-10">
+									<h6 class="mb-0"><small>LAST YEAR</small></h6>
+									<h4 class="mt-0 text-danger">$22,754</h4>
+								</div>
+								<div class="spark-chart">
+									<div id="lastyear"><canvas width="60" height="35" style="display: inline-block; width: 60px; height: 35px; vertical-align: top;"></canvas></div>
+								</div>
+							</div>
+						</div>
+                    </div>
+                </div>
+            </div>
+
+			<div class="row">
+			  <div class="col-12">
+				<div class="box">
+					<div class="box-header with-border">
+					  
+					  <h4 class="box-title">All Campaign</h4>
+					  <p>
+					  <a href="{% url 'add_category_percentage' %}" class="btn btn-rounded btn-primary" style="color:white; float:right;">&#43; Add </a>
+					  </p>
+					  <br><br><br>
+						
+
+				<div class="box-body p-5 bg-secondary"></div>
+
+				<div class="box-body p-5">
+                    <table class="table">
+                      <thead class="thead-light">
+                        <tr>
+                          <th>
+                    		  <div class="form-check">
+                    			  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    			  <label class="form-check-label" for="flexCheckDefault">
+                    
+                    			  </label>
+                    			</div>
+                    	  </th>
+                          <th scope="col">Logo</th>
+                          <th scope="col">Campaign Name</th>
+                          <th scope="col">Category Name</th>
+                          <th scope="col">Percentage Name</th>
+                          <th scope="col">Details</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for i in campaign_cat_percentage %}
+                        <tr>
+                          <th scope="row">
+                    		  <div class="form-check">
+                    			  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                    			  <label class="form-check-label" for="flexCheckDefault1">
+                    
+                    			  </label>
+                    			</div>
+                    	  </th>
+                          <td><img src="/media/{{i.campaign.campaign_logo}}" alt="product" width="50"></td>
+                          <td>{{i.campaign.campaign_name}}</td>
+                          <td>{{i.Category}}</td>
+                          <td>{{i.percentage}}</td>
+                          <td><i class="fa fa-edit" style="font-size:24px"></i></td>
+                        </tr>
+                      {% endfor %}
+                    
+                      </tbody>
+                    </table>
+
+
+
+				</div>
+				</div>
+			  </div>
+		  </div>
+
+		</section>
+		<!-- /.content -->
+		
+		
+
+
+{% endblock %}

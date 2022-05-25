@@ -1,0 +1,334 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+{% block body %}
+<style>
+    .divScroll {
+    overflow:scroll;
+    height:500px;
+    }
+</style>
+
+<!-- Main content -->
+		<section class="content">
+            <!-- Content Header (Page header) -->
+
+
+			<div class="row">
+			  <div class="col-12">
+				<div class="box">
+
+				  <div class="box-body">
+					<form action="{% url 'save_EDIT_edited_add_attribute_form_add_product' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+						<div class="form-body">
+							<div class="row">
+								<div class="col-md-6">
+
+
+									  <label class="font-weight-700 font-size-16">Product name</label>
+									  <input type="text" name="going_to_save_get_the_Product_name_Product_Names"  value="{{get_the_Product_name.Product_Name}}" disabled>
+
+
+								</div><br><br>
+								<input type="hidden" name="going_to_save_get_the_Product_name_Product_Name" value="{{get_the_Product_name.slug}}">
+
+								<input type="hidden" name="get_attribute_from_this_perticuler_product_id" value="{{get_attribute_from_this_perticuler_product.id}}">
+
+
+
+
+
+								<div class="col-md-12 btn-primary">
+									<div class="text-center"><h3>ATTRIBUTE</h3></div>
+
+									<label>Size:</label>
+									<select name="going_to_save_name_Size_attribute_value_all">
+
+
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Size}}" >{{get_attribute_from_this_perticuler_product.Size}}</option>
+										{% for i in Size_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Color:</label>
+									<select name="going_to_save_name_Color_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Color}}" >{{get_attribute_from_this_perticuler_product.Color}}</option>
+										{% for i in Color_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+
+									<label>Flavor:</label>
+									<select name="going_to_save_name_Flavor_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Flavor}}" >{{get_attribute_from_this_perticuler_product.Flavor}}</option>
+										{% for i in Flavor_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Variation:</label>
+									<select name="going_to_save_name_Variation_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Variation}}" >{{get_attribute_from_this_perticuler_product.Variation}}</option>
+										{% for i in Variation_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Weight:</label>
+									<select name="going_to_save_name_Weight_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Weight}}" >{{get_attribute_from_this_perticuler_product.Weight}}</option>
+										{% for i in Weight_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Volume:</label>
+									<select name="going_to_save_name_Volume_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Volume}}" >{{get_attribute_from_this_perticuler_product.Volume}}</option>
+										{% for i in Volume_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Quantity:</label>
+									<select name="going_to_save_name_Quantity_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Quantity}}" >{{get_attribute_from_this_perticuler_product.Quantity}}</option>
+										{% for i in Quantity_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Values:</label>
+									<select name="going_to_save_name_Values_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Values}}" >{{get_attribute_from_this_perticuler_product.Values}}</option>
+										{% for i in Values_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Material Type:</label>
+									<select name="going_to_save_name_Material_Type_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Material_Type}}" >{{get_attribute_from_this_perticuler_product.Material_Type}}</option>
+										{% for i in Material_Type_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Product Type:</label>
+									<select name="going_to_save_name_Product_Type_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Product_Type}}" >{{get_attribute_from_this_perticuler_product.Product_Type}}</option>
+										{% for i in Product_Type_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Verification:</label>
+									<select name="going_to_save_name_Verification_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Verification}}" >{{get_attribute_from_this_perticuler_product.Verification}}</option>
+										{% for i in Verification_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Quality:</label>
+									<select name="going_to_save_name_Quality_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Quality}}" >{{get_attribute_from_this_perticuler_product.Quality}}</option>
+										{% for i in Quality_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Marketing Claims:</label>
+									<select name="going_to_save_name_Marketing_Claims_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Marketing_Claims}}" >{{get_attribute_from_this_perticuler_product.Marketing_Claims}}</option>
+										{% for i in Marketing_Claims_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Design:</label>
+									<select name="going_to_save_name_Design_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Design}}" >{{get_attribute_from_this_perticuler_product.Design}}</option>
+										{% for i in Design_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Smell:</label>
+									<select name="going_to_save_name_Smell_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Smell}}" >{{get_attribute_from_this_perticuler_product.Smell}}</option>
+										{% for i in Smell_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Reliability:</label>
+									<select name="going_to_save_name_Reliability_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Reliability}}" >{{get_attribute_from_this_perticuler_product.Reliability}}</option>
+										{% for i in Reliability_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Content:</label>
+									<select name="going_to_save_name_Content_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Content}}" >{{get_attribute_from_this_perticuler_product.Content}}</option>
+										{% for i in Content_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Safety:</label>
+									<select name="going_to_save_name_Safety_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Safety}}" >{{get_attribute_from_this_perticuler_product.Safety}}</option>
+										{% for i in Safety_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Package:</label>
+									<select name="going_to_save_name_Package_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Package}}" >{{get_attribute_from_this_perticuler_product.Package}}</option>
+										{% for i in Package_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Model:</label>
+									<select name="going_to_save_name_Model_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Model}}" >{{get_attribute_from_this_perticuler_product.Model}}</option>
+										{% for i in Model_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Taste:</label>
+									<select name="going_to_save_name_Taste_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Taste}}" >{{get_attribute_from_this_perticuler_product.Taste}}</option>
+										{% for i in Taste_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Feel:</label>
+									<select name="going_to_save_name_Feel_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Feel}}" >{{get_attribute_from_this_perticuler_product.Feel}}</option>
+										{% for i in Feel_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+
+									<label>Defferent Type:</label>
+									<select name="going_to_save_name_Defferent_Type_attribute_value_all">
+										<option selected="selected" value="{{get_attribute_from_this_perticuler_product.Defferent_Type}}" >{{get_attribute_from_this_perticuler_product.Defferent_Type}}</option>
+										{% for i in Defferent_Type_attribute_value_all %}
+										<option value="{{i.Attribute_value}}">{{i.Attribute_value}}</option>
+										{% endfor %}
+									</select>
+									<br>
+									<br>
+
+
+
+
+								</div>
+
+
+
+
+                                <div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="font-weight-700 font-size-16">MRP Price</label>
+										<div class="input-group">
+											<div class="input-group-addon">&#2547;</div>
+											<input type="number" class="form-control" name="going_to_save_variable_MRP_Price" value="{{get_attribute_from_this_perticuler_product.MRP_Price}}" required> </div>
+									</div>
+								</div>
+
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="font-weight-700 font-size-16">Cost Price</label>
+										<div class="input-group">
+											<div class="input-group-addon">&#2547;</div>
+											<input type="number" class="form-control" name="going_to_save_variable_Cost_Price" value="{{get_attribute_from_this_perticuler_product.Cost_Price}}"> </div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="font-weight-700 font-size-16">Discount Price</label>
+										<div class="input-group">
+											<div class="input-group-addon"><i class="ti-cut"></i></div>
+											<input type="number" class="form-control" name="going_to_save_variable_Discount_Price" value="{{get_attribute_from_this_perticuler_product.Discount_Price}}"> </div>
+									</div>
+								</div>
+								
+								
+								<div class="col-md-4">
+									<div class="form-group">
+										
+										<div class="input-group">
+											<div class="input-group-addon">Qty</div>
+											<input type="number" class="form-control" name="variable_qty" placeholder="Stock Quantity" value="{{get_attribute_from_this_perticuler_product.Attribute_Quantity}}"> </div>
+									</div>
+								</div>
+								
+								<div class="col-md-4">
+								    <label class="font-weight-700 font-size-16">Stock Status</label>
+								    
+									<select class="form-select" aria-label="Default select example" name="stock_status_name">
+                                      <option selected value="{{get_attribute_from_this_perticuler_product.Stock_status}}">{{get_attribute_from_this_perticuler_product.Stock_status}}</option>
+                                      <option value="In stock">In stock</option>
+                                      <option value="Out stock">Out stock</option>
+                                      <option value="On backorder">On backorder</option>
+                                      
+                                    </select>
+								</div>
+
+
+
+									<div class="product-img text-left">
+										<img src="{{get_attribute_from_this_perticuler_product.attribute_image_of_product}}" alt="">
+										<div class="btn btn-rounded btn-info mb-20">
+<!--											<span>Upload Anonther Image</span>-->
+                                            <input  name="going_to_save_attribute_image_get" value="{{get_attribute_from_this_perticuler_product.attribute_image_of_product}}" type="file">{{get_attribute_from_this_perticuler_product.attribute_image_of_product}}
+										</div>
+<!--										<button class="btn btn-rounded btn-success">Edit</button>-->
+<!--										<button class="btn btn-rounded btn-danger">Delete</button>-->
+									</div>
+
+
+
+
+
+
+
+								<!--/span-->
+							</div>
+
+
+<br>
+						<div class="form-actions mt-10">
+							<button type="submit" class="btn btn-rounded btn-primary"> <i class="fa fa-check"></i> Save</button>
+
+						</div>
+					</form>
+				  </div>
+				</div>
+			  </div>
+		  </div>
+
+
+		</section>
+		<!-- /.content -->
+
+
+
+
+{% endblock %}

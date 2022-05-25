@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block body %}
+
+
+<!-- Main content -->
+		<section class="content">
+            <!-- Content Header (Page header) -->
+
+
+			<div class="row">
+			  <div class="col-12">
+				<div class="box">
+
+				  <div class="box-body">
+					<form method="POST" action="{% url 'save_dashboard_attribute_value_edit' %}">
+						{% csrf_token %}
+
+						<div class="row">
+								<input type="hidden" value="{{one_row_of_pk_value_dashbord_Attribute_id_for_edit}}" name="main_attribute_id">
+								<input type="hidden" value="{{template_all_Attribute_value_id_for_edit}}" name="main_attribute_value_id">
+
+								<div class="col-md-12">
+									<div class="form-group">
+									  <label class="font-weight-700 font-size-16"><b>edit Attribute value</b></label>
+									  <input type="text" value="{{row_pk_Attribute_value_dashbord_Attributerr.Attribute_name}}" class="form-control" disabled name="edited_Attribute_name_1">
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="font-weight-700 font-size-16"><b>value <sup>*</sup> (unique)</b></label>
+									  <input type="text"  class="form-control" placeholder="value" value="{{row_pk_Attribute_value_dashbord_Attributerr.Attribute_value}}" name="edited_Attribute_value_1" required>
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<div class="form-group">
+									  <label class="font-weight-700 font-size-16"><b>value slag (Empty or unique)</b></label>
+									  <input type="text"  class="form-control" value="{{row_pk_Attribute_value_dashbord_Attributerr.Attribute_value_slag}}" placeholder="value slag" name="edited_value_Attribute_slag_1" >
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<div class="form-group">
+									  <label class="font-weight-700 font-size-16"><b>value description</b></label>
+									  <textarea class="form-control" placeholder="value description" name="edited_value_Attribute_description_1" >{{row_pk_Attribute_value_dashbord_Attributerr.Attribute_value_description}}</textarea>
+									</div>
+								</div>
+
+
+</div>
+						<button type="submit" class="btn btn-rounded btn-primary"> <i class="fa fa-check"></i> Save</button>
+<!--							<button type="button" class="btn btn-rounded btn-danger">Cancel</button>-->
+
+					</form>
+				  </div>
+
+
+				</div>
+			  </div>
+
+
+
+		  </div>
+
+		</section>
+		<!-- /.content -->
+
+
+{% endblock %}

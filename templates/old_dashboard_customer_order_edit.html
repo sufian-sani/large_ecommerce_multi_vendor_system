@@ -1,0 +1,253 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load post_tags %}
+
+
+
+{% block body %}
+
+
+<!-- Main content -->
+		<section class="content">
+            <div class="row">
+            <div class="box">
+				  <div class="box-body">
+					  <label><span class="text-bold text-primary">Total Informations</span>
+                  </div>
+            </div>
+            </div>
+
+<div class="row">
+<div class="box">
+<div class="box-body">
+
+        <style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+            <table class="tg">
+            <thead>
+              <tr>
+                <td class="tg-0lax">Order ID :</td>
+                <td class="tg-0lax">{{get_uniq_user_orders.old_order_id}}</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Name</td>
+                <td class="tg-0lax">{{get_uniq_user_orders.old_customer_first_name}} {{get_uniq_user_orders.old_customer_last_name}}</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Order Date</td>
+                <td class="tg-0lax">{{get_uniq_user_orders.old_order_date}}</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Order status</td>
+                <td class="tg-0lax">
+              <form action="{% url 'save_old_order_status_single' get_uniq_user_orders.id %}" method="POST">{% csrf_token %}
+                <div class="form-group">
+
+								<select name="old_order_status_get" id="Category_list" class="form-control form-control form-control-lg" required>
+									<option selected="selected" value="">{{get_uniq_user_orders.old_order_status}}</option>
+									<option value="Pending Payment">Pending Payment</option>
+									<option value="Processing">Processing</option>
+									<option value="Refunded">Refunded</option>
+									<option value="Partially Paid">Partially Paid</option>
+									<option value="Cancelled">Cancelled</option>
+									<option value="Shifted To Courier">Shifted To Courier</option>
+									<option value="Picked">Picked</option>
+									<option value="Completed">Completed</option>
+									<option value="On Hold">On Hold</option>
+									<option value="Cash On Delivery">Cash On Delivery</option>
+
+
+								</select>
+							</div>
+                <button class="bg-primary" type="submit">If you want to changed the status select above And click here</button>
+
+
+                </form>
+                </td>
+
+              </tr>
+              <tr>
+                <td class="tg-0lax">Order subtotal</td>
+                <td class="tg-0lax">{{get_uniq_user_orders.old_Subtotal_Amount}}</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Delivery charge</td>
+                <td class="tg-0lax">{{get_uniq_user_orders.old_delivery_charge}}</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Order Total</td>
+                <td class="tg-0lax">{{get_uniq_user_orders.old_order_total}}</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Shopping method</td>
+                <td class="tg-0lax">{{get_uniq_user_orders.old_Shopping_method}}</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Payment method</td>
+                <td class="tg-0lax">{{get_uniq_user_orders.old_Payment_method}}</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Customer Address</td>
+                <td class="tg-0lax">{{get_uniq_user_orders.old_Customer_Address}}</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Customer City</td>
+                <td class="tg-0lax">{{get_uniq_user_orders.old_Customer_City}}</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Customer Postcode</td>
+                <td class="tg-0lax">{{get_uniq_user_orders.old_Customer_Postcode}}</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Customer Email</td>
+                <td class="tg-0lax">{{get_uniq_user_orders.old_Customer_Email}}</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">Customer Phone</td>
+                <td class="tg-0lax">{{get_uniq_user_orders.old_Customer_Phone}}</td>
+              </tr>
+
+              <tr>
+                <td class="tg-0lax">
+                    Product list
+
+                </td>
+                <td class="tg-0lax">
+                    <table>
+                      <tr>
+                        <th>Product Name</th>
+                        <th>Product Quantity</th>
+                        <th>Product price</th>
+
+                      </tr>
+                      <tr>
+                        <th>{{get_uniq_user_orders.old_product_1}}</th>
+                        <th>{{get_uniq_user_orders.old_product_1_quenity}}</th>
+                        <th>{{get_uniq_user_orders.old_product_1_price}}</th>
+
+                      </tr>
+                        {% if  get_uniq_user_orders.old_product_2%}
+                      <tr>
+                        <th>{{get_uniq_user_orders.old_product_2}}</th>
+                        <th>{{get_uniq_user_orders.old_product_2_quenity}}</th>
+                        <th>{{get_uniq_user_orders.old_product_2_price}}</th>
+
+                      </tr>
+                        {% endif %}
+                        {% if  get_uniq_user_orders.old_product_3%}
+                      <tr>
+                        <th>{{get_uniq_user_orders.old_product_3}}</th>
+                        <th>{{get_uniq_user_orders.old_product_3_quenity}}</th>
+                        <th>{{get_uniq_user_orders.old_product_3_price}}</th>
+
+                      </tr>
+
+                        {% endif %}
+                        {% if  get_uniq_user_orders.old_product_4%}
+                      <tr>
+                        <th>{{get_uniq_user_orders.old_product_4}}</th>
+                        <th>{{get_uniq_user_orders.old_product_4_quenity}}</th>
+                        <th>{{get_uniq_user_orders.old_product_4_price}}</th>
+
+                      </tr>
+                        {% endif %}
+                        {% if  get_uniq_user_orders.old_product_5%}
+
+                      <tr>
+                        <th>{{get_uniq_user_orders.old_product_5}}</th>
+                        <th>{{get_uniq_user_orders.old_product_5_quenity}}</th>
+                        <th>{{get_uniq_user_orders.old_product_5_price}}</th>
+
+                      </tr>
+
+                        {% endif %}
+                        {% if  get_uniq_user_orders.old_product_6%}
+
+                      <tr>
+                        <th>{{get_uniq_user_orders.old_product_6}}</th>
+                        <th>{{get_uniq_user_orders.old_product_6_quenity}}</th>
+                        <th>{{get_uniq_user_orders.old_product_6_price}}</th>
+
+                      </tr>
+                        {% endif %}
+                        {% if  get_uniq_user_orders.old_product_7%}
+                      <tr>
+                        <th>{{get_uniq_user_orders.old_product_7}}</th>
+                        <th>{{get_uniq_user_orders.old_product_7_quenity}}</th>
+                        <th>{{get_uniq_user_orders.old_product_7_price}}</th>
+
+                      </tr>
+                        {% endif %}
+                        {% if  get_uniq_user_orders.old_product_8%}
+                      <tr>
+                        <th>{{get_uniq_user_orders.old_product_8}}</th>
+                        <th>{{get_uniq_user_orders.old_product_8_quenity}}</th>
+                        <th>{{get_uniq_user_orders.old_product_8_price}}</th>
+
+                      </tr>
+                        {% endif %}
+                        {% if  get_uniq_user_orders.old_product_9%}
+                      <tr>
+                        <th>{{get_uniq_user_orders.old_product_9}}</th>
+                        <th>{{get_uniq_user_orders.old_product_9_quenity}}</th>
+                        <th>{{get_uniq_user_orders.old_product_9_price}}</th>
+
+                      </tr>
+                        {% endif %}
+                        {% if  get_uniq_user_orders.cdold_product_10%}
+                      <tr>
+                        <th>{{get_uniq_user_orders.old_product_10}}</th>
+                        <th>{{get_uniq_user_orders.old_product_10_quenity}}</th>
+                        <th>{{get_uniq_user_orders.old_product_10_price}}</th>
+
+                      </tr>
+                      {% endif %}
+
+                    </table>
+
+
+
+
+
+                </td>
+              </tr>
+
+            </thead>
+            </table>
+
+</div>
+</div>
+</div>
+
+
+<!--            <div class="row">-->
+<!--            Order ID : {{get_uniq_user_orders.old_order_id}}-->
+<!--            </div>-->
+<!--          <form method="POST" action="old_single_invoice">{% csrf_token %}-->
+<!--        <input type="hidden" name="get_single_invo" value="{{get_uniq_user_orders.id}}">-->
+<!--            <button type="submit">Invoice</button>-->
+<!--          </form>-->
+<a href="{% url 'old_single_invoice' get_uniq_user_orders.id %}" class="btn p-3 mb-2 bg-warning text-dark">Invoice</a>
+
+        <br>
+<br>
+<br><hr>
+       {% for i in get_uniq_order_table_3_logs %}
+          {{i.logs_status}}<br>
+          {{i.staff_role.Username}} <small>({{i.logs_time}})</small><br>
+       {% endfor %}
+
+<hr>
+<br>
+<br>
+<br>
+
+        </section>
+
+{% endblock %}

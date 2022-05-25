@@ -1,0 +1,1563 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<body class="cnt-home">
+
+        <div class='row single-product'>
+	         <div class='col-md-9 rht-col'>
+
+
+        <div class="breadcrumb-inner breadcrumb">
+            <ul class="list-inline list-unstyled">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">{{get_product.Category.Category_Name}}</a></li>
+                <li class='active'>{{get_product.Product_Name}}</li>
+            </ul>
+        </div><!-- /.breadcrumb-inner -->
+
+            <div class="detail-block">
+                <div class="row  wow fadeInUp">
+
+                         <div class="col-xs-12 col-sm-4 col-md-4 gallery-holder">
+    <div class="product-item-holder size-big single-product-gallery small-gallery">
+
+        <div id="owl-single-product">
+            <div id="show_attr_img">
+
+            </div>
+
+            <div class="single-product-gallery-item" id="slide1">
+                <a data-lightbox="image-1" data-title="Gallery" href="{{get_product.Product_Image}}">
+                    <img class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/images/blank.gif' %}" data-echo="{{get_product.Product_Image}}" />
+                </a>
+            </div><!-- /.single-product-gallery-item -->
+
+            {% if get_product.Product_Image2 %}
+            <div class="single-product-gallery-item" id="slide2">
+                <a data-lightbox="image-1" data-title="Gallery" href="{{get_product.Product_Image2}}">
+                    <img class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image2}}" />
+                </a>
+            </div><!-- /.single-product-gallery-item -->
+            {% endif %}
+
+            {% if get_product.Product_Image3 %}
+            <div class="single-product-gallery-item" id="slide3">
+                <a data-lightbox="image-1" data-title="Gallery" href="{{get_product.Product_Image3}}">
+                    <img class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image3}}" />
+                </a>
+            </div><!-- /.single-product-gallery-item -->
+            {% endif %}
+
+
+            {% if get_product.Product_Image4 %}
+            <div class="single-product-gallery-item" id="slide4">
+                <a data-lightbox="image-1" data-title="Gallery" href="{{get_product.Product_Image4}}">
+                    <img class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image4}}" />
+                </a>
+            </div><!-- /.single-product-gallery-item -->
+            {% endif %}
+
+
+
+        </div><!-- /.single-product-slider -->
+
+
+        <div class="single-product-gallery-thumbs gallery-thumbs">
+
+            <div id="owl-single-product-thumbnails">
+                <div class="item">
+                    <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="1" href="#slide1">
+                        <img class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image}}" />
+                    </a>
+                </div>
+
+                {% if get_product.Product_Image2 %}
+                <div class="item">
+                    <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="2" href="#slide2">
+                        <img class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image2}}"/>
+                    </a>
+                </div>
+                {% endif %}
+
+                {% if get_product.Product_Image3 %}
+                <div class="item">
+
+                    <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="3" href="#slide3">
+                        <img class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image3}}" />
+                    </a>
+                </div>
+                {% endif %}
+
+                {% if get_product.Product_Image4 %}
+                <div class="item">
+
+                    <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="4" href="#slide4">
+                        <img class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image4}}" />
+                    </a>
+                </div>
+                {% endif %}
+
+            </div><!-- /#owl-single-product-thumbnails -->
+
+
+
+        </div><!-- /.gallery-thumbs -->
+
+    </div><!-- /.single-product-gallery -->
+</div><!-- /.gallery-holder -->
+                    <div class='col-sm-8 col-md-8 product-info-block'>
+                        <div class="product-info">
+                            <h1 class="name" id="product_name">{{get_product.Product_Name}}</h1>
+
+                            <div class="rating-reviews m-t-20">
+                                <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="pull-left">
+                                        <!--<div class="rating rateit-small"></div>-->
+
+                                    <span id="change_ratings_star_status">
+
+                                        {% if zero %}
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        {% endif %}
+
+                                        {% if poin_five %}
+                                        <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        {% endif %}
+
+                                        {% if one %}
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        {% endif %}
+
+                                        {% if one_point_five %}
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        {% endif %}
+
+                                        {% if two %}
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        {% endif %}
+
+                                        {% if tow_point_five %}
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        {% endif %}
+
+                                        {% if three %}
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        {% endif %}
+
+                                        {% if three_point_five %}
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        {% endif %}
+
+                                        {% if four %}
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        {% endif %}
+
+                                        {% if four_point_five %}
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                                        {% endif %}
+
+                                        {% if five %}
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                                        {% endif %}
+                                    </span>
+
+
+                                    <span id="id_updt_avarage_rat">{{avarage_Total_sum_of_reviews_quentity}}</span>
+                                    </div>
+                                    <div class="pull-left">
+                                        <div class="reviews">
+                                            <a href="#" class="lnk">(<span id="update_reviews">{{get_review}}</span> Reviews)</a>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div><!-- /.row -->
+                            </div><!-- /.rating-reviews -->
+                            {% if get_product.Brand %}
+                            <div class="stock-container info-container m-t-10">
+                                <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="pull-left">
+                                        <div class="stock-box">
+                                            <span class="label">Brand :</span>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left">
+                                        <div class="stock-box">
+                                            <span class="value">{{ get_product.Brand }}</span>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div><!-- /.row -->
+                            </div><!-- /.stock-container -->
+                            {% endif %}
+
+                            <div class="stock-container info-container m-t-10">
+                                <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="pull-left">
+                                        <div class="stock-box">
+                                            <span class="label">Availability :</span>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left">
+                                        <div class="stock-box">
+                                            <span class="value">{{ get_product.Stock_status }}</span>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div><!-- /.row -->
+                            </div><!-- /.stock-container -->
+
+
+
+
+
+                            <div class="description-container m-t-20">
+                                <p>{{get_product.Product_Description | safe}}</p>
+                            </div><!-- /.description-container -->
+
+                            <div class="price-container info-container m-t-30">
+                                <div class="row">
+
+
+                                    <div class="col-sm-12 col-xs-12 col-md-10 col-lg-10">
+                                        <div class="price-box">
+                                            {% if get_product.TYPE_OF_PRODUCTS == 'Simple Product' %}
+
+                                            &#2547;<span class="price" id="product_price">{% if get_product.Discount_Price %}{{get_product.Discount_Price}}{% else %}{{get_product.MRP_Price}}{% endif %}</span>
+                                            <span class="price-strike">{% if get_product.Discount_Price %}&#2547;{{get_product.MRP_Price}}{% endif %}</span>
+                                            {% endif %}
+
+
+                                        </div>
+
+
+
+                                        {% if get_product.TYPE_OF_PRODUCTS != 'Simple Product' %}
+
+                                            <div class="price-box">
+                                                &#2547;<span class="price" id="product_price"></span>
+                                                <span class="price-strike"><span id="price_mrp_attr"></span></span>
+                                            </div>
+                                            {% for i in filter_attri_conct_with_product %}
+
+
+                                            {% if i.Stock_status == 'In stock' %}
+                                                <input type="radio" name="attribut111" id="id_attribut" value="{{i.Discount_Price}},{{i.MRP_Price}},{{i.id}},{%if i.Size %}
+                                                    (Size:{{i.Size}})
+                                                    {% endif %}
+
+                                                    {%if i.Color %}
+                                                    (Color:{{i.Color}})
+                                                    {% endif %}
+
+                                                    {%if i.Flavor %}
+                                                    (Flavor:{{i.Flavor}})
+                                                    {% endif %}
+
+                                                    {%if i.Variation %}
+                                                    (Variation:{{i.Variation}})
+                                                    {% endif %}
+
+                                                    {%if i.Weight %}
+                                                    (Weight:{{i.Weight}})
+                                                    {% endif %}
+
+                                                    {%if i.Volume %}
+                                                    (Volume:{{i.Volume}})
+                                                    {% endif %}
+
+                                                    {%if i.Quantity %}
+                                                    (Quantity:{{i.Quantity}})
+                                                    {% endif %}
+
+
+                                                    {%if i.Values %}
+                                                    (Values:{{i.Values}})
+                                                    {% endif %}
+
+                                                    {%if i.Material_Type %}
+                                                    (Material Type:{{i.Material_Type}})
+                                                    {% endif %}
+
+                                                    {%if i.Product_Type %}
+                                                    (Product Type:{{i.Product_Type}})
+                                                    {% endif %}
+
+                                                    {%if i.Verification %}
+                                                    (Verification:{{i.Verification}})
+                                                    {% endif %}
+
+                                                    {%if i.Quality %}
+                                                    (Quality{{i.Quality}})
+                                                    {% endif %}
+
+                                                    {%if i.Marketing_Claims %}
+                                                    (Marketing Claims:{{i.Marketing_Claims}})
+                                                    {% endif %}
+
+                                                    {%if i.Design %}
+                                                    (Design:{{i.Design}})
+                                                    {% endif %}
+
+                                                    {%if i.Smell %}
+                                                    (Smell:{{i.Smell}})
+                                                    {% endif %}
+
+                                                    {%if i.Reliability %}
+                                                    (Reliability:{{i.Reliability}})
+                                                    {% endif %}
+
+                                                    {%if i.Content %}
+                                                    (Content:{{i.Content}})
+                                                    {% endif %}
+
+                                                    {%if i.Safety %}
+                                                    (Safety:{{i.Safety}})
+                                                    {% endif %}
+
+                                                    {%if i.Package %}
+                                                    (Package:{{i.Package}})
+                                                    {% endif %}
+
+                                                    {%if i.Model %}
+                                                    (Model:{{i.Model}})
+                                                    {% endif %}
+
+                                                    {%if i.Taste %}
+                                                    (Taste:{{i.Taste}})
+                                                    {% endif %}
+
+                                                    {%if i.Feel %}
+                                                    (Feel:{{i.Feel}})
+                                                    {% endif %}
+
+                                                    {%if i.Defferent_Type %}
+                                                    (Defferent Type:{{i.Defferent_Type}})
+                                                    {% endif %}" onchange="change_price_attribute('{{i.Discount_Price}}', '{{i.MRP_Price}}', '{{i.attribute_image_of_product}}')">
+                                                <label for="female">
+                                                    {%if i.Size %}
+                                                    (Size:{{i.Size}})
+                                                    {% endif %}
+
+                                                    {%if i.Color %}
+                                                    (Color:{{i.Color}})
+                                                    {% endif %}
+
+                                                    {%if i.Flavor %}
+                                                    (Flavor:{{i.Flavor}})
+                                                    {% endif %}
+
+                                                    {%if i.Variation %}
+                                                    (Variation:{{i.Variation}})
+                                                    {% endif %}
+
+                                                    {%if i.Weight %}
+                                                    (Weight:{{i.Weight}})
+                                                    {% endif %}
+
+                                                    {%if i.Volume %}
+                                                    (Volume:{{i.Volume}})
+                                                    {% endif %}
+
+                                                    {%if i.Quantity %}
+                                                    (Quantity:{{i.Quantity}})
+                                                    {% endif %}
+
+
+                                                    {%if i.Values %}
+                                                    (Values:{{i.Values}})
+                                                    {% endif %}
+
+                                                    {%if i.Material_Type %}
+                                                    (Material Type:{{i.Material_Type}})
+                                                    {% endif %}
+
+                                                    {%if i.Product_Type %}
+                                                    (Product Type:{{i.Product_Type}})
+                                                    {% endif %}
+
+                                                    {%if i.Verification %}
+                                                    (Verification:{{i.Verification}})
+                                                    {% endif %}
+
+                                                    {%if i.Quality %}
+                                                    (Quality{{i.Quality}})
+                                                    {% endif %}
+
+                                                    {%if i.Marketing_Claims %}
+                                                    (Marketing Claims:{{i.Marketing_Claims}})
+                                                    {% endif %}
+
+                                                    {%if i.Design %}
+                                                    (Design:{{i.Design}})
+                                                    {% endif %}
+
+                                                    {%if i.Smell %}
+                                                    (Smell:{{i.Smell}})
+                                                    {% endif %}
+
+                                                    {%if i.Reliability %}
+                                                    (Reliability:{{i.Reliability}})
+                                                    {% endif %}
+
+                                                    {%if i.Content %}
+                                                    (Content:{{i.Content}})
+                                                    {% endif %}
+
+                                                    {%if i.Safety %}
+                                                    (Safety:{{i.Safety}})
+                                                    {% endif %}
+
+                                                    {%if i.Package %}
+                                                    (Package:{{i.Package}})
+                                                    {% endif %}
+
+                                                    {%if i.Model %}
+                                                    (Model:{{i.Model}})
+                                                    {% endif %}
+
+                                                    {%if i.Taste %}
+                                                    (Taste:{{i.Taste}})
+                                                    {% endif %}
+
+                                                    {%if i.Feel %}
+                                                    (Feel:{{i.Feel}})
+                                                    {% endif %}
+
+                                                    {%if i.Defferent_Type %}
+                                                    (Defferent Type:{{i.Defferent_Type}})
+                                                    {% endif %}
+
+
+                                                    - {% if i.Discount_Price %}MRP : <strike>&#2547; {{i.MRP_Price}}{% endif %}</strike>
+                                                    {% if i.Discount_Price %}Dicount Price : &#2547;{{i.Discount_Price}}{% else %}Price : &#2547;{{i.MRP_Price}}{% endif %}
+
+                                                </label><br>
+                                            {% endif %}
+
+
+
+                                            {% endfor %}
+                                            {% endif %}
+
+                                    </div>
+
+                                    <div class="col-sm-12 col-xs-12 col-md-2 col-lg-2">
+                                        <div class="favorite-button m-t-5" id="wishlist_div_id">
+                                            {% if user.is_authenticated %}
+
+                                                {% if user not in get_product.product_wishlist.all %}
+                                                <a class="btn btn-primary" data-toggle="tooltip" onclick="wishlist()" data-placement="right" title="Wishlist" style="background-color:blue;">
+                                                    <i class="fa fa-heart"></i>
+                                                </a>
+                                                {% else %}
+                                                <a class="btn btn-primary" data-toggle="tooltip" onclick="undo_wishlist()" data-placement="right" title="Wishlist" style="background-color:#F7D93C;">
+                                                    <i class="fa fa-heart"></i>
+                                                </a>
+                                                {% endif %}
+
+
+
+                                            {% else %}
+
+                                            <a class="btn btn-primary" onclick="not_wishlist()" data-toggle="tooltip" data-placement="right" title="Wishlist">
+                                                <i class="fa fa-heart"></i>
+                                            </a>
+                                            {% endif %}
+
+                                            <span id="wishlist_status"></span>
+
+                                        </div>
+                                    </div>
+
+                                </div><!-- /.row -->
+                            </div><!-- /.price-container -->
+
+
+
+
+
+
+
+                            <div class="quantity-container info-container">
+								<div class="row">
+
+									<div class="qty">
+										<span class="label">Qty :</span>
+									</div>
+
+									<div class="qty-count">
+										<div class="cart-quantity">
+											<div class="quant-input">
+								                <div class="arrows">
+								                  <div class="arrow plus gradient"><span class="ir" onclick="increase_number()"><i class="icon fa fa-sort-asc"></i></span></div>
+								                  <div class="arrow minus gradient"><span class="ir" onclick="decrease_number()"><i class="icon fa fa-sort-desc"></i></span></div>
+								                </div>
+								                <input type="text" value="1" id="show_number">
+							              </div>
+							            </div>
+									</div>
+                                    {% if get_product.Stock_status == 'In stock' %}
+									<div class="add-btn">
+										<span id="add_item_btn">
+										<div class="btn btn-primary" onclick="add_to_cart()"><i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</div>
+										</span>
+                                        <input type="hidden" value="{{get_product.slug}}" id="product_id">
+									</div>
+									{% else %}
+									<div class="add-btn">
+										<div class="btn btn-primary" style="background-color:red; color:white;"><i class="fa fa-shopping-cart inner-right-vs"></i> Out of Stock</div>
+									</div>
+									{% endif %}
+
+
+								</div><!-- /.row -->
+							</div><!-- /.quantity-container -->
+
+							{% if get_product.Vendors %}
+							<hr>
+							<div class="row">
+                                <div class="col-sm-12 col-xs-12 col-md-4 col-lg-5">
+                                    <div class="favorite-button m-t-5">
+
+                                        <h4><span style="color:red">Sold By</span> : <a href="{% url 'single_vendor' get_product.Vendors.vendor_phone_no %}">{{get_product.Vendors.vendor_shop_name}}</a></h4>
+                                        <input type="hidden" value="{{get_product.Vendors.id}}" id="reg_vendor_product">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-xs-12 col-md-4 col-lg-4">
+                                    <div class="favorite-button m-t-5">
+                                         <h4><i class="fa fa-shopping-bag" style="color:red;"></i>  {{get_product.vendr_prod_qty}} Products</h3>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-xs-12 col-md-4 col-lg-3">
+                                    <div class="favorite-button m-t-5">
+
+                                        <h4 style="color:red;"><i class="fa fa-map-marker" style="color:red"></i> {{get_product.Vendors.vendor_address}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            {% else %}
+                            <input type="hidden" value="None" id="reg_vendor_product">
+                            {% endif %}
+
+
+
+
+
+
+                        </div><!-- /.product-info -->
+                    </div><!-- /.col-sm-7 -->
+                </div><!-- /.row -->
+                </div>
+
+                <div class="product-tabs inner-bottom-xs  wow fadeInUp">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <ul id="product-tabs" class="nav nav-tabs nav-tab-cell">
+                                <li class="active"><a data-toggle="tab" href="#description">DESCRIPTION</a></li>
+                                <li><a data-toggle="tab" href="#review">REVIEW</a></li>
+                                <!--<li><a data-toggle="tab" href="#tags">TAGS</a></li>-->
+                            </ul><!-- /.nav-tabs #product-tabs -->
+                        </div>
+                        <div class="col-sm-9">
+
+                            <div class="tab-content">
+
+                                <div id="description" class="tab-pane in active">
+                                    <div class="product-tab">
+                                       {{get_product.Long_Product_Description | safe}}
+                                       </div>
+                                </div><!-- /.tab-pane -->
+
+                                <div id="review" class="tab-pane">
+                                    <div class="product-tab">
+
+                                        <div class="product-reviews">
+                                            <h4 class="title">Last 3 Customer Reviews
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            ( <i class="fa fa-star" aria-hidden="true" style="color:#D39C08;"></i> <span id="id_updt_avarage_rat2">{{avarage_Total_sum_of_reviews_quentity}}</span> Average Reviews ) <span style=" color:#D39C08;">(<span id="update_reviews2"> {{get_review}}</span> Reviews) </span></h4>
+
+                                            {% for i in last_three_review %}
+                                            <div class="reviews">
+                                                <div class="review">
+                                                    <div class="review-title"><big>{{i.Customer}}</big> <span style="background-color:#A5D308; color:black;"> &nbsp;({{i.Review_Time}}) </span> &nbsp;&nbsp;&nbsp; <i class="fa fa-star" aria-hidden="true" style="color:#D39C08;"></i>{{i.Ratting_qty}}<br><br>
+                                                        {% if i.Review_Text %}<span class="summary">{{i.Review_Text}}</span>{% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+
+                                            <div id="add_new_review">
+
+                                            </div>
+
+                                        </div>
+
+
+
+                                        <div class="product-add-review">
+                                            <h4 class="title">Write your own review</h4>
+
+                                            <!--<form class="cnt-form" method="POST" action="{% url 'save_customer_review' %}">-->
+                                            <div id="after_submit">
+                                                <div class="review-table">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="cell-label">&nbsp;</th>
+                                                                    <th>1 star</th>
+                                                                    <th>2 stars</th>
+                                                                    <th>3 stars</th>
+                                                                    <th>4 stars</th>
+                                                                    <th>5 stars</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="cell-label">Rating</td>
+                                                                    <td><input type="radio" name="customer_review_rat" class="radio" value="1"></td>
+                                                                    <td><input type="radio" name="customer_review_rat" class="radio" value="2"></td>
+                                                                    <td><input type="radio" name="customer_review_rat" class="radio" value="3"></td>
+                                                                    <td><input type="radio" name="customer_review_rat" class="radio" value="4"></td>
+                                                                    <td><input type="radio" name="customer_review_rat" class="radio" value="5"></td>
+                                                                </tr>
+
+                                                            </tbody>
+                                                        </table><!-- /.table .table-bordered -->
+                                                    </div><!-- /.table-responsive -->
+                                                </div><!-- /.review-table -->
+
+                                                <div class="review-form">
+                                                    <div class="form-container">
+
+                                                            <div>
+                                                                <div class="">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputReview">Review <span class="astk">*</span></label>
+                                                                        <textarea class="form-control txt txt-review" id="exampleInputReview" rows="4" placeholder="Your Review" name="customer_review_text" id="id_customer_review_text"></textarea>
+                                                                        <input type="hidden" value="{{get_product.slug}}" name="prod_review_hash_id" id="id_prod_review_hash_id">
+                                                                    </div><!-- /.form-group -->
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="action text-right">
+                                                                <div id="show_cus_rating_status"></div>
+                                                                <div id="change_btn">
+                                                                    {% if user.is_authenticated %}
+                                                                    <button type="submit" class="btn btn-primary btn-upper" onclick="submit_customer_review()">SUBMIT REVIEW</button>
+                                                                    {% else %}
+                                                                    <a class="btn btn-primary btn-upper" href="{% url 'login_register' %}">Login for giving Review</a>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+
+
+                                                    </div><!-- /.form-container -->
+                                                </div><!-- /.review-form -->
+                                            </div>
+                                            <!--</form>-->
+
+
+                                        </div><!-- /.product-add-review -->
+
+                                    </div><!-- /.product-tab -->
+                                </div><!-- /.tab-pane -->
+
+                                <!--<div id="tags" class="tab-pane">-->
+                                <!--    <div class="product-tag">-->
+
+                                <!--        <h4 class="title">Product Tags</h4>-->
+                                <!--        <form class="form-inline form-cnt">-->
+                                <!--            <div class="form-container">-->
+
+                                <!--                <div class="form-group">-->
+                                <!--                    <label for="exampleInputTag">Add Your Tags: </label>-->
+                                <!--                    <input type="email" id="exampleInputTag" class="form-control txt">-->
+
+
+                                <!--                </div>-->
+
+                                <!--                <button class="btn btn-upper btn-primary" type="submit">ADD TAGS</button>-->
+                                <!--            </div>-->
+                                <!--        </form>-->
+
+                                <!--        <form class="form-inline form-cnt">-->
+                                <!--            <div class="form-group">-->
+                                <!--                <label>&nbsp;</label>-->
+                                <!--                <span class="text col-md-offset-3">Use spaces to separate tags. Use single quotes (') for phrases.</span>-->
+                                <!--            </div>-->
+                                <!--        </form>-->
+
+                                <!--    </div>-->
+                                <!--</div>-->
+
+                            </div><!-- /.tab-content -->
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.product-tabs -->
+
+                <!-- ============================================== UPSELL PRODUCTS ============================================== -->
+<section class="section featured-product wow fadeInUp">
+<div class="row">
+<div class="col-lg-3">
+          <h3 class="section-title">SIMILAR PRODUCT</h3>
+         <div class="ad-imgs">
+         <img class="img-responsive" src="{% static 'details_page/' %}images/banners/home-banner1.jpg" alt="">
+          <img class="img-responsive" src="{% static 'details_page/' %}images/banners/home-banner2.jpg" alt="">
+         </div>
+          </div>
+          <div class="col-lg-9">
+    <div class="owl-carousel homepage-owl-carousel upsell-product custom-carousel owl-theme outer-top-xs">
+
+
+    {% for i in filter_prod_by_cat %}
+        <div class="item item-carousel">
+            <div class="products">
+
+    <div class="product">
+        <div class="product-image">
+            <div class="image">
+                <a href="{% url 'product_details' i.slug %}"><img  src="{{i.Product_Image}}" alt="{{i.Product_Name}}"></a>
+            </div><!-- /.image -->
+
+                        <div class="tag sale"><span>sale</span></div>
+        </div><!-- /.product-image -->
+
+
+        <div class="product-info text-left">
+            <h3 class="name"><a href="{% url 'product_details' i.slug %}">{{i.Product_Name}}</a></h3>
+
+            {% if i.count_rattings == 0 %}
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 0.5 %}
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 1.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 2.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 3.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 4.5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+            {% if i.count_rattings == 5 %}
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+            {% endif %}
+
+
+            <div class="description"></div>
+
+
+
+            <div class="product-price">
+
+                {% if i.TYPE_OF_PRODUCTS == 'Simple Product' %}
+
+                    <span class="price"> ৳<span id="reg_product_price{{i.slug}}">{{i.Discount_Price}}</span> </span>
+                    <span class="price-before-discount">৳ {{i.MRP_Price}}</span>
+                    {% else %}
+
+                    {% for jk in i.first_attr_low_cost_prod %}
+                    <span class="price"> ৳<span id="reg_product_price{{i.slug}}">{{jk.Discount_Price}}</span> </span>
+                    <span class="price-before-discount">৳ {{jk.MRP_Price}}</span>
+
+                    {% endfor %}
+                {% endif %}
+
+            </div><!-- /.product-price -->
+
+        </div><!-- /.product-info -->
+
+            <!--<div class="cart clearfix animate-effect">-->
+            <!--    <div class="action">-->
+            <!--        <ul class="list-unstyled">-->
+            <!--            <li class="add-cart-button btn-group">-->
+            <!--                <button class="btn btn-primary icon" data-toggle="dropdown" type="button">-->
+            <!--                    <i class="fa fa-shopping-cart"></i>-->
+            <!--                </button>-->
+            <!--                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+
+            <!--            </li>-->
+
+            <!--            <li class="lnk wishlist">-->
+            <!--                <a class="add-to-cart" href="detail.html" title="Wishlist">-->
+            <!--                     <i class="icon fa fa-heart"></i>-->
+            <!--                </a>-->
+            <!--            </li>-->
+
+            <!--            <li class="lnk">-->
+            <!--                <a class="add-to-cart" href="detail.html" title="Compare">-->
+            <!--                    <i class="fa fa-signal"></i>-->
+            <!--                </a>-->
+            <!--            </li>-->
+            <!--        </ul>-->
+            <!--    </div> /.action -->
+            <!--</div> /.cart -->
+            </div><!-- /.product -->
+
+            </div><!-- /.products -->
+        </div><!-- /.item -->
+
+        {% endfor %}
+
+
+
+
+            </div><!-- /.home-owl-carousel -->
+            </div>
+            </div>
+</section><!-- /.section -->
+<!-- ============================================== UPSELL PRODUCTS : END ============================================== -->
+             <!-- ============================================== BRANDS CAROUSEL ============================================== -->
+    <div id="brands-carousel" class="logo-slider wow fadeInUp">
+      <div class="logo-slider-inner">
+        <div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
+          <div class="item m-t-15"> <a href="#" class="image"> <img data-echo="{% static 'details_page/' %}images/brands/brand1.png" src="{% static 'details_page/' %}images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+
+          <div class="item m-t-10"> <a href="#" class="image"> <img data-echo="{% static 'details_page/' %}images/brands/brand2.png" src="{% static 'details_page/' %}images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+
+          <div class="item"> <a href="#" class="image"> <img data-echo="{% static 'details_page/' %}images/brands/brand3.png" src="{% static 'details_page/' %}images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+
+          <div class="item"> <a href="#" class="image"> <img data-echo="{% static 'details_page/' %}images/brands/brand4.png" src="{% static 'details_page/' %}images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+
+          <div class="item"> <a href="#" class="image"> <img data-echo="{% static 'details_page/' %}images/brands/brand5.png" src="{% static 'details_page/' %}images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+
+          <div class="item"> <a href="#" class="image"> <img data-echo="{% static 'details_page/' %}images/brands/brand6.png" src="{% static 'details_page/' %}images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+
+          <div class="item"> <a href="#" class="image"> <img data-echo="{% static 'details_page/' %}images/brands/brand2.png" src="{% static 'details_page/' %}images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+
+          <div class="item"> <a href="#" class="image"> <img data-echo="{% static 'details_page/' %}images/brands/brand4.png" src="{% static 'details_page/' %}images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+
+          <div class="item"> <a href="#" class="image"> <img data-echo="{% static 'details_page/' %}images/brands/brand1.png" src="{% static 'details_page/' %}images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+
+          <div class="item"> <a href="#" class="image"> <img data-echo="{% static 'details_page/' %}images/brands/brand5.png" src="{% static 'details_page/' %}images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+        </div>
+        <!-- /.owl-carousel #logo-slider -->
+      </div>
+      <!-- /.logo-slider-inner -->
+
+    </div>
+    <!-- /.logo-slider -->
+    <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
+            </div><!-- /.col -->
+            <div class="clearfix"></div>
+          </div>
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="show_wishlist_status" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">You Have to Login First !</h5>
+
+      </div>
+      <div class="modal-body">
+         To Make Wishlist Any Product you must Logged in first. So that any where you can find your wishlist.
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="btn btn-primary" href="{% url 'login_register' %}" data-bs-dismiss="modal">Login Or SignUp</a>
+        <button type="button" class="btn btn-primary" onclick="close_modal22()" data-bs-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- For demo purposes – can be removed on production -->
+
+<!-- For demo purposes – can be removed on production : End -->
+
+<!-- JavaScripts placed at the end of the document so the pages load faster -->
+    <script src="{% static 'details_page/' %}js/jquery-1.11.1.min.js"></script>
+
+<!--    <script src="{% static 'details_page/' %}js/bootstrap.min.js"></script>-->
+
+    <script src="{% static 'details_page/' %}js/bootstrap-hover-dropdown.min.js"></script>
+    <script src="{% static 'details_page/' %}js/owl.carousel.min.js"></script>
+
+    <script src="{% static 'details_page/' %}js/echo.min.js"></script>
+    <script src="{% static 'details_page/' %}js/jquery.easing-1.3.min.js"></script>
+    <script src="{% static 'details_page/' %}js/bootstrap-slider.min.js"></script>
+    <script src="{% static 'details_page/' %}js/jquery.rateit.min.js"></script>
+    <script src="{% static 'details_page/' %}js/lightbox.min.js"></script>
+    <script src="{% static 'details_page/' %}js/bootstrap-select.min.js"></script>
+    <script src="{% static 'details_page/' %}js/wow.min.js"></script>
+    <script src="{% static 'details_page/' %}js/scripts.js"></script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="added_to_cart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Successfully Added !</h5>
+
+      </div>
+      <div class="modal-body">
+        This Item is Added
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="close_modal()" data-bs-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+
+{% if get_product.TYPE_OF_PRODUCTS != 'Simple Product' %}
+<script>
+        $('input[name="attribut111"]').first().prop('checked', true)
+
+        var check_prod_attr = $("input:radio[name=attribut111]:checked").val();
+
+        var nameArr = check_prod_attr.split(',');
+
+
+        if(nameArr[0] == 'None'){
+            document.getElementById('product_price').innerHTML = nameArr[1];
+            document.getElementById('price_mrp_attr').innerHTML = "";
+        }
+        else{
+            document.getElementById('product_price').innerHTML = nameArr[0];
+            document.getElementById('price_mrp_attr').innerHTML = '&#2547;'+nameArr[1];
+        }
+
+
+
+        var check_prod_attr_id = $('input[type=radio][name=attribut111]:checked').attr('id')
+        console.log(check_prod_attr_id)
+
+
+
+
+
+function change_price_attribute(dis_price, mrp_price, attr_img){
+    console.log('dis_price1212')
+    console.log(dis_price)
+    console.log(mrp_price)
+    console.log(attr_img)
+
+    if(dis_price == 'None'){
+        document.getElementById('product_price').innerHTML = mrp_price;
+        document.getElementById('price_mrp_attr').innerHTML = "";
+    }
+    else{
+    document.getElementById('product_price').innerHTML = dis_price;
+    document.getElementById('price_mrp_attr').innerHTML = '&#2547;'+ mrp_price;
+    }
+
+
+
+    document.getElementById('show_attr_img').innerHTML = `<div class="single-product-gallery-item" id="slide1">
+                    <a data-lightbox="image-1" data-title="Gallery" href="${attr_img}">
+                        <img class="img-responsive" alt="" src="${attr_img}" data-echo="${attr_img}" />
+                    </a>
+                </div>`;
+
+
+
+}
+</script>
+{% endif %}
+
+<script>
+
+function wishlist(){
+    document.getElementById('wishlist_div_id').innerHTML = `<a class="btn btn-primary" data-toggle="tooltip" onclick="undo_wishlist()" data-placement="right" title="Wishlist" style="background-color:#F7D93C;">
+                                                <i class="fa fa-heart"></i>
+                                            </a>`
+    var product_id = document.getElementById("product_id").value;
+    $.ajax({
+            url : '{% url 'add_reguler_product_wishlist' %}',
+            type : 'POST',
+            data : {product_id:product_id}
+        })
+        .done(function(response){})
+}
+
+
+
+function undo_wishlist(){
+    document.getElementById('wishlist_div_id').innerHTML = `<a class="btn btn-primary" data-toggle="tooltip" onclick="wishlist()" data-placement="right" title="Wishlist" style="background-color:blue;">
+                                                <i class="fa fa-heart"></i>
+                                            </a>`
+
+    var product_id = document.getElementById("product_id").value;
+    $.ajax({
+            url : '{% url 'remove_reguler_product_wishlist' %}',
+            type : 'POST',
+            data : {product_id:product_id}
+        })
+        .done(function(response){})
+}
+
+
+function not_wishlist(){
+    $('#show_wishlist_status').modal('show');
+}
+
+function close_modal22(){
+    $('#show_wishlist_status').modal('hide');
+}
+
+
+
+
+
+picture_product = '{{get_product.Product_Image}}';
+console.log(picture_product)
+
+
+
+//increase_number
+function increase_number(){
+    var now_number = document.getElementById("show_number").value;
+    console.log(now_number)
+    var b = parseInt(now_number);
+    now_number=b+1;
+    console.log(now_number)
+    document.getElementById("show_number").value = now_number
+}
+
+//decrease_number
+function decrease_number(){
+    var now_number = document.getElementById("show_number").value;
+    console.log(now_number)
+    var b = parseInt(now_number);
+    if(b==1 || b<1){
+
+    }
+    else{
+    now_number=b-1;
+    document.getElementById("show_number").value = now_number
+    }
+}
+
+
+//add_to_cart()
+function add_to_cart(){
+    console.log('clicked add to cart');
+    var product_id = document.getElementById("product_id").value;
+
+    var checked_prod_attr = $("input:radio[name=attribut111]:checked").val();
+    console.log(checked_prod_attr)
+
+
+    if(checked_prod_attr == undefined){
+        console.log('no_atrr')
+        atrr = 'no-attr-'
+        atrr_full_text = undefined
+        atrr2 = 0
+    }
+    else{
+        console.log('atrr')
+        console.log(checked_prod_attr)
+        var nameArr = checked_prod_attr.split(',');
+        console.log(nameArr[2])
+        atrr2 = nameArr[2]
+        console.log('atrr2')
+        console.log(atrr2)
+
+        atrr = `attr-id-(${atrr2})`
+        console.log(atrr)
+
+        atrr_full_text = nameArr[3]
+        console.log(atrr_full_text)
+    }
+
+    product_id_with_atrr = atrr+product_id
+    console.log(product_id_with_atrr)
+
+    console.log(product_cart)
+
+    if(product_cart == null){
+        product_cart={}
+    }
+
+    if(product_cart[product_id_with_atrr] != undefined){
+        console.log('old')
+        //document.getElementById('add_item_btn').innerHTML = `<div class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> Adding</div>`;
+        var qty = document.getElementById("show_number").value;
+        console.log(qty)
+        product_cart[product_id_with_atrr][0] = product_cart[product_id_with_atrr][0] + parseInt(qty);
+        document.getElementById("show_number").value = '1'
+        updateCart(product_cart);
+    }
+
+    else{
+
+        var qty = document.getElementById("show_number").value;
+        console.log(qty);
+
+        name = document.getElementById("product_name").innerHTML;
+        console.log(name)
+        price = document.getElementById("product_price").innerHTML;
+        console.log(price)
+
+
+        console.log('var_vendor')
+        var_vendor =document.getElementById("reg_vendor_product").value;
+
+        console.log(var_vendor)
+
+        var_campaign = 'Reguler Product'
+
+        varcam_free_delivery = "False"
+
+        product_cart[product_id_with_atrr] = [parseInt(qty), name, parseInt(price), picture_product, product_id, var_campaign, var_vendor, varcam_free_delivery, product_id_with_atrr, atrr2, atrr_full_text];
+        console.log(product_cart[product_id_with_atrr]);
+        console.log('new')
+
+        updateCart(product_cart,product_id);
+
+
+        document.getElementById("show_number").value = '1'
+
+    }
+
+
+
+
+
+
+// 	$('#added_to_cart').modal('show');
+}
+
+//close_modal
+function close_modal(){
+    $('#email_active_notification').modal('hide');
+}
+
+
+
+
+function submit_customer_review(){
+    console.log('review')
+    document.getElementById('show_cus_rating_status').innerHTML = `<span style="color:green;">Please Wait ....</span>`
+
+    var qty_customer_ratings = $("input:radio[name=customer_review_rat]:checked").val();
+    console.log(qty_customer_ratings)
+
+    if(qty_customer_ratings == undefined){
+        document.getElementById('show_cus_rating_status').innerHTML = `<span style="color:red;">Select Rating For Submit</span>`
+    }
+    else{
+        document.getElementById('change_btn').innerHTML = `<button type="submit" class="btn btn-warning btn-upper">SUBMITING REVIEW...</button>`;
+
+        var varid_prod_review_hash_id = document.getElementById('id_prod_review_hash_id').value;
+        console.log(varid_prod_review_hash_id)
+
+        var varid_customer_review_text = $("textarea").val();
+        console.log(varid_customer_review_text)
+
+        $.ajax({
+                url : '{% url 'save_customer_review' %}',
+                type : 'POST',
+                data : {qty_customer_ratings:qty_customer_ratings, varid_prod_review_hash_id:varid_prod_review_hash_id, varid_customer_review_text:varid_customer_review_text}
+            })
+            .done(function(response){
+                console.log(response);
+
+                if(response != "False"){
+
+                    document.getElementById('after_submit').innerHTML =
+                                            `<div class="review-table">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="cell-label">&nbsp;</th>
+                                                                    <th>1 star</th>
+                                                                    <th>2 stars</th>
+                                                                    <th>3 stars</th>
+                                                                    <th>4 stars</th>
+                                                                    <th>5 stars</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="cell-label">Rating</td>
+                                                                    <td><input type="radio" name="customer_review_rat" class="radio" value="1"></td>
+                                                                    <td><input type="radio" name="customer_review_rat" class="radio" value="2"></td>
+                                                                    <td><input type="radio" name="customer_review_rat" class="radio" value="3"></td>
+                                                                    <td><input type="radio" name="customer_review_rat" class="radio" value="4"></td>
+                                                                    <td><input type="radio" name="customer_review_rat" class="radio" value="5"></td>
+                                                                </tr>
+
+                                                            </tbody>
+                                                        </table><!-- /.table .table-bordered -->
+                                                    </div><!-- /.table-responsive -->
+                                                </div><!-- /.review-table -->
+
+                                                <div class="review-form">
+                                                    <div class="form-container">
+
+                                                            <div>
+                                                                <div class="">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputReview">Review <span class="astk">*</span></label>
+                                                                        <textarea class="form-control txt txt-review" id="exampleInputReview" rows="4" placeholder="Your Review" name="customer_review_text" id="id_customer_review_text"></textarea>
+                                                                        <input type="hidden" value="{{get_product.slug}}" name="prod_review_hash_id" id="id_prod_review_hash_id">
+                                                                    </div><!-- /.form-group -->
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="action text-right">
+                                                                <div id="show_cus_rating_status"></div>
+                                                                <div id="change_btn">
+                                                                    {% if user.is_authenticated %}
+                                                                    <button type="submit" class="btn btn-primary btn-upper" onclick="submit_customer_review()">SUBMIT REVIEW</button>
+                                                                    {% else %}
+                                                                    <a class="btn btn-primary btn-upper" href="{% url 'login_register' %}">Login for giving Review</a>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+
+
+                                                    </div>
+                                                </div>`;
+
+                    document.getElementById('show_cus_rating_status').innerHTML = `<span style="color:green;">Your Review Is Posted !!</span>`
+                    console.log('test_reviw')
+                    document.getElementById('add_new_review').innerHTML = `<div style="background-color:#FFF6C7; padding-left:22px; padding-top:25px; padding-bottom:28px; padding-right:22px; margin-bottom:20px;>
+                                                                                <div class="review">
+                                                                                    <div class="review-title"><big>{{request.user}}</big> <span style="background-color:#A5D308; color:black;"> &nbsp;(now) </span> &nbsp;&nbsp;&nbsp; <i class="fa fa-star" aria-hidden="true" style="color:#D39C08;"></i>${qty_customer_ratings}<br><br>
+                                                                                        <i>${varid_customer_review_text}</i>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>`;
+
+                    document.getElementById('update_reviews').innerHTML = `${response}`;
+                    document.getElementById('update_reviews2').innerHTML = `${response}`;
+
+                    console.log(varid_prod_review_hash_id)
+                    funcupdate_avarage_rat(varid_prod_review_hash_id)
+
+                    func_update_star_rat(varid_prod_review_hash_id)
+
+                }
+                else{
+                    document.getElementById('show_cus_rating_status').innerHTML = `<span style="color:red;">Your Review Is Not Posted !!</span>`
+
+                }
+            })
+
+            .fail(function(){
+                console.log("Failed");
+                document.getElementById('show_cus_rating_status').innerHTML = `<span style="color:red;">Internal Problem !!</span>`
+            })
+    }
+
+}
+
+
+
+
+function funcupdate_avarage_rat(varid_prod_review_hash_id){
+    $.ajax({
+            url : '{% url 'update_avarage_rat_url' %}',
+            type : 'POST',
+            data : {varid_prod_review_hash_id:varid_prod_review_hash_id}
+        })
+
+        .done(function(response){
+                console.log(response);
+
+                if(response != "False"){
+
+                    document.getElementById('id_updt_avarage_rat').innerHTML = `${response}`;
+                    document.getElementById('id_updt_avarage_rat2').innerHTML = `${response}`;
+
+                }
+                else{
+                    document.getElementById('show_cus_rating_status').innerHTML = `<span style="color:red;">Your Review Is Not Posted !!</span>`
+
+                }
+            })
+
+        .fail(function(){
+            console.log("Failed");
+        })
+}
+
+
+
+
+function func_update_star_rat(varid_prod_review_hash_id){
+    $.ajax({
+            url : '{% url 'func_update_star_rat_url' %}',
+            type : 'POST',
+            data : {varid_prod_review_hash_id:varid_prod_review_hash_id}
+        })
+
+        .done(function(response){
+                console.log(response);
+
+
+
+                if(response == "zero"){
+                    document.getElementById('change_ratings_star_status').innerHTML = `<i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>`;
+                }
+                else if(response == "poin_five"){
+                    document.getElementById('change_ratings_star_status').innerHTML = `<i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>`;
+
+                }
+                else if(response == "one"){
+                    document.getElementById('change_ratings_star_status').innerHTML = `<i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>`;
+
+                }
+
+
+                else if(response == "one_point_five"){
+                    document.getElementById('change_ratings_star_status').innerHTML = `<i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>`;
+
+                }
+
+
+                else if(response == "two"){
+                    document.getElementById('change_ratings_star_status').innerHTML = `<i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>`;
+
+                }
+
+
+                else if(response == "tow_point_five"){
+                    document.getElementById('change_ratings_star_status').innerHTML = `<i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>`;
+
+                }
+
+                else if(response == "three"){
+                    document.getElementById('change_ratings_star_status').innerHTML = `<i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>`;
+
+                }
+
+
+                else if(response == "three_point_five"){
+                    document.getElementById('change_ratings_star_status').innerHTML = `<i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>`;
+                }
+
+                else if(response == "four"){
+                    document.getElementById('change_ratings_star_status').innerHTML = `<i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>`;
+                }
+
+                else if(response == "four_point_five"){
+                    document.getElementById('change_ratings_star_status').innerHTML = `<i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>`;
+                }
+
+                else if(response == "five"){
+                    document.getElementById('change_ratings_star_status').innerHTML = `<i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                    <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>`;
+                }
+            })
+
+        .fail(function(){
+            console.log("Failed");
+        })
+}
+
+
+</script>
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+
+</body>
+{% endblock %}

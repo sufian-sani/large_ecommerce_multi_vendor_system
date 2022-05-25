@@ -1,0 +1,246 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% block content %}
+
+<h3>{% if get_orders.Order_Campaign %}Campaign : {{get_orders.Order_Campaign}}{% else %}Reguler Order :{% endif %}</h3>
+<div class="panel panel-default checkout-step-03">
+		    <div class="panel-heading">
+		      <h4 class="unicase-checkout-title">
+		        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseThree">
+		       		Order Review &amp; Payment
+		        </a>
+		      </h4>
+		    </div>
+
+		    <div id="collapseThree22"><div class="panel-body">
+		      <h4 class="checkout-subtitle">Order Product</h4>
+                <div style="border:1px solid #adadad; padding:10px; margin-bottom:15px;">
+                  <table class="tg" style="width: 100%;">
+                    <colgroup>
+                      <col style="width: 43px">
+                      <col style="width: 231px">
+                      <col style="width: 99px">
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th class="tg-c3ow">Sl</th>
+                        <th class="tg-c3ow">Product</th>
+                          <th class="tg-c3ow">Qty</th>
+                          <th class="tg-c3ow">Price</th>
+                          <th class="tg-c3ow">Price x Qty</th>
+                        </tr>
+                      </thead>
+                      <tbody id="show_itemss_checkout_page">
+                          {% for i in filter_orders_prod %}
+                          <tr>
+                              <td class="tg-baqh">{{forloop.counter}}.</td>
+                              <td class="tg-baqh">{{i.Product}}</td>
+                              <td class="tg-baqh"><span id="order_qty">{{i.Quantity}}</span></td>
+                              <td class="tg-baqh">৳<span id="order_price">{{i.then_price}}</span></td>
+                              <td class="tg-baqh">৳{{i.SubTotal_Price}}</td>
+                            </tr>
+                            {% endfor %}
+
+                <tr>
+                  <td class="tg-baqh"></td>
+                  <td class="tg-baqh"></td>
+                  <td class="tg-baqh"></td>
+                  <td class="tg-baqh">SubTotal</td>
+                  <td class="tg-baqh">৳<span id="order_price_qty">{{get_orders.SubTotal_Price}}</span></td>
+                </tr>
+
+                <tr>
+                  <td class="tg-baqh"></td>
+                  <td class="tg-baqh"></td>
+                  <td class="tg-baqh"></td>
+                  <td class="tg-baqh">Delivery</td>
+                  <td class="tg-baqh">৳{{get_orders.Delivery_Charge}}</td>
+                </tr>
+
+                <tr>
+                  <td class="tg-baqh"></td>
+                  <td class="tg-baqh"></td>
+                  <td class="tg-baqh"></td>
+                  <td class="tg-baqh">Grand Total</td>
+                  <td class="tg-baqh">৳{{get_orders.GrandTotal_Price}}</td>
+                </tr>
+
+                <tr>
+                  <td class="tg-baqh"></td>
+                  <td class="tg-baqh"></td>
+                  <td class="tg-baqh"></td>
+                  <td class="tg-baqh">Partial Price</td>
+                  <td class="tg-baqh">৳{{get_orders.Partial_Price}}</td>
+                </tr>
+
+                <tr>
+                  <td class="tg-baqh"></td>
+                  <td class="tg-baqh"></td>
+                  <td class="tg-baqh"></td>
+                  <td class="tg-baqh">Due Price</td>
+                  <td class="tg-baqh">৳{{get_orders.Due_price}}</td>
+                </tr>
+
+                </tbody>
+                    </table>
+                </div>
+
+                <!--<h4 class="checkout-subtitle">Delivery Options</h4>-->
+                <!--  <p>Please select delivery method:</p>-->
+
+
+                <!--  {% if get_orders.Shopping == "Pickup From BoomBoom Office" %}-->
+                <!--      {% if get_orders.Customer_delivery_information.District == 'Dhaka' %}-->
+                <!--      <input type="radio" name="bedStatus" id="allot" value="60" onchange="my_function('60')">-->
+                <!--      <label for="male">Inside Dhaka For Products less than 1KG (BDT 60)</label><br>-->
+                <!--      {% else %}-->
+                <!--      <input type="radio" name="bedStatus" id="allot" checked="checked" value="120" onchange="my_function('120')">-->
+                <!--      <label for="male">Outside Dhaka For Products less than 1KG (BDT 120)</label><br>-->
+                <!--      {% endif %}-->
+
+
+                <!--  <input type="radio" name="bedStatus" id="allot" checked="checked" value="0" onchange="my_function('0')">-->
+                <!--  <label for="female">Pickup From BoomBoom Office</label><br>-->
+
+                <!--  {% else %}-->
+                <!--        {% if get_orders.Customer_delivery_information.District == 'Dhaka' %}-->
+                <!--      <input type="radio" name="bedStatus" id="allot" checked="checked" value="60" onchange="my_function('60')">-->
+                <!--      <label for="male">Inside Dhaka For Products less than 1KG (BDT 60)</label><br>-->
+                <!--      {% else %}-->
+                <!--      <input type="radio" name="bedStatus" id="allot" checked="checked" value="120" onchange="my_function('120')">-->
+                <!--      <label for="male">Outside Dhaka For Products less than 1KG (BDT 120)</label><br>-->
+                <!--      {% endif %}-->
+
+
+                <!--  <input type="radio" name="bedStatus" id="allot" value="0" onchange="my_function('0')">-->
+                <!--  <label for="female">Pickup From BoomBoom Office</label><br>-->
+                <!--  {% endif %}-->
+
+
+
+		      </div>
+		      <br>
+		      <hr>
+
+
+		      <div class="panel-body">
+                <h4 class="checkout-subtitle">Payment Options</h4>
+
+                  <p>Please select payment method:</p>
+                  <input type="radio" id="pay_online" name="pay_radio" value="Pay Online With SSLCommerz(Credit/Debit Card/MobileBanking/NetBanking/bKash)" onchange="payment_option('pay_online')">
+                  <label for="male">Pay Online With SSLCommerz(Credit/Debit Card/MobileBanking/NetBanking/bKash)</label><br>
+                  <input type="radio" id="pay_online_nagad" name="pay_radio" value="Pay With Nagad" onchange="payment_option('pay_online_nagad')">
+                  <label for="male">Pay With Nagad</label><br>
+                  <input type="radio" id="pay_online_bkash" name="pay_radio" value="Pay With Bkash" onchange="payment_option('pay_online_bkash')">
+                  <label for="male">Pay With Bkash</label><br>
+                  <input type="radio" id="direct_bank_deposit" name="pay_radio" value="Bank Deposit" onchange="payment_option('direct_bank_deposit')">
+                  <label for="female">Bank Deposit</label><br>
+
+
+
+
+                  <div id="show_pay_status"></div>
+
+
+
+                    <input type="hidden" value="47" id="customer_deli_info_id">
+                    <button style="margin-top:15px;" type="submit" class="btn-upper btn btn-primary checkout-page-button" onclick="save_all_the_orders()">Place Order</button>
+
+
+			    </div></div>
+
+	  	</div>
+
+
+
+<script>
+
+
+
+
+    var varorder_price_qty = document.getElementById('order_price_qty').innerHTML;
+    var varshow_delivery_charge = document.getElementById('show_delivery_charge').innerHTML;
+    var prod_charge = parseInt(varorder_price_qty)+ parseInt(varshow_delivery_charge);
+    document.getElementById('show_subtotalss').innerHTML = prod_charge;
+
+
+
+
+
+     function my_function(val){
+        delivery_charge = parseInt(val)
+        document.getElementById('show_delivery_charge').innerHTML = delivery_charge;
+
+        get_sub_total = document.getElementById('order_price_qty').innerHTML;
+        get_sub_total2 = parseInt(get_sub_total);
+
+        document.getElementById('show_subtotalss').innerHTML = get_sub_total2+delivery_charge;
+     }
+
+
+
+
+function payment_option(val){
+    if(val=='pay_online'){
+        document.getElementById('show_pay_status').innerHTML=`Pay securely by Credit/Debit card, Internet banking or Mobile banking through SSLCommerz.`
+    }
+    else if(val=='pay_online_nagad'){
+        document.getElementById('show_pay_status').innerHTML=`Nagad Payment Gateway for our fellow customers who use Nagad.`
+    }
+
+    else if(val=='pay_online_bkash'){
+        document.getElementById('show_pay_status').innerHTML=`Follow the steps to make a merchant payment:<br><br>
+        Step 1: Place an order.<br>
+        Step 2: Copy the Order ID<br>
+        Step 3: Go to phone dialer and dial *247# Or Open Bkash Mobile App<br>
+        Step 4: Select Payment<br>
+        Step 5: Enter Merchant Phone Number (01732130050)<br>
+        Step 6: Enter your Order ID in Reference ID<br>
+        Step 7: Make Payment & email us your transaction ID, bkash phone number & Order ID at bkash@boomboom.com.bd<br>`
+    }
+
+    else if(val=='direct_bank_deposit'){
+        document.getElementById('show_pay_status').innerHTML=
+        `Follow the information below for bank payment:</br></br>
+        1. Deposit the total check amount to the bank provided below.</br>
+        2. Write down the order ID in your bank deposit slip.</br>
+        3. Then take a picture of your deposit slip and mail it to payment@boomboom.com.bd</br></br>
+
+        Account Name : BOOM BOOM LIMITED</br>
+        Account Number : 1091030250814</br>
+        Routing Number : 095260721</br>
+        Branch Name : Banasree</br>
+        Bank Name : Eastern Bank Limited</br></br>
+
+        Account Name : BOOM BOOM LIMITED</br>
+        Account Number : 1831200001716</br>
+        Routing Number : 090260926</br>
+        Branch Name : Dakshinkhan</br>
+        Bank Name : Dutch-Bangla Bank Limited`
+    }
+
+    else{
+        document.getElementById('show_pay_status').innerHTML=`<span class="badge bg-secondary">You can Continue for now. You Can pay later !!</span>`
+    }
+
+
+    document.getElementById('show_delivery_charge').innerHTML = `&#2547;`+delivery_charge;
+
+    get_sub_total = document.getElementById('need_current_sub').innerHTML;
+    get_sub_total2 = parseInt(get_sub_total);
+
+    document.getElementById('show_subtotalss').innerHTML = get_sub_total2+delivery_charge;
+ }
+
+</script>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

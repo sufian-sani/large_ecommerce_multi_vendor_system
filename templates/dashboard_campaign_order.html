@@ -1,0 +1,742 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load post_tags %}
+
+
+
+{% block body %}
+
+
+<!-- Main content -->
+		<section class="content">
+			<!-- Content Header (Page header) -->
+         <div class="row">
+			  <div class="col-12">
+			      <h3>Campaign Order</h3>
+				<div class="box">
+				  <div class="box-body">
+					  <label><span class="text-bold text-primary">Showing Payment Status By</span>
+						<div class="table-responsive">
+							<div id="productorder_wrappere" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+								<div class="row">
+								<div class="col-1.5 m-1">
+								<form action="{% url 'dashboard_order_filter_campaign' %}" method="GET">
+
+									<button class="btn {% if pending %}btn-warning{% else %}btn-primary{% endif %} btn-sm" value="Pending payment" name="order_Pending_payment_filtere" type="submit">
+									 Pending payment ({% count_Pending_payment_campaign %})
+								</button>
+								</form>
+								</div>
+								
+								
+								
+								<!--this is for multiple invoice-->
+								<form action="{% url 'sending_value_to_creat_multiple_invoice' %}" method="POST" id="my_login_form" target="_blank"> {% csrf_token %}
+
+
+									<input type="hidden" name="rrrr" id="ytuyjij">
+
+								</form>
+								<!--end of this is for multiple invoice-->
+								
+								
+								<!--this is for multiple csv-->
+								<form action="{% url 'sending_value_to_creat_multiple_csv' %}" method="POST" id="my_login_form_multiple_csv" target="_blank"> {% csrf_token %}
+
+
+									<input type="hidden" name="rrrr_multiple_csv" id="ytuyjij_multiple_csv">
+
+								</form>
+								<!--end of this is for multiple csv-->
+								
+								
+								
+								
+								<div class="col-1.5 m-1">
+								<form action="{% url 'dashboard_order_filter_campaign' %}" method="GET">
+									<button class="btn {% if process %}btn-warning{% else %}btn-primary{% endif %} btn-sm" value="Processing" name="order_Processing_filter" type="submit">
+									 Processing ({% count_Processing_campaign %})
+								</button>
+								</form>
+								</div>
+
+								<div class="col-1.5 m-1">
+								<form action="{% url 'dashboard_order_filter_campaign' %}" method="GET">
+									<button class="btn {% if Completed %}btn-warning{% else %}btn-primary{% endif %} btn-sm" value="Completed" name="order_Completed_filter" type="submit">
+									 Completed ({% count_Completed_campaign %})
+								</button>
+								</form>
+								</div>
+
+								<div class="col-1.5 m-1">
+								<form action="{% url 'dashboard_order_filter_campaign' %}" method="GET">
+									<button class="btn {% if Cancelled %}btn-warning{% else %}btn-primary{% endif %} btn-sm" value="Cancelled" name="order_Cancelled_filter" type="submit">
+									 Cancelled ({% count_Cancelled_campaign %})
+								</button>
+								</form>
+								</div>
+
+								<div class="col-1.5 m-1">
+								<form action="{% url 'dashboard_order_filter_campaign' %}" method="GET">
+									<button class="btn {% if Refunded %}btn-warning{% else %}btn-primary{% endif %} btn-sm" value="Refunded" name="order_Refunded_filter" type="submit">
+									 Refunded ({% count_Refunded_campaign %})
+								</button>
+								</form>
+								</div>
+
+								<div class="col-1.5 m-1">
+								<form action="{% url 'dashboard_order_filter_campaign' %}" method="GET">
+									<button class="btn {% if Picked %}btn-warning{% else %}btn-primary{% endif %} btn-sm" value="Picked" name="order_Picked_filter" type="submit">
+									 Picked ({% count_Picked_campaign %})
+								</button>
+								</form>
+								</div>
+
+								<div class="col-1.5 m-1">
+								<form action="{% url 'dashboard_order_filter_campaign' %}" method="GET">
+									<button class="btn {% if hold %}btn-warning{% else %}btn-primary{% endif %} btn-sm" value="On hold" name="order_On_hold_filter" type="submit">
+									 On hold ({% count_On_hold_campaign %})
+								</button>
+								</form>
+								</div>
+
+								<div class="col-1.5 m-1">
+								<form action="{% url 'dashboard_order_filter_campaign' %}" method="GET">
+									<button class="btn {% if deposite %}btn-warning{% else %}btn-primary{% endif %} btn-sm" value="Deposited" name="order_Deposited_filter" type="submit">
+									 Deposited({% count_deposit_slip_campaign %})
+								</button>
+								</form>
+								</div>
+
+
+								</div>
+								<div>
+								<form action="{% url 'dashboard_order_filter_campaign' %}" method="GET">
+									<button class="btn {% if Orders %}btn-warning{% else %}btn-primary{% endif %} btn-sm" value="All Orders" name="order_All_Orders_filter" type="submit">
+									 All Orders({% count_All_Orders_campaign %})
+								</button>
+								</form>
+								</div>
+
+						    </div>
+					    </div>
+				    </div>
+				</div>
+			  </div>
+	     </div>
+
+
+
+		<div class="row">
+			  <div class="col-8">
+				<div class="box">
+				  <div class="box-body">
+					  <label><span class="text-bold text-primary">Showing By Date</span>
+					<div class="table-responsive">
+						<div id="productorder_wsrappere" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+
+							<form method="GET" action="{% url 'dashboard_order_filter_campaign' %}">
+								{% if pending %}
+									<input type="hidden" name="order_status" value="Pending payment">
+								{% elif process %}
+									<input type="hidden" name="order_status" value="Processing">
+								{% elif Completed %}
+									<input type="hidden" name="order_status" value="Completed">
+								{% elif Cancelled %}
+									<input type="hidden" name="order_status" value="Cancelled">
+								{% elif Refunded %}
+									<input type="hidden" name="order_status" value="Refunded">
+								{% elif Picked %}
+									<input type="hidden" name="order_status" value="Picked">
+								{%elif hold%}
+									<input type="hidden" name="order_status" value="On hold">
+								{% elif deposite %}
+								    <input type="hidden" name="order_status" value="deposite">
+								{% elif Orders %}
+									<input type="hidden" name="order_status" value="All Orders">
+								{% endif %}
+
+								Start Date : <input name="order_Start_Date_filter" type="date" value="{{order_Start_Date_filter}}">
+								End Date : <input name="order_End_Date_filter" type="date" value="{{order_End_Date_filter}}">
+								<button type="submit" class="btn btn-primary" >submit</button>
+							</form>
+
+						</div>
+						{% if all_ordr_qty %}
+							
+							<div class="alert alert-warning d-flex align-items-center mt-2" role="alert">
+								  
+								  <div>
+									&#128512; About {{all_ordr_qty}} Results Found &#128512;
+								  </div>
+								</div>
+							{% endif %}
+					</div>
+				  </div>
+				</div>
+			  </div>
+			  
+			  <div class="col-md-4">
+			      <div class="box">
+				  <div class="box-body">
+    					<div class="table-responsive">
+    						<div id="productorder_wsrappere" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+    						    <form method="GET" action="{% url 'search_order_id_campaign' %}">
+    						        
+    						        {% if pending %}
+    									<input type="hidden" name="order_status" value="Pending payment">
+    								{% elif process %}
+    									<input type="hidden" name="order_status" value="Processing">
+    								{% elif Completed %}
+    									<input type="hidden" name="order_status" value="Completed">
+    								{% elif Cancelled %}
+    									<input type="hidden" name="order_status" value="Cancelled">
+    								{% elif Refunded %}
+    									<input type="hidden" name="order_status" value="Refunded">
+    								{% elif Picked %}
+    									<input type="hidden" name="order_status" value="Picked">
+    								{%elif hold%}
+    									<input type="hidden" name="order_status" value="On hold">
+    								{% elif deposite %}
+    								    <input type="hidden" name="order_status" value="deposite">
+    								{% elif Orders %}
+    									<input type="hidden" name="order_status" value="All Orders">
+    								{% endif %}
+    						        
+    						        <select name="search_status" aria-controls="productorder" class="form-control form-control-sm my-2" id="id_show_entries">
+        								<option value="0" {% if search_status == '0' %}selected{% endif %}>New To Older</option>
+        								<option value="1" {% if search_status == '1' %}selected{% endif %}>Older To New</option>
+        							</select>
+        							
+        							<input type="search" class="form-control form-control-sm" name="search_input" value="{{search_input}}" placeholder="Search Order" aria-controls="productorder">
+        							
+                    				<button class="btn btn-primary btn-sm mt-2" style="width: 100%;">search</button>
+                				</form>
+                				
+                				{% if search_qty %}
+                    				
+                    				<div class="alert alert-warning d-flex align-items-center mt-2" role="alert">
+    								  
+    								  <div>
+    									&#128512; About {{search_qty}} Results Found &#128512;
+    								  </div>
+    								</div>
+                    				
+                    				{% endif %}
+                				
+    						</div>
+    					</div>
+    					
+    				  </div>
+    				</div>
+    				
+    			</div>
+	     </div>
+
+
+
+
+
+
+			<div class="row">
+			  <div class="col-12">
+				<div class="box">
+				  <div class="box-body">
+					<div class="table-responsive">
+						<div id="productorder_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+							<div class="row">
+
+								<div class="">
+								    {% if page_entries %}
+								    <form id="order_entries" class="form" action="{% url 'dashboard_order_filter_campaign' %}" method="GET">
+								        {% if pending %}
+    									<input type="hidden" name="order_Pending_payment_filtere" value="Pending payment">
+        								{% elif process %}
+        									<input type="hidden" name="order_Processing_filter" value="Processing">
+        								{% elif Completed %}
+        									<input type="hidden" name="order_Completed_filter" value="Completed">
+        								{% elif Cancelled %}
+        									<input type="hidden" name="order_Cancelled_filter" value="Cancelled">
+        								{% elif Refunded %}
+        									<input type="hidden" name="order_Refunded_filter" value="Refunded">
+        								{% elif Picked %}
+        									<input type="hidden" name="order_Picked_filter" value="Picked">
+        								{%elif hold%}
+        									<input type="hidden" name="order_On_hold_filter" value="On hold">
+        								{% elif deposite %}
+        								    <input type="hidden" name="order_Deposited_filter" value="deposite">
+        								{% elif Orders %}
+        									<input type="hidden" name="order_All_Orders_filter" value="All Orders">
+        								{% endif %}
+									<div class="dataTables_length" id="productorder_length">
+										<label><span class="text-bold">Show</span>
+											<select name="order_entries" aria-controls="productorder" class="form-control form-control-sm" onchange="show_entries()" id="id_show_entries">
+												<option value="{% if order_entries %}{{order_entries}}{% else %}20{% endif %}">{% if order_entries %}{{order_entries}}{% else %}20{% endif %}</option>
+												<option value="2">2</option>
+												<option value="10">10</option>
+												<option value="25">25</option>
+												<option value="50">50</option>
+												<option value="100">100</option>
+											</select>
+											entries
+										</label>
+									</div>
+									</form>
+									
+									
+									{% elif date_page_entries %}
+									<form id="order_entries" class="form" action="{% url 'dashboard_order_filter_campaign' %}" method="GET">
+								        {% if pending %}
+        									<input type="hidden" name="order_status" value="Pending payment">
+        								{% elif process %}
+        									<input type="hidden" name="order_status" value="Processing">
+        								{% elif Completed %}
+        									<input type="hidden" name="order_status" value="Completed">
+        								{% elif Cancelled %}
+        									<input type="hidden" name="order_status" value="Cancelled">
+        								{% elif Refunded %}
+        									<input type="hidden" name="order_status" value="Refunded">
+        								{% elif Picked %}
+        									<input type="hidden" name="order_status" value="Picked">
+        								{%elif hold%}
+        									<input type="hidden" name="order_status" value="On hold">
+        								{% elif deposite %}
+        								    <input type="hidden" name="order_status" value="deposite">
+        								{% elif Orders %}
+        									<input type="hidden" name="order_status" value="All Orders">
+        								{% endif %}
+        
+        								<input name="order_Start_Date_filter" type="hidden" value="{{order_Start_Date_filter}}">
+        								<input name="order_End_Date_filter" type="hidden" value="{{order_End_Date_filter}}">
+									<div class="dataTables_length" id="productorder_length">
+										<label><span class="text-bold">Show</span>
+											<select name="order_entries" aria-controls="productorder" class="form-control form-control-sm" onchange="show_entries()" id="id_show_entries">
+												<option value="{% if order_entries %}{{order_entries}}{% else %}20{% endif %}">{% if order_entries %}{{order_entries}}{% else %}20{% endif %}</option>
+												<option value="2">2</option>
+												<option value="10">10</option>
+												<option value="25">25</option>
+												<option value="50">50</option>
+												<option value="100">100</option>
+											</select>
+											entries
+										</label>
+									</div>
+									</form>
+									
+									
+									{% elif search_box_entries_qty %}
+									<form id="order_entries" class="form" action="{% url 'search_order_id_campaign' %}" method="GET">
+								        {% if pending %}
+        									<input type="hidden" name="order_status" value="Pending payment">
+        								{% elif process %}
+        									<input type="hidden" name="order_status" value="Processing">
+        								{% elif Completed %}
+        									<input type="hidden" name="order_status" value="Completed">
+        								{% elif Cancelled %}
+        									<input type="hidden" name="order_status" value="Cancelled">
+        								{% elif Refunded %}
+        									<input type="hidden" name="order_status" value="Refunded">
+        								{% elif Picked %}
+        									<input type="hidden" name="order_status" value="Picked">
+        								{%elif hold%}
+        									<input type="hidden" name="order_status" value="On hold">
+        								{% elif deposite %}
+        								    <input type="hidden" name="order_status" value="deposite">
+        								{% elif Orders %}
+        									<input type="hidden" name="order_status" value="All Orders">
+        								{% endif %}
+        						        
+        								<input name="search_status" type="hidden" value="{{search_status}}">
+        								<input name="search_input" type="hidden" value="{{search_input}}">
+        								
+        								
+									<div class="dataTables_length" id="productorder_length">
+										<label><span class="text-bold">Show</span>
+											<select name="order_entries" aria-controls="productorder" class="form-control form-control-sm" onchange="show_entries()" id="id_show_entries">
+												<option value="{% if order_entries %}{{order_entries}}{% else %}20{% endif %}">{% if order_entries %}{{order_entries}}{% else %}20{% endif %}</option>
+												<option value="2">2</option>
+												<option value="10">10</option>
+												<option value="25">25</option>
+												<option value="50">50</option>
+												<option value="100">100</option>
+											</select>
+											entries
+										</label>
+									</div>
+									</form>
+									
+									
+									{% else %}
+									
+									
+									<form id="order_entries" class="form" action="{% url 'dashboard_campaign_order' %}" method="GET">
+									    
+									<div class="dataTables_length" id="productorder_length">
+										<label><span class="text-bold">Show</span>
+											<select name="order_entries" aria-controls="productorder" class="form-control form-control-sm" onchange="show_entries()" id="id_show_entries">
+												<option value="{% if order_entries %}{{order_entries}}{% else %}20{% endif %}">{% if order_entries %}{{order_entries}}{% else %}20{% endif %}</option>
+												<option value="2">2</option>
+												<option value="10">10</option>
+												<option value="25">25</option>
+												<option value="50">50</option>
+												<option value="100">100</option>
+											</select>
+											entries
+										</label>
+									</div>
+									</form>
+									{% endif %}
+
+								</div>
+								
+								<div class="">
+									<h5 class="text-success text-center m-5">
+										{% if request.session.deshboard_customer_support_username %}
+    									{% else %}
+										<div><button class="btn btn-primary" onclick="generat_selected_csv()"> generate selected csv</button></div>
+										<div><button class="btn btn-primary" onclick="generat_selected_invoice()"> generate selected invoice</button></div>
+										{% endif %}
+
+									</h5>
+
+								</div>
+								
+                                
+
+								<div class="col-sm-12 col-md-4">
+									<h5 class="text-success text-center">
+
+										Total select item
+										<br>
+										<span id="show_select_item_qty2">0</span>
+
+									</h5>
+								</div>
+
+
+								<div class="col-sm-12 col-md-2">
+									<div class="dataTables_length" id="Payment_Status">
+										<label><span class="text-bold text-primary">Payment Status</span>
+											<select name="productorder_length" aria-controls="productorder" class="form-control form-control-sm" id="bulk_action_id2">
+												<option value="Pending payment">Pending payment</option>
+												<option value="Processing">Processing</option>
+												<option value="Partially Paid">Partially Paid</option>
+												<option value="Ready To Ship">Ready To Ship</option>
+												<option value="Completed">Completed</option>
+												<option value="Cancelled">Cancelled</option>
+												<option value="Refunded">Refunded</option>
+												<option value="Picked">Picked</option>
+												<option value="On hold">On hold</option>
+												<option value="Failed">Failed</option>
+											</select>
+
+										</label>
+									</div>
+								</div>
+
+								<div class="dataTables_length p-5 m-5" id="show_bulk_action_status2">
+									<button type="submit" class="btn btn-primary" onclick="bulk_action_btn2()">Action</button>
+								</div>
+
+
+
+								
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12">
+
+									<table id="productorder" class="table table-hover no-wrap product-order dataTable no-footer" data-page-size="10" role="grid" aria-describedby="productorder_info">
+
+							<thead>
+								<tr role="row">
+
+									<th class="sorting_asc" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Customer: activate to sort column descending">
+										<div class="form-check">
+										  <input class="form-check-input" type="checkbox" id="select-all2">
+										  <label class="form-check-label" for="select-all2"></label>
+										</div>
+									</th>
+
+									<th class="sorting_asc" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Customer: activate to sort column descending">
+										User
+									</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Order ID: activate to sort column ascending">Order ID
+
+									</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Order ID: activate to sort column ascending">Campaign</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Quantity: activate to sort column ascending">Total Price</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">Date</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">Status</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">Deposit</th>
+									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+							{% for i in all_Orders %}
+							<tr role="row" class="odd">
+
+									<td class="sorting_1">
+										<div class="form-check" id="checkboxlist">
+										  <input name="products_check2" class="form-check-input" type="checkbox" id="product_id{{i.id}}" onclick="the_item_checkbox2()" value="{{i.id}}">
+
+										  <label class="form-check-label" for="product_id{{i.id}}"></label>
+										</div>
+									</td>
+
+									<td class="sorting_1">{{i.Customer}}</td>
+									<td>{{i.Order_Id}}</td>
+                                    <td>{% if i.Order_Campaign %}{{i.Order_Campaign}}{% else %}Reguler Order{% endif %}</td>
+									
+									<td>&#2547;{{i.GrandTotal_Price}}</td>
+									<td>{{i.Order_Time}}</td>
+									<td><span class="badge badge-pill badge-success">{{i.Order_Status}}</span></td>
+									<td>{% if i.Deposit_slip %}<img src="/media/{{i.Deposit_slip}}" alt="slip" width="60">{% else %}None{% endif %}</td>
+									
+									<td><a href="{% url 'dashboard_customer_order_edit' i.id %}" class="text-info mr-10" data-toggle="tooltip" data-original-title="Edit">
+											<i class="ti-marker-alt"></i>
+										</a>
+
+									</td>
+								</tr>
+							{% endfor %}
+
+							</tbody>
+						</table>
+								</div>
+							</div>
+							
+							
+
+
+
+							<div class="row">
+								<div class="col-sm-12 col-md-5">
+									<div class="dataTables_info" id="productorder_info" role="status" aria-live="polite">Showing 1 to {% if order_entries %}{{order_entries}}{% else %}10{% endif %} of {% count_All_Orders %} entries</div>
+								</div>
+								<div class="col-sm-12 col-md-7">
+								    <div class="dataTables_paginate paging_simple_numbers" id="productorder_paginate">
+								        {% if list %}
+        								<ul class="pagination">
+        								    {% if all_Orders.has_previous %}
+        									    <li class="paginate_button page-item previous" id="productorder_previous"><a href="{% url 'dashboard_campaign_order' %}?page={{all_Orders.previous_page_number}}{% if request.GET.order_entries %}&order_entries={{ request.GET.order_entries }}{% endif %}" aria-controls="productorder" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+        									</li>
+        									{% endif %}
+        									
+        									{% for i in list %}
+        									    <li class="paginate_button page-item {% if page_num == i %}active{% endif %}"><a href="{% url 'dashboard_campaign_order' %}?page={{i}}{% if request.GET.order_entries %}&order_entries={{ request.GET.order_entries }}{% endif %}" aria-controls="productorder" data-dt-idx="1" tabindex="0" class="page-link">{{i}}</a></li>
+        									{% endfor %}
+        									
+        									{% if all_Orders.has_next %}
+        									    <li class="paginate_button page-item next" id="productorder_next"><a href="{% url 'dashboard_campaign_order' %}?page={{all_Orders.next_page_number}}{% if request.GET.order_entries %}&order_entries={{ request.GET.order_entries }}{% endif %}" aria-controls="productorder" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li>
+        									{% endif %}
+        								</ul>
+        								{% endif %}
+        								
+        								
+        								
+        								
+        								
+        								
+        								{% if list1 %}
+        								<ul class="pagination">
+        								    {% if all_Orders.has_previous %}
+        									    <li class="paginate_button page-item previous" id="productorder_previous"><a href="?page={{all_Orders.previous_page_number}}{% if request.GET.search_input %}&search_input={{ request.GET.search_input }}{% endif %}{% if request.GET.search_status %}&search_status={{ request.GET.search_status }}{% endif %}{% if request.GET.order_Pending_payment_filtere %}&order_Pending_payment_filtere={{ request.GET.order_Pending_payment_filtere }}{% endif %}{% if request.GET.order_Processing_filter %}&order_Processing_filter={{ request.GET.order_Processing_filter }}{% endif %}{% if request.GET.order_Completed_filter %}&order_Completed_filter={{ request.GET.order_Completed_filter }}{% endif %}{% if request.GET.order_Cancelled_filter %}&order_Cancelled_filter={{ request.GET.order_Cancelled_filter }}{% endif %}{% if request.GET.order_Refunded_filter %}&order_Refunded_filter={{ request.GET.order_Refunded_filter }}{% endif %}{% if request.GET.order_Picked_filter %}&order_Picked_filter={{ request.GET.order_Picked_filter }}{% endif %}{% if request.GET.order_On_hold_filter %}&order_On_hold_filter={{ request.GET.order_On_hold_filter }}{% endif %}{% if request.GET.order_Deposited_filter %}&order_Deposited_filter={{ request.GET.order_Deposited_filter }}{% endif %}{% if request.GET.order_All_Orders_filter %}&order_All_Orders_filter={{ request.GET.order_All_Orders_filter }}{% endif %}{% if request.GET.order_status %}&order_status={{ request.GET.order_status }}{% endif %}{% if request.GET.order_Start_Date_filter %}&order_Start_Date_filter={{ request.GET.order_Start_Date_filter }}{% endif %}{% if request.GET.order_End_Date_filter %}&order_End_Date_filter={{ request.GET.order_End_Date_filter }}{% endif %}{% if request.GET.order_entries %}&order_entries={{ request.GET.order_entries }}{% endif %}" aria-controls="productorder" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+        									</li>
+        									{% endif %}
+        									
+        									{% for i in list1 %}
+        									    <li class="paginate_button page-item {% if page_num == i %}active{% endif %}"><a href="?page={{i}}{% if request.GET.search_input %}&search_input={{ request.GET.search_input }}{% endif %}{% if request.GET.search_status %}&search_status={{ request.GET.search_status }}{% endif %}{% if request.GET.order_Pending_payment_filtere %}&order_Pending_payment_filtere={{ request.GET.order_Pending_payment_filtere }}{% endif %}{% if request.GET.order_Processing_filter %}&order_Processing_filter={{ request.GET.order_Processing_filter }}{% endif %}{% if request.GET.order_Completed_filter %}&order_Completed_filter={{ request.GET.order_Completed_filter }}{% endif %}{% if request.GET.order_Cancelled_filter %}&order_Cancelled_filter={{ request.GET.order_Cancelled_filter }}{% endif %}{% if request.GET.order_Refunded_filter %}&order_Refunded_filter={{ request.GET.order_Refunded_filter }}{% endif %}{% if request.GET.order_Picked_filter %}&order_Picked_filter={{ request.GET.order_Picked_filter }}{% endif %}{% if request.GET.order_On_hold_filter %}&order_On_hold_filter={{ request.GET.order_On_hold_filter }}{% endif %}{% if request.GET.order_Deposited_filter %}&order_Deposited_filter={{ request.GET.order_Deposited_filter }}{% endif %}{% if request.GET.order_All_Orders_filter %}&order_All_Orders_filter={{ request.GET.order_All_Orders_filter }}{% endif %}{% if request.GET.order_status %}&order_status={{ request.GET.order_status }}{% endif %}{% if request.GET.order_Start_Date_filter %}&order_Start_Date_filter={{ request.GET.order_Start_Date_filter }}{% endif %}{% if request.GET.order_End_Date_filter %}&order_End_Date_filter={{ request.GET.order_End_Date_filter }}{% endif %}{% if request.GET.order_entries %}&order_entries={{ request.GET.order_entries }}{% endif %}" aria-controls="productorder" data-dt-idx="1" tabindex="0" class="page-link">{{i}}</a></li>
+        									{% endfor %}
+        									
+        									{% if all_Orders.has_next %}
+        									    <li class="paginate_button page-item next" id="productorder_next"><a href="?page={{all_Orders.next_page_number}}{% if request.GET.search_input %}&search_input={{ request.GET.search_input }}{% endif %}{% if request.GET.search_status %}&search_status={{ request.GET.search_status }}{% endif %}{% if request.GET.order_Pending_payment_filtere %}&order_Pending_payment_filtere={{ request.GET.order_Pending_payment_filtere }}{% endif %}{% if request.GET.order_Processing_filter %}&order_Processing_filter={{ request.GET.order_Processing_filter }}{% endif %}{% if request.GET.order_Completed_filter %}&order_Completed_filter={{ request.GET.order_Completed_filter }}{% endif %}{% if request.GET.order_Cancelled_filter %}&order_Cancelled_filter={{ request.GET.order_Cancelled_filter }}{% endif %}{% if request.GET.order_Refunded_filter %}&order_Refunded_filter={{ request.GET.order_Refunded_filter }}{% endif %}{% if request.GET.order_Picked_filter %}&order_Picked_filter={{ request.GET.order_Picked_filter }}{% endif %}{% if request.GET.order_On_hold_filter %}&order_On_hold_filter={{ request.GET.order_On_hold_filter }}{% endif %}{% if request.GET.order_Deposited_filter %}&order_Deposited_filter={{ request.GET.order_Deposited_filter }}{% endif %}{% if request.GET.order_All_Orders_filter %}&order_All_Orders_filter={{ request.GET.order_All_Orders_filter }}{% endif %}{% if request.GET.order_status %}&order_status={{ request.GET.order_status }}{% endif %}{% if request.GET.order_Start_Date_filter %}&order_Start_Date_filter={{ request.GET.order_Start_Date_filter }}{% endif %}{% if request.GET.order_End_Date_filter %}&order_End_Date_filter={{ request.GET.order_End_Date_filter }}{% endif %}{% if request.GET.order_entries %}&order_entries={{ request.GET.order_entries }}{% endif %}" aria-controls="productorder" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li>
+        									{% endif %}
+        								</ul>
+        								{% endif %}
+        								
+							        </div>
+							    </div>
+							</div>
+							
+							
+							
+						</div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+		  </div>
+		</section>
+		<!-- /.content -->
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+
+	//this is for checkboxes
+
+	document.getElementById('select-all2').onclick = function() {
+		var checkboxes = document.getElementsByName('products_check2');
+		console.log('checkboxes')
+		console.log(checkboxes)
+
+		for (var checkbox of checkboxes) {
+			checkbox.checked = this.checked;
+		}
+		console.log(checkbox.checked)
+		status_check_box_main = checkbox.checked
+
+		count_checkbox_selected(checkboxes, status_check_box_main)
+	}
+
+
+	function count_checkbox_selected(checkboxes, status_check_box_main){
+		console.log('status_check_box_main')
+		console.log(status_check_box_main)
+		if (status_check_box_main){
+			all_check_qty = checkboxes.length;
+			document.getElementById('show_select_item_qty2').innerHTML = all_check_qty;
+		}
+		else{
+			document.getElementById('show_select_item_qty2').innerHTML = 0;
+		}
+	}
+
+
+function the_item_checkbox2(){
+	console.log('the_item_checkbox')
+
+	var favorite = [];
+	$.each($("input[name='products_check2']:checked"), function(){
+		console.log($(this).val())
+		favorite.push($(this).val());
+	});
+
+	console.log(favorite.length)
+	document.getElementById('show_select_item_qty2').innerHTML = favorite.length;
+
+}
+
+
+
+function bulk_action_btn2(){
+	console.log('bulk action')
+	var bulk_action_id = document.getElementById('bulk_action_id2').value;
+	console.log('bulk_action_id')
+	console.log(bulk_action_id)
+
+	document.getElementById('show_bulk_action_status2').innerHTML = `<button type="submit" class="btn btn-warning">Wait...</button>`;
+
+	$.each($("input[name='products_check2']:checked"), function(){
+			console.log('check1')
+			console.log($(this).val());
+			var order_id = $(this).val();
+			$.ajax({
+				url : '{% url 'order_table_change_status' %}',
+				type : 'POST',
+				data : {order_id:order_id, bulk_action_id:bulk_action_id}
+			})
+			console.log('check2')
+		});
+
+	//document.getElementById('show_bulk_action_status2').innerHTML = `<button type="submit" class="btn btn-primary" onclick="bulk_action_btn2()">Action</button>`;
+	reload_func();
+}
+
+
+function reload_func(){
+	//location.reload()
+	setTimeout("location.reload(true);", 1000);
+}
+
+
+
+function show_entries(){
+    var id_show_entries = document.getElementById('id_show_entries').value;
+    console.log('id_show_entries')
+    console.log(id_show_entries)
+    
+    var order_entries_form = document.getElementById("order_entries");
+    order_entries_form.submit();
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+function generat_selected_invoice(){
+	console.log('generat clicked')
+	let lstid = []
+	$.each($("input[name='products_check2']:checked"), function(){
+			console.log('check1')
+			console.log($(this).val());
+			var order_id = $(this).val();
+			lstid.push(order_id)
+
+			console.log('check2')
+
+		});
+		console.log(lstid)
+
+		$('#ytuyjij').val(JSON.stringify(lstid));
+
+		var form = document.getElementById("my_login_form");
+        form.submit();
+
+
+
+
+
+
+}
+
+
+
+function generat_selected_csv(){
+	console.log('generat clicked')
+	let lstid = []
+	$.each($("input[name='products_check2']:checked"), function(){
+			console.log('check1')
+			console.log($(this).val());
+			var order_id = $(this).val();
+			lstid.push(order_id)
+
+			console.log('check2')
+
+		});
+		console.log(lstid)
+
+		$('#ytuyjij_multiple_csv').val(JSON.stringify(lstid));
+
+		var form = document.getElementById("my_login_form_multiple_csv");
+        form.submit();
+
+
+
+
+
+
+}
+
+
+
+
+</script>
+
+
+
+{% endblock %}

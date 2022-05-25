@@ -1,0 +1,166 @@
+{% load static %}
+
+{% load el_pagination_tags %}
+
+{% lazy_paginate 6 data %}
+
+
+{% for product in data %}
+          <div class="col-sm-6 col-md-6 col-lg-4 wow fadeInUp card">
+          <div class="item" style=" width: 200px; background-color:#efefef; height: 200px; margin-bottom:150px;">
+            <div class="products">
+              <div class="product">
+                <div class="product-image">
+                  <div class="image">
+<!--                  <a href="/product/{{product.slug}}/{{product.id}}">-->
+                    <a href="{% url 'product_details' product.slug %}">
+                     <img src="{{product.Product_Image}}" alt="{{product.title}}">
+                      <img href="" src="{{product.Product_Image}}" alt="{{product.title}}" class="hover-image">
+                  </a>
+               </div>
+                  <!-- /.image -->
+
+                  <div class="tag new"><span>new</span></div>
+                </div>
+                <!-- /.product-image -->
+
+                <div class="product-info text-center">
+                  <h3 class="name"><a href="{% url 'product_details' product.slug %}">{{product.Product_Name}}</a></h3>
+
+                  {% if product.count_rattings == 0 %}
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if product.count_rattings == 0.5 %}
+                <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if product.count_rattings == 1 %}
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if product.count_rattings == 1.5 %}
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if product.count_rattings == 2 %}
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if product.count_rattings == 2.5 %}
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if product.count_rattings == 3 %}
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if product.count_rattings == 3.5 %}
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if product.count_rattings == 4 %}
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if product.count_rattings == 4.5 %}
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if product.count_rattings == 5 %}
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                <i class="fa fa-star" style="color:#D39C08;" aria-hidden="true"></i>
+                {% endif %}
+
+                  <div class="description"></div>
+                  <div class="product-price">
+
+
+                    {% if product.TYPE_OF_PRODUCTS == 'Simple Product' %}
+
+                    <span class="price"> ৳{% if product.Discount_Price %}{{product.Discount_Price}}{% else %}{{product.MRP_Price}}{% endif %} </span>
+                      <span class="price-before-discount">{% if product.Discount_Price %}৳ {{product.MRP_Price}}{% endif %}</span>
+                    {% else %}
+
+                    {% for i in product.first_attr_low_cost_prod %}
+
+                    <span class="price"> ৳<span id="reg_product_price{{product.slug}}">{% if i.Discount_Price %}{{i.Discount_Price}}{% else %}{{i.MRP_Price}}{% endif %}</span> </span>
+                    <span class="price-before-discount">{% if i.Discount_Price %}৳ {{i.MRP_Price}}{% endif %}</span>
+
+                    {% endfor %}
+                    {% endif %}
+
+
+                  </div>
+                  <!-- /.product-price -->
+
+                </div>
+                <!-- /.product-info -->
+                <!--<div class="cart clearfix animate-effect">-->
+                <!--  <div class="action">-->
+                <!--    <ul class="list-unstyled">-->
+                <!--      <li class="add-cart-button btn-group">-->
+                <!--        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+                <!--        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+                <!--      </li>-->
+                <!--      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+                <!--      <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal"></i> </a> </li>-->
+                <!--    </ul>-->
+                <!--  </div>-->
+                  <!-- /.action -->
+                <!--</div>-->
+                <!-- /.cart -->
+              </div>
+              <!-- /.product -->
+
+            </div>
+            <!-- /.products -->
+            </div>
+          </div>
+          <!-- /.item -->
+          {% endfor %}
+
+{% show_more "More results" %}

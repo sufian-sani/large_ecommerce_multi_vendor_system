@@ -1,0 +1,103 @@
+{% load static %}
+
+{% load el_pagination_tags %}
+{% lazy_paginate 1 filter_campgn_categries_prcntage %}
+
+
+{% for all_cat_cam in filter_campgn_categries_prcntage %}
+
+  <div class="campaign-product-sections">
+    <div class="camcat-section">
+      <h2 style="border-bottom:1px solid #adadad;" >{{all_cat_cam.Category.Category_Name}} (Upto {{all_cat_cam.calculate_max_percent}}% Off)</h2>
+      <div class="row">
+
+        {% for i in all_cat_cam.star_products %}
+        <div class="campro col-lg-3 col-md-3 col-sm-6 col-xs-6">
+          <a href="#">
+            <div class="campaign-featured-product">
+              <h3 class="campaign-badge">
+
+                		{{i.campaign_percentage}}%
+
+                  <span style="display:block; margin-top:3px; font-size:9px;">Off</span></h3>
+              <a href="{% url 'campaign_product_details' i.slug %}">
+                <div class="cam-pro-img">
+                  <img src="{{i.product.Product_Image}}" alt="{{i.product.Product_Name}}">
+                </div>
+                </a>
+
+              <div class="timer">
+                <div class="timer-count">
+                  <h4 class="">
+                      <span class="prod_days_show" ></span>
+                      <span style="display:block; margin-top:3px; font-size:9px;">Days</span>
+                  </h4>
+                </div>
+                <div class="timer-count">
+                  <h4 class="">
+                      <span class="prod_hours_show" ></span>
+                      <span style="display:block; margin-top:3px; font-size:9px;">Hours</span>
+                  </h4>
+                </div>
+                <div class="timer-count">
+                  <h4 class="">
+                      <span class="prod_mins_show" ></span>
+                      <span style="display:block; margin-top:3px; font-size:9px;">Mins</span>
+                 </h4>
+                </div>
+                <div class="timer-count">
+                  <h4 class="">
+                      <span class="prod_secs_show" ></span>
+                      <span style="display:block; margin-top:3px; font-size:9px;">Secs</span>
+                      </h4>
+                </div>
+              </div>
+              <h3 style="margin-top:0; color:#333333;" ><a href="{% url 'campaign_product_details' i.slug %}"><span id="product_name{{i.slug}}">{{i.product.Product_Name}}</span></a></h3>
+              <div class="campaign-price">
+                  {% if i.product.TYPE_OF_PRODUCTS == 'Simple Product' %}
+
+                    <h5>৳<span id="product_price{{i.slug}}">{{ i.campaign_price }}</span></h5>
+                    <h6 style="text-decoration: line-through;">৳{{i.product.MRP_Price}}</h6>
+
+
+                  {% else %}
+
+                  {% for cam_lnd_lw in i.first_attr_low_cost_campaign_prod %}
+
+                    <span class="price"> ৳<span id="reg_product_price{{i.slug}}">{{cam_lnd_lw.Discount_Price}}</span> </span>
+                    <span class="price-before-discount">৳ {{cam_lnd_lw.MRP_Price}}</span>
+
+                  {% endfor %}
+                  {% endif %}
+
+              </div>
+
+              <input type="hidden" id="campaign_slug{{i.slug}}" value="{{i.category_percentage.campaign.campaign_name}}">
+              <input type="hidden" id="campaign_prod_img{{i.slug}}" value="{{i.product.Product_Image}}">
+              <input type="hidden" value="{{i.product.Vendors}}" id="cam_vendor_product{{i.slug}}">
+              <input type="hidden" value="{{i.campaign.free_delivery}}" id="cam_free_delivery{{i.slug}}">
+
+              <!--<div id="btn_cart_chng{{i.slug}}">-->
+              <!--    <button class="btn btn-primary cart-btn" type="button" name="button" onclick="campaign_add_to_cart('{{i.slug}}')">ADD TO CART</button>-->
+              <!--</div>-->
+            </div>
+
+          </a>
+        </div>
+
+        {% endfor %}
+
+
+
+      </div>
+
+
+        <a href="{% url 'category_campaign_product' all_cat_cam.id %}"><button class="btn btn-primary cart-btn" type="button" name="button">VIEW ALL {{all_cat_cam.Category}}</button></a>
+    </div>
+  </div>
+
+
+  {% endfor %}
+
+
+        {% show_more "More results" %}

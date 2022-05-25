@@ -1,0 +1,664 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+{% block body %}
+
+
+<!-- Main content -->
+		<section class="content">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto">
+                        <h1 class="page-title bg-primary text-light">EDIT THE PRODUCT</h1>
+                        <div class="d-xl-inline-block align-items-center d-none">
+                            <nav>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+                                    <li class="breadcrumb-item" aria-current="page">e-Commerce</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Edit</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="right-title">
+                        <div class="d-flex mt-10 justify-content-end">
+							<div class="d-md-flex mr-20 ml-10 d-none">
+								<div class="chart-text mr-10">
+									<h6 class="mb-0"><small>THIS MONTH</small></h6>
+									<h4 class="mt-0 text-primary">$12,125</h4>
+								</div>
+								<div class="spark-chart">
+									<div id="thismonth"><canvas width="60" height="35" style="display: inline-block; width: 60px; height: 35px; vertical-align: top;"></canvas></div>
+								</div>
+							</div>
+							<div class="d-md-flex ml-10 d-none">
+								<div class="chart-text mr-10">
+									<h6 class="mb-0"><small>LAST YEAR</small></h6>
+									<h4 class="mt-0 text-danger">$22,754</h4>
+								</div>
+								<div class="spark-chart">
+									<div id="lastyear"><canvas width="60" height="35" style="display: inline-block; width: 60px; height: 35px; vertical-align: top;"></canvas></div>
+								</div>
+							</div>
+						</div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<div class="box-body">
+				<div class="form-body">
+					<div class="row">
+{% if have_Add_attribute %}
+						<form action="{% url 'edit_product_page_add_attribute' %}" method="POST">{% csrf_token %}
+							<input type="hidden" name="Add_attribute_full_edited_row_slug" value="{{full_edited_row.slug}}">
+
+							<button type="submit" class="btn btn-success">Add attribute</button>
+
+
+						</form>
+
+						{% else %}
+
+						<button class="btn btn-danger" disabled>Add attribute</button>
+
+						{% endif %}
+
+
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<div class="row">
+			  <div class="col-12">
+				<div class="box">
+					<div class="box-header with-border">
+					  {% if messages %}
+
+								<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+								  <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+									<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+								  </symbol>
+								  <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+									<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+								  </symbol>
+								  <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+									<path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+								  </symbol>
+								</svg>
+
+								{% for i in messages %}
+								<div class="alert alert-success d-flex align-items-center" role="alert">
+								  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+								  <div>
+									&nbsp;&nbsp;&nbsp;&nbsp;{{i}}
+								  </div>
+								</div>
+								{% endfor %}
+								{% endif %}
+					</div>
+				  <div class="box-body">
+					<form action="{% url 'edit_product_save' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+						<div class="form-body">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+									  <label class="font-weight-700 font-size-16">Product Name</label>
+									  <input type="text" value="{{full_edited_row.Product_Name}}" class="form-control" placeholder="Product Name" name="save_edited_Product_name" required>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-md-6">
+									<div class="form-group">
+									   <label class="font-weight-700 font-size-16">SKU</label>
+									   <input type="text" value="{{full_edited_row.SKU}}" class="form-control" placeholder="" name="save_edited_SKU">
+									</div>
+								</div>
+								<!--/span-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+								<div class="col-md-12">
+									<label>TYPE OF PRODUCTS: </label>
+									<select name="TYPE_OF_PRODUCTS_in_edited_dashboard" style="width: 800px; height:35px;">
+										{% if Simple_Product %}
+										<option value="Simple Product">Simple Product</option>
+										<option value="Variable Product">Variable Product</option>
+									 	<option value="Virtual Product">Virtual Product</option>
+										{% elif Variable_Product%}
+										<option value="Variable Product">Variable Product</option>
+										<option value="Simple Product">Simple Product</option>
+
+									 	<option value="Virtual Product">Virtual Product</option>
+										{% else %}
+										<option value="Virtual Product">Virtual Product</option>
+										<option value="Variable Product">Variable Product</option>
+										<option value="Simple Product">Simple Product</option>
+										{% endif %}
+
+
+									</select>
+
+								</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+							</div>
+							<!--/row-->
+							<!--/row-->
+<!--							<div class="row">-->
+<!--								<div class="col-md-6">-->
+<!--									<div class="form-group">-->
+<!--										<label class="font-weight-700 font-size-16">Category</label>-->
+<!--										<select class="form-control" data-placeholder="Choose a Category" tabindex="1">-->
+<!--											<option value="Category 1">Motor bick</option>-->
+<!--											<option value="Category 2">Mobile</option>-->
+<!--											<option value="Category 3">computer</option>-->
+<!--											<option value="Category 4">TV</option>-->
+<!--										</select>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--								&lt;!&ndash;/span&ndash;&gt;-->
+<!--								<div class="col-md-6">-->
+<!--									<div class="form-group">-->
+<!--										<label class="font-weight-700 font-size-16">Status</label>-->
+<!--										<div class="radio-list">-->
+<!--											<label class="radio-inline p-0 mr-10">-->
+<!--												<div class="radio radio-info">-->
+<!--													<input type="radio" name="radio" id="radio1" value="option1">-->
+<!--													<label for="radio1">Published</label>-->
+<!--												</div>-->
+<!--											</label>-->
+<!--											<label class="radio-inline">-->
+<!--												<div class="radio radio-info">-->
+<!--													<input type="radio" name="radio" id="radio2" value="option2">-->
+<!--													<label for="radio2">Draft</label>-->
+<!--												</div>-->
+<!--											</label>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--								&lt;!&ndash;/span&ndash;&gt;-->
+<!--							</div>-->
+							<!--/row-->
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="font-weight-700 font-size-16">MRP Price</label>
+										<div class="input-group">
+											<div class="input-group-addon">&#2547;</div>
+											<input type="text" value="{{full_edited_row.MRP_Price}}" class="form-control" name="save_edited_MRP_Price" placeholder="Type integer value" required> </div>
+									</div>
+								</div>
+
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="font-weight-700 font-size-16">Cost Price</label>
+										<div class="input-group">
+											<div class="input-group-addon">&#2547;</div>
+											<input type="text" class="form-control" value="{% if full_edited_row.Cost_Price %}{{full_edited_row.Cost_Price}}{% endif %}" name="save_edited_Cost_Price" placeholder="Type integer value"> </div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="font-weight-700 font-size-16">Discount Price</label>
+										<div class="input-group">
+											<div class="input-group-addon"><i class="ti-cut"></i></div>
+											<input type="text" value="{% if full_edited_row.Discount_Price %}{{full_edited_row.Discount_Price}}{% endif %}" class="form-control" name="save_edited_Discount_Price" placeholder="Type integer value"> </div>
+									</div>
+								</div>
+								<!--/span-->
+							</div>
+                            {{ product_form.media }}
+							{{ product_form|crispy }}
+
+
+							<div class="form-group">
+								<label class="form-label">Category</label>
+								<select name="Category_list" id="Category_list" class="form-control form-control form-control-lg" onchange="select_cat()" required>
+									<option selected="selected" value="{{ prod_main_cat.id }}">{{ prod_main_cat.Category_Name }}</option>
+									{% for get_all_cat in all_main_cats %}
+									<option value="{{get_all_cat.id}}">{{get_all_cat.Category_Name}}</option>
+									{% endfor %}
+
+								</select>
+							</div>
+							<hr>
+							<label class="form-label"><b>Subcategory 1</b></label>
+							<div id="show_Subategory_list2" style="margin-top:30px; margin-bottom:35px;">
+
+								<div class="row">
+									{% if subcat1_lst %}
+									{% for past_subcat1 in subcat1_lst %}
+										<div class="form-check col-md-2 col-lg-2 col-sm-12">
+										{% if past_subcat1 not in full_edited_row.Subcategory_1.all %}
+										  <input class="form-check-input" type="checkbox" name="subcat1_name" id="subcat1_id{{past_subcat1.id}}" value="{{past_subcat1.id}}">
+										{% else %}
+										  <input class="form-check-input" type="checkbox" name="subcat1_name" id="subcat1_id{{past_subcat1.id}}" value="{{past_subcat1.id}}" checked>
+										{% endif %}
+										  <label class="form-check-label" for="subcat1_id{{past_subcat1.id}}"><small>{{ past_subcat1.Subcategory_1 }}</small></label>
+										</div>
+									{% endfor %}
+									{% else %}
+									<span style="margin-left:20px;"><b style="color:red;"> No SubCategory 1 in this Category</b></span>
+									{% endif %}
+								</div>
+							</div>
+							<hr>
+							<label class="form-label"><b>Subcategory 2</b></label>
+							<div id="show_Subategory_list3" style="margin-top:30px; margin-bottom:35px;">
+
+								<div class="row">
+									{% if lst_scat2 %}
+									{% for sct2 in lst_scat2 %}
+
+										<div class="form-check col-md-2 col-lg-2 col-sm-12">
+										{% if sct2 not in full_edited_row.Subcategory_2.all %}
+										  <input class="form-check-input" type="checkbox" name="subcat2_name" id="subcat2_id{{sct2.id}}" value="{{sct2.id}}">
+										{% else %}
+											<input class="form-check-input" type="checkbox" name="subcat2_name" id="subcat2_id{{sct2.id}}" value="{{sct2.id}}" checked>
+										{% endif %}
+
+										  <label class="form-check-label" for="subcat2_id{{sct2.id}}"><small>{{sct2.Subcategory_2}}</small></label>
+										</div>
+
+									{% endfor %}
+									{% else %}
+									<span style="margin-left:20px;"><b style="color:red;">No SubCategory 2</b></span>
+									{% endif %}
+								</div>
+							</div>
+							<hr>
+
+							<div class="col-md-12" style="margin-top:30px; margin-bottom:30px;">
+								<label class="font-weight-700 font-size-16">Product quentity</label>
+								<input type="text" class="form-control" name="save_edited_product_quentity" placeholder="Type product quentity" value="{{full_edited_row.Product_stock_Quantity}}">
+
+							</div>
+
+							<!--<div class="row">-->
+							<!--	<div class="col-md-12">-->
+							<!--		<div class="form-group">-->
+							<!--			<label class="font-weight-700 font-size-16">Product Description</label>-->
+							<!--			<textarea class="form-control p-20" rows="4" name="save_edited_Product_Description" placeholder="Discription About The Product">{{full_edited_row.Product_Description}}</textarea>-->
+							<!--		</div>-->
+							<!--	</div>-->
+							<!--</div>-->
+							<!--/row-->
+							<div class="row" style="margin-top:30px; margin-bottom:30px;">
+								<div class="col-md-6 bg-success">
+									<div class="form-group">
+										<label class="font-weight-700 font-size-16">Meta Title</label>
+										<input type="text" value="{{full_edited_row.Meta_Title}}" class="form-control" name="save_edited_Meta_Title"> </div>
+								</div>
+								<!--/span-->
+								<div class="col-md-6 bg-success">
+									<div class="form-group">
+										<label class="font-weight-700 font-size-16">Meta Keyword</label>
+										<input type="text" value="{{full_edited_row.Meta_Keyword}}" class="form-control" name="save_edited_Meta_Keyword"> </div>
+								</div>
+								<!--/span-->
+
+								<input type="hidden" value="{{full_edited_row.slug}}" name="p_get_slug">
+
+								<div class="col-md-3 border border-primary">
+									<h4 class="box-title mt-20">Upload Image No.1</h4>
+									<div class="product-img text-left">
+										<img src="{{full_edited_row.Product_Image}}" alt="">
+										<div class="btn btn-rounded btn-info mb-20">
+<!--											<span>Upload Anonther Image</span>-->
+                                            <input type="file" class="upload" name="save_edited_Prod_Image">
+										</div>
+<!--										<button class="btn btn-rounded btn-success">Edit</button>-->
+<!--										<button class="btn btn-rounded btn-danger">Delete</button>-->
+									</div>
+								</div>
+
+								<div class="col-md-3 border border-primary">
+									<h4 class="box-title mt-20">Upload Image No.2</h4>
+									<div class="product-img text-left">
+										<img src="{{full_edited_row.Product_Image2}}" alt="">
+										<div class="btn btn-rounded btn-info mb-20">
+<!--											<span>Upload Anonther Image</span>-->
+                                            <input type="file" class="upload" name="save_edited_Product_Image_2">
+										</div>
+<!--										<button class="btn btn-rounded btn-success">Edit</button>-->
+<!--										<button class="btn btn-rounded btn-danger">Delete</button>-->
+									</div>
+								</div>
+
+								<div class="col-md-3 border border-primary">
+									<h4 class="box-title mt-20">Upload Image No.3</h4>
+									<div class="product-img text-left">
+										<img src="{{full_edited_row.Product_Image3}}" alt="">
+										<div class="btn btn-rounded btn-info mb-20">
+<!--											<span>Upload Anonther Image</span>-->
+                                            <input type="file" class="upload" name="save_edited_Product_Image_3">
+										</div>
+<!--										<button class="btn btn-rounded btn-success">Edit</button>-->
+<!--										<button class="btn btn-rounded btn-danger">Delete</button>-->
+									</div>
+								</div>
+
+
+								<div class="col-md-3 border border-primary">
+									<h4 class="box-title mt-20">Upload Image No.4</h4>
+									<div class="product-img text-left">
+										<img src="{{full_edited_row.Product_Image4}}" alt="">
+										<div class="btn btn-rounded btn-info mb-20">
+<!--											<span>Upload Anonther Image</span>-->
+                                            <input type="file" class="upload" name="save_edited_Product_Image_4">
+										</div>
+<!--										<button class="btn btn-rounded btn-success">Edit</button>-->
+<!--										<button class="btn btn-rounded btn-danger">Delete</button>-->
+									</div>
+								</div>
+
+
+
+
+
+							</div>
+
+
+							<div class="row bg-secondary text-light">
+								<div class="col-md-12">
+
+									<h4 class="box-title mt-40">Tags (Add new tag)</h4>
+
+									<div class="table-responsive">
+										<table class="table no-border td-padding">
+											<tr>
+												<td>Name <input type="text" name="s" placeholder="Search" class="w-p100"></td>
+												<td></td>
+												<td></td>
+											</tr>
+
+											<tr>
+												<td>Slug<input type="text" name="s" placeholder="Search" class="w-p100"></td>
+												<td></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td>Description</td>
+												<td></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td><textarea rows="4" cols="50"></textarea></td>
+												<td></td>
+												<td></td>
+											</tr>
+
+
+										</table>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="form-actions mt-10">
+							<input type="hidden" name="suncat1" id="suncat1">
+							<input type="hidden" name="suncat2" id="suncat2">
+							<span id="change_btn_save">
+								<button type="button" onclick="save_edit_product()" class="btn btn-rounded btn-primary"> <i class="fa fa-check"></i> Save</button>
+							</span>
+
+							<button type="button" class="btn btn-rounded btn-danger">Cancel</button>
+						</div>
+					</form>
+				  </div>
+				</div>
+			  </div>
+		  </div>
+
+		</section>
+		<!-- /.content -->
+
+
+<script>
+
+
+
+
+
+
+function save_edit_product(){
+	console.log('Edit saving')
+	document.getElementById('change_btn_save').innerHTML = `<button type="button" class="btn btn-rounded btn-warning"> <i class="fa fa-check"></i>Edit Saving .. </button>`;
+
+	let subcat1_id_lst = []
+
+	$.each($("input[name='subcat1_name']:checked"), function(){
+			console.log($(this).val());
+			var single_subcat1 = $(this).val();
+			subcat1_id_lst.push(single_subcat1);
+		});
+	console.log(subcat1_id_lst)
+
+
+	let subcat2_id_lst = []
+
+	$.each($("input[name='subcat2_name']:checked"), function(){
+			console.log($(this).val());
+			var single_subcat2 = $(this).val();
+			subcat2_id_lst.push(single_subcat2);
+		});
+	console.log(subcat2_id_lst)
+
+	$('#suncat1').val(JSON.stringify(subcat1_id_lst));
+	$('#suncat2').val(JSON.stringify(subcat2_id_lst));
+
+	document.getElementById('change_btn_save').innerHTML = `<button type="submit" id="prd_edit_save_id" class="btn btn-rounded btn-primary"> <i class="fa fa-check"></i> Save</button>`;
+	$('#prd_edit_save_id').trigger('click');
+
+
+	document.getElementById('change_btn_save').innerHTML = `<button type="button" onclick="save_edit_product()" class="btn btn-rounded btn-primary"> <i class="fa fa-check"></i> Save</button>`;
+}
+
+
+
+
+
+
+
+function select_cat(){
+	console.log('hi')
+	var cat_value = document.getElementById('Category_list').value;
+	console.log('cat_value')
+	console.log(cat_value)
+
+	$.ajax({
+			url : '{% url 'get_sub_cat' %}',
+			type : 'POST',
+			data : {cat_value:cat_value}
+		})
+
+		.done(function(response){
+			console.log(response);
+			var prod = JSON.parse(response);
+			console.log(prod)
+			console.log('prod')
+
+			var len = prod.length;
+
+			var strss2 = "";
+
+			var ch_subct1_edit = 0;
+
+			strss2 = strss2 + `<div class="row">`;
+
+			for(var i=0;i<len;i++){
+
+				ch_subct1_edit = 1;
+
+				var Subcategory_id = JSON.stringify(prod[i].pk);
+				var Subcategory_1_3 = JSON.stringify(prod[i].fields.Subcategory_1);
+
+				var Subcategory_1_2 = Subcategory_1_3.slice(0, -1)
+				var Subcategory_1 = Subcategory_1_2.slice(1);
+
+				strss2 = strss2 + `<div class="form-check col-md-2 col-lg-2 col-sm-12">
+									  <input class="form-check-input" type="checkbox" name="subcat1_name" id="subcat1_id${Subcategory_id}" value="${Subcategory_id}">
+									  <label class="form-check-label" for="subcat1_id${Subcategory_id}"><small>${Subcategory_1}</small></label>
+									</div>`
+			}
+
+			if(ch_subct1_edit == 1){
+				strss2 = strss2 + `</div> <button type="button" class="btn btn-warning btn-sm mt-4" onclick="subcat2_search()">Next</button>`;
+				document.getElementById('show_Subategory_list2').innerHTML=strss2;
+
+				document.getElementById('show_Subategory_list3').innerHTML= `<b>Select Subcategory 1 First and press next</b>`;
+			}
+			else{
+				document.getElementById('show_Subategory_list2').innerHTML = `<b style="color:red;">No SubCategory 1 to show</b>`;
+
+				document.getElementById('show_Subategory_list3').innerHTML= `<b style="color:red;">No SubCategory 2 to show</b>`;
+			}
+		})
+}
+
+
+function subcat2_search(){
+	console.log('clicked')
+
+	var strss3 = "";
+	var strss3 = strss3 + `<div class="row">`;
+
+	var need_var = 0;
+
+	$.each($("input[name='subcat1_name']:checked"), function(){
+		console.log('check1')
+		console.log($(this).val());
+		var subcat_value = $(this).val();
+
+		$.ajax({
+			url : '{% url 'get_sub_cat2' %}',
+			type : 'POST',
+			data : {subcat_value:subcat_value}
+		})
+
+		.done(function(response){
+			console.log(response);
+			var prod = JSON.parse(response);
+			console.log(prod)
+			console.log('prod')
+
+			var len = prod.length;
+
+			for(var i=0;i<len;i++){
+				need_var = 1
+				var Subcategory2_id = JSON.stringify(prod[i].pk);
+				var Subcategory_2_3 = JSON.stringify(prod[i].fields.Subcategory_2);
+
+				var Subcategory_2_2 = Subcategory_2_3.slice(0, -1)
+				var Subcategory_2 = Subcategory_2_2.slice(1);
+
+				console.log(Subcategory_2)
+
+				strss3 = strss3 + `<div class="form-check col-md-2 col-lg-2 col-sm-12">
+									  <input class="form-check-input" type="checkbox" name="subcat2_name" id="subcat2_id${Subcategory2_id}" value="${Subcategory2_id}">
+									  <label class="form-check-label" for="subcat2_id${Subcategory2_id}"><small>${Subcategory_2}</small></label>
+									</div>`
+			}
+			strss3 = strss3 + `</div>`;
+			console.log(strss3)
+			if(need_var == 0){
+				document.getElementById('show_Subategory_list3').innerHTML=`<b style="color:red;">No Suncategoey 2 in those Subcategory 1</b>`;
+			}
+			else{
+				document.getElementById('show_Subategory_list3').innerHTML=strss3;
+			}
+
+		})
+	});
+}
+
+</script>
+
+{% endblock %}

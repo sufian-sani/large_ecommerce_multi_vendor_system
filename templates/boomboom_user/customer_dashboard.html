@@ -1,0 +1,273 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="customer-dashboard">
+
+
+{% if messages %}
+{% for message in messages %}
+<div style="height: 50px; background-color: #FFCD44; color: white;">
+    <h3>{{ message }}</h3>
+</div>
+
+{% endfor %}
+
+
+{% endif %}
+
+
+
+
+<div class="tab">
+  <button class="tablinks active" onclick="openCity(event, 'Paris')">My Orders</button>
+  <button class="tablinks" onclick="openCity(event, 'London')">Dashboard</button>
+  <button class="tablinks" onclick="openCity(event, 'Tokyo')">Edit Address</button>
+  <button class="tablinks" onclick="openCity(event, 'Dhaka')">Edit Account</button>
+  <button class="tablinks" onclick="openCity(event, 'Vancouver')">Logout</button>
+</div>
+
+<!-- Tab content -->
+
+
+<div id="Paris" class="tabcontent active"  style="display:block; overflow-x:auto;">
+  <h3>All Orders</h3>
+
+  <table class="tg" style="undefined;table-layout: fixed; width: 785px">
+  <colgroup>
+  <col style="width: 38px">
+  <col style="width: 81px">
+  <col style="width: 114px">
+  <col style="width: 144px">
+  <col style="width: 89px">
+  <col style="width: 89px">
+  <col style="width: 65px">
+  <col style="width: 61px">
+  <col style="width: 102px">
+  <col style="width: 226px">
+
+  </colgroup>
+  <thead>
+    <tr>
+      <th class="tg-baqh">Sl</th>
+      <th class="tg-c3ow">Order ID</th>
+      <th class="tg-c3ow">Date</th>
+      <th class="tg-c3ow">Campaign</th>
+      <th class="tg-c3ow">Status</th>
+      <th class="tg-c3ow">Total</th>
+      <th class="tg-c3ow" colspan="4">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% if filter_all_orders %}
+  {% for i in filter_all_orders %}
+    <tr>
+      <td class="tg-baqh">{{forloop.counter}}.</td>
+      <td class="tg-c3ow">{{i.Order_Id}}</td>
+      <td class="tg-c3ow">{{i.Order_Time}}</td>
+      <td class="tg-c3ow">{% if i.Order_Campaign %}{{i.Order_Campaign}}{% else %}Reguler Order{% endif %}</td>
+      <td class="tg-c3ow">{{i.Order_Status}}</td>
+      <td class="tg-c3ow">৳{{i.SubTotal_Price}}</td>
+
+      <td class="tg-c3ow" colspan="{% if i.Deposit_slip %}4{% elif i.Order_Status == "Pending payment" %}1{% else %}4{% endif %}"><a href="{% url 'customer_order_view' i.id %}"  rel="noopener noreferrer"><button type="button" class="btn-bbe-black" name="button">View</button></a></td>
+
+
+      {% if i.Deposit_slip %}
+
+
+      {% elif i.Order_Status == "Pending payment" %}
+      <td class="tg-c3ow"><a href="{% url 'customer_pay_order' i.id %}" rel="noopener noreferrer"><button type="button" class="btn-bbe-green" name="button">Pay</button></a></td>
+      <td class="tg-c3ow">
+
+
+
+      <button type="button" class="btn-bbe-red" data-toggle="modal" data-target="#myModal1{{i.id}}">
+          Cancel
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal1{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1{{i.id}}">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+              </div>
+              <div class="modal-body">
+                Order ID : {{i.Order_Id}}<br>
+              Are you sure, you want to cancel this Order??
+
+              </div>
+              <div class="modal-footer">
+
+                <form action="{% url 'cancel_order' %}" method="POST">{% csrf_token %}
+                <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                <button type="submit" class="btn btn-primary" value="{{i.id}}" name="cancel_button">YES</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </td>
+      <td class="tg-c3ow">
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn-bbe-blue" data-toggle="modal" data-target="#myModal{{i.id}}">
+          Upload Deposit Slip
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel{{i.id}}">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel" style="color:#5cb85c; body-bg-color:#5cb85c;">Deposit Slip Information</h4>
+              </div>
+
+              <form method="POST" action="{% url 'bank_deposite_submit' %}" enctype="multipart/form-data">{% csrf_token %}
+                  <div class="modal-body">
+                    Order ID : {{i.Order_Id}}
+
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon12" style="width:200px;">Holder Name:</span>
+                      <input type="text" class="form-control" aria-describedby="basic-addon1" style="width:400px;" name="Holder_Name" required />
+                      <input type="hidden" value="{{i.id}}" name="order_h_id">
+                    </div>
+
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1" style="width:200px;">Bank Name:</span>
+                      <input type="text" class="form-control" aria-describedby="basic-addon1" style="width:400px;" name="Bank_Name" required />
+
+                    </div>
+
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon12" style="width:200px;">Branch Name:</span>
+                      <input type="text" class="form-control" aria-describedby="basic-addon1" style="width:400px;" name="Branch_Name" required />
+                    </div>
+
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon13" style="width:200px;">Account Number:</span>
+                      <input type="text" class="form-control" aria-describedby="basic-addon1" style="width:400px;" name="Account_Number" required />
+                    </div>
+
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon14" style="width:200px;">Slip Number:</span>
+                      <input type="text" class="form-control"  aria-describedby="basic-addon1" style="width:400px;" name="Slip_Number" required />
+                    </div>
+
+                    <!--<div class="input-group">-->
+                    <!--  <span class="input-group-addon" id="basic-addon15"  style="width:200px;">Order ID:</span>-->
+                    <!--  <input type="text" class="form-control" aria-describedby="basic-addon1" style="width:400px;">-->
+                    <!--</div>-->
+
+                    <div class="input-group" style="margin-top:30px;">
+                      <!--<span class="input-group-addon" id="basic-addon154" style="width:200px;">Upload File:</span>-->
+                      <!--<input type="file" class="form-control" aria-describedby="basic-addon1" style="width:400px;" name="Deposit_slip" required />-->
+                      <label>Choose Only PNG, JPG and JPEG files PLease ..</label>
+                      {{form_Up_Deposit_slip.Deposit_slip}}
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </form>
+
+
+            </div>
+          </div>
+        </div>
+        </td>
+
+      {% endif %}
+
+
+    </tr>
+  {% endfor %}
+  {% else %}
+  <tr>
+      <td class="tg-baqh" colspan="9">No Orders</td>
+
+    </tr>
+  {% endif %}
+
+  </tbody>
+  </table>
+
+  {% if filter_cus_Ordr_Table_3 %}
+  <h3>Old Orders</h3>
+
+  <table class="tg" style="undefined;table-layout: fixed; width: 785px">
+  <colgroup>
+  <col style="width: 38px">
+  <col style="width: 81px">
+  <col style="width: 114px">
+  <col style="width: 144px">
+  <col style="width: 89px">
+  <col style="width: 89px">
+  <col style="width: 65px">
+  <col style="width: 61px">
+  <col style="width: 102px">
+  <col style="width: 226px">
+  </colgroup>
+  <thead>
+    <tr>
+      <th class="tg-baqh">Sl</th>
+      <th class="tg-c3ow">Order ID</th>
+      <th class="tg-c3ow">Date</th>
+      <th class="tg-c3ow">Status</th>
+      <th class="tg-c3ow">SubTotal</th>
+      <th class="tg-c3ow">GrandTotal</th>
+      <th class="tg-c3ow">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {% for i in filter_cus_Ordr_Table_3 %}
+    <tr>
+      <td class="tg-baqh">{{forloop.counter}}.</td>
+      <td class="tg-c3ow">{{i.old_order_id}}</td>
+      <td class="tg-c3ow">{{i.old_order_date}}</td>
+      <td class="tg-c3ow">{{i.old_order_status}}</td>
+      <td class="tg-c3ow">৳{{i.old_Subtotal_Amount}}</td>
+      <td class="tg-c3ow">৳{{i.old_greand_total}}</td>
+      <td class="tg-c3ow"><a href="{% url 'old_customer_order_view' i.old_order_id %}" target="_blank" rel="noopener noreferrer">View</a></td>
+
+    </tr>
+  {% endfor %}
+
+
+
+  </tbody>
+  </table>
+{% endif %}
+
+
+
+</div>
+
+<div id="London" class="tabcontent">
+  <h3>Greetings To You</h3>
+  <p>This is your dashboard. Here you can see your <a href="#">your orders</a> edit your <a href="#">account</a> & <a href="#">address</a>. </p>
+</div>
+
+<div id="Tokyo" class="tabcontent">
+  <h3>Edit Your Address</h3>
+  <p>See current Application and give appropriate fields.</p>
+</div>
+
+<div id="Dhaka" class="tabcontent">
+  <h3>Edit Your Account</h3>
+  <p>See current Application and give appropriate fields.</p>
+</div>
+
+</div>
+
+
+
+
+{% endblock %}

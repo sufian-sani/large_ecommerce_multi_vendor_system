@@ -1,0 +1,28 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-11">
+        <div class="sign-in-page">
+			<div class="">
+                <div class="" role="">
+                  <h3 class="text-center"> Welldone {{first_name}} {{last_name}}!!</h3><br>
+                    <h5 class="text-center">  Your Account has been activated !! Now, <a href="{% url 'login_register' %}">Log</a> in to your account and enjoy our Service !! </h5><br>
+
+            <h6 class="text-center">Thanks for create a account in BoomBoom.</h6>
+                </div>
+
+            </div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<br>
+<br>
+<br>
+
+{% endblock %}

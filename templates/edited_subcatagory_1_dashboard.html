@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+{% block body %}
+
+<section class="content">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto">
+                        <h3 class="page-title">Edit {{row_get.Subcategory_1}} Sub-Category</h3>
+                    </div>
+                </div>
+            </div>
+
+
+<div class="row">
+			  <div class="col-12">
+				<div class="box">
+
+				  <div class="box-body">
+
+                    <form action="{% url 'save_edited_subcatagory_1_dashboard' %}" method="POST">{% csrf_token %}
+                        {{ form_subcategories | crispy }}
+
+                        <input type="hidden" value="{{row_get.id}}" name="row_get_Subcategory_1_id">
+                        <button type="submit">save</button>
+                    </form>
+
+
+                  </div>
+                </div>
+              </div>
+
+
+</section>
+
+
+
+
+{% endblock %}

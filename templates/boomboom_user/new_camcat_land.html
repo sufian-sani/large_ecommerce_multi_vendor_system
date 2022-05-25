@@ -1,0 +1,87 @@
+{% load static %}
+
+{% load el_pagination_tags %}
+{% lazy_paginate 6 filtr_cgin_prod_tbl %}
+
+
+
+
+{% for brand_cam_prod in filtr_cgin_prod_tbl %}
+
+
+
+              <div class="item item-carousel">
+                <div class="products">
+                  <div class="product">
+                    <div class="product-image">
+                      <div class="image">
+
+                        <a href="{% url 'campaign_product_details' brand_cam_prod.slug %}">
+                         <img src="{{brand_cam_prod.product.Product_Image}}" alt="{{brand_cam_prod.product.title}}">
+                          <img src="{{brand_cam_prod.product.Product_Image}}" alt="{{brand_cam_prod.product.title}}" class="hover-image">
+                      </a>
+                   </div>
+                      <!-- /.image -->
+
+                      <div class="tag new"><span>{{brand_cam_prod.campaign_percentage}}%</span></div>
+                    </div>
+                    <!-- /.product-image -->
+
+                    <div class="product-info text-left">
+                      <h3 class="name"><a href="{% url 'campaign_product_details' brand_cam_prod.slug %}"><span id="product_name{{brand_cam_prod.slug}}">{{brand_cam_prod.product.Product_Name}}</span></a></h3>
+
+                      <div class="product-price">
+
+                      {% if brand_cam_prod.product.TYPE_OF_PRODUCTS == 'Simple Product' %}
+
+                        <span class="price"> ৳<span id="product_price{{brand_cam_prod.slug}}">{{brand_cam_prod.campaign_price}}</span> </span>
+                        <span class="price-before-discount">৳ {{brand_cam_prod.product.MRP_Price}}</span>
+
+
+                      {% else %}
+
+                      {% for cam_det_lw in brand_cam_prod.first_attr_low_cost_campaign_prod %}
+
+                        <span class="price"> ৳<span id="reg_product_price{{brand_cam_prod.slug}}">{{cam_det_lw.Discount_Price}}</span> </span>
+                        <span class="price-before-discount">৳ {{cam_det_lw.MRP_Price}}</span>
+
+                      {% endfor %}
+                      {% endif %}
+
+
+
+                      </div>
+                      <!-- /.product-price -->
+
+                    </div>
+                    <input type="hidden" value="{{brand_cam_prod.product.Vendors}}" id="cam_vendor_product{{brand_cam_prod.slug}}">
+                    <input type="hidden" value="{{brand_cam_prod.campaign.free_delivery}}" id="cam_free_delivery{{brand_cam_prod.slug}}">
+                    <!-- /.product-info -->
+                    <!--<div class="cart clearfix animate-effect">-->
+                    <!--  <div class="action">-->
+                    <!--    <ul class="list-unstyled">-->
+                    <!--      <li class="add-cart-button btn-group" onclick="campaign_add_to_cart('{{brand_cam_prod.slug}}')">-->
+                    <!--          <input type="hidden" value="{{brand_cam_prod.category_percentage.campaign.campaign_name}}" id="campaign_slug{{brand_cam_prod.slug}}">-->
+                    <!--          <input type="hidden" id="campaign_prod_img{{brand_cam_prod.slug}}" value="{{brand_cam_prod.product.Product_Image}}">-->
+                    <!--        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>-->
+                    <!--        <button class="btn btn-primary cart-btn" type="button">Add to cart</button>-->
+                    <!--      </li>-->
+                    <!--      <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>-->
+
+                    <!--    </ul>-->
+                    <!--  </div>-->
+                      <!-- /.action -->
+                    <!--</div>-->
+                    <!-- /.cart -->
+                  </div>
+                  <!-- /.product -->
+
+                </div>
+                <!-- /.products -->
+                </div>
+
+
+             {% endfor %}
+
+
+{% show_more "More results" %}

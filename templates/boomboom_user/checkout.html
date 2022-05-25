@@ -1,0 +1,2561 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<form method="POST" action="{% url 'order_save_with_all_info' %}" id="checkout_form">{% csrf_token %}
+    <input type="hidden" name="customer_deli_info_id" id="id_customer_deli_info_id">
+    <input type="hidden" name="order_delivery_place" id="id_order_delivery_place">
+    <input type="hidden" name="order_delivery_option" id="id_order_delivery_option">
+
+    <input type="hidden" name="lst_cam_sub_delivery_grand" id="id_lst_cam_sub_delivery_grand">
+
+    <input type="hidden" name="lst_cam_sts" id="id_lst_cam_sts">
+    <input type="hidden" name="product_cart" id="id_product_cart">
+    <input type="hidden" name="name_order_note_textarea" id="value_order_note_textarea">
+
+    <input type="hidden" name="input_show_subtotalss" id="input_show_subtotalss">
+    <input type="hidden" name="input_total_to_pay_price" id="input_total_to_pay_price">
+    <input type="hidden" name="input_total_due_price" id="input_total_due_price">
+    <input type="hidden" name="input_payment_type" id="input_payment_type">
+</form>
+
+
+<div class="body-content checkout-box">
+	<div class="container">
+    <div class="row">
+
+      <div class="col-xs-12 col-sm-12 col-md-6 homebanner-holder">
+      <div class="breadcrumb">
+	<div>
+		<div class="breadcrumb-inner">
+			<ul class="list-inline list-unstyled">
+				<li><a href="#">Home</a></li>
+				<li class='active'>Checkout</li>
+			</ul>
+		</div><!-- /.breadcrumb-inner -->
+	</div><!-- /.container -->
+</div><!-- /.breadcrumb -->
+
+   <div>
+					<div class="panel-group checkout-steps" id="accordion">
+						<!-- checkout-step-01  -->
+<div class="panel panel-default checkout-step-01">
+
+	<!-- panel-heading -->
+		<div class="panel-heading">
+    	<h4 class="unicase-checkout-title">
+	        <a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseOne">
+                <span>1</span>Login/Register
+                {% if user.is_authenticated %}
+                <big style="color:green;">&#9989</big>
+                {% endif %}
+	        </a>
+	     </h4>
+    </div>
+    <!-- panel-heading -->
+
+
+    {% if user.is_authenticated %}
+    {% else %}
+	<div id="collapseOne" class="panel-collapse collapse in">
+
+		<!-- panel-body  -->
+	    <div class="panel-body">
+			<div class="row">
+
+				<!-- guest-login -->
+				<div class="col-md-6 col-sm-6 guest-login">
+          <h4 class="checkout-subtitle">New In Our Shop?</h4>
+          <p class="text title-tag-line">Please register in below:</p>
+<!--          <form class="register-form" role="form">-->
+<!--            <div class="form-group">-->
+<!--              <label class="info-title" for="exampleInputEmail1">First Name <span>*</span></label>-->
+<!--              <input type="text" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="">-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--              <label class="info-title" for="exampleInputEmail1">Second Name <span>*</span></label>-->
+<!--              <input type="text" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="">-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--              <label class="info-title" for="exampleInputEmail1">Email Address <span>*</span></label>-->
+<!--              <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="">-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--              <label class="info-title" for="exampleInputPassword1">Password <span>*</span></label>-->
+<!--              <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" placeholder="">-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--              <label class="info-title" for="exampleInputPassword1">Confirm Password <span>*</span></label>-->
+<!--              <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" placeholder="">-->
+<!--            </div>-->
+<!--            <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Login</button>-->
+<!--          </form>-->
+
+
+                    <div class="create-new-account">
+                    <span id="status_signup"></span>
+                    <div id="all_signup_input">
+                        <div class="form-group">
+                            <label class="info-title" for="First_Name">First Name <span>*</span></label>
+                            <input type="text" class="form-control unicase-form-control text-input" id="First_Name" >
+                            <span id="show_info_fn"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="info-title" for="Last_Name">Last Name <span>*</span></label>
+                            <input type="text" class="form-control unicase-form-control text-input" id="Last_Name" >
+                            <span id="show_info_ln"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="info-title" for="id_sign_phone">Phone Number <span>*</span></label>
+                            <div class="row">
+                                <div class="col-md-2 col-lg-2 col-sm-2"><h4>+88</h4></div>
+                                <div class="col-md-10 col-lg-10 col-sm-10">
+                                    <input type="number" class="form-control unicase-form-control text-input" id="id_sign_phone" >
+                                </div>
+                            </div>
+
+                            <span id="show_info_phn"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="info-title" for="sign_email">Email Address <span></span></label>
+                            <input type="email" class="form-control unicase-form-control text-input" id="sign_email" >
+                            <span id="show_info_email"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="info-title" for="sing_Password">Password <span>*</span></label>
+                            <input type="password" class="form-control unicase-form-control text-input" id="sing_Password" >
+                        </div>
+                         <div class="form-group">
+                            <label class="info-title" for="sign_Confirm_Password">Confirm Password <span>*</span></label>
+                            <input type="password" class="form-control unicase-form-control text-input" id="sign_Confirm_Password" >
+                             <span id="show_info_password"></span>
+                        </div>
+                    </div>
+
+
+                        <span id="test1212"></span>
+                        <input type="hidden" id="email_available_status">
+                        <input type="hidden" id="phn_available_status">
+                        <input type="hidden" id="username_available_status">
+                        <input type="hidden" id="pass_match_available_status">
+
+                    <div id="show_button">
+                        <button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button>
+                    </div>
+
+
+
+
+                </div>
+
+
+				</div>
+				<!-- guest-login -->
+
+				<!-- already-registered-login -->
+				<div class="col-md-6 col-sm-6 already-registered-login">
+					<h4 class="checkout-subtitle">Already registered?</h4>
+					<p class="text title-tag-line">Please log in below:</p>
+<!--					<form class="register-form" role="form">-->
+<!--						<div class="form-group">-->
+<!--					    <label class="info-title" for="exampleInputEmail1">Email Address <span>*</span></label>-->
+<!--					    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="">-->
+<!--					  </div>-->
+<!--					  <div class="form-group">-->
+<!--					    <label class="info-title" for="exampleInputPassword1">Password <span>*</span></label>-->
+<!--					    <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" placeholder="">-->
+<!--					    <a href="#" class="forgot-password">Forgot your Password?</a>-->
+<!--					  </div>-->
+<!--					  <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Login</button>-->
+<!--					</form>-->
+
+
+                    <div class="sign-in">
+                        <span id="login_status"></span>
+                            <div class="form-group">
+                            <label class="info-title" for="login_email">Email Address / Phone Number<span>*</span></label>
+                            <input type="email" class="form-control unicase-form-control text-input" id="login_email" >
+                        </div>
+                        <div class="form-group">
+                            <label class="info-title" for="login_password">Password <span>*</span></label>
+                            <input type="password" class="form-control unicase-form-control text-input" id="login_password" >
+                        </div>
+                        <div class="radio outer-xs">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Remember me!
+                            </label>
+                            <a href="#" data-toggle="modal" data-target="#myModal_forgot_pass" class="forgot-password pull-right">Forgot your Password?</a>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal_forgot_pass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Forgot Password</h4>
+                                  </div>
+                                  <div class="modal-body">
+
+                                      <div class="form-group" id="change_interface_forgot_pss">
+                                        <label class="info-title" for="id_sign_phone">Phone Number <span>*</span></label>
+                                        <div class="row">
+                                            <div class="col-md-2 col-lg-2 col-sm-2"><h4>+88</h4></div>
+                                            <div class="col-md-10 col-lg-10 col-sm-10">
+                                                <input type="number" class="form-control unicase-form-control text-input" id="forgot_pass_num">
+                                            </div>
+                                        </div>
+                                          <span id="show_forgot_status"></span>
+                                    </div>
+
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <span id="change_forgot_btn">
+                                        <button type="button" onclick="check_phn_num()" class="btn btn-primary">Continue</button>
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div id="login_button">
+                            <button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Login</button>
+                        </div>
+
+                    </div>
+
+				</div>
+				<!-- already-registered-login -->
+
+			</div>
+		</div>
+		<!-- panel-body  -->
+
+	</div><!-- row -->
+    {% endif %}
+
+</div>
+<!-- checkout-step-01  -->
+					    <!-- checkout-step-02  -->
+					  	<div class="panel panel-default checkout-step-02">
+						    <div class="panel-heading">
+						      <h4 class="unicase-checkout-title">
+						        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseTwo">
+						          <span>2</span>Delivery Information
+
+                                    <big style="color:green;" id="show_active_deli_info"></big>
+
+						        </a>
+						      </h4>
+						    </div>
+
+
+                            {% if user.is_authenticated %}
+                            <div id="hide_deli_info_form">
+                                <div id="collapseTwo" class="panel-collapse collapse {% if user.is_authenticated %}in{% endif %}">
+                                  <div class="panel-body">
+                                  <div class="row">
+                                      <div id="Show_status_delivery_info"></div>
+
+                                      <div class="form-group">
+                                        <label class="info-title" for="customer_first_name">First Name <span>*</span></label>
+                                        <input type="text" class="form-control unicase-form-control text-input" id="customer_first_name" placeholder="First Name" value="{{user.first_name}}">
+                                      </div>
+                                      <div class="form-group">
+                                        <label class="info-title" for="customer_last_name">Last Name <span>*</span></label>
+                                        <input type="text" class="form-control unicase-form-control text-input" id="customer_last_name" placeholder="Last Name" value="{{user.last_name}}">
+                                      </div>
+                                      <div class="form-group">
+                                        <label class="info-title" for="customer_Street_Address">Street Address <span>*</span></label>
+                                        <input type="text" class="form-control unicase-form-control text-input" id="customer_Street_Address" placeholder="Street Address">
+                                      </div>
+                                      <div class="form-group">
+                                        <label class="info-title" for="customer_Town_City">Town City <span>*</span></label>
+                                        <input type="text" class="form-control unicase-form-control text-input" id="customer_Town_City" placeholder="Town City">
+                                      </div>
+
+                                      <div class="form-group">
+                                          <label class="info-title" for="customer_District">Discrict <span>*</span></label>
+                                          <select id="customer_District">
+                                              <option value="Dhaka" selected="selected">Dhaka</option>
+                                              <option value="Chittagong">Chittagong</option>
+                                              <option value="Sylhet">Sylhet</option>
+                                              <option value="Feni">Feni</option>
+                                              <option value="Gazipur">Gazipur</option>
+                                            </select>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="info-title" for="customer_Post_Code">Post Code <span>*</span></label>
+                                        <input type="number" class="form-control unicase-form-control text-input" id="customer_Post_Code" placeholder="Post Code">
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label class="info-title" for="customer_Phone_Number">Phone Number <span>*</span></label>
+                                        <input type="number" class="form-control unicase-form-control text-input" id="customer_Phone_Number" placeholder="Phone Number" value="{{user.username}}">
+                                      </div>
+
+
+                                      <div class="form-group">
+                                        <label class="info-title" for="customer_Email_Address">Email Address <span>*</span></label>
+                                        <input type="email" class="form-control unicase-form-control text-input" id="customer_Email_Address" placeholder="Email Address" value="{{user.email}}">
+                                      </div>
+
+                                      <button type="submit" class="btn btn-primary" onclick="submitbtn_customer_delivery_info()">Continue</button>
+                                      <span id="Show_status_delivery_info2"></span>
+
+
+                              </div>
+                                 </div>
+                                </div>
+						    </div>
+                            {% endif %}
+
+                        </div>
+					  	<!-- checkout-step-02  -->
+
+						<!-- checkout-step-03  -->
+					  	<div class="panel panel-default checkout-step-03">
+						    <div class="panel-heading">
+						      <h4 class="unicase-checkout-title">
+						        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseThree">
+						       		<span>3</span>Order Review & Payment
+						        </a>
+						      </h4>
+						    </div>
+                            {% if user.is_authenticated %}
+						    <div id="collapseThree22">
+
+						    </div>
+                            {% endif %}
+					  	</div>
+					  	<!-- checkout-step-03  -->
+
+						<!-- checkout-step-04  -->
+<!--					    <div class="panel panel-default checkout-step-04">-->
+<!--						    <div class="panel-heading">-->
+<!--						      <h4 class="unicase-checkout-title">-->
+<!--						        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseFour">-->
+<!--						        	<span>4</span>Payment Method-->
+<!--						        </a>-->
+<!--						      </h4>-->
+<!--						    </div>-->
+<!--                            {% if user.is_authenticated %}-->
+<!--						    <div id="collapseFour" class="panel-collapse collapse">-->
+<!--							    <div class="panel-body">-->
+<!--                                <h4 class="checkout-subtitle">Payment Options</h4>-->
+<!--                                <form action="/action_page.php">-->
+<!--                                  <p>Please select payment method:</p>-->
+<!--                                  <input type="radio" id="male" name="gender" value="male">-->
+<!--                                  <label for="male">Pay Online</label><br>-->
+<!--                                  <input type="radio" id="female" name="gender" value="female">-->
+<!--                                  <label for="female">Direct Bank Deposit</label><br>-->
+
+<!--                                    {% if user.is_authenticated %}-->
+<!--                                    <button style="margin-top:15px;" type="submit" class="btn-upper btn btn-primary checkout-page-button">Place Order</button>-->
+<!--                                    {% else %}-->
+<!--                                    <button style="margin-top:15px;" type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Place Order</button>-->
+<!--                                    {% endif %}-->
+<!--                                </form>-->
+<!--							    </div>-->
+<!--					    	</div>-->
+<!--                            {% endif %}-->
+<!--						</div>-->
+						<!-- checkout-step-04  -->
+
+
+
+					</div><!-- /.checkout-steps -->
+
+
+					         <!-- ============================================== BRANDS CAROUSEL ============================================== -->
+    <div id="brands-carousel" class="logo-slider wow fadeInUp">
+      <div class="logo-slider-inner">
+        <div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
+          <div class="item m-t-15"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand1.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+
+          <div class="item m-t-10"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand2.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+
+          <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand3.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+
+          <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand4.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+
+          <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand5.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+
+          <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand6.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+
+          <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand2.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+
+          <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand4.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+
+          <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand1.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+
+          <div class="item"> <a href="#" class="image"> <img data-echo="assets/images/brands/brand5.png" src="assets/images/blank.gif" alt=""> </a> </div>
+          <!--/.item-->
+        </div>
+        <!-- /.owl-carousel #logo-slider -->
+      </div>
+      <!-- /.logo-slider-inner -->
+
+    </div>
+    <!-- /.logo-slider -->
+    <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
+
+
+				</div>
+   </div>
+
+
+   <div class="col-xs-12 col-sm-12 col-md-3 right-sidebar">
+   <div class="checkout-progress-sidebar ">
+	<div class="panel-group">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+		    	<h4 class="unicase-checkout-title">Your Checkout Progress</h4>
+		    </div>
+		    <div class="">
+				<ul class="nav nav-checkout-progress list-unstyled">
+					<li><a href="#">Billing Address</a></li>
+					<li><a href="#">Shipping Address</a></li>
+					<li><a href="#">Shipping Method</a></li>
+					<li><a href="#">Payment Method</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+   </div>
+
+    </div>
+
+    </div>
+</div>
+
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+
+<script>
+
+
+
+//start Forgot password
+
+function check_phn_num(){
+    var varforgot_pass_num = document.getElementById('forgot_pass_num').value;
+    console.log(varforgot_pass_num)
+
+
+
+    if(varforgot_pass_num == ""){
+        document.getElementById('show_forgot_status').innerHTML = `<span style="color:red;">Phone Number is Required !</span>`
+    }
+    else if(varforgot_pass_num.length > 11){
+        document.getElementById('show_forgot_status').innerHTML = `<span style="color:red;">Phone Number is not Valid !</span>`
+    }
+    else if(varforgot_pass_num.length < 11){
+        document.getElementById('show_forgot_status').innerHTML = `<span style="color:red;">Phone Number is not Valid !</span>`
+    }
+    else{
+        document.getElementById('show_forgot_status').innerHTML = ""
+        document.getElementById("change_forgot_btn").innerHTML = `<button type="button" class="btn btn-warning">Wait..</button>`
+
+        $.ajax({
+                url : '{% url 'check_and_send_otp' %}',
+                type : 'POST',
+                data : {varforgot_pass_num:varforgot_pass_num}
+            })
+            .done(function(response){
+                console.log(response);
+                console.log(varforgot_pass_num)
+                if(response=="False"){
+                    document.getElementById('show_forgot_status').innerHTML = `<span style="color:red;">This Phone Number Is Not Registered !</span>`
+                }
+                else{
+                    document.getElementById('change_interface_forgot_pss').innerHTML =
+                        `<h5>We Sent You An OTP, Please Check !!</h5>
+                        <div class="form-group">
+                            <label class="info-title" for="First_Name">OTP <span>*</span></label>
+                            <input type="number" class="form-control unicase-form-control text-input" id="otp_forgot_pss_value">
+                            <span id="otp_status_forgot"></span>
+                        </div>
+
+                        <div class="form-group" id="id_otp_btn1">
+                            <button class="btn btn-primary" onclick="resent_otp_number_forgot_pass('${varforgot_pass_num}')">Resent the otp?</button>
+                        </div>`
+
+
+                    document.getElementById("change_forgot_btn").innerHTML = `<button type="button" class="btn btn-primary" onclick="submit_otp_forgot('${varforgot_pass_num}', '${response}')">Submit</button>`
+                }
+
+            })
+
+    }
+}
+
+
+function resent_otp_number_forgot_pass(varforgot_pass_num){
+    console.log('reset_phn_number')
+    console.log(varforgot_pass_num)
+
+    document.getElementById('id_otp_btn1').innerHTML = `<button class="btn btn-warning">Resending ...</button>`;
+
+    $.ajax({
+                url : '{% url 'check_and_send_otp' %}',
+                type : 'POST',
+                data : {varforgot_pass_num:varforgot_pass_num}
+            })
+            .done(function(response){
+                console.log(response);
+                console.log(varforgot_pass_num)
+                if(response=="False"){
+                    document.getElementById('show_forgot_status').innerHTML = `<span style="color:red;">This Phone Number Is Not Registered !</span>`
+                }
+                else{
+                    document.getElementById('change_interface_forgot_pss').innerHTML =
+                        `<h5>We Sent You Another OTP, Please Check !!</h5>
+                        <div class="form-group">
+                            <label class="info-title" for="First_Name">OTP <span>*</span></label>
+                            <input type="number" class="form-control unicase-form-control text-input" id="otp_forgot_pss_value">
+                            <span id="otp_status_forgot"></span>
+                        </div>
+
+                        <div class="form-group" id="id_otp_btn1">
+                            <button class="btn btn-primary" onclick="resent_otp_number_forgot_pass('${varforgot_pass_num}')">Resent the otp?</button>
+                        </div>`
+
+                    document.getElementById("change_forgot_btn").innerHTML = `<button type="button" class="btn btn-primary" onclick="submit_otp_forgot('${varforgot_pass_num}', '${response}')">Submit</button>`
+
+
+                }
+
+            })
+
+}
+
+
+
+function submit_otp_forgot(varforgot_pass_num, forgot_otp){
+    console.log("varforgot_pass_num, forgot_otp")
+
+    console.log(varforgot_pass_num, forgot_otp)
+
+    var typ_otp = document.getElementById('otp_forgot_pss_value').value;
+    console.log(typ_otp)
+
+
+    if(typ_otp == ""){
+        document.getElementById('otp_status_forgot').innerHTML = `<span style="color:red;">OTP Field Can Not be Empty !</span>`
+    }
+    else{
+        document.getElementById('otp_status_forgot').innerHTML = ""
+        document.getElementById("change_forgot_btn").innerHTML = `<button type="button" class="btn btn-warning">Wait..</button>`
+
+        if(forgot_otp==typ_otp){
+            document.getElementById("change_forgot_btn").innerHTML = `<button type="button" class="btn btn-primary" onclick="last_step_forgot_num('${varforgot_pass_num}')">Complete</button>`
+            document.getElementById('change_interface_forgot_pss').innerHTML =`<div class="form-group">
+                            <label class="info-title" for="sing_Password">Password <span>*</span></label>
+                            <input type="password" class="form-control unicase-form-control text-input" id="password_forgot" >
+                            <span id="show_forgot_password1"></span>
+                        </div>
+                         <div class="form-group">
+                            <label class="info-title" for="sign_Confirm_Password">Confirm Password <span>*</span></label>
+                            <input type="password" class="form-control unicase-form-control text-input" id="confirm_password_forgot" >
+                             <span id="show_forgot_password2"></span>
+                        </div>`
+        }
+        else{
+            document.getElementById('otp_status_forgot').innerHTML = `<span style="color:red;">OTP Doesn't Match!</span>`
+            document.getElementById("change_forgot_btn").innerHTML = ""
+        }
+    }
+}
+
+
+function last_step_forgot_num(phn_number){
+
+    password_forgot = document.getElementById('password_forgot').value;
+    confirm_password_forgot = document.getElementById('confirm_password_forgot').value;
+    console.log(password_forgot, confirm_password_forgot)
+
+    if(password_forgot == ""){
+        document.getElementById('show_forgot_password1').innerHTML=`<b><span style="color:red;">Password Can not Be Empty !</span></b>`
+    }
+
+    else if(confirm_password_forgot == ""){
+        document.getElementById('show_forgot_password1').innerHTML=""
+        document.getElementById('show_forgot_password2').innerHTML=`<b><span style="color:red;">Confirm Password Can not Be Empty !</span></b>`
+    }
+
+    else if(password_forgot != confirm_password_forgot){
+        document.getElementById('show_forgot_password2').innerHTML=`<b><span style="color:red;">Paswords Are Not Matched !</span></b>`
+    }
+    else{
+        document.getElementById('show_forgot_password1').innerHTML="";
+        document.getElementById('show_forgot_password2').innerHTML="";
+
+        document.getElementById("change_forgot_btn").innerHTML = `<button type="button" class="btn btn-warning">Completing..</button>`
+
+        $.ajax({
+                url : '{% url 'change_password_confirm' %}',
+                type : 'POST',
+                data : {phn_number:phn_number,password_forgot:password_forgot}
+            })
+            .done(function(response){
+                console.log(response);
+                if(response == "True"){
+                    location.reload()
+                }
+            })
+    }
+}
+
+
+// end forgot password
+
+
+
+
+function function_pay_sys(val){
+    console.log(val)
+
+    payment_percentage = parseInt(val);
+
+    product_cart = JSON.parse(localStorage.getItem('product_cart'));
+
+    lst_cam_sts = []
+    for (var item in product_cart){
+        if(product_cart[item][0] == 0){}
+
+        else{
+            console.log('submitting the order')
+
+            var order_product_campaign_status = product_cart[item][5];
+
+            if (lst_cam_sts.includes(order_product_campaign_status)){
+                console.log('55')
+            }
+            else{
+                lst_cam_sts.push(order_product_campaign_status)
+            }
+        }
+
+    }
+
+    total_to_pay=0
+    total_due_pay=0
+
+    for(var cam in lst_cam_sts){
+        console.log(lst_cam_sts[cam])
+        remove_space_cam = lst_cam_sts[cam].split(" ").join("");
+        console.log(remove_space_cam)
+
+        delivery_charge = document.getElementById('gedelivery_charge'+remove_space_cam).innerHTML;
+
+        var vargesub_price = document.getElementById('gesub_price'+remove_space_cam).innerHTML;
+        console.log(vargesub_price)
+
+        var gegrad_pric = document.getElementById('gegrand_price'+remove_space_cam).innerHTML
+
+
+        var partial_price_cnt = parseInt(vargesub_price)*payment_percentage/100;
+
+        var partial_pay = parseInt(delivery_charge)+parseInt(partial_price_cnt);
+
+        var due_price = parseInt(gegrad_pric)-partial_pay
+
+
+
+        document.getElementById('to_pay_price'+remove_space_cam).innerHTML = partial_pay;
+        document.getElementById('due_price'+remove_space_cam).innerHTML = due_price;
+
+        total_to_pay = total_to_pay + partial_pay;
+        total_due_pay = total_due_pay + due_price;
+
+    }
+
+    if(payment_percentage==10){
+    document.getElementById('payment_type').value = `Partially`;
+    }
+    else{
+    document.getElementById('payment_type').value = `Full`;
+    }
+
+
+    document.getElementById('total_to_pay_price').innerHTML = total_to_pay;
+    document.getElementById('total_due_price').innerHTML = total_due_pay;
+
+}
+
+
+ function my_function(val){
+    delivery_charge = parseInt(val);
+
+    console.log('ijdiojedijej')
+    console.log(delivery_charge)
+
+    product_cart = JSON.parse(localStorage.getItem('product_cart'));
+
+    lst_cam_sts = []
+    for (var item in product_cart){
+        if(product_cart[item][0] == 0){}
+
+        else{
+            console.log('submitting the order')
+
+            var order_product_campaign_status = product_cart[item][5];
+
+            if (lst_cam_sts.includes(order_product_campaign_status)){
+                console.log('55')
+            }
+            else{
+                lst_cam_sts.push(order_product_campaign_status)
+            }
+        }
+
+    }
+
+
+    delivery_charge222 = delivery_charge;
+
+    var total_last=0;
+
+    var total_to_pay = 0;
+    var total_due_pay = 0;
+
+    for(var cam in lst_cam_sts){
+        console.log(lst_cam_sts[cam])
+        remove_space_cam = lst_cam_sts[cam].split(" ").join("");
+        console.log(remove_space_cam)
+
+
+        console.log('sdddddddddddddddddddddd')
+        console.log(delivery_charge)
+
+
+
+        v_delivry_free = document.getElementById('delivry_free'+remove_space_cam).value;
+
+        console.log(v_delivry_free)
+        console.log('v_delivry_free')
+
+        console.log(delivery_charge)
+
+        if(v_delivry_free == "True"){
+            delivery_charge = 0;
+            document.getElementById('status_free'+remove_space_cam).innerHTML = `(Free Delivery)`;
+            console.log('hihi')
+        }
+
+        else{
+            delivery_charge = delivery_charge222;
+        }
+
+        console.log(delivery_charge)
+
+        document.getElementById('gedelivery_charge'+remove_space_cam).innerHTML = delivery_charge;
+
+        var vargesub_price = document.getElementById('gesub_price'+remove_space_cam).innerHTML
+        console.log(vargesub_price)
+
+        console.log('delivery_charge, vargesub_price')
+        console.log(delivery_charge, vargesub_price)
+
+        var cam_grand_total = parseInt(delivery_charge)+parseInt(vargesub_price);
+
+        document.getElementById('gegrand_price'+remove_space_cam).innerHTML = cam_grand_total;
+
+        total_last = total_last+cam_grand_total;
+
+
+        var payment_percentage = $("input[name='pay_sys']:checked").val();;
+        console.log(payment_percentage)
+        var partial_price_cnt = parseInt(vargesub_price)*payment_percentage/100;
+
+        var partial_pay = parseInt(delivery_charge)+parseInt(partial_price_cnt);
+        console.log(cam_grand_total)
+        var due_price = cam_grand_total-partial_pay
+        console.log(due_price)
+
+
+        document.getElementById('to_pay_price'+remove_space_cam).innerHTML = partial_pay;
+        document.getElementById('due_price'+remove_space_cam).innerHTML = due_price;
+
+
+        total_to_pay = total_to_pay + partial_pay;
+        total_due_pay = total_due_pay + due_price;
+    }
+
+    document.getElementById('total_to_pay_price').innerHTML = total_to_pay;
+    document.getElementById('total_due_price').innerHTML = total_due_pay;
+
+    document.getElementById('show_subtotalss').innerHTML = total_last;
+
+
+
+
+
+
+
+ }
+
+
+ function payment_option(val){
+    if(val=='pay_online'){
+        document.getElementById('show_pay_status').innerHTML=`Pay securely by Credit/Debit card, Internet banking or Mobile banking through SSLCommerz.`
+    }
+    else if(val=='pay_online_nagad'){
+        document.getElementById('show_pay_status').innerHTML=`Nagad Payment Gateway for our fellow customers who use Nagad.`
+    }
+
+    else if(val=='pay_online_bkash'){
+        document.getElementById('show_pay_status').innerHTML=`Follow the steps to make a merchant payment:<br><br>
+        Step 1: Place an order.<br>
+        Step 2: Copy the Order ID<br>
+        Step 3: Go to phone dialer and dial *247# Or Open Bkash Mobile App<br>
+        Step 4: Select Payment<br>
+        Step 5: Enter Merchant Phone Number (01732130050)<br>
+        Step 6: Enter your Order ID in Reference ID<br>
+        Step 7: Make Payment & email us your transaction ID, bkash phone number & Order ID at bkash@ecomhat.com.bd<br>`
+    }
+
+    else if(val=='direct_bank_deposit'){
+        document.getElementById('show_pay_status').innerHTML=
+        `Follow the information below for bank payment:</br></br>
+        1. Deposit the total check amount to the bank provided below.</br>
+        2. Write down the order ID in your bank deposit slip.</br>
+        3. Then take a picture of your deposit slip and mail it to payment@boomboom.com.bd</br></br>
+
+        Account Name : BOOM BOOM LIMITED</br>
+        Account Number : 1091030250814</br>
+        Routing Number : 095260721</br>
+        Branch Name : Banasree</br>
+        Bank Name : Eastern Bank Limited</br></br>
+
+        Account Name : BOOM BOOM LIMITED</br>
+        Account Number : 1831200001716</br>
+        Routing Number : 090260926</br>
+        Branch Name : Dakshinkhan</br>
+        Bank Name : Dutch-Bangla Bank Limited`
+    }
+
+
+    else if(val=='COD'){
+        document.getElementById('show_pay_status').innerHTML=
+        `When Delivery I can Pay !`
+    }
+
+    else{
+        document.getElementById('show_pay_status').innerHTML=`<span class="badge bg-secondary">You can Continue for now. You Can pay later !!</span>`
+    }
+
+
+    // document.getElementById('show_delivery_charge').innerHTML = `&#2547;`+delivery_charge;
+
+    // get_sub_total = document.getElementById('need_current_sub').innerHTML;
+    // get_sub_total2 = parseInt(get_sub_total);
+
+    // document.getElementById('show_subtotalss').innerHTML = get_sub_total2+delivery_charge;
+ }
+
+
+
+//get_cart_item2()
+//function get_cart_item2(){
+//    console.log('hi')
+//	product_cart = JSON.parse(localStorage.getItem('product_cart'));
+//	showitem_check_page = "";
+//
+//	k=1;
+//
+//	for (var item in product_cart){
+//		product_qty = product_cart[item][0]
+//		single_price = product_cart[item][2]
+//
+//		sub_single_price = product_qty*single_price;
+//
+//
+//		showitem_check_page = showitem_check_page + `<tr>
+//                                            <td class="tg-baqh">${k}.</td>
+//                                              <td class="tg-baqh">${product_cart[item][1]}</td>
+//                                            <td class="tg-baqh">${product_cart[item][0]}</td>
+//                                              <td class="tg-baqh">&#2547;${product_cart[item][2]}</td>
+//                                              <td class="tg-baqh">&#2547;${sub_single_price}</td>
+//                                            </tr>`
+//        k=k+1;
+//
+//	}
+//	//document.getElementById('show_itemss_checkout_page').innerHTML = showitem_check_page;
+//}
+
+
+
+function submitbtn_customer_delivery_info(){
+    console.log('in contineu')
+    var customer_first_name= document.getElementById("customer_first_name").value;
+    var customer_last_name = document.getElementById("customer_last_name").value;
+    var customer_Street_Address= document.getElementById("customer_Street_Address").value;
+    var customer_Town_City= document.getElementById("customer_Town_City").value;
+    var customer_District= document.getElementById("customer_District").value;
+    var customer_Post_Code= document.getElementById("customer_Post_Code").value;
+    var customer_Phone_Number= document.getElementById("customer_Phone_Number").value;
+    var customer_Email_Address= document.getElementById("customer_Email_Address").value;
+
+    if(customer_first_name !="" && customer_last_name!="" && customer_Street_Address!="" && customer_Town_City!="" && customer_District!="" && customer_Post_Code!="" && customer_Phone_Number!="" && customer_Email_Address!=""){
+        document.getElementById('Show_status_delivery_info').innerHTML =`<h4 style="color:green">&#129303 Please Wait... !!</h4>`
+        document.getElementById('Show_status_delivery_info2').innerHTML =`<span style="color:green">&#129303 Please Wait... !!</span>`
+
+        $.ajax({
+                url : '{% url 'save_customer_delivery_info' %}',
+                type : 'POST',
+                data : {customer_first_name:customer_first_name, customer_last_name:customer_last_name, customer_Street_Address:customer_Street_Address, customer_Town_City:customer_Town_City, customer_District:customer_District, customer_Post_Code:customer_Post_Code, customer_Phone_Number:customer_Phone_Number, customer_Email_Address:customer_Email_Address}
+            })
+            .done(function(response){
+                console.log(response);
+
+                if(response != "False"){
+                    $(".email_error").remove();
+
+                    document.getElementById('show_active_deli_info').innerHTML = `&#9989`
+                    document.getElementById('hide_deli_info_form').innerHTML = ``
+
+                    var order_review_html="";
+
+
+                    order_review_html = order_review_html + `<h4 class="checkout-subtitle">Delivery Options</h4>
+                                  <p>Please select delivery method:</p>`
+
+
+                    order_review_html = order_review_html +
+                                  `<input type="radio" name="bedStatus" checked="checked" id="allot" value="0" onchange="my_function('0')">
+                                  <label for="female">Pickup From Ecomhat Office</label><br>`
+
+                    if(customer_District != 'Dhaka'){
+                        order_review_html = order_review_html +
+                                  `<input type="radio" name="bedStatus" id="allot" value="120" onchange="my_function('120')">
+                                  <label for="male">Outside Dhaka For Products less than 1KG (BDT 120)</label><br>`
+                    }
+                    else{
+                        order_review_html = order_review_html +
+                                  `<input type="radio" name="bedStatus" id="allot" value="60" onchange="my_function('60')">
+                                  <label for="male">Inside Dhaka For Products less than 1KG (BDT 60)</label><br></div><hr>`
+                    }
+
+
+
+
+                    order_review_html = order_review_html + `<h4 class="checkout-subtitle">Payment System</h4>
+                                  <p>Please select Payment System:</p>`
+
+
+                    order_review_html = order_review_html +
+                                  `<input type="radio" name="pay_sys" checked="checked" id="pay_sys" value="100" onchange="function_pay_sys('100')">
+                                  <label for="pay_sys">Full Payment (100% of total Amount)</label><br>
+                                  <input type="radio" name="pay_sys" id="pay_sys" value="10" onchange="function_pay_sys('10')">
+                                  <label for="pay_sys">Partial Payment (10% of total amount)</label>`
+
+
+
+
+
+                    order_review_html= order_review_html + `<div class="panel-body">
+						      <h4 class="checkout-subtitle">Cart</h4>`
+
+
+
+						      product_cart = JSON.parse(localStorage.getItem('product_cart'));
+
+                                lst_cam_sts = []
+                                for (var item in product_cart){
+                                    if(product_cart[item][0] == 0){}
+
+                                    else{
+                                        console.log('submitting the order')
+
+                                        var order_product_campaign_status = product_cart[item][5];
+
+                                        if (lst_cam_sts.includes(order_product_campaign_status)){
+                                            console.log('55')
+                                        }
+                                        else{
+                                            lst_cam_sts.push(order_product_campaign_status)
+                                        }
+                                    }
+
+                                }
+
+                                console.log(lst_cam_sts)
+
+                                console.log(lst_cam_sts.length)
+
+                                for (var ordr_type = 0; ordr_type < lst_cam_sts.length; ordr_type++) {
+                                    console.log(lst_cam_sts[ordr_type])
+
+                                    var prod_type = lst_cam_sts[ordr_type]
+
+                                    var prod_type_spc = prod_type.split(" ").join("");
+
+
+
+
+
+
+                                    order_review_html = order_review_html +`<h3>${prod_type}</h3>
+                                    <div style="border:1px solid #adadad; padding:10px; margin-bottom:15px;">
+                                      <table class="tg" style="width: 100%;">
+                                        <colgroup>
+                                          <col style="width: 43px">
+                                          <col style="width: 231px">
+                                          <col style="width: 10px">
+                                          <col style="width: 231px">
+                                          <col style="width: 200px">
+                                        </colgroup>
+                                        <thead>
+                                          <tr>
+                                            <th class="tg-c3ow">Sl</th>
+                                            <th class="tg-c3ow">Product</th>
+                                              <th class="tg-c3ow"></th>
+                                              <th class="tg-c3ow">Price</th>
+                                              <th class="tg-c3ow">Price x Qty</th>
+
+                                            </tr>
+                                          </thead>
+                                          <tbody id="show_itemss_checkout_page">`
+
+                                          var type_sub_total_price = 0;
+                                          j=1;
+                                          for (var item in product_cart){
+                                                if(product_cart[item][0] == 0){}
+
+                                                else{
+
+
+                                                    if(product_cart[item][5]==lst_cam_sts[ordr_type]){
+                                                        var product_qty = product_cart[item][0];
+                                                        var single_price = product_cart[item][2];
+
+                                                        var delivry_free = product_cart[item][7];
+
+                                                        var sub_single_price = product_qty*single_price;
+
+                                                        type_sub_total_price = type_sub_total_price+sub_single_price;
+
+                                                        order_review_html = order_review_html + `<tr>
+                                                                  <td class="tg-baqh"><h5>${j}.</h5></td>
+                                                                  <td class="tg-baqh"><h5>${product_cart[item][1]}</h5></td>
+                                                                  <td class="tg-baqh"></td>
+                                                                  <td class="tg-baqh"><h4>&#2547;${product_cart[item][2]}</h4></td>
+                                                                  <td class="tg-baqh"><h4>&#2547;${sub_single_price}</h4></td>
+                                                                </tr>`
+
+                                                        j=j+1
+                                                    }
+
+                                                }
+
+                                            }
+
+                                            order_review_html = order_review_html + `
+                                                            <tr>
+                                                              <td class="tg-baqh">-</td>
+                                                              <td class="tg-baqh"></td>
+                                                              <td class="tg-baqh"></td>
+                                                              <td class="tg-baqh"></td>
+                                                              <td class="tg-baqh"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="tg-baqh"></td>
+                                                              <td class="tg-baqh" colspan="3"><h4>SubTotal</h4></td>
+                                                              <td class="tg-baqh"><h4>&#2547;<span id="gesub_price${prod_type_spc}">${type_sub_total_price}</span></h5></td>
+                                                            </tr>`
+
+                                            order_review_html = order_review_html + `<tr>
+                                                                <td class="tg-baqh"></td>
+                                                              <td class="tg-baqh" colspan="3"><h5>Delivery :</h5></td>
+                                                              <td class="tg-baqh">
+                                                              <h4>&#2547;<span id="gedelivery_charge${prod_type_spc}">0</span>
+                                                              <input type="hidden" value="${delivry_free}" id="delivry_free${prod_type_spc}">
+                                                              <span id="status_free${prod_type_spc}"></span></h4>
+                                                              </td>
+                                                            </tr>`
+                                            order_review_html = order_review_html + `<tr>
+                                                                <td class="tg-baqh"></td>
+                                                              <td class="tg-baqh" colspan="3"><h5>GrandTotal :</h5></td>
+                                                              <td class="tg-baqh">
+                                                              <h4>&#2547;<span id="gegrand_price${prod_type_spc}">${type_sub_total_price}</span></h4>
+                                                              </td>
+                                                            </tr>`
+
+
+                                            order_review_html = order_review_html + `<tr>
+                                                              <td class="tg-baqh">-</td>
+                                                              <td class="tg-baqh"> </td>
+                                                              <td class="tg-baqh"> </td>
+                                                              <td class="tg-baqh"> </td>
+                                                              <td class="tg-baqh"> </td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td class="tg-baqh"></td>
+                                                              <td class="tg-baqh" colspan="3"><h5>To Pay (With Delivery Charge):</h5></td>
+                                                              <td class="tg-baqh"><h4>&#2547;<span id="to_pay_price${prod_type_spc}">${type_sub_total_price}</span></h4></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="tg-baqh"></td>
+                                                              <td class="tg-baqh" colspan="3"><h5>Due :</h5></td>
+                                                              <td class="tg-baqh"><h4>&#2547;<span id="due_price${prod_type_spc}">0</span></h4></td>
+                                                            </tr>`
+
+                                    order_review_html = order_review_html + `</tbody>
+                                            </table>
+                                            </div>`;
+                                        }
+
+
+
+                                order_review_html = order_review_html +`<h3>Grand Total</h3><div style="border:1px solid #adadad; padding:10px; margin-bottom:15px;">
+                                  <table class="tg" style="width: 100%;">
+                                    <colgroup>
+                                      <col style="width: 43px">
+                                      <col style="width: 231px">
+                                      <col style="width: 99px">
+                                    </colgroup>
+
+                                      <tbody id="show_itemss_checkout_page">`;
+
+                    product_cart = JSON.parse(localStorage.getItem('product_cart'));
+
+                    k=1;
+                    var grand_total_price=0;
+
+                    for (var item in product_cart){
+                        if(product_cart[item][0] == 0){}
+		                else{
+                            var product_qty = product_cart[item][0];
+                            var single_price = product_cart[item][2];
+
+                            var sub_single_price = product_qty*single_price;
+                            grand_total_price = grand_total_price + sub_single_price;
+
+
+                            // order_review_html = order_review_html + `<tr>
+                            //                                       <td class="tg-baqh">${k}.</td>
+                            //                                       <td class="tg-baqh">${product_cart[item][1]}</td>
+                            //                                       <td class="tg-baqh">${product_cart[item][0]}</td>
+                            //                                       <td class="tg-baqh">&#2547;${product_cart[item][2]}</td>
+                            //                                       <td class="tg-baqh">&#2547;${sub_single_price}</td>
+                            //                                     </tr>`
+                            k=k+1;
+                        }
+                    }
+
+                    if(customer_District != 'Dhaka'){
+                        var deliver_chrg = document.getElementById('gedelivery_charge' + prod_type_spc);
+                        first_time_deli_charge = 120;
+                        subtotal= grand_total_price + deliver_chrg;
+                    }
+                    else{
+                        var deliver_chrg = document.getElementById('gedelivery_charge' + prod_type_spc);
+                        first_time_deli_charge = 60;
+                        subtotal= grand_total_price + deliver_chrg;
+                    }
+
+
+                    order_review_html = order_review_html + `<tr>
+                                    <td class="tg-baqh"></td>
+                                  <td class="tg-baqh" colspan="3"><h5>Total Bill :</h5></td>
+                                  <td class="tg-baqh"><h4>&#2547;<span id="show_subtotalss">${subtotal}</span></h4></td>
+                                </tr>
+
+
+                                <tr>
+                                  <td class="tg-baqh">-</td>
+                                  <td class="tg-baqh"></td>
+                                  <td class="tg-baqh"></td>
+                                  <td class="tg-baqh"></td>
+                                  <td class="tg-baqh"></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="tg-baqh"></td>
+                                  <td class="tg-baqh" colspan="3"><h5>Total To Pay :</h5></td>
+                                  <td class="tg-baqh"><h4>&#2547;<span id="total_to_pay_price">${subtotal}</span><input type="hidden" value="Full" id="payment_type"/></h4></td>
+                                </tr>
+
+
+                                <tr>
+                                    <td class="tg-baqh"></td>
+                                  <td class="tg-baqh" colspan="3"><h5>Total Due :</h5></td>
+                                  <td class="tg-baqh"><h4>&#2547;<span id="total_due_price">0</span></h4></td>
+                                </tr>
+
+                                </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">Order Note</label>
+                                    <textarea id="id_order_note_textarea" class="form-control" rows="3"></textarea>
+                                  </div>`
+
+
+
+
+
+
+
+						      order_review_html = order_review_html +`<br>
+						      <hr>
+
+
+						      <div class="panel-body">
+                                <h4 class="checkout-subtitle">Payment Options</h4>
+
+                                  <p>Please select payment method:</p>
+
+                                  <input type="radio" id="COD" name="pay_radio" value="COD" checked="checked" onchange="payment_option('COD')">
+                                  <label for="female">Cash On Delivery</label><br>
+
+                                  <input type="radio" id="pay_online" name="pay_radio" value="Pay Online With SSLCommerz(Credit/Debit Card/MobileBanking/NetBanking/bKash)" onchange="payment_option('pay_online')">
+                                  <label for="male">Pay Online With SSLCommerz(Credit/Debit Card/MobileBanking/NetBanking/bKash)</label><br>
+<!--                                  <input type="radio" id="pay_online_nagad" name="pay_radio" value="Pay With Nagad" onchange="payment_option('pay_online_nagad')">-->
+<!--                                  <label for="male">Pay With Nagad</label><br>-->
+<!--                                  <input type="radio" id="pay_online_bkash" name="pay_radio" value="Pay With Bkash" onchange="payment_option('pay_online_bkash')">-->
+<!--                                  <label for="male">Pay With Bkash</label><br>-->
+
+                                  <input type="radio" id="direct_bank_deposit" name="pay_radio" value="Bank Deposit" onchange="payment_option('direct_bank_deposit')">
+                                  <label for="female">Bank Deposit</label><br>
+
+
+                                  <div id="show_pay_status"></div>
+
+
+
+                                    <input type="hidden" value="${response}" id="customer_deli_info_id">
+                                    <span id="change_btn_ordr">
+                                    <button style="margin-top:15px;" type="submit" class="btn-upper btn btn-primary checkout-page-button" onclick="funcget_last_oder_ID()">Place Order</button>
+                                    </span>
+
+							    </div>`
+                    document.getElementById('collapseThree22').innerHTML = order_review_html;
+
+                }
+                else{
+                    $(".email_error").remove();
+
+                }
+            })
+
+            .fail(function(){
+                console.log("Failed");
+            })
+
+    }
+    else{
+        document.getElementById('Show_status_delivery_info').innerHTML =`<h4 style="color:red">&#129303 Please Fill All The Fields !!</h4>`
+        document.getElementById('Show_status_delivery_info2').innerHTML =`<span style="color:red">&#129303 Please Fill All The Fields !!</span>`
+    }
+
+}
+
+
+
+
+
+
+
+//close_modal
+function close_modal(){
+$('#email_active_notification').modal('hide');
+}
+
+
+        // signup
+        $(document).ready(function(){
+
+            // keyup event will be triggered when user leaves keyboard
+
+            //email
+            $("#sign_email").keyup(function(){
+                console.log('sign_email')
+                var email = $(this).val();
+                console.log(email)
+                var check_about_at = email.includes("@");
+                console.log(check_about_at)
+
+                if(check_about_at){
+                check_at='1'
+                }
+                else{
+                check_at='0'
+                }
+
+                var get_status_username = document.getElementById("username_available_status").value;
+                var get_status_pass = document.getElementById("pass_match_available_status").value;
+                var get_status_phn =document.getElementById("phn_available_status").value;
+
+                if (get_status_phn!='1'){
+
+                    document.getElementById('show_info_phn').innerHTML = "<span class='email_error' style='color: red; padding: 5px; font-weight: bold;'> &#10005; Phone Number is Already Exist ! </span>"
+                }
+
+                var get_phon = document.getElementById("id_sign_phone").value;
+
+
+                var First_Name = document.getElementById("First_Name").value;
+                var Last_Name = document.getElementById("Last_Name").value;
+
+                console.log(First_Name)
+                console.log(Last_Name)
+
+                // if(get_status_pass == "1" && First_Name!="" && Last_Name!="" && get_phon!=""){
+                //     document.getElementById('show_button').innerHTML =
+                //                     `<button type="submit" onclick="signup_function()" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button> `;
+                // }
+                // else{
+                //   document.getElementById('show_button').innerHTML =
+                //                     `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+
+                // }
+
+
+                if(email!=""){
+                    document.getElementById('show_info_email').innerHTML = ``;
+                    $.ajax({
+                        url : '{% url 'check_email_exist' %}',
+                        type : 'POST',
+                        data : {email:email}
+                    })
+                    .done(function(response){
+                        // console.log(response);
+
+                        if(response == "True"){
+                            $(".email_error").remove();
+                            // $("<span class='email_error' style='color: red; padding: 5px; font-weight: bold;'> Email Not Available. </span>").insertAfter("#id_email")
+                            document.getElementById('show_info_email').innerHTML = "<span class='email_error' style='color: red; padding: 5px; font-weight: bold;'> &#10005; Email is Already Exist ! </span>"
+                            document.getElementById("email_available_status").value = '0';
+
+                            document.getElementById('show_button').innerHTML =
+                                                `<input type="submit" name="submit" class="btn btn-primary" value="Sign up" disabled> `;
+
+
+                        }
+                        else{
+                            $(".email_error").remove();
+                            // $("<span class='email_error' style='color: green; padding: 5px; font-weight: bold;'> &#9986; </span>").insertAfter("#id_email")
+                            // document.getElementById('show_info_email').innerHTML = "<span class='email_error' style='color: green; padding: 5px; font-weight: bold;'>aa </span>"
+                            document.getElementById("email_available_status").value = '1';
+
+
+                            if(get_status_pass == "1" && check_at=="1" && First_Name!="" && Last_Name!="" && get_phon!="" && get_status_phn=='1'){
+                                document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" onclick="signup_function()" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button> `;
+                            }
+                            else{
+                              document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+
+                            }
+
+                        }
+                    })
+
+                    .fail(function(){
+                        console.log("Failed");
+                    })
+                }
+                else{
+                    console.log('asxsxsxs')
+                    $(".email_error").remove();
+                    document.getElementById('show_info_email').innerHTML = `<span class='username_error' style='color: red; padding: 5px; font-weight: bold;'> &#10005; Email is required !</span>`;
+
+
+                    document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+                }
+
+            })
+
+
+
+
+            $("#sing_Password").keyup(function(){
+                var re_password_match = $(this).val();
+
+                var id_password_value = document.getElementById("sing_Password").value;
+                var id_re_password_value = document.getElementById("sign_Confirm_Password").value;
+
+                var get_status_email = document.getElementById("email_available_status").value;
+                var get_status_phn =document.getElementById("phn_available_status").value;
+
+                var get_phon = document.getElementById("id_sign_phone").value;
+
+                var First_Name = document.getElementById("First_Name").value;
+                var Last_Name = document.getElementById("Last_Name").value;
+
+
+                if(id_re_password_value==""){}
+
+                else{
+
+                        if(id_password_value == id_re_password_value){
+
+                            document.getElementById('show_info_password').innerHTML = `<span class='username_error' style='color: green; padding: 5px; font-weight: bold;'> &#10004; Passwords are Matched !</span>`;
+                            document.getElementById("pass_match_available_status").value = '1';
+
+                            if(get_status_email=='1' && First_Name!="" && Last_Name!="" && get_phon!="" && get_status_phn=='1'){
+                                document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" onclick="signup_function()" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button> `;
+                            }
+                            else{
+                               document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+
+                            }
+
+                        }
+                        else{
+                               document.getElementById('show_info_password').innerHTML = `<span class='username_error' style='color: red; padding: 5px; font-weight: bold;'> &#10005; Passwords are Not Matched !</span>`;
+                               document.getElementById("pass_match_available_status").value = '0';
+                               document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+                            }
+                    }
+
+            })
+
+
+
+            $("#sign_Confirm_Password").keyup(function(){
+                var re_password_match = $(this).val();
+
+                var id_password_value = document.getElementById("sing_Password").value;
+                var id_re_password_value = document.getElementById("sign_Confirm_Password").value;
+
+                // get email status
+                var get_status_email = document.getElementById("email_available_status").value;
+                var get_status_username = document.getElementById("username_available_status").value;
+                var get_status_phn =document.getElementById("phn_available_status").value;
+
+                var First_Name = document.getElementById("First_Name").value;
+                var Last_Name = document.getElementById("Last_Name").value;
+
+                var get_phon = document.getElementById("id_sign_phone").value;
+
+
+                if(id_password_value==""){}
+
+                else{
+
+                        if(id_password_value == id_re_password_value){
+
+                            document.getElementById('show_info_password').innerHTML =
+                                                `<span class='username_error' style='color: green; padding: 5px; font-weight: bold;'> &#10004; Passwords are Matched !</span>`;
+
+                            document.getElementById("pass_match_available_status").value = '1';
+
+                            if(get_status_email=='1' && First_Name!="" && Last_Name!="" && get_phon!="" && get_status_phn=='1'){
+                                document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" onclick="signup_function()" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>`;
+                            }
+                            else{
+                               document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+
+                            }
+
+
+                        }
+                        else{
+                               document.getElementById('show_info_password').innerHTML = `<span class='username_error' style='color: red; padding: 5px; font-weight: bold;'> &#10005; Passwords are Not Matched !</span>`;
+                               document.getElementById("pass_match_available_status").value = '0';
+                               document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+
+                            }
+                    }
+
+                // this is for making button dynamic
+
+                // document.getElementById('test1212').innerHTML = `<span class='username_error' style='color: green; padding: 5px; font-weight: bold;'> ${get_status_email} </span>`;
+
+
+            })
+
+
+        })
+
+
+        // signup
+        $(document).ready(function(){
+
+            // keyup event will be triggered when user leaves keyboard
+
+            //First_Name
+            $("#First_Name").keyup(function(){
+            console.log('First_Name')
+            var email = document.getElementById("sign_email").value;
+
+            var check_about_at = email.includes("@");
+            console.log(check_about_at)
+
+            if(check_about_at){
+                check_at='1'
+            }
+            else{
+                check_at='0'
+            }
+            console.log(check_at)
+
+            console.log('hi')
+
+            var get_status_pass = document.getElementById("pass_match_available_status").value;
+            var get_status_email = document.getElementById("email_available_status").value;
+            var get_status_phn =document.getElementById("phn_available_status").value;
+            console.log('this is yayay')
+            console.log(get_status_phn)
+
+            var get_phon = document.getElementById("id_sign_phone").value;
+
+
+            console.log('other')
+
+            console.log(get_status_pass)
+            console.log('get_status_pass')
+            console.log(get_status_email)
+
+
+            var First_Name = document.getElementById("First_Name").value;
+            var Last_Name = document.getElementById("Last_Name").value;
+
+            console.log(First_Name)
+            console.log(Last_Name)
+
+            if(First_Name==""){
+                document.getElementById('show_info_fn').innerHTML = `<span class='username_error' style='color: red; padding: 5px; font-weight: bold;'> &#10005; First Name is required !</span>`;
+            }
+            else{
+                document.getElementById('show_info_fn').innerHTML = ``;
+            }
+
+
+            if(check_at=='1' && First_Name!="" && Last_Name!="" && get_status_pass=='1' && get_phon!="" && get_status_phn=='1'){
+                document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" onclick="signup_function()" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>`;
+            }
+            else{
+                 document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+
+                 }
+            })
+
+
+            //Last_Name
+            $("#Last_Name").keyup(function(){
+            console.log('Last_Name')
+            var email = document.getElementById("sign_email").value;
+
+            var check_about_at = email.includes("@");
+            console.log(check_about_at)
+
+            if(check_about_at){
+                check_at='1'
+            }
+            else{
+                check_at='0'
+            }
+            console.log(check_at)
+
+            console.log('hi')
+
+            var get_status_pass = document.getElementById("pass_match_available_status").value;
+            var get_status_email = document.getElementById("email_available_status").value;
+            var get_status_phn =document.getElementById("phn_available_status").value;
+
+
+            console.log('other')
+
+            console.log(get_status_pass)
+            console.log('get_status_pass')
+            console.log(get_status_email)
+
+
+            var First_Name = document.getElementById("First_Name").value;
+            var Last_Name = document.getElementById("Last_Name").value;
+
+            var get_phon = document.getElementById("id_sign_phone").value;
+
+            console.log(First_Name)
+            console.log(Last_Name)
+
+            if(Last_Name==""){
+                document.getElementById('show_info_ln').innerHTML = `<span class='username_error' style='color: red; padding: 5px; font-weight: bold;'> &#10005; Last Name is required !</span>`;
+            }
+            else{
+                document.getElementById('show_info_ln').innerHTML = ``;
+            }
+
+            if(check_at=='1' && First_Name!="" && Last_Name!="" && get_status_pass=='1' && get_phon!="" && get_status_phn=='1'){
+                document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" onclick="signup_function()" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>`;
+            }
+            else{
+                 document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+
+                 }
+            })
+
+
+
+            //phone type
+            $("#id_sign_phone").keyup(function(){
+            console.log('id_sign_phone')
+            var email = document.getElementById("sign_email").value;
+
+            var check_about_at = email.includes("@");
+            console.log(check_about_at)
+
+            if(check_about_at){
+                check_at='1'
+            }
+            else{
+                check_at='0'
+            }
+            console.log(check_at)
+
+            console.log('hi')
+
+            var get_status_pass = document.getElementById("pass_match_available_status").value;
+            var get_status_email = document.getElementById("email_available_status").value;
+
+
+            var get_phon = document.getElementById("id_sign_phone").value;
+
+
+            console.log('other')
+
+            console.log(get_status_pass)
+            console.log('get_status_pass')
+            console.log(get_status_email)
+
+
+
+
+            var First_Name = document.getElementById("First_Name").value;
+            var Last_Name = document.getElementById("Last_Name").value;
+
+            var get_phon = document.getElementById("id_sign_phone").value;
+
+            console.log(First_Name)
+            console.log(Last_Name)
+
+            if(get_phon==""){
+                document.getElementById('show_info_phn').innerHTML = `<span class='username_error' style='color: red; padding: 5px; font-weight: bold;'> &#10005; Phone Number is required !</span>`;
+            }
+            else{
+                document.getElementById('show_info_phn').innerHTML = ``;
+
+
+                $.ajax({
+                    url : '{% url 'check_phone_exist' %}',
+                    type : 'POST',
+                    data : {get_phon:get_phon}
+                })
+                .done(function(response){
+                    console.log(response);
+
+                    if(response == "True"){
+
+                        document.getElementById('show_info_phn').innerHTML = "<span class='email_error' style='color: red; padding: 5px; font-weight: bold;'> &#10005; Phone Number is Already Exist ! </span>"
+                        document.getElementById("phn_available_status").value = '0';
+
+                        document.getElementById('show_button').innerHTML =
+                                            `<input type="submit" name="submit" class="btn btn-primary" value="Sign up" disabled> `;
+
+
+                    }
+                    else{
+
+                        document.getElementById("phn_available_status").value = '1';
+
+
+
+
+                    }
+                })
+            }
+
+
+            if(First_Name!="" && Last_Name!="" && get_status_pass=='1' && get_phon!=""){
+                document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" onclick="signup_function()" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>`;
+            }
+            else{
+                 document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Sign Up</button> `;
+
+                 }
+            })
+
+        })
+
+        // end sign up
+
+
+        // register
+
+
+
+        function signup_function() {
+
+            document.getElementById('show_button').innerHTML =
+                                                `<button type="submit" class="btn-upper btn btn-warning checkout-page-button" disabled>Signing wait..</button> `;
+
+            //show status
+            document.getElementById('status_signup').innerHTML = `<p style="font-size:10px color: red; font-weight: bold;">
+                                                                    &#129306; Please Wait...
+                                                                    </p>`
+
+            var First_Name = document.getElementById("First_Name").value;
+            var Last_Name = document.getElementById("Last_Name").value;
+            var sign_email = document.getElementById("sign_email").value;
+            var sing_Password = document.getElementById("sing_Password").value;
+            var id_sign_phone= document.getElementById("id_sign_phone").value;
+
+
+            $.ajax({
+                    url : '{% url 'create_otp' %}',
+                    type : 'POST',
+                    data : {id_sign_phone:id_sign_phone}
+                })
+                .done(function(response){
+                    console.log(response);
+
+                    if(response != "False"){
+                        document.getElementById('status_signup').innerHTML = `OTP send To your Phone Number !! Please Check !`
+
+
+                    document.getElementById('all_signup_input').innerHTML =
+                        `<div class="form-group">
+                            <label class="info-title" for="First_Name">OTP <span>*</span></label>
+                            <input type="number" class="form-control unicase-form-control text-input" id="otp_cumtomer" >
+                            <span id="otp_status"></span>
+                        </div>
+
+                        <div class="form-group" id="id_otp_btn">
+                            <button class="btn btn-primary" onclick="resent_otp_number('${First_Name}', '${Last_Name}', '${sign_email}', '${sing_Password}', '${id_sign_phone}')">Resent the otp?</button>
+                        </div>`
+                        document.getElementById('otp_cumtomer').value = `${response}`
+
+                        document.getElementById('show_button').innerHTML =
+                                            `<input type="button" name="submit" class="btn btn-primary" value="Submit OTP" onclick="signup_function_second('${response}', '${First_Name}', '${Last_Name}', '${sign_email}', '${sing_Password}', '${id_sign_phone}')"> `;
+
+                        //$('#email_active_notification').modal('show');
+
+                    }
+
+                })
+
+                .fail(function(){
+                    console.log("Failed");
+                })
+
+        }
+        // end register
+
+
+
+        function signup_function_second(otp, fname, lname, cemail, passrd, phne) {
+
+
+
+            //show status
+
+
+            var otp_numbr = otp;
+            var First_Name = fname;
+            var Last_Name = lname;
+            var sign_email = cemail;
+            var sing_Password = passrd;
+            var id_sign_phone= phne;
+
+            var otp_cumtomer_input = document.getElementById('otp_cumtomer').value;
+            console.log(otp_cumtomer_input, otp_numbr, First_Name, Last_Name, sign_email, sing_Password, id_sign_phone)
+
+
+            if(otp_cumtomer_input==""){
+                document.getElementById('otp_status').innerHTML = `<span class='email_error' style='color: red; padding: 5px; font-weight: bold;'>OTP is Required !!</span>`
+            }
+            else{
+                document.getElementById('status_signup').innerHTML = `<p style="font-size:10px color: red; font-weight: bold;">
+                                                                    &#129306; Please Wait...
+                                                                    </p>`
+                $.ajax({
+                    url : '{% url 'submit_signup_form' %}',
+                    type : 'POST',
+                    data : {First_Name:First_Name, Last_Name:Last_Name, sign_email:sign_email, sing_Password:sing_Password, id_sign_phone:id_sign_phone, otp_numbr:otp_numbr, otp_cumtomer_input:otp_cumtomer_input}
+                })
+                .done(function(response){
+                    //console.log(response);
+
+                    if(response == "True"){
+                        document.getElementById('status_signup').innerHTML = `<p style="font-size:10px color: red; font-weight: bold;">
+                                                                    Successfully Registered &#128512; !
+                                                                    </p>`
+
+
+                    // document.getElementById('all_signup_input').innerHTML =
+                    //     `<div class="form-group">
+                    //         <label class="info-title" for="First_Name">First Name <span>*</span></label>
+                    //         <input type="text" class="form-control unicase-form-control text-input" id="First_Name" >
+                    //         <span id="show_info_fn"></span>
+                    //     </div>
+                    //     <div class="form-group">
+                    //         <label class="info-title" for="Last_Name">Last Name <span>*</span></label>
+                    //         <input type="text" class="form-control unicase-form-control text-input" id="Last_Name" >
+                    //         <span id="show_info_ln"></span>
+                    //     </div>
+
+                    //     <div class="form-group">
+                    //         <label class="info-title" for="id_sign_phone">Phone Number <span>*</span></label>
+                    //         <input type="number" class="form-control unicase-form-control text-input" id="id_sign_phone" >
+                    //         <span id="show_info_phn"></span>
+                    //     </div>
+
+                    //     <div class="form-group">
+                    //         <label class="info-title" for="sign_email">Email Address <span></span></label>
+                    //         <input type="email" class="form-control unicase-form-control text-input" id="sign_email" >
+                    //         <span id="show_info_email"></span>
+                    //     </div>
+
+                    //     <div class="form-group">
+                    //         <label class="info-title" for="sing_Password">Password <span>*</span></label>
+                    //         <input type="password" class="form-control unicase-form-control text-input" id="sing_Password" >
+                    //     </div>
+                    //      <div class="form-group">
+                    //         <label class="info-title" for="sign_Confirm_Password">Confirm Password <span>*</span></label>
+                    //         <input type="password" class="form-control unicase-form-control text-input" id="sign_Confirm_Password" >
+                    //          <span id="show_info_password"></span>
+                    //     </div>`
+
+                        $('#email_active_notification').modal('show');
+
+                        location.reload()
+
+                    }
+                    else{
+                        document.getElementById('status_signup').innerHTML = `<p style="font-size:10px color: red; font-weight: bold;">
+                                                                    OTP Incorrect &#128556; !
+                                                                    </p>`
+                        document.getElementById('all_signup_input').innerHTML = `<div class="form-group">
+                                                                                    OTP is wrong!! Resent the otp?
+                                                                                </div>
+
+                                                                                <div class="form-group" id="id_otp_btn">
+                                                                                    <button class="btn btn-primary" onclick="resent_otp_number('${First_Name}', '${Last_Name}', '${sign_email}', '${sing_Password}', '${id_sign_phone}')">Resent the otp?</button>
+                                                                                </div>`
+                    }
+                })
+
+                .fail(function(){
+                    console.log("Failed");
+                })
+            }
+
+
+
+        }
+        // end register
+
+
+
+        // login
+        $(document).ready(function(){
+
+            //login_email
+            $("#login_email").keyup(function(){
+            console.log('login_email')
+
+            var login_email = document.getElementById("login_email").value;
+            var login_password = document.getElementById("login_password").value;
+
+            var valid_login_email = login_email.includes("@");
+            console.log(valid_login_email)
+
+            if(valid_login_email){
+                check_at='1'
+            }
+            else{
+                check_at='0'
+            }
+            console.log(check_at)
+
+            if(login_email != "" && login_password != ""){
+                document.getElementById('login_button').innerHTML = `<button type="submit" class="btn-upper btn btn-primary checkout-page-button">Login</button>`
+            }
+            else{
+            document.getElementById('login_button').innerHTML = `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Login</button>`
+            }
+            })
+
+
+            //login_password
+            $("#login_password").keyup(function(){
+            console.log('login_email')
+
+            var login_email = document.getElementById("login_email").value;
+            var login_password = document.getElementById("login_password").value;
+
+            var valid_login_email = login_email.includes("@");
+            console.log(valid_login_email)
+
+            if(valid_login_email){
+                check_at='1'
+            }
+            else{
+                check_at='0'
+            }
+            console.log(check_at)
+
+            if(login_email != "" && login_password != ""){
+                document.getElementById('login_button').innerHTML = `<button type="submit" onclick="login_function()" class="btn-upper btn btn-primary checkout-page-button">Login</button>`
+            }
+            else{
+            document.getElementById('login_button').innerHTML = `<button type="submit" class="btn-upper btn btn-primary checkout-page-button" disabled>Login</button>`
+            }
+
+            })
+
+        })
+
+
+
+
+
+
+
+
+
+        // login submit
+        function login_function() {
+            document.getElementById('login_status').innerHTML =`<p style="font-size:10px color: blue; font-weight: bold;">
+                                                                    &#129306; Please Wait...
+                                                                    </p>`
+
+            var login_email = document.getElementById("login_email").value;
+            var login_password = document.getElementById("login_password").value;
+
+            $.ajax({
+                url : '{% url 'submit_login_form' %}',
+                type : 'POST',
+                data : {login_email:login_email, login_password:login_password}
+            })
+            .done(function(response){
+                //console.log(response);
+
+                if(response == "True"){
+                    document.getElementById('login_status').innerHTML = `<h4 class='username_error' style='color: green; padding: 5px; font-weight: bold;'> Successfully Loged in &#128512; !! </h4>`
+
+                    // $('#username2').val(JSON.stringify(username1_value))
+                    // $('#password2').val(JSON.stringify(password1_value))
+                    // document.getElementById('username2').innerHTML = username1_value
+                    // document.getElementById('password2').innerHTML = password1_value
+
+                    // document.getElementById("username2").value = username1_value;
+                    // document.getElementById("password2").value = password1_value;
+
+                    location.reload()
+                }
+                else{
+                    document.getElementById('login_status').innerHTML = `<h4 class='username_error' style='color: red; font-weight: bold;'> Invalid credentials &#128556; ! </h4>`
+                }
+            })
+
+            .fail(function(){
+                console.log("Failed");
+            })
+
+        }
+
+
+
+
+function resent_otp_number(First_Name, Last_Name, sign_email, sing_Password, id_sign_phone){
+    document.getElementById('id_otp_btn').innerHTML = `<button class="btn btn-warning">Resending ...</button>`;
+
+
+    $.ajax({
+            url : '{% url 'create_otp' %}',
+            type : 'POST',
+            data : {id_sign_phone:id_sign_phone}
+        })
+        .done(function(response){
+            console.log(response);
+
+            if(response != "False"){
+                document.getElementById('status_signup').innerHTML = `OTP send To your Phone Number !! Please Check !`
+
+
+            document.getElementById('all_signup_input').innerHTML =
+                `<h5>We Sent You Another OTP, Please Check !!</h5>
+                <div class="form-group">
+                    <label class="info-title" for="First_Name">OTP <span>*</span></label>
+                    <input type="number" class="form-control unicase-form-control text-input" id="otp_cumtomer" >
+                    <span id="otp_status"></span>
+                </div>
+
+                <div class="form-group" id="id_otp_btn">
+                    <button class="btn btn-primary" onclick="resent_otp_number('${First_Name}', '${Last_Name}', '${sign_email}', '${sing_Password}', '${id_sign_phone}')">Resent the otp?</button>
+                </div>`
+                document.getElementById('otp_cumtomer').value = `${response}`
+
+                document.getElementById('show_button').innerHTML =
+                                    `<input type="button" name="submit" class="btn btn-primary" value="Submit OTP" onclick="signup_function_second('${response}', '${First_Name}', '${Last_Name}', '${sign_email}', '${sing_Password}', '${id_sign_phone}')"> `;
+
+
+
+            }
+
+        })
+
+
+}
+
+
+
+
+function funcget_last_oder_ID(){
+
+    document.getElementById('change_btn_ordr').innerHTML = `<button style="margin-top:15px;" type="submit" class="btn-upper btn btn-warning checkout-page-button">Placing Wait...</button>`;
+
+    var v_order_note_textarea = document.getElementById('id_order_note_textarea').value;
+    console.log(v_order_note_textarea)
+
+    // customer delivery info id
+    var customer_deli_info_id = document.getElementById('customer_deli_info_id').value;
+    // get the customer delivery place
+    var order_delivery_place=$("input:radio[name=bedStatus]:checked").val();
+    order_delivery_placeint = parseInt(order_delivery_place)
+    // customer delivery payment option
+    var order_delivery_option=$("input:radio[name=pay_radio]:checked").val();
+
+
+
+    // // get Sub total price
+    // var vget_Sub_total = document.getElementById('need_current_sub').innerHTML;
+    // var vget_Sub_total2 = parseInt(vget_Sub_total);
+
+    // // get grandTotal price
+    // var vshow_subtotalss = document.getElementById('show_subtotalss').innerHTML;
+    // var vshow_subtotalss2 = parseInt(vshow_subtotalss);
+
+    // // get delivery charge
+    // console.log('vshow_delivery_charge')
+    // var vshow_delivery_charge = document.getElementById('get_del_chrg').innerHTML;
+    // console.log(vshow_delivery_charge)
+    // var vshow_delivery_charge2 = parseInt(vshow_delivery_charge);
+
+
+
+    product_cart = JSON.parse(localStorage.getItem('product_cart'));
+
+    lst_cam_sts = []
+    for (var item in product_cart){
+        if(product_cart[item][0] == 0){}
+
+        else{
+            console.log('submitting the order')
+
+            var order_product_campaign_status = product_cart[item][5];
+
+            if (lst_cam_sts.includes(order_product_campaign_status)){
+                console.log('55')
+            }
+            else{
+                lst_cam_sts.push(order_product_campaign_status)
+            }
+        }
+
+    }
+
+
+    console.log(lst_cam_sts)
+    console.log(lst_cam_sts.length)
+
+
+    let lst_cam_sub_delivery_grand = []
+
+    for(var cam in lst_cam_sts){
+        remove_space_cam = lst_cam_sts[cam].split(" ").join("");
+
+        var cam_name = lst_cam_sts[cam]
+        var delivery_charge = document.getElementById('gedelivery_charge'+remove_space_cam).innerHTML;
+        var vargesub_price = document.getElementById('gesub_price'+remove_space_cam).innerHTML;
+        var gegrad_pric = document.getElementById('gegrand_price'+remove_space_cam).innerHTML;
+        var partial_pay = document.getElementById('to_pay_price'+remove_space_cam).innerHTML;
+        var due_price = document.getElementById('due_price'+remove_space_cam).innerHTML;
+
+        console.log(cam_name, vargesub_price, delivery_charge, gegrad_pric, partial_pay, due_price)
+
+        let lst_sub_del_grnd = [cam_name, vargesub_price, delivery_charge, gegrad_pric, partial_pay, due_price];
+
+
+        lst_cam_sub_delivery_grand.push(lst_sub_del_grnd)
+
+    }
+
+    console.log(lst_cam_sub_delivery_grand)
+
+
+
+
+    lst_product_item=[]
+    for (var item in product_cart){
+        if(product_cart[item][0] == 0){}
+
+        else{
+            lst_product_item.push(product_cart[item])
+            console.log(product_cart[item])
+        }
+
+    }
+    console.log(lst_product_item)
+
+
+
+
+
+    $('#id_customer_deli_info_id').val(JSON.stringify(customer_deli_info_id));
+    $('#id_order_delivery_place').val(JSON.stringify(order_delivery_place));
+    $('#id_order_delivery_option').val(JSON.stringify(order_delivery_option));
+
+    $('#id_lst_cam_sub_delivery_grand').val(JSON.stringify(lst_cam_sub_delivery_grand));
+
+    // $('#id_vget_Sub_total2').val(JSON.stringify(vget_Sub_total2));
+    // $('#id_vshow_subtotalss2').val(JSON.stringify(vshow_subtotalss2));
+    // $('#id_vshow_delivery_charge2').val(JSON.stringify(vshow_delivery_charge2));
+
+
+
+    $('#id_lst_cam_sts').val(JSON.stringify(lst_cam_sts));
+    $('#id_product_cart').val(JSON.stringify(lst_product_item));
+    $('#value_order_note_textarea').val(JSON.stringify(v_order_note_textarea));
+
+    var total_bill = document.getElementById('show_subtotalss').innerHTML;
+    var total_to_pay_price2 = document.getElementById('total_to_pay_price').innerHTML;
+    var total_due_price2 = document.getElementById('total_due_price').innerHTML;
+    var payment_type2 = document.getElementById('payment_type').value;
+
+    $('#input_show_subtotalss').val(JSON.stringify(total_bill));
+    $('#input_total_to_pay_price').val(JSON.stringify(total_to_pay_price2));
+    $('#input_total_due_price').val(JSON.stringify(total_due_price2));
+    $('#input_payment_type').val(JSON.stringify(payment_type2));
+
+
+    var form = document.getElementById("checkout_form");
+    form.submit();
+
+    localStorage.clear();
+    console.log('khallas')
+
+}
+
+
+
+
+
+function funcget_last_oder_ID2(){
+
+    document.getElementById('change_btn_ordr').innerHTML = `<button style="margin-top:15px;" type="submit" class="btn-upper btn btn-warning checkout-page-button">Placing Wait...</button>`;
+    // customer delivery info id
+    var customer_deli_info_id = document.getElementById('customer_deli_info_id').value;
+    // get the customer delivery place
+    var order_delivery_place=$("input:radio[name=bedStatus]:checked").val();
+    order_delivery_placeint = parseInt(order_delivery_place)
+    // customer delivery payment option
+    var order_delivery_option=$("input:radio[name=pay_radio]:checked").val();
+
+    // get Sub total price
+    var vget_Sub_total = document.getElementById('need_current_sub').innerHTML;
+    var vget_Sub_total2 = parseInt(vget_Sub_total);
+
+    // get grandTotal price
+    var vshow_subtotalss = document.getElementById('show_subtotalss').innerHTML;
+    var vshow_subtotalss2 = parseInt(vshow_subtotalss);
+
+    // get delivery charge
+    console.log('vshow_delivery_charge')
+    var vshow_delivery_charge = document.getElementById('get_del_chrg').innerHTML;
+    console.log(vshow_delivery_charge)
+    var vshow_delivery_charge2 = parseInt(vshow_delivery_charge);
+
+
+    product_cart = JSON.parse(localStorage.getItem('product_cart'));
+
+    lst_cam_sts = []
+    for (var item in product_cart){
+        if(product_cart[item][0] == 0){}
+
+        else{
+            console.log('submitting the order')
+
+            var order_product_campaign_status = product_cart[item][5];
+
+            if (lst_cam_sts.includes(order_product_campaign_status)){
+                console.log('55')
+            }
+            else{
+                lst_cam_sts.push(order_product_campaign_status)
+            }
+        }
+
+    }
+
+    console.log(lst_cam_sts)
+
+    console.log(lst_cam_sts.length)
+
+
+
+
+    for (var ordr_type = 0; ordr_type < lst_cam_sts.length; ordr_type++) {
+        console.log(lst_cam_sts[ordr_type])
+        var var_odr_typ_slug = lst_cam_sts[ordr_type]
+        console.log(var_odr_typ_slug)
+
+        $.ajax({
+                url : '{% url 'get_last_oder_ID' %}',
+                type : 'POST',
+                data : {customer_deli_info_id:customer_deli_info_id, order_delivery_place:order_delivery_place, order_delivery_option:order_delivery_option, vget_Sub_total2:vget_Sub_total2, vshow_subtotalss2:vshow_subtotalss2, vshow_delivery_charge2:vshow_delivery_charge2, var_odr_typ_slug:var_odr_typ_slug}
+            })
+            .done(function(response){
+             console.log('new oreder  id');
+             console.log(response);
+
+             var generted_ordr_id = response;
+
+             for (var item in product_cart){
+                 console.log('check ord id')
+                 console.log(generted_ordr_id)
+                if(product_cart[item][0] == 0){}
+
+                else{
+
+                    if(product_cart[item][5]==product_cart[ordr_type]){
+                        console.log(product_cart[item][5])
+                        var order_product_qty = product_cart[item][0];
+                        var order_single_price = product_cart[item][2];
+                        var order_product_id = product_cart[item][4];
+                        var order_sub_single_price = order_product_qty*order_single_price;
+
+                        var campgn_slug = product_cart[item][5]
+
+                        $.ajax({
+                                url : '{% url 'save_all_orders_one_by_one' %}',
+                                type : 'POST',
+                                data : {order_product_id:order_product_id,order_product_qty:order_product_qty, order_sub_single_price:order_sub_single_price, latest_ord_numID:generted_ordr_id, order_single_price:order_single_price, campgn_slug:campgn_slug}
+                            })
+                        .done(function(response){
+                            console.log(response)
+                        })
+                    }
+
+                }
+
+            }
+
+
+            })
+
+            .fail(function(){
+                console.log("Failed");
+            })
+    }
+
+
+}
+
+
+function funcget_last_oder_ID1(){
+    document.getElementById('change_btn_ordr').innerHTML = `<button style="margin-top:15px;" type="submit" class="btn-upper btn btn-warning checkout-page-button">Placing Wait...</button>`;
+    // customer delivery info id
+    var customer_deli_info_id = document.getElementById('customer_deli_info_id').value;
+    // get the customer delivery place
+    var order_delivery_place=$("input:radio[name=bedStatus]:checked").val();
+    order_delivery_placeint = parseInt(order_delivery_place)
+    // customer delivery payment option
+    var order_delivery_option=$("input:radio[name=pay_radio]:checked").val();
+
+    // get Sub total price
+    var vget_Sub_total = document.getElementById('need_current_sub').innerHTML;
+    var vget_Sub_total2 = parseInt(vget_Sub_total);
+
+    // get grandTotal price
+    var vshow_subtotalss = document.getElementById('show_subtotalss').innerHTML;
+    var vshow_subtotalss2 = parseInt(vshow_subtotalss);
+
+    // get delivery charge
+    console.log('vshow_delivery_charge')
+    var vshow_delivery_charge = document.getElementById('get_del_chrg').innerHTML;
+    console.log(vshow_delivery_charge)
+    var vshow_delivery_charge2 = parseInt(vshow_delivery_charge);
+
+
+
+    // product_cart = JSON.parse(localStorage.getItem('product_cart'));
+
+    // lst_cam_sts = []
+    // for (var item in product_cart){
+    //     if(product_cart[item][0] == 0){}
+
+    //     else{
+    //         console.log('submitting the order')
+
+    //         var order_product_campaign_status = product_cart[item][5];
+
+    //         if (lst_cam_sts.includes(order_product_campaign_status)){
+    //             console.log('55')
+    //         }
+    //         else{
+    //             lst_cam_sts.push(order_product_campaign_status)
+    //         }
+    //     }
+
+    // }
+
+    // console.log(lst_cam_sts)
+
+    // orderId_qty = 0;
+    // if (lst_cam_sts.length==1){
+    //     orderId_qty = 1
+    // }
+
+    // else if(lst_cam_sts.length>1){
+    //     orderId_qty = 2
+    // }
+
+    // console.log(orderId_qty)
+
+
+
+
+
+    // select campaign or reguler
+    product_cart = JSON.parse(localStorage.getItem('product_cart'));
+
+    let lst_cam_prod = []
+    let lst_reg_prod = []
+
+
+    for (var item in product_cart){
+        if(product_cart[item][0] == 0){}
+
+        else{
+
+            if(product_cart[item][5]==undefined){
+                lst_reg_prod.push(product_cart[item])
+            }
+            else{
+                lst_cam_prod.push(product_cart[item])
+            }
+        }
+
+    }
+
+    console.log(lst_reg_prod)
+    console.log(lst_cam_prod)
+
+    console.log(lst_reg_prod.length)
+    console.log(lst_cam_prod.length)
+
+
+
+    if(lst_cam_prod.length == 0){
+        order_cam_or_reguler_status = 'Reguler';
+    }
+    else{
+        order_cam_or_reguler_status = 'Campaign';
+    }
+
+
+
+    $.ajax({
+            url : '{% url 'get_last_oder_ID' %}',
+            type : 'POST',
+            data : {customer_deli_info_id:customer_deli_info_id, order_delivery_place:order_delivery_place, order_delivery_option:order_delivery_option, vget_Sub_total2:vget_Sub_total2, vshow_subtotalss2:vshow_subtotalss2, vshow_delivery_charge2:vshow_delivery_charge2, order_cam_or_reguler_status:order_cam_or_reguler_status}
+        })
+        .done(function(response){
+         console.log('new oreder  id');
+         console.log(response);
+
+
+        save_all_the_orders(response)
+
+        })
+
+        .fail(function(){
+            console.log("Failed");
+        })
+
+
+
+}
+
+
+
+function save_all_the_orders(generated_ordr_id){
+    console.log('ssss')
+    product_cart = JSON.parse(localStorage.getItem('product_cart'));
+
+    let lst_cam_prod = []
+    let lst_reg_prod = []
+
+
+    console.log('submitting tssshe order')
+
+    for (var item in product_cart){
+        if(product_cart[item][0] == 0){}
+
+        else{
+
+            if(product_cart[item][5]==undefined){
+                lst_reg_prod.push(product_cart[item])
+            }
+            else{
+                lst_cam_prod.push(product_cart[item])
+            }
+        }
+
+    }
+
+    console.log(lst_reg_prod)
+    console.log(lst_cam_prod)
+
+    console.log(lst_reg_prod.length)
+    console.log(lst_cam_prod.length)
+
+
+    for (var i = 0; i < lst_reg_prod.length; i++) {
+            console.log('regprod')
+            console.log(i);
+            console.log(lst_reg_prod[i][1]);
+
+            var order_product_qty = lst_reg_prod[i][0];
+            var order_single_price = lst_reg_prod[i][2];
+            var order_product_id = lst_reg_prod[i][4];
+            var order_sub_single_price = order_product_qty*order_single_price;
+
+            $.ajax({
+                    url : '{% url 'save_all_orders_one_by_one' %}',
+                    type : 'POST',
+                    data : {order_product_id:order_product_id,order_product_qty:order_product_qty, order_sub_single_price:order_sub_single_price, latest_ord_numID:generated_ordr_id, order_single_price:order_single_price}
+                })
+
+        }
+
+
+    for (var i = 0; i < lst_cam_prod.length; i++) {
+
+
+            var order_product_qty = lst_cam_prod[i][0];
+            var order_single_price = lst_cam_prod[i][2];
+            var order_product_id = lst_cam_prod[i][4];
+            var odr_campaign_slug = lst_cam_prod[i][5];
+
+            console.log(odr_campaign_slug)
+
+            var order_sub_single_price = order_product_qty*order_single_price;
+
+            $.ajax({
+                    url : '{% url 'save_all_campaign_orders_one_by_one' %}',
+                    type : 'POST',
+                    data : {order_product_id:order_product_id,order_product_qty:order_product_qty, order_sub_single_price:order_sub_single_price, latest_ord_numID:generated_ordr_id, order_single_price:order_single_price, odr_campaign_slug:odr_campaign_slug}
+                })
+
+        }
+
+
+
+    // if(lst_cam_prod.length==0){
+    //     console.log('no cam prod')
+
+    // }
+
+
+    // else if(lst_reg_prod.length==0){
+    //     console.log('no reg prod')
+
+    // }
+
+    // if(orderId_qty==2){
+    //     for(var i in list_ordr_id_all){
+    //         console.log('hihih')
+    //         console.log(i)
+
+    //         for (var item in product_cart){
+    //             console.log('submitting the order')
+
+    //             var order_product_qty = product_cart[item][0];
+    //             var order_single_price = product_cart[item][2];
+    //             var order_product_id = product_cart[item][4];
+    //             var order_sub_single_price = order_product_qty*order_single_price;
+
+    //             $.ajax({
+    //                     url : '{% url 'save_all_orders_one_by_one' %}',
+    //                     type : 'POST',
+    //                     data : {order_product_id:order_product_id,order_product_qty:order_product_qty, order_sub_single_price:order_sub_single_price, latest_ord_numID:latest_ord_numID, order_single_price:order_single_price}
+    //                 })
+
+    //         }
+
+
+    //     }
+    // }
+
+
+
+    // for (var item in product_cart){
+    //     console.log('submitting the order')
+
+        // var order_product_qty = product_cart[item][0];
+        // var order_single_price = product_cart[item][2];
+        // var order_product_id = product_cart[item][4];
+        // var order_sub_single_price = order_product_qty*order_single_price;
+
+        // $.ajax({
+        //         url : '{% url 'save_all_orders_one_by_one' %}',
+        //         type : 'POST',
+        //         data : {order_product_id:order_product_id,order_product_qty:order_product_qty, order_sub_single_price:order_sub_single_price, latest_ord_numID:latest_ord_numID, order_single_price:order_single_price}
+        //     })
+
+
+    // }
+    localStorage.clear();
+    document.location='{% url 'customer-dashboard' %}'
+}
+
+
+
+</script>
+
+
+{% endblock %}

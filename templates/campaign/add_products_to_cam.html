@@ -1,0 +1,748 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+
+
+<style>
+    .divScroll {
+    overflow:scroll;
+    height:500px;
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+
+<!-- Main content -->
+		<section class="content">
+
+			<!-- Content Header (Page header) -->
+			<div class="content-header">
+				<div class="d-flex align-items-center justify-content-between">
+					<div class="d-block">
+						<h3 class="page-title br-0">{{get_cat_by_cam}}</h3>
+					</div>
+					<div class="right-title d-md-block d-none">
+                        <div class="d-flex justify-content-end">
+							<div class="d-md-flex mr-20 ml-10 d-none">
+								<div class="chart-text mr-10">
+									<h6 class="mb-0"><small>THIS MONTH</small></h6>
+									<h4 class="mt-0 text-primary">$12,125</h4>
+								</div>
+								<div class="spark-chart">
+									<div id="thismonth"><canvas width="60" height="35" style="display: inline-block; width: 60px; height: 35px; vertical-align: top;"></canvas></div>
+								</div>
+							</div>
+							<div class="d-md-flex ml-10 d-none">
+								<div class="chart-text mr-10">
+									<h6 class="mb-0"><small>LAST YEAR</small></h6>
+									<h4 class="mt-0 text-danger">$22,754</h4>
+								</div>
+								<div class="spark-chart">
+									<div id="lastyear"><canvas width="60" height="35" style="display: inline-block; width: 60px; height: 35px; vertical-align: top;"></canvas></div>
+								</div>
+							</div>
+						</div>
+                    </div>
+				</div>
+			</div>
+
+
+
+			<div class="row">
+			  <div class="col-12">
+				<div class="box">
+				  <div class="box-body">
+					<div class="table-responsive">
+						<div id="productorder_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+							<div class="row">
+							    
+								<div class="col-sm-12 col-md-2">
+								    {% if check_campaign_cat %}
+									<div class="dataTables_length p-5 m-5" id="Bulk_Action">
+                						<label><span class="text-bold text-primary">Change Percentages</span>
+                							<select name="productorder_length_Bulk_Action" aria-controls="productorder_Bulk_Action" class="form-control form-control-sm text-success" id="show_100_loops">
+                								
+                
+                
+                							</select>
+                	<!--											aekhane lekha jabe -->
+                						</label>
+                					</div>
+                
+                					<div class="dataTables_length p-5 m-5" id="show_bulk_chgne_status">
+                						<button type="submit" class="btn btn-primary" onclick="bulk_action_change_percentage()">Action</button>
+                					</div>
+                					{% endif %}
+								</div>
+								
+
+								<div class="col-sm-12 col-md-2">
+									<h5 class="text-success text-center">
+										Total select item
+										<br>
+										<span id="show_select_item_qty">0</span>
+
+									</h5>
+								</div>
+
+
+
+								<div class="col-sm-12 col-md-4">
+									<h3 class="text-primary text-center">{{get_cat_by_cam.Category}} PRODUCTS<hr><hr></h3>
+								</div>
+
+								<div class="col-sm-12 col-md-2">
+									<h5 class="text-success text-center">
+										Total item
+										<br>
+										{% if check_campaign_cat %}
+											{{check_campaign_cat.count}}
+										{% else %}
+										    {{cat_prod_count}}
+										{% endif %}
+										
+										
+									
+										
+										
+									</h5>
+								</div>
+
+
+								<div class="col-sm-12 col-md-2">
+									<div id="productorder_filter" class="dataTables_filter">
+									    {% if check_campaign_cat %}
+										<label><span id="cam_price_sttus">Change Price:</span>
+											<input type="number" class="form-control form-control-sm" placeholder="" aria-controls="productorder" id="new_price">
+										</label>
+										<span id="show_status_price_chnge">
+										<button class="btn btn-primary" onclick="change_product_campaign_price()">submit</button>
+										</span>
+										<hr>
+										
+										<a href="{% url 'edit_add_products_to_camp' get_cat_by_cam.id %}" class="btn btn-primary">{{get_cat_by_cam.Category}} Add Product</a>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12">
+								    <div class="divScroll">
+
+            							<table id="productorder" class="table table-hover no-wrap product-order dataTable no-footer" data-page-size="10" role="grid" aria-describedby="productorder_info">
+            
+            							<thead>
+            								<tr role="row">
+            								    {% if check_campaign_cat %}
+            								    <th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1">Availble</th>
+            								    {% endif %}
+            									<th class="sorting_asc" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Customer: activate to sort column descending">
+            										<div class="form-check">
+            										  <input class="form-check-input" type="checkbox" id="select-all">
+            										  <label class="form-check-label" for="select-all"></label>
+            										</div>
+            									</th>
+            									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Order ID: activate to sort column ascending">Image
+            
+            									</th>
+            									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Product: activate to sort column ascending">Name</th>
+            									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Quantity: activate to sort column ascending">SKU</th>
+            									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">stock</th>
+            									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">MRP Price</th>
+            									{% if check_campaign_cat %}
+            									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">Campaign Price</th>
+            									{% endif %}
+            									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending">Categories</th>
+            									{% if check_campaign_cat %}
+            									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending"><span class="fa fa-star checked"></span></th>
+            									{% endif %}
+            									
+            									{% if check_campaign_cat %}
+            									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending"><i class="fa fa-home" aria-hidden="true"></i></th>
+            									{% endif %}
+            									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending">Date</th>
+            									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending">Brand</th>
+            									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending">%</th>
+            									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending">Add Attr.</th>
+            								</tr>
+            							</thead>
+            							<tbody>
+                                        
+										{% if check_campaign_cat %}
+										
+										
+										    {% for all_product in check_campaign_cat %}
+                							<tr role="row" class="odd" id="row_prod{{all_product.slug}}">
+                							        <td>
+                							            {% if all_product.add_item_campaign %}
+                    							        <button class="btn btn-success btn-sm" style="border-radius: 50%;">Availble</button>
+                    							        {% else %}
+                    							        <button class="btn btn-danger btn-sm" style="border-radius: 50%;">Not Availble</button>
+                    							        {% endif %}
+                							        </td>
+                									<td class="sorting_1">
+                										<div class="form-check" id="checkboxlist">
+                										  <input name="products_check" class="form-check-input" type="checkbox" id="product_id{{all_product.slug}}" onclick="the_item_checkbox()" value="{{all_product.slug}}">
+                
+                										  <label class="form-check-label" for="product_id{{all_product.slug}}"></label>
+                										</div>
+                									</td>
+                									<td><img src="{{all_product.product.Product_Image}}" alt="product" width="80"></td>
+                									<td>{{all_product.product.Product_Name}}</td>
+                									<td>{{all_product.product.SKU}}</td>
+                									<td>{{all_product.product.Stock_status}}</td>
+                									<td>{{all_product.product.MRP_Price}}</td>
+                									<td>{{all_product.campaign_price}}</td>
+                									<td>{{all_product.product.Category}}</td>
+                									
+                								<td>
+                
+                
+                								<div id="change_star_button{{all_product.slug}}">
+                									{% if all_product.make_campaign_star %}
+                									<button class="btn btn-warning btn-sm" style="border-radius: 50%;" onclick="func_make_undo_star('{{all_product.slug}}')"><span class="fa fa-star"></span></button>
+                									{% else %}
+                									<button class="btn btn-secondary btn-sm" style="border-radius: 50%;" onclick="func_make_do_star('{{all_product.slug}}')">&#9734</button>
+                									{% endif %}
+                								</div>
+                								</td>
+                								    
+                								<td>
+                								
+                								<div id="change_home_star_button{{all_product.slug}}">
+                									{% if all_product.make_index_star %}
+                									<button class="btn btn-warning btn-sm" style="border-radius: 50%;" onclick="func_make_undo_home_star('{{all_product.slug}}')"><i class="fa fa-home" aria-hidden="true"></i></button>
+                									{% else %}
+                									<button class="btn btn-secondary btn-sm" style="border-radius: 50%;" onclick="func_make_do_home_star('{{all_product.slug}}')"><i class="fa fa-home" aria-hidden="true"></i></button>
+                									{% endif %}
+                								</div>
+                								
+                								</td>
+                								<td>Last Modified<br>
+                								{{all_product.product.Time}}</td>
+                								<td>{{all_product.product.Brand}}</td>
+                								<td>
+                								    
+                								    {{all_product.campaign_percentage}}%
+                								    
+                								</td>
+                								<td>{% if all_product.product.TYPE_OF_PRODUCTS != 'Simple Product' %}
+                								    <a type="button" href="{% url 'campaign_product_add_attribute' all_product.slug %}" style="border-radius: 60%;" class="btn btn-warning btn-sm">Add Attr.</a>
+                								    {% else %}
+                								    <button class="btn btn-warning btn-sm" style="border-radius: 60%;" disabled>No Attr.</button>
+                								    {% endif %}
+                								</td>
+                								
+                							</tr>
+                							{% endfor %}
+										
+										{% else %}
+										
+										    {% for all_product in filter_Products_cat %}
+                							<tr role="row" class="odd" id="row_prod{{all_product.slug}}">
+                									<td class="sorting_1">
+                										<div class="form-check" id="checkboxlist">
+                										  <input name="products_check" class="form-check-input" type="checkbox" id="product_id{{all_product.slug}}" onclick="the_item_checkbox()" value="{{all_product.slug}}">
+                
+                										  <label class="form-check-label" for="product_id{{all_product.slug}}"></label>
+                										</div>
+                									</td>
+                									<td><img src="{{all_product.Product_Image}}" alt="product" width="80"></td>
+                									<td>{{all_product.Product_Name}}</td>
+                									<td>{{all_product.SKU}}</td>
+                									<td>{{all_product.Stock_status}}</td>
+                									<td>{{all_product.MRP_Price}}</td>
+                									<td>{{all_product.Category}}</td>
+                									
+                								<!--<td>-->
+                								<!--<div id="change_star_button{{all_product.slug}}">-->
+                								<!--	{% if all_product.make_campaign_star %}-->
+                								<!--	<button class="btn btn-warning btn-sm" style="border-radius: 50%;" onclick="func_make_undo_star('{{all_product.slug}}')"><span class="fa fa-star"></span></button>-->
+                								<!--	{% else %}-->
+                								<!--	<button class="btn btn-secondary btn-sm" style="border-radius: 50%;" onclick="func_make_do_star('{{all_product.slug}}')">&#9734</button>-->
+                								<!--	{% endif %}-->
+                								<!--</div>-->
+                								<!--</td>-->
+                								
+                								<td>Last Modified<br>
+                								{{all_product.Time}}</td>
+                								<td>{{all_product.Brand}}</td>
+                								<td>
+                								    {% if all_product.campaign_percentage %}
+                								    {{all_product.campaign_percentage}}%
+                								    {% else %}
+                								    {{get_cat_by_cam.percentage}}%
+                								    {% endif %}
+                								</td>
+                								
+                							</tr>
+                							{% endfor %}
+										
+										{% endif %}
+            
+            							
+            
+            
+            
+            
+            
+            
+            							</tbody>
+            						</table>
+            						</div>
+								</div>
+							</div>
+
+                            <div class="row">
+								<div class="col-sm-12 col-md-12">
+								    <span id="show_status"></span>
+									
+								</div>
+								
+								<div class="col-sm-12 col-md-5"></div>
+								<div class="col-sm-12 col-md-7">
+								    
+								    {% if check_campaign_cat %}
+								    <div class="dataTables_paginate paging_simple_numbers" id="re_adding_status">
+        						        <button type="submit" class="btn btn-success" onclick="add_availblity_bulk_action_btn()">Add Availblity</button>
+							        </div>
+							        <div class="dataTables_paginate paging_simple_numbers" id="removing_status">
+        						        <button type="submit" class="btn btn-danger" onclick="remove_bulk_action_btn()">Remove Availblity</button>
+							        </div>
+								    {% else %}
+									<div class="dataTables_paginate paging_simple_numbers" id="saving_status">
+        						        <button type="submit" class="btn btn-primary" onclick="bulk_action_btn()">Save</button>
+							        </div>
+							        {% endif %}
+							    </div>
+							</div>
+							
+						</div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+		  </div>
+		</section>
+		<!-- /.content -->
+
+
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script>
+
+
+
+
+
+function func_make_undo_star(campaign_product_slug){
+	console.log('hhhhh')
+	console.log(campaign_product_slug);
+
+	$.ajax({
+			url : '{% url 'campaign_change_undo_status_star' %}',
+			type : 'POST',
+			data : {campaign_product_slug:campaign_product_slug}
+		})
+
+		.done(function(response){
+                console.log(response);
+
+                if(response == "True"){
+                console.log(campaign_product_slug)
+					document.getElementById('change_star_button'+campaign_product_slug).innerHTML=`<button class="btn btn-secondary btn-sm" style="border-radius: 50%;" onclick="func_make_do_star('${campaign_product_slug}')">&#9734</button>`;
+                }
+                else{
+                console.log('false')
+
+                }
+            })
+}
+
+
+
+function func_make_do_star(campaign_product_slug){
+	console.log(campaign_product_slug);
+
+	$.ajax({
+			url : '{% url 'campaign_change_status_star' %}',
+			type : 'POST',
+			data : {campaign_product_slug:campaign_product_slug}
+		})
+
+		.done(function(response){
+                console.log(response);
+                
+
+                if(response == "True"){
+					document.getElementById('change_star_button'+campaign_product_slug).innerHTML=`<button class="btn btn-warning btn-sm" style="border-radius: 50%;" onclick="func_make_undo_star('${campaign_product_slug}')"><span class="fa fa-star"></span></button>`;
+                }
+                else{
+
+                }
+            })
+}
+
+function func_make_do_home_star(campaign_product_slug){
+	console.log(campaign_product_slug);
+
+	$.ajax({
+			url : '{% url 'campaign_change_status_home_star' %}',
+			type : 'POST',
+			data : {campaign_product_slug:campaign_product_slug}
+		})
+
+		.done(function(response){
+                console.log(response);
+                
+
+                if(response == "True"){
+					document.getElementById('change_home_star_button'+campaign_product_slug).innerHTML=`<button class="btn btn-warning btn-sm" style="border-radius: 50%;" onclick="func_make_undo_home_star('${campaign_product_slug}')"><i class="fa fa-home" aria-hidden="true"></i></button>`;
+                }
+                else{
+
+                }
+            })
+}
+
+
+
+function func_make_undo_home_star(campaign_product_slug){
+	$.ajax({
+			url : '{% url 'campaign_change_undo_status_home_star' %}',
+			type : 'POST',
+			data : {campaign_product_slug:campaign_product_slug}
+		})
+
+		.done(function(response){
+                console.log(response);
+
+                if(response == "True"){
+                console.log(campaign_product_slug)
+					document.getElementById('change_home_star_button'+campaign_product_slug).innerHTML=`<button class="btn btn-secondary btn-sm" style="border-radius: 50%;" onclick="func_make_do_home_star('${campaign_product_slug}')"><i class="fa fa-home" aria-hidden="true"></i></button>`;
+                }
+                else{
+                console.log('false')
+
+                }
+            })
+}
+
+
+</script>
+
+
+<script>
+
+	//this is for checkboxes
+
+	document.getElementById('select-all').onclick = function() {
+		var checkboxes = document.getElementsByName('products_check');
+		console.log('checkboxes')
+		console.log(checkboxes)
+
+		for (var checkbox of checkboxes) {
+			checkbox.checked = this.checked;
+		}
+		console.log(checkbox.checked)
+		status_check_box_main = checkbox.checked
+
+		count_checkbox_selected(checkboxes, status_check_box_main)
+	}
+
+
+	function count_checkbox_selected(checkboxes, status_check_box_main){
+		console.log('status_check_box_main')
+		console.log(status_check_box_main)
+		if (status_check_box_main){
+			all_check_qty = checkboxes.length;
+			document.getElementById('show_select_item_qty').innerHTML = all_check_qty;
+		}
+		else{
+			document.getElementById('show_select_item_qty').innerHTML = 0;
+		}
+	}
+
+
+
+function the_item_checkbox(){
+	console.log('the_item_checkbox')
+
+	var favorite = [];
+	$.each($("input[name='products_check']:checked"), function(){
+		console.log($(this).val())
+		favorite.push($(this).val());
+	});
+
+	console.log(favorite.length)
+	document.getElementById('show_select_item_qty').innerHTML = favorite.length;
+
+}
+
+
+
+
+function bulk_action_btn(){
+	document.getElementById('saving_status').innerHTML = `<button type="submit" class="btn btn-warning">Saving...</button>`
+    
+    
+    var check_prod_qty = [];
+    $.each($("input[name='products_check']:checked"), function(){
+		console.log($(this).val())
+		check_prod_qty.push($(this).val());
+	});
+	console.log(check_prod_qty.length)
+	
+	
+	var check_unselect_prod_qty = [];
+	$.each($("input[name='products_check']:not(:checked)"), function(){
+		console.log($(this).val())
+		check_unselect_prod_qty.push($(this).val());
+	});
+	console.log(check_unselect_prod_qty.length)
+	
+	
+	var check_prod_qty_num = check_prod_qty.length;
+	
+	if(check_prod_qty_num==0){
+	    
+	    document.getElementById('show_status').innerHTML = `<span class="alert alert-primary d-flex align-items-center" role="alert">Please Choose Product !</span>`
+	    document.getElementById('saving_status').innerHTML = `<button type="submit" class="btn btn-primary" onclick="bulk_action_btn()">Save</button>`
+	}
+	
+	else{
+	    $.each($("input[name='products_check']:checked"), function(){
+			console.log('check1')
+			console.log($(this).val());
+			var prod_uid = $(this).val();
+			
+			var get_cat_by_cam_id = {{get_cat_by_cam.id}}
+			
+			
+			
+			$.ajax({
+				url : '{% url 'save_product_campaign' %}',
+				type : 'POST',
+				data : {prod_uid:prod_uid, get_cat_by_cam_id:get_cat_by_cam_id}
+			})
+			
+			
+			
+			
+// 			var check_unselect_prod_qty_num = check_unselect_prod_qty.length;
+	
+//         	if(check_unselect_prod_qty_num==0){
+        	    
+//         	}
+//         	else{
+//         	    $.each($("input[name='products_check']:not(:checked)"), function(){
+//             		console.log('check420')
+//             		console.log($(this).val());
+//             		var unselected_prod_uid = $(this).val();
+            		
+//             		var get_cat_by_cam_id = {{get_cat_by_cam.id}}
+            		
+            		
+//             		$.ajax({
+//             			url : '{% url 'save_unselected_product_campaign' %}',
+//             			type : 'POST',
+//             			data : {unselected_prod_uid:unselected_prod_uid, get_cat_by_cam_id:get_cat_by_cam_id}
+//             		})
+//                 });
+//         	}
+			
+			setTimeout("location.reload(true);", 1500);
+			
+			
+		});
+	}
+
+}
+
+
+
+function remove_bulk_action_btn(){
+    document.getElementById('removing_status').innerHTML = `<button type="submit" class="btn btn-warning">Removing...</button>`
+    
+    var check_prod_qty = [];
+    $.each($("input[name='products_check']:checked"), function(){
+		console.log($(this).val())
+		check_prod_qty.push($(this).val());
+	});
+	console.log(check_prod_qty.length)
+	
+	
+	var check_prod_qty_num = check_prod_qty.length;
+	
+	if(check_prod_qty_num==0){
+	    document.getElementById('removing_status').innerHTML = `<button type="submit" class="btn btn-danger" onclick="remove_bulk_action_btn()">Remove Products</button>`
+	    document.getElementById('show_status').innerHTML = `<span class="alert alert-primary d-flex align-items-center" role="alert">Please Choose Any Product to Remove !</span>`
+	}
+	
+	else{
+	    $.each($("input[name='products_check']:checked"), function(){
+			console.log('check1')
+			console.log($(this).val());
+			
+			var prod_uid = $(this).val();
+			var get_cat_by_cam_id = {{get_cat_by_cam.id}}
+			
+			
+			$.ajax({
+				url : '{% url 'remove_products_campaign' %}',
+				type : 'POST',
+				data : {prod_uid:prod_uid, get_cat_by_cam_id:get_cat_by_cam_id}
+			})
+			
+		});
+		setTimeout("location.reload(true);", 1500);
+	}
+}
+
+
+
+function add_availblity_bulk_action_btn(){
+    document.getElementById('re_adding_status').innerHTML = `<button type="submit" class="btn btn-warning">adding...</button>`
+    
+    var check_prod_qty = [];
+    $.each($("input[name='products_check']:checked"), function(){
+		console.log($(this).val())
+		check_prod_qty.push($(this).val());
+	});
+	console.log(check_prod_qty.length)
+	
+	
+	var check_prod_qty_num = check_prod_qty.length;
+	
+	if(check_prod_qty_num==0){
+	    document.getElementById('re_adding_status').innerHTML = `<button type="submit" class="btn btn-success" onclick="add_availblity_bulk_action_btn()">Add Availblity</button>`
+	    document.getElementById('show_status').innerHTML = `<span class="alert alert-primary d-flex align-items-center" role="alert">Please Choose Any Product to Remove !</span>`
+	}
+	
+	else{
+	    $.each($("input[name='products_check']:checked"), function(){
+			console.log('check1')
+			console.log($(this).val());
+			
+			var prod_uid = $(this).val();
+			var get_cat_by_cam_id = {{get_cat_by_cam.id}}
+			
+			
+			$.ajax({
+				url : '{% url 'add_availble_products_campaign' %}',
+				type : 'POST',
+				data : {prod_uid:prod_uid, get_cat_by_cam_id:get_cat_by_cam_id}
+			})
+			
+		});
+		setTimeout("location.reload(true);", 1500);
+	}
+	
+	
+}
+
+
+
+
+
+// loop about 100 times
+loop_str = ``
+loop_str = loop_str + `<option value="">......</option>`
+for (i = 0; i < 100; i++){
+     loop_str = loop_str + `<option value="${i}">${i}</option>`
+     
+ }
+document.getElementById('show_100_loops').innerHTML = loop_str;
+
+
+
+
+
+function bulk_action_change_percentage(){
+	var show_100_loops = document.getElementById('show_100_loops').value;
+	console.log(show_100_loops)
+	
+	document.getElementById('show_bulk_chgne_status').innerHTML = `Moving Wait..`;
+
+	$.each($("input[name='products_check']:checked"), function(){
+			console.log('check1')
+			console.log($(this).val());
+			var camprod_uid = $(this).val();
+			$.ajax({
+				url : '{% url 'save_change_percentage_prod' %}',
+				type : 'POST',
+				data : {show_100_loops:show_100_loops, camprod_uid:camprod_uid}
+			})
+			console.log('check2')
+		});
+		
+	
+	setTimeout("location.reload(true);", 1500);
+}
+
+
+function change_product_campaign_price(){
+    document.getElementById('show_status_price_chnge').innerHTML = `changing Wait..`;
+    var new_cam_price = document.getElementById('new_price').value;
+    console.log(new_cam_price)
+    if(new_cam_price==""){
+        document.getElementById('show_status_price_chnge').innerHTML = `<button class="btn btn-primary" onclick="change_product_campaign_price()">submit</button>`;
+        document.getElementById('cam_price_sttus').innerHTML = `<span style="color:red;">Empty Input !</span>`;
+        
+    }
+    else{
+        var check_prod_qty = [];
+        $.each($("input[name='products_check']:checked"), function(){
+    		console.log($(this).val())
+    		check_prod_qty.push($(this).val());
+    	});
+    	console.log(check_prod_qty.length)
+    	
+    	if(check_prod_qty.length == 0){
+    	    document.getElementById('show_status_price_chnge').innerHTML = `<button class="btn btn-primary" onclick="change_product_campaign_price()">submit</button>`;
+            document.getElementById('cam_price_sttus').innerHTML = `<span style="color:red;">Select Product !</span>`;
+    	}
+    	
+    	else{
+    	    $.each($("input[name='products_check']:checked"), function(){
+    			
+    			console.log($(this).val());
+    			var camprod_uid = $(this).val();
+    			$.ajax({
+    				url : '{% url 'save_change_price_prod' %}',
+    				type : 'POST',
+    				data : {new_cam_price:new_cam_price, camprod_uid:camprod_uid}
+    			})
+    			
+    		});
+    		
+    		setTimeout("location.reload(true);", 1500);
+    	}
+    	
+    }
+    
+}
+
+
+
+</script>
+
+
+
+{% endblock %}

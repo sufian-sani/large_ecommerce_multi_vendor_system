@@ -1,0 +1,21 @@
+{% extends 'boomboom_user/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="campaign-container">
+    {% for i in filter_current_campaign %}
+  <div class="campaign-header">
+      <h1 style="font-size:40px;" ></h1>
+    <div class="live-now">
+      <h5 style="color:#333;"> <a href="{% url 'campaign_landing' i.campaign_slug %}">{{i}}</a> </h5> 
+    </div>
+  </div>
+    {% endfor %}
+</div>
+
+
+
+
+
+{% endblock %}

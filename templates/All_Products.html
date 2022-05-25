@@ -1,0 +1,540 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block body %}
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+
+<!-- Main content -->
+		<section class="content">
+
+			<!-- Content Header (Page header) -->
+			<div class="content-header">
+				<div class="d-flex align-items-center justify-content-between">
+					<div class="d-block">
+						<h3 class="page-title br-0">Dashboard</h3>
+					</div>
+					<div class="right-title d-md-block d-none">
+                        <div class="d-flex justify-content-end">
+							<div class="d-md-flex mr-20 ml-10 d-none">
+								<div class="chart-text mr-10">
+									<h6 class="mb-0"><small>THIS MONTH</small></h6>
+									<h4 class="mt-0 text-primary">$12,125</h4>
+								</div>
+								<div class="spark-chart">
+									<div id="thismonth"><canvas width="60" height="35" style="display: inline-block; width: 60px; height: 35px; vertical-align: top;"></canvas></div>
+								</div>
+							</div>
+							<div class="d-md-flex ml-10 d-none">
+								<div class="chart-text mr-10">
+									<h6 class="mb-0"><small>LAST YEAR</small></h6>
+									<h4 class="mt-0 text-danger">$22,754</h4>
+								</div>
+								<div class="spark-chart">
+									<div id="lastyear"><canvas width="60" height="35" style="display: inline-block; width: 60px; height: 35px; vertical-align: top;"></canvas></div>
+								</div>
+							</div>
+						</div>
+                    </div>
+				</div>
+			</div>
+
+
+			<!-- Example single danger button -->
+
+
+
+
+
+<!--			this is for filter options-->
+
+				<div class="p-5 m-5">
+
+					<!-- Example group primary button -->
+
+					<div class="dataTables_length p-5 m-5" id="Bulk_Action">
+						<label><span class="text-bold text-primary">Bulk Action</span>
+							<select name="productorder_length_Bulk_Action" aria-controls="productorder_Bulk_Action" class="form-control form-control-sm text-success" id="bulk_action_id">
+								<option value="10">......</option>
+								<option value="Move to Trash">Move to Trash</option>
+
+
+							</select>
+	<!--											aekhane lekha jabe -->
+						</label>
+					</div>
+
+					<div class="dataTables_length p-5 m-5" id="show_bulk_action_status">
+						<button type="submit" class="btn btn-primary" onclick="bulk_action_btn()">Action</button>
+					</div>
+
+					<div class="dataTables_length p-5 m-5" id="Rank_math">
+						<label><span class="text-bold text-primary">Rank math</span>
+							<select name="productorder_length_Rank_math" aria-controls="productorder_Rank_math" class="form-control form-control-sm text-success">
+								<option value="10">Rank math</option>
+								<option value="25">SEO Scor: Good</option>
+								<option value="25">SEO Scor: ok</option>
+								<option value="25">SEO Scor: bad</option>
+
+
+							</select>
+	<!--											aekhane lekha jabe -->
+						</label>
+					</div>
+
+				</div>
+
+				<div  class="p-5 m-5 bg-success">
+
+					<form method="POST" action="{% url 'filter_action' %}">
+						{% csrf_token %}
+
+					<div class="dataTables_length p-5 m-5" id="Filter_By_Category">
+						<label><span class="text-bold text-primary">Filter By Category</span>
+							<select name="productorder_length_Category" aria-controls="productorder_Category" class="form-control form-control-sm text-success">
+								{% for i in all_Category %}
+								<option value="{{i.id}}">{{i.Category_Name}}</option>
+
+								{% endfor %}
+
+							</select>
+	<!--											aekhane lekha jabe -->
+						</label>
+					</div>
+
+					<div class="dataTables_length p-5 m-5" id="Filter_by_product_type">
+						<label><span class="text-bold text-primary">Filter by product Discount</span>
+							<select name="productorder_length_Discount" aria-controls="productorder_Discount" class="form-control form-control-sm text-success">
+								<option value="lower to higher">lower to higher </option>
+								<option value="higher to lower">higher to lower</option>
+
+
+
+							</select>
+	<!--											aekhane lekha jabe -->
+						</label>
+					</div>
+
+					<div class="dataTables_length p-5 m-5" id="Filter_by_stock_status">
+<!--						<label><span class="text-bold text-primary">Filter by stock status</span>-->
+<!--							<select name="productorder_length_stock_status" aria-controls="productorder_stock_status" class="form-control form-control-sm text-success">-->
+<!--								<option value="In stock">In stock</option>-->
+<!--								<option value="Out stock">Out stock</option>-->
+<!--								<option value="On backorder">On backorder</option>-->
+
+
+<!--							</select>-->
+<!--	&lt;!&ndash;											aekhane lekha jabe &ndash;&gt;-->
+<!--						</label>-->
+
+
+<!--						<div class="form-group">-->
+							<label class="form-label text-bold text-primary">Filter by stock status</label>
+							<select name="productorder_length_stock_status" id="productorder_length_stock_status" class="form-control form-control-sm text-success" required><!--form-control form-control-lg-->
+								<option selected="selected" value="In stock">In stock</option>
+								<option value="Out stock">Out stock</option>
+								<option value="On backorder">On backorder</option>
+
+							</select>
+<!--						</div>-->
+					</div>
+
+
+						<button class="btn btn-primary" type="submit">Submit</button>
+
+					</form>
+
+
+
+				</div>
+
+
+
+
+
+
+
+
+
+
+			<div class="row">
+			  <div class="col-12">
+				<div class="box">
+				  <div class="box-body">
+					<div class="table-responsive">
+						<div id="productorder_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+							<div class="row">
+								<div class="col-sm-12 col-md-2">
+								    
+								    <form id="order_entries" class="form" action="{% url 'dashbord_all_product' %}" method="GET">
+								    
+									<div class="dataTables_length" id="productorder_length">
+										<label><span class="text-bold">Show</span>
+											<select name="order_entries" aria-controls="productorder" class="form-control form-control-sm" onchange="show_entries()" id="id_show_entries">
+												<option value="{% if order_entries %}{{order_entries}}{% else %}20{% endif %}">{% if order_entries %}{{order_entries}}{% else %}20{% endif %}</option>
+												<option value="2">2</option>
+												<option value="5">5</option>
+												<option value="10">10</option>
+												<option value="25">25</option>
+												<option value="50">50</option>
+												<option value="100">100</option>
+											</select>
+											entries
+										</label>
+									</div>
+									</form>
+									
+								</div>
+
+								<div class="col-sm-12 col-md-2">
+									<h5 class="text-success text-center">
+										Total select item
+										<br>
+										<span id="show_select_item_qty">0</span>
+
+									</h5>
+								</div>
+
+
+
+								<div class="col-sm-12 col-md-2">
+									<h3 class="text-primary text-center">PRODUCTS TABLE<hr><hr></h3>
+								</div>
+
+								<div class="col-sm-12 col-md-2">
+									<h5 class="text-success text-center">
+										Total item
+										<br>
+										{{all_product_qunt}}
+									</h5>
+								</div>
+
+
+								<div class="col-sm-12 col-md-4">
+									<form action="{% url 'deshboard_product_find_by_search' %}" method="POST">{% csrf_token %}
+									  <input  style="width: 250px;" type="text"  placeholder="Product Name" name="find_by_search_Product_Name">
+									  <button style="width: 250px;" type="submit">Search</button>
+									</form>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12">
+
+    							<table id="productorder" class="table table-hover no-wrap product-order dataTable no-footer" data-page-size="10" role="grid" aria-describedby="productorder_info">
+    
+    							<thead>
+    								<tr role="row">
+    									<th class="sorting_asc" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Customer: activate to sort column descending">
+    										<div class="form-check">
+    										  <input class="form-check-input" type="checkbox" id="select-all">
+    										  <label class="form-check-label" for="select-all"></label>
+    										</div>
+    									</th>
+    									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Order ID: activate to sort column ascending">Image
+    
+    									</th>
+    									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Product: activate to sort column ascending">Name</th>
+    									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Quantity: activate to sort column ascending">SKU</th>
+    									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending">stock</th>
+    									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">Price</th>
+    									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending">Categories</th>
+    									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending">Tags</th>
+    									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending"><span class="fa fa-star checked"></span></th>
+    									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending">Date</th>
+    									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending">Brand</th>
+    									<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending">Edit</th>
+    									<!--<th class="sorting" tabindex="0" aria-controls="productorder" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending">Delete</th>-->
+    								</tr>
+    							</thead>
+    							<tbody>
+    
+    
+    							{% for all_product in all_product_show %}
+    							<tr role="row" class="odd" id="row_prod{{all_product.slug}}">
+    									<td class="sorting_1">
+    										<div class="form-check" id="checkboxlist">
+    										  <input name="products_check" class="form-check-input" type="checkbox" id="product_id{{all_product.slug}}" onclick="the_item_checkbox()" value="{{all_product.slug}}">
+    
+    										  <label class="form-check-label" for="product_id{{all_product.slug}}"></label>
+    										</div>
+    									</td>
+    									<td><img src="{{all_product.Product_Image}}" alt="product" width="80"></td>
+    									<td>{{all_product.Product_Name}}</td>
+    									<td>{{all_product.SKU}}</td>
+    									<td>{{all_product.Stock_status}}</td>
+    									<td>{{all_product.Discount_Price}}</td>
+    									<td>{{all_product.Category}}</td>
+    									<td>{{all_product.Product_Name}}</td>
+    								<td>
+    
+    
+    								<div id="change_star_button{{all_product.slug}}">
+    									{% if all_product.make_star %}
+    									<button class="btn btn-warning btn-sm" style="border-radius: 50%;" onclick="func_make_undo_star('{{all_product.slug}}')"><span class="fa fa-star"></span></button>
+    									{% else %}
+    									<button class="btn btn-secondary btn-sm" style="border-radius: 50%;" onclick="func_make_do_star('{{all_product.slug}}')">&#9734</button>
+    									{% endif %}
+    								</div>
+    								</td>
+    								<td>Last Modified<br>
+    								{{all_product.Time}}</td>
+    								<td>{{all_product.Brand}}</td>
+    								<td>
+    
+    									<a href="{% url 'edited_product_page' all_product.slug %}" class="btn btn-warning" type="button" style="border-radius: 50%;">
+    										<i class="ti-marker-alt"></i>
+    									</a>
+    
+    								</td>
+    								<!--<td onclick="delete_the_product('{{all_product.slug}}')">-->
+    								<!--	<button type="button" class="btn btn-danger" style="border-radius: 50%;"><i class="ti-trash"></i></button>-->
+    								<!--</td>-->
+    							</tr>
+    							{% endfor %}
+    
+    
+    
+    
+    
+    
+    							</tbody>
+    						</table>
+								</div>
+							</div>
+
+
+
+							<div class="row">
+								<div class="col-sm-12 col-md-5">
+									<div class="dataTables_info" id="productorder_info" role="status" aria-live="polite">Showing 1 to 12 of 12 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="productorder_paginate">
+								<!--<ul class="pagination">-->
+								<!--	<li class="paginate_button page-item previous disabled" id="productorder_previous"><a href="#" aria-controls="productorder" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>-->
+								<!--	</li>-->
+								<!--	<li class="paginate_button page-item active"><a href="#" aria-controls="productorder" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>-->
+								<!--	<li class="paginate_button page-item next disabled" id="productorder_next"><a href="#" aria-controls="productorder" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li>-->
+								<!--</ul>-->
+								{% if list_prod %}
+								<ul class="pagination">
+								    {% if all_product_show.has_previous %}
+									    <li class="paginate_button page-item previous" id="productorder_previous"><a href="{% url 'dashbord_all_product' %}?page={{all_product_show.previous_page_number}}{% if request.GET.order_entries %}&order_entries={{ request.GET.order_entries }}{% endif %}" aria-controls="productorder" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+									</li>
+									{% endif %}
+									
+									{% for i in list_prod %}
+									    <li class="paginate_button page-item {% if page_num == i %}active{% endif %}"><a href="{% url 'dashbord_all_product' %}?page={{i}}{% if request.GET.order_entries %}&order_entries={{ request.GET.order_entries }}{% endif %}" aria-controls="productorder" data-dt-idx="1" tabindex="0" class="page-link">{{i}}</a></li>
+									{% endfor %}
+									
+									{% if all_product_show.has_next %}
+									    <li class="paginate_button page-item next" id="productorder_next"><a href="{% url 'dashbord_all_product' %}?page={{all_product_show.next_page_number}}{% if request.GET.order_entries %}&order_entries={{ request.GET.order_entries }}{% endif %}" aria-controls="productorder" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li>
+									{% endif %}
+								</ul>
+								{% endif %}
+							</div>
+							</div>
+							</div>
+						</div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+		  </div>
+		</section>
+		<!-- /.content -->
+
+
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script>
+
+
+function delete_the_product(prod_slug){
+	$.ajax({
+			url : '{% url 'delete_the_prod_row' %}',
+			type : 'POST',
+			data : {prod_slug:prod_slug}
+		})
+
+		.done(function(response){
+                console.log(response);
+
+                if(response == "True"){
+                console.log(prod_slug)
+					document.getElementById('row_prod'+prod_slug).innerHTML=``;
+                }
+                else{
+                console.log('false')
+
+                }
+            })
+}
+
+
+
+function func_make_undo_star(product_id){
+	console.log('hhhhh')
+	console.log(product_id);
+
+	$.ajax({
+			url : '{% url 'change_undo_status_star' %}',
+			type : 'POST',
+			data : {product_id:product_id}
+		})
+
+		.done(function(response){
+                console.log(response);
+
+                if(response == "True"){
+                console.log(product_id)
+					document.getElementById('change_star_button'+product_id).innerHTML=`<button class="btn btn-secondary btn-sm" style="border-radius: 50%;" onclick="func_make_do_star('${product_id}')">&#9734</button>`;
+                }
+                else{
+                console.log('false')
+
+                }
+            })
+}
+
+
+
+function func_make_do_star(product_id){
+	console.log(product_id);
+	$.ajax({
+			url : '{% url 'change_status_star' %}',
+			type : 'POST',
+			data : {product_id:product_id}
+		})
+
+		.done(function(response){
+                console.log(response);
+                console.log(product_id)
+
+                if(response == "True"){
+					document.getElementById('change_star_button'+product_id).innerHTML=`<button class="btn btn-warning btn-sm" style="border-radius: 50%;" onclick="func_make_undo_star('${product_id}')"><span class="fa fa-star"></span></button>`;
+                }
+                else{
+
+                }
+            })
+}
+
+
+
+
+
+</script>
+
+
+<script>
+
+	//this is for checkboxes
+
+	document.getElementById('select-all').onclick = function() {
+		var checkboxes = document.getElementsByName('products_check');
+		console.log('checkboxes')
+		console.log(checkboxes)
+
+		for (var checkbox of checkboxes) {
+			checkbox.checked = this.checked;
+		}
+		console.log(checkbox.checked)
+		status_check_box_main = checkbox.checked
+
+		count_checkbox_selected(checkboxes, status_check_box_main)
+	}
+
+
+	function count_checkbox_selected(checkboxes, status_check_box_main){
+		console.log('status_check_box_main')
+		console.log(status_check_box_main)
+		if (status_check_box_main){
+			all_check_qty = checkboxes.length;
+			document.getElementById('show_select_item_qty').innerHTML = all_check_qty;
+		}
+		else{
+			document.getElementById('show_select_item_qty').innerHTML = 0;
+		}
+	}
+
+
+
+function the_item_checkbox(){
+	console.log('the_item_checkbox')
+
+	var favorite = [];
+	$.each($("input[name='products_check']:checked"), function(){
+		console.log($(this).val())
+		favorite.push($(this).val());
+	});
+
+	console.log(favorite.length)
+	document.getElementById('show_select_item_qty').innerHTML = favorite.length;
+
+}
+
+
+function bulk_action_btn(){
+	console.log('bulk action')
+	var bulk_action_id = document.getElementById('bulk_action_id').value;
+	console.log('bulk_action_id')
+	console.log(bulk_action_id)
+
+	document.getElementById('show_bulk_action_status').innerHTML = `<button type="submit" class="btn btn-warning">Moving Wait..</button>`;
+
+	if (bulk_action_id=='Move to Trash'){
+
+		$.each($("input[name='products_check']:checked"), function(){
+			console.log('check1')
+			console.log($(this).val());
+			var prod_uid = $(this).val();
+			$.ajax({
+				url : '{% url 'move_to_trash_selected_checkbox' %}',
+				type : 'POST',
+				data : {prod_uid:prod_uid}
+			})
+			console.log('check2')
+		});
+
+	}
+	//document.getElementById('show_bulk_action_status').innerHTML = `<button type="submit" class="btn btn-primary" onclick="bulk_action_btn()">Action</button>`;
+	setTimeout("location.reload(true);", 1500);
+
+}
+
+
+
+
+function show_entries(){
+    var id_show_entries = document.getElementById('id_show_entries').value;
+    console.log('id_show_entries')
+    console.log(id_show_entries)
+    
+    var order_entries_form = document.getElementById("order_entries");
+    order_entries_form.submit();
+    
+}
+
+
+
+
+</script>
+
+
+
+{% endblock %}
